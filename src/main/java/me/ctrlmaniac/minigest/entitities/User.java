@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.models;
+package me.ctrlmaniac.minigest.entitities;
 
 public class User {
     private String email;

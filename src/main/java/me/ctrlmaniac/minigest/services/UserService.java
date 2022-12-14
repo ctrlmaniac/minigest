@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import me.ctrlmaniac.minigest.models.User;
+import me.ctrlmaniac.minigest.entitities.User;
 
 @Service
 public class UserService {
