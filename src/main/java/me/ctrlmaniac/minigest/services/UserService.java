@@ -1,6 +1,7 @@
 package me.ctrlmaniac.minigest.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,25 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepo.findAll();
+    }
+
+    public void deleteUserById(long id) {
+        userRepo.deleteById(id);
+    }
+
+    public User updateUser(long id, User newUser) {
+        Optional<User> oldUserOpt = userRepo.findById(newUser.getId());
+
+        if (oldUserOpt.isPresent()) {
+            User oldUser = oldUserOpt.get();
+
+            oldUser.setEmail(newUser.getEmail());
+            oldUser.setName(newUser.getName());
+            oldUser.setSurname(newUser.getSurname());
+
+            return userRepo.save(oldUser);
+        }
+
+        return null;
     }
 }
