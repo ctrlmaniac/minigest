@@ -15,6 +15,18 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
+    public User getUser(long id) {
+        Optional<User> userOpt = userRepo.findById(id);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+
+            return user;
+        }
+
+        return null;
+    }
+
     public User saveUser(User u) {
         return userRepo.save(u);
     }
