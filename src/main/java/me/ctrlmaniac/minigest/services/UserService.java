@@ -15,7 +15,7 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
-    public User getUser(long id) {
+    public User getUser(String id) {
         Optional<User> userOpt = userRepo.findById(id);
 
         if (userOpt.isPresent()) {
@@ -35,12 +35,12 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public void deleteUserById(long id) {
+    public void deleteUserById(String id) {
         userRepo.deleteById(id);
     }
 
-    public User updateUser(long id, User newUser) {
-        Optional<User> oldUserOpt = userRepo.findById(newUser.getId());
+    public User updateUser(String id, User newUser) {
+        Optional<User> oldUserOpt = userRepo.findById(id);
 
         if (oldUserOpt.isPresent()) {
             User oldUser = oldUserOpt.get();

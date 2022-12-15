@@ -30,7 +30,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable long id) {
+    public ResponseEntity<User> getUser(@PathVariable String id) {
         User user = userService.getUser(id);
 
         return new ResponseEntity<>(user, user == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
@@ -43,14 +43,14 @@ public class UserRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         userService.deleteUserById(id);
 
         return new ResponseEntity<>("Utente cancellato con successo", HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User newUser) {
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User newUser) {
         return new ResponseEntity<>(userService.updateUser(id, newUser), HttpStatus.OK);
     }
 }
