@@ -37,19 +37,19 @@ public class AziendaRestController {
         return new ResponseEntity<>(azienda, azienda == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<Azienda> create(@RequestBody Azienda a) {
         aziendaService.save(a);
         return new ResponseEntity<Azienda>(a, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable String id) {
         aziendaService.deleteById(id);
         return new ResponseEntity<>("Azienda cancellata con successo!", HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Azienda> update(@PathVariable String id, @RequestBody Azienda a) {
         return new ResponseEntity<>(aziendaService.update(id, a), HttpStatus.OK);
     }
