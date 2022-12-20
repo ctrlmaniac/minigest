@@ -24,6 +24,7 @@ public class MinigestRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         User davide = new User("Davide", "Di Criscito", "davide.dicriscito@gmail.com");
+        User mario = new User("Mario", "Rossi", "mario.rossi@gmail.com");
 
         List<User> utentiLarapida = new ArrayList<>();
         utentiLarapida.add(davide);
@@ -31,6 +32,7 @@ public class MinigestRunner implements CommandLineRunner {
         Azienda larapida = new Azienda(utentiLarapida, "La Rapida di Davide Di Criscito");
 
         us.save(davide);
+        us.save(mario);
 
         as.save(larapida);
 
