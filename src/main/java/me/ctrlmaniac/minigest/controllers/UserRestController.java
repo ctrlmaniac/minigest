@@ -31,26 +31,26 @@ public class UserRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable String id) {
-        User user = userService.getUser(id);
+        User user = userService.get(id);
 
         return new ResponseEntity<>(user, user == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        userService.saveUser(user);
+        userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id) {
-        userService.deleteUserById(id);
+        userService.deleteById(id);
 
         return new ResponseEntity<>("Utente cancellato con successo", HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User newUser) {
-        return new ResponseEntity<>(userService.updateUser(id, newUser), HttpStatus.OK);
+        return new ResponseEntity<>(userService.update(id, newUser), HttpStatus.OK);
     }
 }

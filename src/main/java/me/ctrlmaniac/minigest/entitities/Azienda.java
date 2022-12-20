@@ -26,6 +26,14 @@ public class Azienda {
         return id;
     }
 
+    public Azienda() {
+    }
+
+    public Azienda(List<User> utenti, String denominazione) {
+        this.utenti = utenti;
+        this.denominazione = denominazione;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
