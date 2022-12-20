@@ -46,8 +46,8 @@ public class UserService {
             User oldUser = oldUserOpt.get();
 
             oldUser.setEmail(newUser.getEmail());
-            oldUser.setName(newUser.getName());
-            oldUser.setSurname(newUser.getSurname());
+            oldUser.setFirstName(newUser.getFirstName());
+            oldUser.setLastName(newUser.getLastName());
 
             return userRepo.save(oldUser);
         }

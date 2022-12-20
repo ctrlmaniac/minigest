@@ -13,20 +13,20 @@ public class User {
     private String id;
 
     @Column
-    private String name;
+    private String firstName;
 
     @Column
-    private String surname;
+    private String lastName;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
     public User() {
     }
 
-    public User(String name, String surname, String email) {
-        this.name = name;
-        this.surname = surname;
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
 
@@ -38,27 +38,27 @@ public class User {
         this.id = id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 }
