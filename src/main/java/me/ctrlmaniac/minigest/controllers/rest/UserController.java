@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.controllers;
+package me.ctrlmaniac.minigest.controllers.rest;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import me.ctrlmaniac.minigest.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserRestController {
+public class UserController {
 
     @Autowired
     UserService userService;

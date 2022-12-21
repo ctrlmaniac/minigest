@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.controllers;
+package me.ctrlmaniac.minigest.controllers.rest;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/aziende")
-public class AziendaRestController {
+public class AziendaController {
 
     @Autowired
     AziendaService aziendaService;
