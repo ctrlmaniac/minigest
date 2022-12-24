@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/aziende")
+@RequestMapping("/aziende")
 public class AziendaController {
 
     @Autowired
