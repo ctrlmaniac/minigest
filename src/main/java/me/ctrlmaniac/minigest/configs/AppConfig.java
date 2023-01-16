@@ -14,15 +14,15 @@ public class AppConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/**").authenticated()
-                .requestMatchers("/", "/accedi", "/registrati").permitAll()
-                .and().formLogin()
+                .requestMatchers("/dashboard/**").authenticated()
+                .requestMatchers("/**").permitAll()
+                .and().formLogin().loginPage("/")
                 .and().httpBasic();
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
