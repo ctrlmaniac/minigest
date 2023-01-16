@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
+            path="/welcome"
             element={
               <React.Suspense fallback={<LoadingScreen />}>
                 <Welcome />
@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             }
           />
           <Route
-            path="/dashboard/*"
+            path="/*"
             element={
               <React.Suspense fallback={<LoadingScreen />}>
                 <App />
