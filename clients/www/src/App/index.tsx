@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { TitleContext } from "~/context/title";
-import Layout from "~/layout";
+import { Layout } from "~/components";
 import Dashboard from "./Dashboard";
 
 const App: React.FC = () => {

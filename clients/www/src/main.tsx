@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Welcome from "./Welcome";
-import App from "./App";
-import { theme } from "./theme";
+import { theme } from "./context/theme";
+import { LoadingScreen } from "./components";
+
+const Welcome = React.lazy(() => import("./Welcome"));
+const App = React.lazy(() => import("./App"));
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -13,8 +15,22 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/dashboard/*" element={<App />} />
+          <Route
+            path="/"
+            element={
+              <React.Suspense fallback={<LoadingScreen />}>
+                <Welcome />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/dashboard/*"
+            element={
+              <React.Suspense fallback={<LoadingScreen />}>
+                <App />
+              </React.Suspense>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

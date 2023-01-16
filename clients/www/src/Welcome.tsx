@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Button,
@@ -7,8 +8,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { logoTheme } from "~/theme";
+import { logoTheme } from "~/context/theme";
 
 const Welcome: React.FC = () => {
   return (
