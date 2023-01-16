@@ -23,21 +23,18 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        String userName = null;
-        String password = null;
         List<GrantedAuthority> authorities = null;
-        List<Account> user = accountRepo.findByEmail(username);
+        List<Account> users = accountRepo.findByEmail(username);
 
-        if (user.size() == 0) {
+        if (users.size() == 0) {
             throw new UsernameNotFoundException("User details not found for the user : " + username);
         } else {
-            userName = user.get(0).getEmail();
-            password = user.get(0).getPassword();
+            String password = users.get(0).getPassword();
             authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(user.get(0).getRole()));
-        }
+            authorities.add(new SimpleGrantedAuthority(users.get(0).getRole()));
 
-        return new User(username, password, authorities);
+            return new User(username, password, authorities);
+        }
     }
 
     public Account save(Account a) {
