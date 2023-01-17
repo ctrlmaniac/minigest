@@ -1,4 +1,4 @@
-export default interface azienda {
+export default interface Azienda {
   id: string;
   denominazione: string;
 }

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { useTitleContext } from "~/context/title";
 
@@ -13,7 +14,11 @@ const Page: React.FC<Props> = ({ title, children }) => {
     setTitle(title);
   });
 
-  return <>{children}</>;
+  return (
+    <>
+      <Box mt={3}>{children}</Box>
+    </>
+  );
 };
 
 export default Page;

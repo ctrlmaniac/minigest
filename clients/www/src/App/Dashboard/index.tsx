@@ -1,17 +1,22 @@
-import { Container, Typography } from "@mui/material";
 import React from "react";
+import { Container, Grid } from "@mui/material";
 import { Page } from "~/components";
+import WidgetAziende from "../Aziende/Widget";
 
 const Dashboard: React.FC = () => {
   return (
     <Page title="Dashboard">
       <Container>
-        <Typography>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-          doloribus excepturi distinctio. Accusantium dolorum pariatur esse nisi
-          tempore vitae eligendi. Unde consectetur ut iure praesentium a
-          aspernatur similique ipsa autem.
-        </Typography>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item>
+            <WidgetAziende />
+          </Grid>
+        </Grid>
       </Container>
     </Page>
   );
