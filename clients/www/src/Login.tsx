@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
     setValues({
       ...values,
-      [name]: value,
+      [name]: value.trim(),
     });
   };
 
