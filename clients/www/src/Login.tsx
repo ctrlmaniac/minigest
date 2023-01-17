@@ -11,6 +11,20 @@ import {
 import { logoTheme } from "~/context/theme";
 
 const Login: React.FC = () => {
+  const [values, setValues] = React.useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
   return (
     <>
       <Container>
@@ -37,6 +51,9 @@ const Login: React.FC = () => {
                 name="username"
                 type="email"
                 margin="normal"
+                value={values.username}
+                onChange={handleChange}
+                error={values.username.length < 1}
               />
               <TextField
                 fullWidth
@@ -44,6 +61,9 @@ const Login: React.FC = () => {
                 label="password"
                 type="password"
                 margin="normal"
+                value={values.password}
+                onChange={handleChange}
+                error={values.password.length < 1}
               />
               <Button fullWidth variant="contained" type="submit">
                 accedi
