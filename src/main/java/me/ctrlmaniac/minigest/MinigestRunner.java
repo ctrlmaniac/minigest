@@ -28,10 +28,10 @@ public class MinigestRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Crea un'azienda
-        Azienda larapida = new Azienda("La Rapida di Davide Di Criscito");
+        Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", "IT", "03792670980", "DCRDVD90E23B157R");
         aziendaService.save(larapida);
 
-        Azienda shop = new Azienda("Shop");
+        Azienda shop = new Azienda("Shop", "IT", "12345678910", "12345678910");
         aziendaService.save(shop);
 
         // Crea un utente
