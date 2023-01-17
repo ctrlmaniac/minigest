@@ -20,7 +20,10 @@ public class AziendaIndirizzo {
     private String numeroCivico;
 
     @Column
-    private String Comune;
+    private String cap;
+
+    @Column
+    private String comune;
 
     @Column(columnDefinition = "varchar(2)")
     private String provincia;
@@ -31,11 +34,12 @@ public class AziendaIndirizzo {
     public AziendaIndirizzo() {
     }
 
-    public AziendaIndirizzo(String indirizzo, String numeroCivico, String comune, String provincia,
+    public AziendaIndirizzo(String indirizzo, String numeroCivico, String cap, String comune, String provincia,
             String nazione) {
         this.indirizzo = indirizzo;
         this.numeroCivico = numeroCivico;
-        Comune = comune;
+        this.cap = cap;
+        this.comune = comune;
         this.provincia = provincia;
         this.nazione = nazione;
     }
@@ -64,12 +68,20 @@ public class AziendaIndirizzo {
         this.numeroCivico = numeroCivico;
     }
 
+    public String getCap() {
+        return cap;
+    }
+
+    public void setCap(String cap) {
+        this.cap = cap;
+    }
+
     public String getComune() {
-        return Comune;
+        return comune;
     }
 
     public void setComune(String comune) {
-        Comune = comune;
+        this.comune = comune;
     }
 
     public String getProvincia() {
@@ -87,4 +99,5 @@ public class AziendaIndirizzo {
     public void setNazione(String nazione) {
         this.nazione = nazione;
     }
+
 }

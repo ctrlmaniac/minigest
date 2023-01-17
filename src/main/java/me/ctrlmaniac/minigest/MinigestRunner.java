@@ -33,7 +33,7 @@ public class MinigestRunner implements CommandLineRunner {
         @Override
         public void run(String... args) throws Exception {
                 // Crea un'azienda
-                AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6",
+                AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
                                 "Molinetto di Mazzano", "BS", "IT");
                 aziendaIndirizzoService.save(larapidaSede);
 
@@ -44,7 +44,7 @@ public class MinigestRunner implements CommandLineRunner {
                 aziendaService.save(larapida);
 
                 // Crea una seconda azienda
-                AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "Brescia", "BS", "IT");
+                AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25100", "Brescia", "BS", "IT");
                 aziendaIndirizzoService.save(shopSede);
 
                 Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede,
