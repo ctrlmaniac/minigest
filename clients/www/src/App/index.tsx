@@ -11,6 +11,7 @@ import { default as getAzienda } from "~/features/aziende/getSelected";
 // App Content
 import Dashboard from "./Dashboard";
 import Aziende from "./Aziende";
+import DocFisc from "./DocFisc";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/aziende/*" element={<Aziende />} />
+            <Route path="/docfisc/*" element={<DocFisc />} />
           </Routes>
         </Layout>
       </TitleContext.Provider>
