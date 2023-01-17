@@ -22,7 +22,7 @@ const Layout: React.FC<Props> = ({ children }) => {
       />
       <AppDrawer open={openDrawer} handleOpen={setOpenDrawer} />
 
-      <Box mb={6}>{children}</Box>
+      <Box mb={12}>{children}</Box>
     </>
   );
 };
