@@ -31,6 +31,9 @@ public class MinigestRunner implements CommandLineRunner {
         Azienda larapida = new Azienda("La Rapida di Davide Di Criscito");
         aziendaService.save(larapida);
 
+        Azienda shop = new Azienda("Shop");
+        aziendaService.save(shop);
+
         // Crea un utente
         String hashPwd = passwordEncoder.encode("12345");
         Account davide = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", hashPwd, "ADMIN", null);
@@ -38,6 +41,7 @@ public class MinigestRunner implements CommandLineRunner {
         // Crea una lista di aziende che appartengono a Davide
         List<Azienda> davideAziende = new ArrayList<>();
         davideAziende.add(larapida);
+        davideAziende.add(shop);
         davide.setAziende(davideAziende);
 
         // Salva l'account
