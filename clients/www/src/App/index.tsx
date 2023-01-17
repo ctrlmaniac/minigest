@@ -9,6 +9,7 @@ import { default as getAzienda } from "~/features/aziende/get";
 
 // App Content
 import Dashboard from "./Dashboard";
+import { isEmpty } from "lodash";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +28,9 @@ const App: React.FC = () => {
   }, [dettagli]);
 
   React.useEffect(() => {
-    dispatch(getAzienda(azienda));
+    if (!isEmpty(azienda)) {
+      dispatch(getAzienda(azienda));
+    }
   }, [azienda]);
 
   return (

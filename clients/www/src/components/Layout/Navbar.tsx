@@ -3,7 +3,11 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { useTitleContext } from "~/context/title";
 import { IconBuildingStore } from "@tabler/icons";
 
-const Navbar: React.FC = () => {
+interface Props {
+  handleDialogOpen: Function;
+}
+
+const Navbar: React.FC<Props> = (props) => {
   const { title } = useTitleContext();
 
   return (
@@ -13,7 +17,7 @@ const Navbar: React.FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <IconButton>
+          <IconButton onClick={() => props.handleDialogOpen(true)}>
             <IconBuildingStore />
           </IconButton>
         </Toolbar>
