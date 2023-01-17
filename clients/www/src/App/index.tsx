@@ -1,4 +1,5 @@
 import React from "react";
+import { isEmpty } from "lodash";
 import { Route, Routes } from "react-router-dom";
 import { TitleContext } from "~/context/title";
 import { Layout } from "~/components";
@@ -9,7 +10,7 @@ import { default as getAzienda } from "~/features/aziende/get";
 
 // App Content
 import Dashboard from "./Dashboard";
-import { isEmpty } from "lodash";
+import Aziende from "./Aziende";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/aziende/*" element={<Aziende />} />
           </Routes>
         </Layout>
       </TitleContext.Provider>
