@@ -20,23 +20,19 @@ const Dettagli: React.FC = () => {
   if (state.getting) {
     return <LoadingScreen />;
   } else if (state.getError) {
-    return <ErrorScreen messaggio="C'è stato un errore" />;
+    return <ErrorScreen messaggio="Azienda non trovata!" />;
   } else {
     const { dettagli } = state;
 
-    if (isEmpty(dettagli)) {
-      return <ErrorScreen messaggio="Azienda non trovata!" />;
-    } else {
-      return (
-        <Page title="Dettagli Azienda">
-          <Container>
-            <Typography variant="h3" component="h2">
-              {dettagli.denominazione}
-            </Typography>
-          </Container>
-        </Page>
-      );
-    }
+    return (
+      <Page title="Dettagli Azienda">
+        <Container>
+          <Typography variant="h3" component="h2">
+            {dettagli!.denominazione}
+          </Typography>
+        </Container>
+      </Page>
+    );
   }
 };
 
