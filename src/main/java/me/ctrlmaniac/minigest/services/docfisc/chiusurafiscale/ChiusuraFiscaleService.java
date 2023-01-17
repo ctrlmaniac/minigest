@@ -12,45 +12,45 @@ import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFisca
 @Service
 public class ChiusuraFiscaleService {
 
-    @Autowired
-    ChiusuraFiscaleRepo cfRepo;
+	@Autowired
+	ChiusuraFiscaleRepo cfRepo;
 
-    public ChiusuraFiscale get(String id) {
-        Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
+	public ChiusuraFiscale get(String id) {
+		Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
 
-        if (cfOpt.isPresent()) {
-            return cfOpt.get();
-        }
+		if (cfOpt.isPresent()) {
+			return cfOpt.get();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public ChiusuraFiscale save(ChiusuraFiscale cf) {
-        return cfRepo.save(cf);
-    }
+	public ChiusuraFiscale save(ChiusuraFiscale cf) {
+		return cfRepo.save(cf);
+	}
 
-    public List<ChiusuraFiscale> getAll() {
-        return cfRepo.findAll();
-    }
+	public List<ChiusuraFiscale> getAll() {
+		return cfRepo.findAll();
+	}
 
-    public void deleteById(String id) {
-        cfRepo.deleteById(id);
-    }
+	public void deleteById(String id) {
+		cfRepo.deleteById(id);
+	}
 
-    public ChiusuraFiscale update(String id, ChiusuraFiscale newCF) {
-        Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
+	public ChiusuraFiscale update(String id, ChiusuraFiscale newCF) {
+		Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
 
-        if (cfOpt.isPresent()) {
-            ChiusuraFiscale oldCF = cfOpt.get();
+		if (cfOpt.isPresent()) {
+			ChiusuraFiscale oldCF = cfOpt.get();
 
-            oldCF.setData(newCF.getData());
-            oldCF.setTotale(newCF.getTotale());
-            oldCF.setNumeroDocFisc(newCF.getNumeroDocFisc());
-            oldCF.setReparti(newCF.getReparti());
+			oldCF.setData(newCF.getData());
+			oldCF.setTotale(newCF.getTotale());
+			oldCF.setNumeroDocFisc(newCF.getNumeroDocFisc());
+			oldCF.setReparti(newCF.getReparti());
 
-            return cfRepo.save(oldCF);
-        }
+			return cfRepo.save(oldCF);
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

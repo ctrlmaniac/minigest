@@ -8,6 +8,6 @@ import me.ctrlmaniac.minigest.entitities.Account;
 
 public interface AccountRepo extends JpaRepository<Account, String> {
 
-    List<Account> findByEmail(String email);
+	List<Account> findByEmail(String email);
 
 }

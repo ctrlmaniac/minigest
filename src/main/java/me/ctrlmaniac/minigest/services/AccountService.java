@@ -18,27 +18,27 @@ import me.ctrlmaniac.minigest.repositories.AccountRepo;
 @Service
 public class AccountService implements UserDetailsService {
 
-    @Autowired
-    AccountRepo accountRepo;
+	@Autowired
+	AccountRepo accountRepo;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<GrantedAuthority> authorities = null;
-        List<Account> users = accountRepo.findByEmail(username);
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<GrantedAuthority> authorities = null;
+		List<Account> users = accountRepo.findByEmail(username);
 
-        if (users.size() == 0) {
-            throw new UsernameNotFoundException("User details not found for the user : " + username);
-        } else {
-            String password = users.get(0).getPassword();
-            authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(users.get(0).getRole()));
+		if (users.size() == 0) {
+			throw new UsernameNotFoundException("User details not found for the user : " + username);
+		} else {
+			String password = users.get(0).getPassword();
+			authorities = new ArrayList<>();
+			authorities.add(new SimpleGrantedAuthority(users.get(0).getRole()));
 
-            return new User(username, password, authorities);
-        }
-    }
+			return new User(username, password, authorities);
+		}
+	}
 
-    public Account save(Account a) {
-        return accountRepo.save(a);
-    }
+	public Account save(Account a) {
+		return accountRepo.save(a);
+	}
 
 }

@@ -22,35 +22,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/aziende")
 public class AziendaController {
 
-    @Autowired
-    AziendaService aziendaService;
+	@Autowired
+	AziendaService aziendaService;
 
-    @GetMapping("")
-    public ResponseEntity<List<Azienda>> getAll() {
-        return new ResponseEntity<>(aziendaService.getAll(), HttpStatus.OK);
-    }
+	@GetMapping("")
+	public ResponseEntity<List<Azienda>> getAll() {
+		return new ResponseEntity<>(aziendaService.getAll(), HttpStatus.OK);
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Azienda> getById(@PathVariable String id) {
-        Azienda azienda = aziendaService.get(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<Azienda> getById(@PathVariable String id) {
+		Azienda azienda = aziendaService.get(id);
 
-        return new ResponseEntity<>(azienda, azienda == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
-    }
+		return new ResponseEntity<>(azienda, azienda == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}
 
-    @PostMapping("")
-    public ResponseEntity<Azienda> create(@RequestBody Azienda a) {
-        aziendaService.save(a);
-        return new ResponseEntity<Azienda>(a, HttpStatus.CREATED);
-    }
+	@PostMapping("")
+	public ResponseEntity<Azienda> create(@RequestBody Azienda a) {
+		aziendaService.save(a);
+		return new ResponseEntity<Azienda>(a, HttpStatus.CREATED);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable String id) {
-        aziendaService.deleteById(id);
-        return new ResponseEntity<>("Azienda cancellata con successo!", HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable String id) {
+		aziendaService.deleteById(id);
+		return new ResponseEntity<>("Azienda cancellata con successo!", HttpStatus.OK);
+	}
 
-    @PutMapping("{id}")
-    public ResponseEntity<Azienda> update(@PathVariable String id, @RequestBody Azienda a) {
-        return new ResponseEntity<>(aziendaService.update(id, a), HttpStatus.OK);
-    }
+	@PutMapping("{id}")
+	public ResponseEntity<Azienda> update(@PathVariable String id, @RequestBody Azienda a) {
+		return new ResponseEntity<>(aziendaService.update(id, a), HttpStatus.OK);
+	}
 }

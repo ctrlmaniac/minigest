@@ -22,35 +22,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/docfisc/chiusure-fiscali")
 public class ChiusuraFiscaleController {
 
-    @Autowired
-    ChiusuraFiscaleService cfService;
+	@Autowired
+	ChiusuraFiscaleService cfService;
 
-    @GetMapping("")
-    public ResponseEntity<List<ChiusuraFiscale>> getAll() {
-        return new ResponseEntity<>(cfService.getAll(), HttpStatus.OK);
-    }
+	@GetMapping("")
+	public ResponseEntity<List<ChiusuraFiscale>> getAll() {
+		return new ResponseEntity<>(cfService.getAll(), HttpStatus.OK);
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ChiusuraFiscale> getById(@PathVariable String id) {
-        ChiusuraFiscale cf = cfService.get(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<ChiusuraFiscale> getById(@PathVariable String id) {
+		ChiusuraFiscale cf = cfService.get(id);
 
-        return new ResponseEntity<>(cf, cf == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
-    }
+		return new ResponseEntity<>(cf, cf == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}
 
-    @PostMapping("")
-    public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscale cf) {
-        cfService.save(cf);
-        return new ResponseEntity<ChiusuraFiscale>(cf, HttpStatus.CREATED);
-    }
+	@PostMapping("")
+	public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscale cf) {
+		cfService.save(cf);
+		return new ResponseEntity<ChiusuraFiscale>(cf, HttpStatus.CREATED);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable String id) {
-        cfService.deleteById(id);
-        return new ResponseEntity<>("Chiusura Fiscale cancellata con successo!", HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable String id) {
+		cfService.deleteById(id);
+		return new ResponseEntity<>("Chiusura Fiscale cancellata con successo!", HttpStatus.OK);
+	}
 
-    @PutMapping("{id}")
-    public ResponseEntity<ChiusuraFiscale> update(@PathVariable String id, @RequestBody ChiusuraFiscale cf) {
-        return new ResponseEntity<>(cfService.update(id, cf), HttpStatus.OK);
-    }
+	@PutMapping("{id}")
+	public ResponseEntity<ChiusuraFiscale> update(@PathVariable String id, @RequestBody ChiusuraFiscale cf) {
+		return new ResponseEntity<>(cfService.update(id, cf), HttpStatus.OK);
+	}
 }

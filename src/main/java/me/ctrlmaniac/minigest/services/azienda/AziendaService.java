@@ -11,50 +11,50 @@ import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
 
 @Service
 public class AziendaService {
-    @Autowired
-    AziendaRepo aziendaRepo;
+	@Autowired
+	AziendaRepo aziendaRepo;
 
-    public Azienda get(String id) {
-        Optional<Azienda> aziendaOpt = aziendaRepo.findById(id);
+	public Azienda get(String id) {
+		Optional<Azienda> aziendaOpt = aziendaRepo.findById(id);
 
-        if (aziendaOpt.isPresent()) {
-            return aziendaOpt.get();
-        }
+		if (aziendaOpt.isPresent()) {
+			return aziendaOpt.get();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public Azienda save(Azienda a) {
-        return aziendaRepo.save(a);
-    }
+	public Azienda save(Azienda a) {
+		return aziendaRepo.save(a);
+	}
 
-    public List<Azienda> getAll() {
-        return aziendaRepo.findAll();
-    }
+	public List<Azienda> getAll() {
+		return aziendaRepo.findAll();
+	}
 
-    public void deleteById(String id) {
-        aziendaRepo.deleteById(id);
-    }
+	public void deleteById(String id) {
+		aziendaRepo.deleteById(id);
+	}
 
-    public Azienda update(String id, Azienda newAzienda) {
-        Optional<Azienda> oldAziendaOpt = aziendaRepo.findById(id);
+	public Azienda update(String id, Azienda newAzienda) {
+		Optional<Azienda> oldAziendaOpt = aziendaRepo.findById(id);
 
-        if (oldAziendaOpt.isPresent()) {
-            Azienda oldAzienda = oldAziendaOpt.get();
+		if (oldAziendaOpt.isPresent()) {
+			Azienda oldAzienda = oldAziendaOpt.get();
 
-            oldAzienda.setDenominazione(newAzienda.getDenominazione());
-            oldAzienda.setTitolo(newAzienda.getTitolo());
-            oldAzienda.setNome(newAzienda.getNome());
-            oldAzienda.setCognome(newAzienda.getCognome());
-            oldAzienda.setCodiceEORI(newAzienda.getCodiceEORI());
-            oldAzienda.setIdFiscaleIVAPaese(newAzienda.getIdFiscaleIVAPaese());
-            oldAzienda.setIdFiscaleIVACodice(newAzienda.getIdFiscaleIVACodice());
-            oldAzienda.setCodiceFiscale(newAzienda.getCodiceFiscale());
-            oldAzienda.setSede(newAzienda.getSede());
+			oldAzienda.setDenominazione(newAzienda.getDenominazione());
+			oldAzienda.setTitolo(newAzienda.getTitolo());
+			oldAzienda.setNome(newAzienda.getNome());
+			oldAzienda.setCognome(newAzienda.getCognome());
+			oldAzienda.setCodiceEORI(newAzienda.getCodiceEORI());
+			oldAzienda.setIdFiscaleIVAPaese(newAzienda.getIdFiscaleIVAPaese());
+			oldAzienda.setIdFiscaleIVACodice(newAzienda.getIdFiscaleIVACodice());
+			oldAzienda.setCodiceFiscale(newAzienda.getCodiceFiscale());
+			oldAzienda.setSede(newAzienda.getSede());
 
-            return aziendaRepo.save(oldAzienda);
-        }
+			return aziendaRepo.save(oldAzienda);
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

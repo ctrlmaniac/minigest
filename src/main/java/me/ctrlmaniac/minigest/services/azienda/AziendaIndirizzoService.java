@@ -11,46 +11,46 @@ import me.ctrlmaniac.minigest.repositories.azienda.AziendaIndirizzoRepo;
 
 @Service
 public class AziendaIndirizzoService {
-    @Autowired
-    AziendaIndirizzoRepo indirizzoRepo;
+	@Autowired
+	AziendaIndirizzoRepo indirizzoRepo;
 
-    public AziendaIndirizzo get(String id) {
-        Optional<AziendaIndirizzo> indirizzoOpt = indirizzoRepo.findById(id);
+	public AziendaIndirizzo get(String id) {
+		Optional<AziendaIndirizzo> indirizzoOpt = indirizzoRepo.findById(id);
 
-        if (indirizzoOpt.isPresent()) {
-            return indirizzoOpt.get();
-        }
+		if (indirizzoOpt.isPresent()) {
+			return indirizzoOpt.get();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    public AziendaIndirizzo save(AziendaIndirizzo a) {
-        return indirizzoRepo.save(a);
-    }
+	public AziendaIndirizzo save(AziendaIndirizzo a) {
+		return indirizzoRepo.save(a);
+	}
 
-    public List<AziendaIndirizzo> getAll() {
-        return indirizzoRepo.findAll();
-    }
+	public List<AziendaIndirizzo> getAll() {
+		return indirizzoRepo.findAll();
+	}
 
-    public void deleteById(String id) {
-        indirizzoRepo.deleteById(id);
-    }
+	public void deleteById(String id) {
+		indirizzoRepo.deleteById(id);
+	}
 
-    public AziendaIndirizzo update(String id, AziendaIndirizzo newAziendaIndirizzo) {
-        Optional<AziendaIndirizzo> oldAziendaIndirizzoOpt = indirizzoRepo.findById(id);
+	public AziendaIndirizzo update(String id, AziendaIndirizzo newAziendaIndirizzo) {
+		Optional<AziendaIndirizzo> oldAziendaIndirizzoOpt = indirizzoRepo.findById(id);
 
-        if (oldAziendaIndirizzoOpt.isPresent()) {
-            AziendaIndirizzo oldAziendaIndirizzo = oldAziendaIndirizzoOpt.get();
+		if (oldAziendaIndirizzoOpt.isPresent()) {
+			AziendaIndirizzo oldAziendaIndirizzo = oldAziendaIndirizzoOpt.get();
 
-            oldAziendaIndirizzo.setIndirizzo(newAziendaIndirizzo.getIndirizzo());
-            oldAziendaIndirizzo.setNumeroCivico(newAziendaIndirizzo.getNumeroCivico());
-            oldAziendaIndirizzo.setComune(newAziendaIndirizzo.getComune());
-            oldAziendaIndirizzo.setProvincia(newAziendaIndirizzo.getProvincia());
-            oldAziendaIndirizzo.setNazione(newAziendaIndirizzo.getNazione());
+			oldAziendaIndirizzo.setIndirizzo(newAziendaIndirizzo.getIndirizzo());
+			oldAziendaIndirizzo.setNumeroCivico(newAziendaIndirizzo.getNumeroCivico());
+			oldAziendaIndirizzo.setComune(newAziendaIndirizzo.getComune());
+			oldAziendaIndirizzo.setProvincia(newAziendaIndirizzo.getProvincia());
+			oldAziendaIndirizzo.setNazione(newAziendaIndirizzo.getNazione());
 
-            return indirizzoRepo.save(oldAziendaIndirizzo);
-        }
+			return indirizzoRepo.save(oldAziendaIndirizzo);
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

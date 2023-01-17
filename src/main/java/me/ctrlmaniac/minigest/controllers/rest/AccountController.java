@@ -21,38 +21,38 @@ import me.ctrlmaniac.minigest.services.AccountService;
 @RequestMapping("/api/account")
 public class AccountController {
 
-    @Autowired
-    AccountService accountService;
+	@Autowired
+	AccountService accountService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    @Autowired
-    AccountRepo accountRepo;
+	@Autowired
+	AccountRepo accountRepo;
 
-    @GetMapping("")
-    public ResponseEntity<Account> currentUser(Principal principal) {
-        List<Account> users = accountRepo.findByEmail(principal.getName());
-        Account account = new Account();
+	@GetMapping("")
+	public ResponseEntity<Account> currentUser(Principal principal) {
+		List<Account> users = accountRepo.findByEmail(principal.getName());
+		Account account = new Account();
 
-        if (users.size() == 0) {
-            return new ResponseEntity<Account>(account, HttpStatus.NOT_FOUND);
-        } else {
-            account = new Account(users.get(0).getId(), users.get(0).getEmail(), users.get(0).getFname(),
-                    users.get(0).getLname(),
-                    users.get(0).getAziende());
-            return new ResponseEntity<Account>(account, HttpStatus.OK);
-        }
-    }
+		if (users.size() == 0) {
+			return new ResponseEntity<Account>(account, HttpStatus.NOT_FOUND);
+		} else {
+			account = new Account(users.get(0).getId(), users.get(0).getEmail(), users.get(0).getFname(),
+					users.get(0).getLname(),
+					users.get(0).getAziende());
+			return new ResponseEntity<Account>(account, HttpStatus.OK);
+		}
+	}
 
-    @PostMapping("/nuovo")
-    public ResponseEntity<Account> register(@RequestBody Account account) {
+	@PostMapping("/nuovo")
+	public ResponseEntity<Account> register(@RequestBody Account account) {
 
-        String hashPwd = passwordEncoder.encode(account.getPassword());
-        account.setPassword(hashPwd);
-        Account saved = accountService.save(account);
+		String hashPwd = passwordEncoder.encode(account.getPassword());
+		account.setPassword(hashPwd);
+		Account saved = accountService.save(account);
 
-        return new ResponseEntity<Account>(saved, HttpStatus.CREATED);
-    }
+		return new ResponseEntity<Account>(saved, HttpStatus.CREATED);
+	}
 
 }

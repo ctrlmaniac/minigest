@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class ReactController {
 
-    @GetMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}", "/error" })
-    public String getIndex(HttpServletRequest request) {
-        return "/index.html";
-    }
+	@GetMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}", "/error" })
+	public String getIndex(HttpServletRequest request) {
+		return "/index.html";
+	}
 
 }
