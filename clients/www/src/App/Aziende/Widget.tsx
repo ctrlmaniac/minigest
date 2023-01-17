@@ -1,9 +1,11 @@
-import { Box, List, ListItem, Paper, Typography } from "@mui/material";
 import React from "react";
+import { Box, List, ListItemButton, Paper, Typography } from "@mui/material";
+import { useAziendaContext } from "~/context/azienda";
 import { useAppSelector } from "~/hooks";
 
 const WidgetAziende: React.FC = () => {
   const { dettagli } = useAppSelector((store) => store.account);
+  const { azienda } = useAziendaContext();
 
   if ("aziende" in dettagli) {
     return (
@@ -14,9 +16,14 @@ const WidgetAziende: React.FC = () => {
           </Typography>
 
           <List>
-            {dettagli.aziende.map((azienda, i) => {
+            {dettagli.aziende.map((business, i) => {
               return (
-                <ListItem key={azienda.id}>{azienda.denominazione}</ListItem>
+                <ListItemButton
+                  selected={business.id === azienda}
+                  key={business.id}
+                >
+                  {business.denominazione}
+                </ListItemButton>
               );
             })}
           </List>
