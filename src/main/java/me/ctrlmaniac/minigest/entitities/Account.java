@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 
 @Entity
 public class Account {

@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.entitities;
+package me.ctrlmaniac.minigest.entitities.azienda;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

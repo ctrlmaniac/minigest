@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import me.ctrlmaniac.minigest.entitities.Azienda;
-import me.ctrlmaniac.minigest.services.AziendaService;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
+import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

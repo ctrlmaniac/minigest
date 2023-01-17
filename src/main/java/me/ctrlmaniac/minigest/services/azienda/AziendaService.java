@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.services;
+package me.ctrlmaniac.minigest.services.azienda;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import me.ctrlmaniac.minigest.entitities.Azienda;
-import me.ctrlmaniac.minigest.repositories.AziendaRepo;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
+import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
 
 @Service
 public class AziendaService {

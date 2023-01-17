@@ -9,11 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import me.ctrlmaniac.minigest.entitities.Account;
-import me.ctrlmaniac.minigest.entitities.Azienda;
-import me.ctrlmaniac.minigest.entitities.AziendaIndirizzo;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
+import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.services.AccountService;
-import me.ctrlmaniac.minigest.services.AziendaIndirizzoService;
-import me.ctrlmaniac.minigest.services.AziendaService;
+import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
+import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 
 @Component
 public class MinigestRunner implements CommandLineRunner {
