@@ -38,8 +38,9 @@ public class AccountController {
         if (users.size() == 0) {
             return new ResponseEntity<Account>(account, HttpStatus.NOT_FOUND);
         } else {
-            account = new Account(users.get(0).getEmail(), users.get(0).getFname(), users.get(0).getLname(),
-                    users.get(0).getRole(), users.get(0).getAziende());
+            account = new Account(users.get(0).getId(), users.get(0).getEmail(), users.get(0).getFname(),
+                    users.get(0).getLname(),
+                    users.get(0).getAziende());
             return new ResponseEntity<Account>(account, HttpStatus.OK);
         }
     }

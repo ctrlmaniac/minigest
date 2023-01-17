@@ -46,11 +46,11 @@ public class Account {
         this.aziende = aziende;
     }
 
-    public Account(String email, String fname, String lname, String role, List<Azienda> aziende) {
+    public Account(String id, String email, String fname, String lname, List<Azienda> aziende) {
+        this.id = id;
         this.email = email;
         this.fname = fname;
         this.lname = lname;
-        this.role = role;
         this.aziende = aziende;
     }
 
