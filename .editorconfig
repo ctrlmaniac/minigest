@@ -4,13 +4,13 @@
 root = true
 
 [*]
-indent_style = tab
-indent_size = 4
+indent_style = space
+indent_size = 2
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = false
 
-[*.{js,ts,tsx,jsx,json}]
-indent_style = space
-indent_size = 2
+[*.java]
+indent_style = tab
+indent_size = 4
