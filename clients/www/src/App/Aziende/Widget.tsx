@@ -5,7 +5,7 @@ import { useAppSelector } from "~/hooks";
 
 const WidgetAziende: React.FC = () => {
   const { dettagli } = useAppSelector((store) => store.account);
-  const { azienda } = useAziendaContext();
+  const { azienda, setAzienda } = useAziendaContext();
 
   if ("aziende" in dettagli) {
     return (
@@ -21,6 +21,7 @@ const WidgetAziende: React.FC = () => {
                 <ListItemButton
                   selected={business.id === azienda}
                   key={business.id}
+                  onClick={() => setAzienda(business.id)}
                 >
                   {business.denominazione}
                 </ListItemButton>
