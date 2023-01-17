@@ -14,9 +14,9 @@ public class AppConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/dashboard/**").authenticated()
+                .requestMatchers("/app", "/app/**", "/api/**").authenticated()
                 .requestMatchers("/**").permitAll()
-                .and().formLogin().loginPage("/")
+                .and().formLogin().loginPage("/login")
                 .and().httpBasic();
         return http.build();
     }

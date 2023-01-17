@@ -7,6 +7,7 @@ import { theme } from "./context/theme";
 import { LoadingScreen } from "./components";
 
 const Welcome = React.lazy(() => import("./Welcome"));
+const Login = React.lazy(() => import("./Login"));
 const App = React.lazy(() => import("./App"));
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -16,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route
-            path="/welcome"
+            path="/"
             element={
               <React.Suspense fallback={<LoadingScreen />}>
                 <Welcome />
@@ -24,7 +25,15 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             }
           />
           <Route
-            path="/*"
+            path="/login"
+            element={
+              <React.Suspense fallback={<LoadingScreen />}>
+                <Login />
+              </React.Suspense>
+            }
+          />
+          <Route
+            path="/app/*"
             element={
               <React.Suspense fallback={<LoadingScreen />}>
                 <App />
