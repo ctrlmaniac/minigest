@@ -1,12 +1,14 @@
 package me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ChiusuraFiscale {
@@ -19,18 +21,22 @@ public class ChiusuraFiscale {
     private LocalDate data;
 
     @Column
-    private Double totale;
+    private double totale;
 
     @Column
     private int numeroDocFisc;
 
+    @OneToMany
+    private List<ChiusuraFiscaleReparto> reparti;
+
     public ChiusuraFiscale() {
     }
 
-    public ChiusuraFiscale(LocalDate data, Double totale, int numeroDocFisc) {
+    public ChiusuraFiscale(LocalDate data, double totale, int numeroDocFisc, List<ChiusuraFiscaleReparto> reparti) {
         this.data = data;
         this.totale = totale;
         this.numeroDocFisc = numeroDocFisc;
+        this.reparti = reparti;
     }
 
     public String getId() {
@@ -49,11 +55,11 @@ public class ChiusuraFiscale {
         this.data = data;
     }
 
-    public Double getTotale() {
+    public double getTotale() {
         return totale;
     }
 
-    public void setTotale(Double totale) {
+    public void setTotale(double totale) {
         this.totale = totale;
     }
 
@@ -63,6 +69,14 @@ public class ChiusuraFiscale {
 
     public void setNumeroDocFisc(int numeroDocFisc) {
         this.numeroDocFisc = numeroDocFisc;
+    }
+
+    public List<ChiusuraFiscaleReparto> getReparti() {
+        return reparti;
+    }
+
+    public void setReparti(List<ChiusuraFiscaleReparto> reparti) {
+        this.reparti = reparti;
     }
 
 }
