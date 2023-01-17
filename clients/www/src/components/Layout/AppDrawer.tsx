@@ -1,3 +1,5 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -6,9 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { IconHome } from "@tabler/icons";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { IconDashboard } from "@tabler/icons";
 
 interface Props {
   open: boolean;
@@ -29,9 +29,9 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
         <List>
           <ListItemButton onClick={() => handleNavigate("/")}>
             <ListItemIcon>
-              <IconHome />
+              <IconDashboard />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Dashboard" />
           </ListItemButton>
         </List>
       </Box>
