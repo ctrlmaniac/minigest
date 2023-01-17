@@ -1,8 +1,11 @@
 import React from "react";
 import { Container } from "@mui/material";
 import { AddFab, Page } from "~/components";
+import { useLocation } from "react-router-dom";
 
 const ChiusureFiscali: React.FC = () => {
+  const { pathname: path } = useLocation();
+
   return (
     <>
       <Page title="Chiusure Fiscali">
@@ -16,7 +19,7 @@ const ChiusureFiscali: React.FC = () => {
           </p>
         </Container>
       </Page>
-      <AddFab />
+      <AddFab href={`${path}/aggiungi`} />
     </>
   );
 };
