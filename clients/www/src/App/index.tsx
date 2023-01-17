@@ -6,7 +6,7 @@ import { Layout } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { AziendaContext } from "~/context/azienda";
 import { default as getAccount } from "~/features/account/get";
-import { default as getAzienda } from "~/features/aziende/get";
+import { default as getAzienda } from "~/features/aziende/getSelected";
 
 // App Content
 import Dashboard from "./Dashboard";
