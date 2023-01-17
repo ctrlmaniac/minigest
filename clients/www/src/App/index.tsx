@@ -3,9 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import { TitleContext } from "~/context/title";
 import { Layout } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import { default as getAccount } from "~/features/account/get";
-import Dashboard from "./Dashboard";
 import { AziendaContext } from "~/context/azienda";
+import { default as getAccount } from "~/features/account/get";
+import { default as getAzienda } from "~/features/aziende/get";
+
+// App Content
+import Dashboard from "./Dashboard";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +25,10 @@ const App: React.FC = () => {
       setAzienda(dettagli.aziende[0].id);
     }
   }, [dettagli]);
+
+  React.useEffect(() => {
+    dispatch(getAzienda(azienda));
+  }, [azienda]);
 
   return (
     <AziendaContext.Provider value={{ azienda, setAzienda }}>

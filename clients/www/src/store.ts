@@ -3,10 +3,12 @@ import logger from "redux-logger";
 
 // reducers
 import { accountSlice } from "./features/account/slice";
+import { aziendaSlice } from "./features/aziende/slice";
 
 export const store = configureStore({
   reducer: {
     account: accountSlice.reducer,
+    aziende: aziendaSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
