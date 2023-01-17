@@ -17,7 +17,7 @@ import me.ctrlmaniac.minigest.services.AziendaService;
 public class MinigestRunner implements CommandLineRunner {
 
     @Autowired
-    AziendaService as;
+    AziendaService aziendaService;
 
     @Autowired
     AccountService accountService;
@@ -27,21 +27,23 @@ public class MinigestRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Account account = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", "12345", "ADMIN");
-        String hashPwd = passwordEncoder.encode(account.getPassword());
-        account.setPassword(hashPwd);
-        accountService.save(account);
-
+        // Crea un'azienda
         Azienda larapida = new Azienda("La Rapida di Davide Di Criscito");
-        List<Account> larapidaUsers = new ArrayList<>();
+        aziendaService.save(larapida);
 
-        larapidaUsers.add(account);
+        // Crea un utente
+        String hashPwd = passwordEncoder.encode("12345");
+        Account davide = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", hashPwd, "ADMIN", null);
 
-        larapida.setAccount(larapidaUsers);
+        // Crea una lista di aziende che appartengono a Davide
+        List<Azienda> davideAziende = new ArrayList<>();
+        davideAziende.add(larapida);
+        davide.setAziende(davideAziende);
 
-        as.save(larapida);
+        // Salva l'account
+        accountService.save(davide);
 
-        System.out.println("Application started");
+        System.out.println("Application started at http://localhost:8080");
     }
 
 }

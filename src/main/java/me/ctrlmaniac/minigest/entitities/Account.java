@@ -1,10 +1,13 @@
 package me.ctrlmaniac.minigest.entitities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Account {
@@ -28,15 +31,27 @@ public class Account {
     @Column(columnDefinition = "varchar(255) default 'CUSTOMER'")
     private String role;
 
+    @OneToMany
+    private List<Azienda> aziende;
+
     public Account() {
     }
 
-    public Account(String email, String fname, String lname, String password, String role) {
+    public Account(String email, String fname, String lname, String password, String role, List<Azienda> aziende) {
         this.email = email;
         this.fname = fname;
         this.lname = lname;
         this.password = password;
         this.role = role;
+        this.aziende = aziende;
+    }
+
+    public Account(String email, String fname, String lname, String role, List<Azienda> aziende) {
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.role = role;
+        this.aziende = aziende;
     }
 
     public String getId() {
@@ -86,4 +101,13 @@ public class Account {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public List<Azienda> getAziende() {
+        return aziende;
+    }
+
+    public void setAziende(List<Azienda> aziende) {
+        this.aziende = aziende;
+    }
+
 }
