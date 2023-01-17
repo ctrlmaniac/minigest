@@ -54,6 +54,7 @@ const Login: React.FC = () => {
                 value={values.username}
                 onChange={handleChange}
                 error={values.username.length < 1}
+                required
               />
               <TextField
                 fullWidth
@@ -64,6 +65,7 @@ const Login: React.FC = () => {
                 value={values.password}
                 onChange={handleChange}
                 error={values.password.length < 1}
+                required
               />
               <Button fullWidth variant="contained" type="submit">
                 accedi
