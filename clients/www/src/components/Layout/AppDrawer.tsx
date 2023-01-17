@@ -8,7 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { IconDashboard } from "@tabler/icons";
+import { IconLayoutDashboard } from "@tabler/icons";
 
 interface Props {
   open: boolean;
@@ -29,7 +29,7 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
         <List>
           <ListItemButton onClick={() => handleNavigate("/")}>
             <ListItemIcon>
-              <IconDashboard />
+              <IconLayoutDashboard />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
