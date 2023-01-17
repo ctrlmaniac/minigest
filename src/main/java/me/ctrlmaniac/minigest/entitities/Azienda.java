@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Azienda {
@@ -16,6 +17,18 @@ public class Azienda {
     @Column
     private String denominazione;
 
+    @Column
+    private String titolo;
+
+    @Column
+    private String nome;
+
+    @Column
+    private String cognome;
+
+    @Column
+    private String codiceEORI;
+
     @Column(columnDefinition = "varchar(2)")
     private String idFiscaleIVAPaese;
 
@@ -25,27 +38,69 @@ public class Azienda {
     @Column(columnDefinition = "varchar(16)")
     private String codiceFiscale;
 
+    @OneToOne
+    private AziendaIndirizzo sede;
+
+    @OneToOne
+    private AziendaIndirizzo stabileOrganizzazione;
+
+    @OneToOne
+    private Azienda rappresentanteFiscale;
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public String getCodiceEORI() {
+        return codiceEORI;
+    }
+
+    public void setCodiceEORI(String codiceEORI) {
+        this.codiceEORI = codiceEORI;
+    }
+
     public Azienda() {
     }
 
-    public Azienda(String denominazione, String idFiscaleIVAPaese, String idFiscaleIVACodice, String codiceFiscale) {
+    public Azienda(String denominazione, String titolo, String nome, String cognome, String codiceEORI,
+            String idFiscaleIVAPaese,
+            String idFiscaleIVACodice, String codiceFiscale,
+            AziendaIndirizzo sede, AziendaIndirizzo stabileOrganizzazione, Azienda rappresentanteFiscale) {
         this.denominazione = denominazione;
+        this.titolo = titolo;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.codiceEORI = codiceEORI;
         this.idFiscaleIVAPaese = idFiscaleIVAPaese;
         this.idFiscaleIVACodice = idFiscaleIVACodice;
         this.codiceFiscale = codiceFiscale;
-    }
-
-    public Azienda(String id, String denominazione, String idFiscaleIVAPaese, String idFiscaleIVACodice,
-            String codiceFiscale) {
-        this.id = id;
-        this.denominazione = denominazione;
-        this.idFiscaleIVAPaese = idFiscaleIVAPaese;
-        this.idFiscaleIVACodice = idFiscaleIVACodice;
-        this.codiceFiscale = codiceFiscale;
+        this.sede = sede;
+        this.stabileOrganizzazione = stabileOrganizzazione;
+        this.rappresentanteFiscale = rappresentanteFiscale;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
     }
 
     public void setId(String id) {
@@ -82,6 +137,30 @@ public class Azienda {
 
     public void setCodiceFiscale(String codiceFiscale) {
         this.codiceFiscale = codiceFiscale;
+    }
+
+    public AziendaIndirizzo getSede() {
+        return sede;
+    }
+
+    public void setSede(AziendaIndirizzo sede) {
+        this.sede = sede;
+    }
+
+    public AziendaIndirizzo getStabileOrganizzazione() {
+        return stabileOrganizzazione;
+    }
+
+    public void setStabileOrganizzazione(AziendaIndirizzo stabileOrganizzazione) {
+        this.stabileOrganizzazione = stabileOrganizzazione;
+    }
+
+    public Azienda getRappresentanteFiscale() {
+        return rappresentanteFiscale;
+    }
+
+    public void setRappresentanteFiscale(Azienda rappresentanteFiscale) {
+        this.rappresentanteFiscale = rappresentanteFiscale;
     }
 
 }

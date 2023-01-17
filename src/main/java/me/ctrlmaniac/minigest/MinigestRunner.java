@@ -10,44 +10,63 @@ import org.springframework.stereotype.Component;
 
 import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Azienda;
+import me.ctrlmaniac.minigest.entitities.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.services.AccountService;
+import me.ctrlmaniac.minigest.services.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.AziendaService;
 
 @Component
 public class MinigestRunner implements CommandLineRunner {
 
-    @Autowired
-    AziendaService aziendaService;
+        @Autowired
+        AziendaService aziendaService;
 
-    @Autowired
-    AccountService accountService;
+        @Autowired
+        AccountService accountService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+        @Autowired
+        PasswordEncoder passwordEncoder;
 
-    @Override
-    public void run(String... args) throws Exception {
-        // Crea un'azienda
-        Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", "IT", "03792670980", "DCRDVD90E23B157R");
-        aziendaService.save(larapida);
+        @Autowired
+        AziendaIndirizzoService aziendaIndirizzoService;
 
-        Azienda shop = new Azienda("Shop", "IT", "12345678910", "12345678910");
-        aziendaService.save(shop);
+        @Override
+        public void run(String... args) throws Exception {
+                // Crea un'azienda
+                AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6",
+                                "Molinetto di Mazzano", "BS", "IT");
+                aziendaIndirizzoService.save(larapidaSede);
 
-        // Crea un utente
-        String hashPwd = passwordEncoder.encode("12345");
-        Account davide = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", hashPwd, "ADMIN", null);
+                Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", null, null, null, null, "IT",
+                                "03792670980",
+                                "DCRDVD90E23B157R",
+                                larapidaSede, null, null);
+                aziendaService.save(larapida);
 
-        // Crea una lista di aziende che appartengono a Davide
-        List<Azienda> davideAziende = new ArrayList<>();
-        davideAziende.add(larapida);
-        davideAziende.add(shop);
-        davide.setAziende(davideAziende);
+                // Crea una seconda azienda
+                AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "Brescia", "BS", "IT");
+                aziendaIndirizzoService.save(shopSede);
 
-        // Salva l'account
-        accountService.save(davide);
+                Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede,
+                                null,
+                                null);
+                aziendaService.save(shop);
 
-        System.out.println("Application started at http://localhost:8080");
-    }
+                // Crea un utente
+                String hashPwd = passwordEncoder.encode("12345");
+                Account davide = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", hashPwd, "ADMIN",
+                                null);
+
+                // Crea una lista di aziende che appartengono a Davide
+                List<Azienda> davideAziende = new ArrayList<>();
+                davideAziende.add(larapida);
+                davideAziende.add(shop);
+                davide.setAziende(davideAziende);
+
+                // Salva l'account
+                accountService.save(davide);
+
+                System.out.println("Application started at http://localhost:8080");
+        }
 
 }
