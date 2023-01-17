@@ -2,13 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
+  Divider,
   Drawer,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
 } from "@mui/material";
-import { IconLayoutDashboard } from "@tabler/icons";
+import { IconFileCertificate, IconLayoutDashboard } from "@tabler/icons";
 
 interface Props {
   open: boolean;
@@ -32,6 +34,18 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
               <IconLayoutDashboard />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
+          </ListItemButton>
+        </List>
+        <Divider />
+
+        <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
+          <ListItemButton
+            onClick={() => handleNavigate("/docfisc/chiusure-fiscali")}
+          >
+            <ListItemIcon>
+              <IconFileCertificate />
+            </ListItemIcon>
+            <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
         </List>
       </Box>

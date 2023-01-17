@@ -2,14 +2,14 @@ import React from "react";
 import { Container } from "@mui/material";
 import { Page } from "~/components";
 
-const ChiusureFiscali: React.FC = () => {
+const AggiungiCF: React.FC = () => {
   return (
-    <Page title="Chiusure Fiscali">
+    <Page title="Aggiungi CF">
       <Container>
-        <h1>Chiusure Fiscali</h1>
+        <h1>Aggiungi Chiusura Fiscale</h1>
       </Container>
     </Page>
   );
 };
 
-export default ChiusureFiscali;
+export default AggiungiCF;
