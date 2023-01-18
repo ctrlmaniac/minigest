@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
+import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.services.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 
 @Component
 public class MinigestRunner implements CommandLineRunner {
@@ -29,6 +31,9 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	AziendaIndirizzoService aziendaIndirizzoService;
+
+	@Autowired
+	TipoDocFiscService TDFService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -65,6 +70,52 @@ public class MinigestRunner implements CommandLineRunner {
 
 		// Salva l'account
 		accountService.save(davide);
+
+		// Crea i Tipi di documenti fiscali
+		TipoDocFisc TD01 = new TipoDocFisc("TD01", "fattura");
+		TipoDocFisc TD02 = new TipoDocFisc("TD02", "acconto/anticipo su fattura");
+		TipoDocFisc TD03 = new TipoDocFisc("TD03", "acconto/anticipo su parcella");
+		TipoDocFisc TD04 = new TipoDocFisc("TD04", "nota di credito");
+		TipoDocFisc TD05 = new TipoDocFisc("TD05", "nota di debito");
+		TipoDocFisc TD06 = new TipoDocFisc("TD06", "parcella");
+		TipoDocFisc TD16 = new TipoDocFisc("TD16", "integrazione fattura reverse charge interno");
+		TipoDocFisc TD17 = new TipoDocFisc("TD17", "integrazione/autofattura per acquisto servizi dall'estero");
+		TipoDocFisc TD18 = new TipoDocFisc("TD18", "integrazione per acquisto di beni intracomunitari");
+		TipoDocFisc TD19 = new TipoDocFisc("TD19",
+				"integrazione/autofattura per acquisto di beni ex art.17 c.2 DPR 633/72");
+		TipoDocFisc TD20 = new TipoDocFisc("TD20",
+				"autofattura per regolarizzazione e integrazione delle fatture (ex art.6 c.8 e 9-bis d.lgs. 471/97  o  art.46 c.5 D.L. 331/93)");
+		TipoDocFisc TD21 = new TipoDocFisc("TD21", "autofattura per splafonamento");
+		TipoDocFisc TD22 = new TipoDocFisc("TD22", "estrazione beni da Deposito IVA");
+		TipoDocFisc TD23 = new TipoDocFisc("TD23", "estrazione beni da Deposito IVA con versamento dell'IVA");
+		TipoDocFisc TD24 = new TipoDocFisc("TD24",
+				"fattura differita di cui all'art. 21, comma 4, terzo periodo lett. a) DPR 633/72");
+		TipoDocFisc TD25 = new TipoDocFisc("TD25",
+				"fattura differita di cui all'art. 21, comma 4, terzo periodo lett. b) DPR 633/72");
+		TipoDocFisc TD26 = new TipoDocFisc("TD26",
+				"cessione di beni ammortizzabili e per passaggi interni (ex art.36 DPR 633/72)");
+		TipoDocFisc TD27 = new TipoDocFisc("TD27", "fattura per autoconsumo o per cessioni gratuite senza rivalsa");
+		TipoDocFisc TD28 = new TipoDocFisc("TD28", "acquisti da San Marino con IVA (fattura cartacea)");
+
+		TDFService.save(TD01);
+		TDFService.save(TD02);
+		TDFService.save(TD03);
+		TDFService.save(TD04);
+		TDFService.save(TD05);
+		TDFService.save(TD06);
+		TDFService.save(TD16);
+		TDFService.save(TD17);
+		TDFService.save(TD18);
+		TDFService.save(TD19);
+		TDFService.save(TD20);
+		TDFService.save(TD21);
+		TDFService.save(TD22);
+		TDFService.save(TD23);
+		TDFService.save(TD24);
+		TDFService.save(TD25);
+		TDFService.save(TD26);
+		TDFService.save(TD27);
+		TDFService.save(TD28);
 
 		System.out.println("Application started at http://localhost:8080");
 	}

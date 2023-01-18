@@ -49,7 +49,7 @@ public class AziendaController {
 		return new ResponseEntity<>("Azienda cancellata con successo!", HttpStatus.OK);
 	}
 
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Azienda> update(@PathVariable String id, @RequestBody Azienda a) {
 		return new ResponseEntity<>(aziendaService.update(id, a), HttpStatus.OK);
 	}
