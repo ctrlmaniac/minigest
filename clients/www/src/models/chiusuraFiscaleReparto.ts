@@ -1,5 +1,5 @@
 export default interface ChiusuraFiscaleReparto {
-  id: string;
+  id?: string;
   aliquota: number;
   totale: number;
   totaleAnnulli: number;
