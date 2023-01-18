@@ -34,26 +34,55 @@ const DettagliCF: React.FC = () => {
             Chiusura Fiscale
           </Typography>
 
-          <Paper>
-            <Box p={2}>
-              <Table>
-                <TableRow>
-                  <TableCell sx={{ width: 100 }}>Data</TableCell>
-                  <TableCell>{chiusura?.data} </TableCell>
-                </TableRow>
+          <Box mb={3}>
+            <Paper>
+              <Box p={2}>
+                <Typography gutterBottom>Riepilogo</Typography>
+                <Table>
+                  <TableRow>
+                    <TableCell sx={{ width: 100 }}>Data</TableCell>
+                    <TableCell>{chiusura?.data} </TableCell>
+                  </TableRow>
 
-                <TableRow>
-                  <TableCell sx={{ width: 100 }}>Totale</TableCell>
-                  <TableCell>€ {chiusura?.totale} </TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell sx={{ width: 100 }}>Totale</TableCell>
+                    <TableCell>€ {chiusura?.totale} </TableCell>
+                  </TableRow>
 
-                <TableRow>
-                  <TableCell sx={{ width: 100 }}>N.D.F.</TableCell>
-                  <TableCell>{chiusura?.numeroDocFisc} </TableCell>
-                </TableRow>
-              </Table>
+                  <TableRow>
+                    <TableCell sx={{ width: 100 }}>N.D.F.</TableCell>
+                    <TableCell>{chiusura?.numeroDocFisc} </TableCell>
+                  </TableRow>
+                </Table>
+              </Box>
+            </Paper>
+          </Box>
+
+          {chiusura?.reparti.map((reparto) => (
+            <Box mb={3} key={reparto.id}>
+              <Paper>
+                <Box p={2}>
+                  <Typography gutterBottom>
+                    Reparto {reparto.aliquota} %
+                  </Typography>
+                  <Table>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>Totale</TableCell>
+                      <TableCell>€ {reparto.totale}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>Annulli</TableCell>
+                      <TableCell>€ {reparto.totaleAnnulli}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>Resi</TableCell>
+                      <TableCell>€ {reparto.totaleResi}</TableCell>
+                    </TableRow>
+                  </Table>
+                </Box>
+              </Paper>
             </Box>
-          </Paper>
+          ))}
         </Container>
       </Page>
     </>
