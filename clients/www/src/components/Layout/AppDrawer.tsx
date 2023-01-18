@@ -10,7 +10,11 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import { IconFileCertificate, IconLayoutDashboard } from "@tabler/icons";
+import {
+  IconFileBarcode,
+  IconFileCertificate,
+  IconLayoutDashboard,
+} from "@tabler/icons";
 
 interface Props {
   open: boolean;
@@ -39,6 +43,12 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
         <Divider />
 
         <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
+          <ListItemButton onClick={() => handleNavigate("/docfisc/tipo")}>
+            <ListItemIcon>
+              <IconFileBarcode />
+            </ListItemIcon>
+            <ListItemText primary="Tipi di Doc. Fisc." />
+          </ListItemButton>
           <ListItemButton
             onClick={() => handleNavigate("/docfisc/chiusure-fiscali")}
           >

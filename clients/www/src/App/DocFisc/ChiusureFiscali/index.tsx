@@ -8,6 +8,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { AddFab, ErrorScreen, LoadingScreen, Page } from "~/components";
 import { useLocation } from "react-router-dom";
@@ -36,7 +37,10 @@ const ChiusureFiscali: React.FC = () => {
       <>
         <Page title="Chiusure Fiscali">
           <Container>
-            <h1>Chiusure Fiscali</h1>
+            <Typography variant="h3" component="h1" gutterBottom>
+              Tipi Documenti Fiscali
+            </Typography>
+
             {isEmpty(list) && (
               <Alert severity="warning">
                 Non sono state trovate Chiusure Fiscali

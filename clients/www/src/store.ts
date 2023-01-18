@@ -5,14 +5,14 @@ import logger from "redux-logger";
 import { accountSlice } from "./features/account/slice";
 import { aziendaSlice } from "./features/aziende/slice";
 import { chiusureFiscaliSlice } from "./features/chiusureFiscali/slice";
-import { chiusureFiscaliRepartiSlice } from "./features/chiusureFiscaliReparti/slice";
+import { tipoDocFiscSlice } from "./features/tipoDocFisc/slice";
 
 export const store = configureStore({
   reducer: {
     account: accountSlice.reducer,
     aziende: aziendaSlice.reducer,
     chiusureFiscali: chiusureFiscaliSlice.reducer,
-    chiusureFiscaliReparti: chiusureFiscaliRepartiSlice.reducer,
+    tipoDocFisc: tipoDocFiscSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

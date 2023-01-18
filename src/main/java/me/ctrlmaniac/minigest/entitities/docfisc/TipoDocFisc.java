@@ -13,7 +13,7 @@ public class TipoDocFisc {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@Column
+	@Column(unique = true)
 	private String codice;
 
 	@Column
