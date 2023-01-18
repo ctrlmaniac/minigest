@@ -1,7 +1,9 @@
 package me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,22 @@ public class ChiusuraFiscaleService {
 			oldCF.setData(newCF.getData());
 			oldCF.setTotale(newCF.getTotale());
 			oldCF.setNumeroDocFisc(newCF.getNumeroDocFisc());
+
+			// TODO
+			// // Elimina i vecchi reparti
+			// for (ChiusuraFiscaleReparto reparto : oldCF.getReparti()) {
+			// if (!newCF.getReparti().contains(reparto)) {
+			// cfRepartoService.deleteById(reparto.getId());
+			// }
+			// }
+
+			// salva il nuovo reparto
+			for (ChiusuraFiscaleReparto reparto : newCF.getReparti()) {
+				if (reparto.getId() == null) {
+					cfRepartoService.save(reparto);
+				}
+			}
+
 			oldCF.setReparti(newCF.getReparti());
 
 			return cfRepo.save(oldCF);

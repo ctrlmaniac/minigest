@@ -3,6 +3,7 @@ package me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class ChiusuraFiscale {
 	@Column
 	private int numeroDocFisc;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<ChiusuraFiscaleReparto> reparti;
 
 	public ChiusuraFiscale() {

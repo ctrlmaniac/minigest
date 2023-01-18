@@ -15,14 +15,20 @@ import {
 import { IconPlus, IconTrash } from "@tabler/icons";
 import { isEmpty } from "lodash";
 import React from "react";
-import { Page } from "~/components";
-import { ChiusuraFiscale } from "~/models";
+import { Page, SaveFab } from "~/components";
+import { ChiusuraFiscale, ChiusuraFiscaleReparto } from "~/models";
+import RepartiForm from "./RepartiForm";
+import { useAppDispatch } from "~/hooks";
+import remove from "~/features/chiusureFiscaliReparti/remove";
+import update from "~/features/chiusureFiscali/update";
 
 interface Props {
   chiusura: ChiusuraFiscale;
 }
 
 const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
+  const dispatch = useAppDispatch();
+
   const [values, setValues] = React.useState({
     id: chiusura.id,
     data: chiusura.data,
@@ -37,6 +43,9 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
     numeroDocFisc: false,
     reparti: false,
   });
+
+  // Reparti
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   // Save button
   const [isDisabled, setIsDisabled] = React.useState(true);
@@ -57,6 +66,39 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
       ...errors,
       [name]: value.length < 1,
     });
+  };
+
+  const handleSubmitReparto = (reparto: ChiusuraFiscaleReparto) => {
+    const reparti = [...values.reparti, reparto];
+    setValues({
+      ...values,
+      reparti: reparti,
+    });
+
+    setErrors({
+      ...errors,
+      reparti: reparti.length === 0,
+    });
+  };
+
+  const handleRemoveReparto = (i: number) => {
+    const reparti = [...values.reparti];
+
+    reparti.splice(i, 1);
+
+    setValues({
+      ...values,
+      reparti: reparti,
+    });
+
+    setErrors({
+      ...errors,
+      reparti: reparti.length === 0,
+    });
+  };
+
+  const handleSubmit = () => {
+    dispatch(update(chiusura.id!, values));
   };
 
   return (
@@ -138,7 +180,7 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
                     <Box sx={{ textAlign: "right" }}>
                       <IconButton
                         color="primary"
-                        // onClick={() => setOpenDialog(true)}
+                        onClick={() => setOpenDialog(true)}
                       >
                         <IconPlus />
                       </IconButton>
@@ -169,7 +211,7 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
                             <TableCell align="center">
                               <IconButton
                                 color="error"
-                                // onClick={() => handleRemoveReparto(i)}
+                                onClick={() => handleRemoveReparto(i)}
                               >
                                 <IconTrash />
                               </IconButton>
@@ -185,6 +227,12 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
           </Box>
         </Container>
       </Page>
+      <RepartiForm
+        open={openDialog}
+        handleOpen={setOpenDialog}
+        handleSubmit={handleSubmitReparto}
+      />
+      <SaveFab disabled={isDisabled} handleClick={handleSubmit} />
     </>
   );
 };

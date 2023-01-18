@@ -3,6 +3,7 @@ import {
   Container,
   Paper,
   Table,
+  TableBody,
   TableCell,
   TableRow,
   Typography,
@@ -39,20 +40,22 @@ const DettagliCF: React.FC = () => {
               <Box p={2}>
                 <Typography gutterBottom>Riepilogo</Typography>
                 <Table>
-                  <TableRow>
-                    <TableCell sx={{ width: 100 }}>Data</TableCell>
-                    <TableCell>{chiusura?.data} </TableCell>
-                  </TableRow>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>Data</TableCell>
+                      <TableCell>{chiusura?.data} </TableCell>
+                    </TableRow>
 
-                  <TableRow>
-                    <TableCell sx={{ width: 100 }}>Totale</TableCell>
-                    <TableCell>€ {chiusura?.totale} </TableCell>
-                  </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>Totale</TableCell>
+                      <TableCell>€ {chiusura?.totale} </TableCell>
+                    </TableRow>
 
-                  <TableRow>
-                    <TableCell sx={{ width: 100 }}>N.D.F.</TableCell>
-                    <TableCell>{chiusura?.numeroDocFisc} </TableCell>
-                  </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ width: 100 }}>N.D.F.</TableCell>
+                      <TableCell>{chiusura?.numeroDocFisc} </TableCell>
+                    </TableRow>
+                  </TableBody>
                 </Table>
               </Box>
             </Paper>
@@ -66,18 +69,20 @@ const DettagliCF: React.FC = () => {
                     Reparto {reparto.aliquota} %
                   </Typography>
                   <Table>
-                    <TableRow>
-                      <TableCell sx={{ width: 100 }}>Totale</TableCell>
-                      <TableCell>€ {reparto.totale}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ width: 100 }}>Annulli</TableCell>
-                      <TableCell>€ {reparto.totaleAnnulli}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ width: 100 }}>Resi</TableCell>
-                      <TableCell>€ {reparto.totaleResi}</TableCell>
-                    </TableRow>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell sx={{ width: 100 }}>Totale</TableCell>
+                        <TableCell>€ {reparto.totale}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell sx={{ width: 100 }}>Annulli</TableCell>
+                        <TableCell>€ {reparto.totaleAnnulli}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell sx={{ width: 100 }}>Resi</TableCell>
+                        <TableCell>€ {reparto.totaleResi}</TableCell>
+                      </TableRow>
+                    </TableBody>
                   </Table>
                 </Box>
               </Paper>
