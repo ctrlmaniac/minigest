@@ -1,5 +1,6 @@
 export { default as Layout } from "./Layout";
 export { default as AddFab } from "./AddFab";
+export { default as EditFab } from "./EditFab";
 export { default as ErrorScreen } from "./ErrorScreen";
 export { default as LoadingScreen } from "./LoadingScreen";
 export { default as Page } from "./Page";

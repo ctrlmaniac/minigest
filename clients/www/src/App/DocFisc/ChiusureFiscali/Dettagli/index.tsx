@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Page } from "~/components";
+import { EditFab, Page } from "~/components";
 import get from "~/features/chiusureFiscali/get";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
@@ -85,6 +85,7 @@ const DettagliCF: React.FC = () => {
           ))}
         </Container>
       </Page>
+      <EditFab href={`/app/docfisc/chiusure-fiscali/modifica/${id}`} />
     </>
   );
 };
