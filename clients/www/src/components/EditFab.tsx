@@ -10,7 +10,7 @@ const AddFab: React.FC<Props> = (props) => {
   return (
     <Box sx={{ position: "fixed", bottom: 16, left: 0, right: 0 }}>
       <Container sx={{ textAlign: "right" }}>
-        <Fab aria-label="aggiungi" href={props.href} color="warning">
+        <Fab aria-label="modifica" href={props.href} color="warning">
           <IconPencil />
         </Fab>
       </Container>
