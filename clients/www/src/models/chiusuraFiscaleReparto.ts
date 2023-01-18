@@ -4,4 +4,5 @@ export default interface ChiusuraFiscaleReparto {
   totale: number;
   totaleAnnulli: number;
   totaleResi: number;
+  chiusuraFiscaleId: string;
 }

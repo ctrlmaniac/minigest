@@ -12,8 +12,6 @@ export default function update(
       .put(`${Endpoints.CHIUSURE_FISCALI}/${id}`, chiusura)
       .then((response) => {
         dispatch(putSuccess(response.data));
-        window.location.href =
-          "/app/docfisc/chiusure-fiscali/" + response.data.id;
       })
       .catch((error) => {
         dispatch(putFail());

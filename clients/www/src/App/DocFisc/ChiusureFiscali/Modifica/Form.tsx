@@ -19,8 +19,8 @@ import { Page, SaveFab } from "~/components";
 import { ChiusuraFiscale, ChiusuraFiscaleReparto } from "~/models";
 import RepartiForm from "./RepartiForm";
 import { useAppDispatch } from "~/hooks";
-import remove from "~/features/chiusureFiscaliReparti/remove";
 import update from "~/features/chiusureFiscali/update";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   chiusura: ChiusuraFiscale;
@@ -28,6 +28,7 @@ interface Props {
 
 const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [values, setValues] = React.useState({
     id: chiusura.id,
@@ -99,6 +100,7 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
 
   const handleSubmit = () => {
     dispatch(update(chiusura.id!, values));
+    navigate(`/app/docfisc/chiusure-fiscali/${chiusura.id!}`);
   };
 
   return (
