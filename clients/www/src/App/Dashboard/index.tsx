@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 import { Page } from "~/components";
 import WidgetAziende from "../Aziende/Widget";
+import WidgetChiusureFiscali from "../DocFisc/ChiusureFiscali/Widget";
 
 const Dashboard: React.FC = () => {
   return (
@@ -11,10 +12,15 @@ const Dashboard: React.FC = () => {
           container
           direction="row"
           justifyContent="flex-start"
-          alignItems="flex-start"
+          alignItems="stretch"
+          spacing={2}
         >
-          <Grid item>
+          <Grid item xs={12} sm={4}>
             <WidgetAziende />
+          </Grid>
+
+          <Grid item xs={12} sm={8}>
+            <WidgetChiusureFiscali />
           </Grid>
         </Grid>
       </Container>

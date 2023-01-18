@@ -11,7 +11,7 @@ const WidgetAziende: React.FC = () => {
 
   if ("aziende" in dettagli) {
     return (
-      <Paper>
+      <Paper sx={{ height: "100%" }}>
         <Box p={2}>
           <Typography variant="h6" gutterBottom>
             Le tue Aziende
