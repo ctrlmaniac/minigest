@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
+import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFiscaleRepo;
 
 @Service
@@ -14,6 +15,9 @@ public class ChiusuraFiscaleService {
 
 	@Autowired
 	ChiusuraFiscaleRepo cfRepo;
+
+	@Autowired
+	ChiusuraFiscaleRepartoService cfRepartoService;
 
 	public ChiusuraFiscale get(String id) {
 		Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
@@ -26,6 +30,13 @@ public class ChiusuraFiscaleService {
 	}
 
 	public ChiusuraFiscale save(ChiusuraFiscale cf) {
+
+		if (cf.getReparti() != null) {
+			for (ChiusuraFiscaleReparto cfReparto : cf.getReparti()) {
+				cfRepartoService.save(cfReparto);
+			}
+		}
+
 		return cfRepo.save(cf);
 	}
 

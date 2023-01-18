@@ -17,20 +17,24 @@ import { Page, SaveFab } from "~/components";
 import { IconPlus, IconTrash } from "@tabler/icons";
 import { isEmpty } from "lodash";
 import { ChiusuraFiscaleReparto } from "~/models";
+import { useAppDispatch } from "~/hooks";
+import post from "~/features/chiusureFiscali/post";
 import RepartiForm from "./RepartiForm";
 
 interface ValuesState {
   data: string;
-  totale: string;
-  numeroDocFisc: string;
+  totale: number;
+  numeroDocFisc: number;
   reparti: ChiusuraFiscaleReparto[];
 }
 
 const AggiungiCF: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [values, setValues] = React.useState<ValuesState>({
     data: new Date().toISOString().split("T")[0],
-    totale: "0",
-    numeroDocFisc: "0",
+    totale: 0,
+    numeroDocFisc: 0,
     reparti: [],
   });
 
@@ -95,7 +99,7 @@ const AggiungiCF: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log(values);
+    dispatch(post(values));
   };
 
   return (

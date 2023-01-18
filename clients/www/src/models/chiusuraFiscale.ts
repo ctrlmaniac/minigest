@@ -1,7 +1,7 @@
 import ChiusuraFiscaleReparto from "./chiusuraFiscaleReparto";
 
 export default interface ChiusuraFiscale {
-  id: string;
+  id?: string;
   data: string;
   totale: number;
   numeroDocFisc: number;

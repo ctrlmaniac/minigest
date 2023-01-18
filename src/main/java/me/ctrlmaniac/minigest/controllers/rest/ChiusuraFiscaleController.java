@@ -49,7 +49,7 @@ public class ChiusuraFiscaleController {
 		return new ResponseEntity<>("Chiusura Fiscale cancellata con successo!", HttpStatus.OK);
 	}
 
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<ChiusuraFiscale> update(@PathVariable String id, @RequestBody ChiusuraFiscale cf) {
 		return new ResponseEntity<>(cfService.update(id, cf), HttpStatus.OK);
 	}

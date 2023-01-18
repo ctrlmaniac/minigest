@@ -16,10 +16,10 @@ interface Props {
 }
 
 const initialValues = {
-  aliquota: "22",
+  aliquota: 22,
   totale: "",
-  totaleAnnulli: "0",
-  totaleResi: "0",
+  totaleAnnulli: 0,
+  totaleResi: 0,
 };
 
 const initialErrors = {
