@@ -1,12 +1,12 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { postSuccess, postFail } from "./slice";
-import { ChiusuraFiscale } from "~/models";
+import { TipoDocFisc } from "~/models";
 
-export default function post(chiusura: ChiusuraFiscale): AppThunk {
+export default function post(tdf: TipoDocFisc): AppThunk {
   return async (dispatch) => {
     api
-      .post(`${Endpoints.CHIUSURE_FISCALI}`, chiusura)
+      .post(`${Endpoints.TIPO_DOC_FISC}`, tdf)
       .then((response) => {
         dispatch(postSuccess(response.data));
       })

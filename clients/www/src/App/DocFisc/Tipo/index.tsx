@@ -2,6 +2,7 @@ import {
   Alert,
   Box,
   Container,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,9 +12,11 @@ import {
 } from "@mui/material";
 import { isEmpty } from "lodash";
 import React from "react";
-import { LoadingScreen, Page } from "~/components";
+import { AddFab, LoadingScreen, Page } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as listTDF } from "~/features/tipoDocFisc/list";
+import { IconTrash } from "@tabler/icons";
+import remove from "~/features/tipoDocFisc/remove";
 
 const TipoDocFisc: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +27,10 @@ const TipoDocFisc: React.FC = () => {
   React.useEffect(() => {
     dispatch(listTDF());
   }, []);
+
+  const handleRemoveTipo = (id: string) => {
+    dispatch(remove(id));
+  };
 
   if (listing) {
     return <LoadingScreen />;
@@ -53,6 +60,14 @@ const TipoDocFisc: React.FC = () => {
                             {tdf.codice}
                           </TableCell>
                           <TableCell>{tdf.descrizione}</TableCell>
+                          <TableCell sx={{ width: 50 }} align="center">
+                            <IconButton
+                              color="error"
+                              onClick={() => handleRemoveTipo(tdf.id!)}
+                            >
+                              <IconTrash />
+                            </IconButton>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -62,6 +77,8 @@ const TipoDocFisc: React.FC = () => {
             )}
           </Container>
         </Page>
+
+        <AddFab href="/app/docfisc/tipo/aggiungi" />
       </>
     );
   }
