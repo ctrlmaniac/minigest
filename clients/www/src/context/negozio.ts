@@ -6,4 +6,4 @@ export const NegozioContext = createContext<negozioContent>({
   setNegozio: () => {},
 });
 
-export const useAziendaContext = () => useContext(NegozioContext);
+export const unseNegozioContext = () => useContext(NegozioContext);

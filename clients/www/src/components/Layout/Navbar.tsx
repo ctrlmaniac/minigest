@@ -1,10 +1,15 @@
 import React from "react";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { useTitleContext } from "~/context/title";
-import { IconBuildingWarehouse, IconMenu2 } from "@tabler/icons";
+import {
+  IconBuildingStore,
+  IconBuildingWarehouse,
+  IconMenu2,
+} from "@tabler/icons";
 
 interface Props {
-  handleDialogOpen: Function;
+  handleAziendeDialogOpen: Function;
+  handleNegoziDialogOpen: Function;
   handleDrawerOpen: Function;
 }
 
@@ -24,7 +29,10 @@ const Navbar: React.FC<Props> = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <IconButton onClick={() => props.handleDialogOpen(true)}>
+          <IconButton onClick={() => props.handleNegoziDialogOpen(true)}>
+            <IconBuildingStore />
+          </IconButton>
+          <IconButton onClick={() => props.handleAziendeDialogOpen(true)}>
             <IconBuildingWarehouse />
           </IconButton>
         </Toolbar>

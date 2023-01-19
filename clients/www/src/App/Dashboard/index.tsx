@@ -3,6 +3,7 @@ import { Container, Grid } from "@mui/material";
 import { Page } from "~/components";
 import WidgetAziende from "../Aziende/Widget";
 import WidgetChiusureFiscali from "../DocFisc/ChiusureFiscali/Widget";
+import WidgetNegozi from "../Negozi/Widget";
 
 const Dashboard: React.FC = () => {
   return (
@@ -15,11 +16,15 @@ const Dashboard: React.FC = () => {
           alignItems="stretch"
           spacing={2}
         >
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <WidgetAziende />
           </Grid>
 
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={6}>
+            <WidgetNegozi />
+          </Grid>
+
+          <Grid item xs={12}>
             <WidgetChiusureFiscali />
           </Grid>
         </Grid>

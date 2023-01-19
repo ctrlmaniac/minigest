@@ -4,20 +4,27 @@ import { TitleContext } from "~/context/title";
 import AziendeDialog from "./AziendeDialog";
 import AppDrawer from "./AppDrawer";
 import { Box } from "@mui/material";
+import NegoziDialog from "./NegoziDialog";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
-  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openAziendaDialog, setOpenAziendaDialog] = React.useState(false);
+  const [openNegoziDialog, setOpenNegoziDialog] = React.useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
 
   return (
     <>
-      <AziendeDialog open={openDialog} handleOpen={setOpenDialog} />
+      <AziendeDialog
+        open={openAziendaDialog}
+        handleOpen={setOpenAziendaDialog}
+      />
+      <NegoziDialog open={openNegoziDialog} handleOpen={setOpenNegoziDialog} />
       <Navbar
-        handleDialogOpen={setOpenDialog}
+        handleAziendeDialogOpen={setOpenAziendaDialog}
+        handleNegoziDialogOpen={setOpenNegoziDialog}
         handleDrawerOpen={setOpenDrawer}
       />
       <AppDrawer open={openDrawer} handleOpen={setOpenDrawer} />

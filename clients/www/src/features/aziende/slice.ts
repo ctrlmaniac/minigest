@@ -4,6 +4,7 @@ import type { Azienda } from "~/models";
 interface AziendaState {
   getting: boolean;
   getError: boolean;
+  listing: boolean;
   dettagli?: Azienda;
   selected?: Azienda;
 }
