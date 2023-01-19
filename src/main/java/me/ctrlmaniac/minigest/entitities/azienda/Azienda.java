@@ -1,11 +1,15 @@
 package me.ctrlmaniac.minigest.entitities.azienda;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import me.ctrlmaniac.minigest.entitities.Negozio;
 
 @Entity
 public class Azienda {
@@ -47,29 +51,15 @@ public class Azienda {
 	@OneToOne
 	private Azienda rappresentanteFiscale;
 
-	public String getTitolo() {
-		return titolo;
-	}
-
-	public void setTitolo(String titolo) {
-		this.titolo = titolo;
-	}
-
-	public String getCodiceEORI() {
-		return codiceEORI;
-	}
-
-	public void setCodiceEORI(String codiceEORI) {
-		this.codiceEORI = codiceEORI;
-	}
+	@OneToMany
+	private List<Negozio> negozi;
 
 	public Azienda() {
 	}
 
 	public Azienda(String denominazione, String titolo, String nome, String cognome, String codiceEORI,
-			String idFiscaleIVAPaese,
-			String idFiscaleIVACodice, String codiceFiscale,
-			AziendaIndirizzo sede, AziendaIndirizzo stabileOrganizzazione, Azienda rappresentanteFiscale) {
+			String idFiscaleIVAPaese, String idFiscaleIVACodice, String codiceFiscale, AziendaIndirizzo sede,
+			AziendaIndirizzo stabileOrganizzazione, Azienda rappresentanteFiscale, List<Negozio> negozi) {
 		this.denominazione = denominazione;
 		this.titolo = titolo;
 		this.nome = nome;
@@ -81,10 +71,31 @@ public class Azienda {
 		this.sede = sede;
 		this.stabileOrganizzazione = stabileOrganizzazione;
 		this.rappresentanteFiscale = rappresentanteFiscale;
+		this.negozi = negozi;
 	}
 
 	public String getId() {
 		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getDenominazione() {
+		return denominazione;
+	}
+
+	public void setDenominazione(String denominazione) {
+		this.denominazione = denominazione;
+	}
+
+	public String getTitolo() {
+		return titolo;
+	}
+
+	public void setTitolo(String titolo) {
+		this.titolo = titolo;
 	}
 
 	public String getNome() {
@@ -103,16 +114,12 @@ public class Azienda {
 		this.cognome = cognome;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getCodiceEORI() {
+		return codiceEORI;
 	}
 
-	public String getDenominazione() {
-		return denominazione;
-	}
-
-	public void setDenominazione(String denominazione) {
-		this.denominazione = denominazione;
+	public void setCodiceEORI(String codiceEORI) {
+		this.codiceEORI = codiceEORI;
 	}
 
 	public String getIdFiscaleIVAPaese() {
@@ -161,6 +168,14 @@ public class Azienda {
 
 	public void setRappresentanteFiscale(Azienda rappresentanteFiscale) {
 		this.rappresentanteFiscale = rappresentanteFiscale;
+	}
+
+	public List<Negozio> getNegozi() {
+		return negozi;
+	}
+
+	public void setNegozi(List<Negozio> negozi) {
+		this.negozi = negozi;
 	}
 
 }

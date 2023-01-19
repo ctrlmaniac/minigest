@@ -8,7 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import me.ctrlmaniac.minigest.entitities.Negozio;
 
 @Entity
 public class ChiusuraFiscale {
@@ -16,6 +18,9 @@ public class ChiusuraFiscale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
+
+	@ManyToOne
+	private Negozio negozio;
 
 	@Column
 	private LocalDate data;
@@ -32,7 +37,9 @@ public class ChiusuraFiscale {
 	public ChiusuraFiscale() {
 	}
 
-	public ChiusuraFiscale(LocalDate data, double totale, int numeroDocFisc, List<ChiusuraFiscaleReparto> reparti) {
+	public ChiusuraFiscale(Negozio negozio, LocalDate data, double totale, int numeroDocFisc,
+			List<ChiusuraFiscaleReparto> reparti) {
+		this.negozio = negozio;
 		this.data = data;
 		this.totale = totale;
 		this.numeroDocFisc = numeroDocFisc;
@@ -45,6 +52,14 @@ public class ChiusuraFiscale {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Negozio getNegozio() {
+		return negozio;
+	}
+
+	public void setNegozio(Negozio negozio) {
+		this.negozio = negozio;
 	}
 
 	public LocalDate getData() {

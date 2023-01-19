@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import me.ctrlmaniac.minigest.entitities.Account;
+import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
@@ -54,18 +55,15 @@ public class MinigestRunner implements CommandLineRunner {
 		aziendaIndirizzoService.save(larapidaSede);
 
 		Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", null, null, null, null, "IT",
-				"03792670980",
-				"DCRDVD90E23B157R",
-				larapidaSede, null, null);
+				"03792670980", "DCRDVD90E23B157R", larapidaSede, null, null, null);
 		aziendaService.save(larapida);
 
 		// Crea una seconda azienda
 		AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25100", "Brescia", "BS", "IT");
 		aziendaIndirizzoService.save(shopSede);
 
-		Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede,
-				null,
-				null);
+		Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede, null,
+				null, null);
 		aziendaService.save(shop);
 
 		// Crea un utente
@@ -82,6 +80,9 @@ public class MinigestRunner implements CommandLineRunner {
 		// Salva l'account
 		accountService.save(davide);
 
+		// Crea un negozio
+		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
+
 		// Crea una Chiusura Fiscale
 		ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
 		ChiusuraFiscaleReparto cfr2 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
@@ -93,7 +94,7 @@ public class MinigestRunner implements CommandLineRunner {
 		cfrs.add(cfr1);
 		cfrs.add(cfr2);
 
-		ChiusuraFiscale cf = new ChiusuraFiscale(LocalDate.now(), 1000, 100, cfrs);
+		ChiusuraFiscale cf = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 1000, 100, cfrs);
 
 		CFService.save(cf);
 
