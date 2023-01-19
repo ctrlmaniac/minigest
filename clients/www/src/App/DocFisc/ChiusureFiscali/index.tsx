@@ -38,7 +38,7 @@ const ChiusureFiscali: React.FC = () => {
         <Page title="Chiusure Fiscali">
           <Container>
             <Typography variant="h3" component="h1" gutterBottom>
-              Tipi Documenti Fiscali
+              Chiusure Fiscali
             </Typography>
 
             {isEmpty(list) && (

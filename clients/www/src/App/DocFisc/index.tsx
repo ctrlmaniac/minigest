@@ -8,6 +8,7 @@ import DettagliCF from "./ChiusureFiscali/Dettagli";
 import ModificaCF from "./ChiusureFiscali/Modifica";
 import TipoDocFisc from "./Tipo";
 import AggiungiTipo from "./Tipo/AggiungiTipo";
+import ModificaTDF from "./Tipo/Modifica";
 
 const DocFisc: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const DocFisc: React.FC = () => {
 
       <Route path="/tipo" element={<TipoDocFisc />} />
       <Route path="/tipo/aggiungi" element={<AggiungiTipo />} />
+      <Route path="/tipo/modifica/:id" element={<ModificaTDF />} />
     </Routes>
   );
 };

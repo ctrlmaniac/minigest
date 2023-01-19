@@ -103,8 +103,7 @@ const AggiungiCF: React.FC = () => {
 
   const handleSubmit = () => {
     dispatch(post(values));
-
-    if (postSuccess) {
+    if (postSuccess !== null) {
       navigate(`/app/docfisc/chiusure-fiscali/${postSuccess}`);
     }
   };

@@ -15,10 +15,12 @@ import React from "react";
 import { AddFab, LoadingScreen, Page } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as listTDF } from "~/features/tipoDocFisc/list";
-import { IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import remove from "~/features/tipoDocFisc/remove";
+import { useNavigate } from "react-router-dom";
 
 const TipoDocFisc: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { list, listError, listing } = useAppSelector(
     (state) => state.tipoDocFisc
@@ -60,6 +62,18 @@ const TipoDocFisc: React.FC = () => {
                             {tdf.codice}
                           </TableCell>
                           <TableCell>{tdf.descrizione}</TableCell>
+                          <TableCell sx={{ width: 50 }} align="center">
+                            <IconButton
+                              color="warning"
+                              onClick={() =>
+                                navigate(
+                                  `/app/docfisc/tipo/modifica/${tdf.id!}`
+                                )
+                              }
+                            >
+                              <IconPencil />
+                            </IconButton>
+                          </TableCell>
                           <TableCell sx={{ width: 50 }} align="center">
                             <IconButton
                               color="error"
