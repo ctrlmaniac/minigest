@@ -11,14 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 import { AddFab, ErrorScreen, LoadingScreen, Page } from "~/components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as listCF } from "~/features/chiusureFiscali/list";
 import { isEmpty } from "lodash";
-import { IconFileDescription } from "@tabler/icons";
+import { IconFileDescription, IconTrash } from "@tabler/icons";
+import remove from "~/features/chiusureFiscali/remove";
 
 const ChiusureFiscali: React.FC = () => {
   const { pathname: path } = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { listing, listError, list } = useAppSelector(
     (state) => state.chiusureFiscali
@@ -27,6 +29,10 @@ const ChiusureFiscali: React.FC = () => {
   React.useEffect(() => {
     dispatch(listCF());
   }, [dispatch]);
+
+  const handleRemove = (id: string) => {
+    dispatch(remove(id));
+  };
 
   if (listing) {
     return <LoadingScreen />;
@@ -56,6 +62,9 @@ const ChiusureFiscali: React.FC = () => {
                     <TableCell sx={{ width: 50 }} align="center">
                       <IconFileDescription />
                     </TableCell>
+                    <TableCell sx={{ width: 50 }} align="center">
+                      <IconTrash />
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -65,8 +74,19 @@ const ChiusureFiscali: React.FC = () => {
                       <TableCell>€ {cf.totale}</TableCell>
                       <TableCell>{cf.numeroDocFisc}</TableCell>
                       <TableCell align="center">
-                        <IconButton color="primary" href={`${path}/${cf.id}`}>
+                        <IconButton
+                          color="primary"
+                          onClick={() => navigate(`${path}/${cf.id}`)}
+                        >
                           <IconFileDescription />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          color="error"
+                          onClick={() => handleRemove(cf.id!)}
+                        >
+                          <IconTrash />
                         </IconButton>
                       </TableCell>
                     </TableRow>
