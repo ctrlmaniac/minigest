@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { useTitleContext } from "~/context/title";
-import { IconBuildingStore, IconMenu2 } from "@tabler/icons";
+import { IconBuildingWarehouse, IconMenu2 } from "@tabler/icons";
 
 interface Props {
   handleDialogOpen: Function;
@@ -25,7 +25,7 @@ const Navbar: React.FC<Props> = (props) => {
             {title}
           </Typography>
           <IconButton onClick={() => props.handleDialogOpen(true)}>
-            <IconBuildingStore />
+            <IconBuildingWarehouse />
           </IconButton>
         </Toolbar>
       </AppBar>
