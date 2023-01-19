@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as listCF } from "~/features/chiusureFiscali/list";
 import { isEmpty } from "lodash";
-import { IconFileDescription, IconTrash } from "@tabler/icons";
+import { IconFileDescription, IconPencil, IconTrash } from "@tabler/icons";
 import remove from "~/features/chiusureFiscali/remove";
 
 const ChiusureFiscali: React.FC = () => {
@@ -63,6 +63,9 @@ const ChiusureFiscali: React.FC = () => {
                       <IconFileDescription />
                     </TableCell>
                     <TableCell sx={{ width: 50 }} align="center">
+                      <IconPencil />
+                    </TableCell>
+                    <TableCell sx={{ width: 50 }} align="center">
                       <IconTrash />
                     </TableCell>
                   </TableRow>
@@ -79,6 +82,14 @@ const ChiusureFiscali: React.FC = () => {
                           onClick={() => navigate(`${path}/${cf.id}`)}
                         >
                           <IconFileDescription />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          color="warning"
+                          onClick={() => navigate(`${path}/modifica/${cf.id}`)}
+                        >
+                          <IconPencil />
                         </IconButton>
                       </TableCell>
                       <TableCell align="center">

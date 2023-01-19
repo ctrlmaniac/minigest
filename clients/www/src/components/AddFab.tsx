@@ -12,7 +12,11 @@ const AddFab: React.FC<Props> = (props) => {
   return (
     <Box sx={{ position: "fixed", bottom: 16, left: 0, right: 0 }}>
       <Container sx={{ textAlign: "right" }}>
-        <Fab aria-label="aggiungi" onClick={() => navigate(props.href)}>
+        <Fab
+          color="primary"
+          aria-label="aggiungi"
+          onClick={() => navigate(props.href)}
+        >
           <IconPlus />
         </Fab>
       </Container>
