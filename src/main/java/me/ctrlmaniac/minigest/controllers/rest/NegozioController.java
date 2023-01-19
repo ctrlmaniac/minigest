@@ -1,14 +1,18 @@
 package me.ctrlmaniac.minigest.controllers.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entitities.Negozio;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
+import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
 import me.ctrlmaniac.minigest.services.NegozioService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,12 +29,29 @@ public class NegozioController {
 	@Autowired
 	NegozioService negozioService;
 
+	@Autowired
+	AziendaRepo aziendaRepo;
+
 	@GetMapping("")
-	public ResponseEntity<List<Negozio>> getAll() {
-		return new ResponseEntity<>(negozioService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<Negozio>> getAll(@RequestParam(name = "azienda", required = false) String idAzienda) {
+
+		if (idAzienda == null) {
+			return new ResponseEntity<>(negozioService.getAll(), HttpStatus.OK);
+		} else {
+			Optional<Azienda> aziendaOpt = aziendaRepo.findById(idAzienda);
+
+			if (aziendaOpt.isPresent()) {
+				Azienda azienda = aziendaOpt.get();
+
+				return new ResponseEntity<>(negozioService.getAllByAzienda(azienda), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
+		}
 	}
 
 	@GetMapping("/{id}")
+
 	public ResponseEntity<Negozio> getById(@PathVariable String id) {
 		Negozio negozio = negozioService.get(id);
 

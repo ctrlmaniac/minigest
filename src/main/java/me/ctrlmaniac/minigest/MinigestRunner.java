@@ -17,6 +17,7 @@ import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.services.AccountService;
+import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
@@ -47,6 +48,9 @@ public class MinigestRunner implements CommandLineRunner {
 	@Autowired
 	ChiusuraFiscaleRepartoService CFRService;
 
+	@Autowired
+	NegozioService negozioService;
+
 	@Override
 	public void run(String... args) throws Exception {
 		// Crea un'azienda
@@ -55,7 +59,7 @@ public class MinigestRunner implements CommandLineRunner {
 		aziendaIndirizzoService.save(larapidaSede);
 
 		Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", null, null, null, null, "IT",
-				"03792670980", "DCRDVD90E23B157R", larapidaSede, null, null, null);
+				"03792670980", "DCRDVD90E23B157R", larapidaSede, null, null);
 		aziendaService.save(larapida);
 
 		// Crea una seconda azienda
@@ -63,7 +67,7 @@ public class MinigestRunner implements CommandLineRunner {
 		aziendaIndirizzoService.save(shopSede);
 
 		Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede, null,
-				null, null);
+				null);
 		aziendaService.save(shop);
 
 		// Crea un utente
@@ -82,6 +86,11 @@ public class MinigestRunner implements CommandLineRunner {
 
 		// Crea un negozio
 		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
+		negozioService.save(larapidaNegozio);
+
+		// Crea un secondo negozio
+		Negozio shopNegozio = new Negozio(shop, "Negozio Shop");
+		negozioService.save(shopNegozio);
 
 		// Crea una Chiusura Fiscale
 		ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);

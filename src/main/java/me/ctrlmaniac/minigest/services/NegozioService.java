@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entitities.Negozio;
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.repositories.NegozioRepo;
 
 @Service
@@ -30,6 +31,10 @@ public class NegozioService {
 
 	public List<Negozio> getAll() {
 		return negozioRepo.findAll();
+	}
+
+	public List<Negozio> getAllByAzienda(Azienda azienda) {
+		return negozioRepo.findAllByAzienda(azienda);
 	}
 
 	public void deleteById(String id) {

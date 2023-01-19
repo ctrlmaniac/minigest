@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = React.useState<string>("minigest");
   const [azienda, setAzienda] = React.useState<string>("");
+  const [negozio, setNegozio] = React.useState<string>("");
   const { dettagli } = useAppSelector((state) => state.account);
 
   React.useEffect(() => {

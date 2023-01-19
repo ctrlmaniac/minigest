@@ -1,5 +1,6 @@
 package me.ctrlmaniac.minigest.entitities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ public class Negozio {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Azienda azienda;
 
 	@Column
