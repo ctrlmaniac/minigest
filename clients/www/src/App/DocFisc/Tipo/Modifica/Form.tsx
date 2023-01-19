@@ -61,7 +61,7 @@ const Form: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <Page title="Aggiungi">
+      <Page title="Modifica">
         <Container>
           <Typography variant="h3" component="h1" gutterBottom>
             Tipi Documenti Fiscali
