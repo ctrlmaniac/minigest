@@ -9,6 +9,7 @@ export default function post(chiusura: ChiusuraFiscale): AppThunk {
       .post(`${Endpoints.CHIUSURE_FISCALI}`, chiusura)
       .then((response) => {
         dispatch(postSuccess(response.data));
+        window.location.href = `/app/docfisc/chiusure-fiscali/${response.data.id}`;
       })
       .catch((error) => {
         dispatch(postFail());

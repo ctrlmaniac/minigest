@@ -7,7 +7,6 @@ interface ChiusuraFiscaleState {
   getError: boolean;
   posting: boolean;
   postError: boolean;
-  postSuccess: string | null;
   listing: boolean;
   listError: boolean;
   putting: boolean;
@@ -23,7 +22,6 @@ const initialState: ChiusuraFiscaleState = {
   getError: false,
   posting: false,
   postError: false,
-  postSuccess: null,
   listing: true,
   listError: false,
   putting: false,
@@ -48,10 +46,9 @@ export const chiusureFiscaliSlice = createSlice({
       state.getting = false;
     },
     postSuccess: (state, action: PayloadAction<ChiusuraFiscale>) => {
+      state.dettagli = action.payload;
       state.postError = false;
       state.posting = false;
-      state.dettagli = action.payload;
-      state.postSuccess = action.payload.id!;
     },
     postFail: (state) => {
       state.postError = true;

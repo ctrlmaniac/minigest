@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from "~/hooks";
 import post from "~/features/chiusureFiscali/post";
 import RepartiForm from "./RepartiForm";
 import { useNavigate } from "react-router-dom";
+import { unseNegozioContext } from "~/context/negozio";
 
 interface ValuesState {
   data: string;
@@ -32,7 +33,8 @@ interface ValuesState {
 const AggiungiCF: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { postSuccess } = useAppSelector((state) => state.chiusureFiscali);
+  const { negozio } = unseNegozioContext();
+  const { dettagli } = useAppSelector((state) => state.chiusureFiscali);
 
   const [values, setValues] = React.useState<ValuesState>({
     data: new Date().toISOString().split("T")[0],
@@ -102,10 +104,7 @@ const AggiungiCF: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(post(values));
-    if (postSuccess !== null) {
-      navigate(`/app/docfisc/chiusure-fiscali/${postSuccess}`);
-    }
+    dispatch(post({ negozio: { id: negozio }, ...values }));
   };
 
   return (

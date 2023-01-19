@@ -31,6 +31,7 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
   const navigate = useNavigate();
 
   const [values, setValues] = React.useState({
+    negozio: chiusura.negozio,
     id: chiusura.id,
     data: chiusura.data,
     totale: chiusura.totale,
