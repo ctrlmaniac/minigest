@@ -1,5 +1,6 @@
 package me.ctrlmaniac.minigest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,14 @@ import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
+import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
+import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.services.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
+import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
+import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
 
 @Component
 public class MinigestRunner implements CommandLineRunner {
@@ -34,6 +39,12 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	TipoDocFiscService TDFService;
+
+	@Autowired
+	ChiusuraFiscaleService CFService;
+
+	@Autowired
+	ChiusuraFiscaleRepartoService CFRService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -70,6 +81,21 @@ public class MinigestRunner implements CommandLineRunner {
 
 		// Salva l'account
 		accountService.save(davide);
+
+		// Crea una Chiusura Fiscale
+		ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
+		ChiusuraFiscaleReparto cfr2 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
+
+		CFRService.save(cfr1);
+		CFRService.save(cfr2);
+
+		List<ChiusuraFiscaleReparto> cfrs = new ArrayList<>();
+		cfrs.add(cfr1);
+		cfrs.add(cfr2);
+
+		ChiusuraFiscale cf = new ChiusuraFiscale(LocalDate.now(), 1000, 100, cfrs);
+
+		CFService.save(cf);
 
 		// Crea i Tipi di documenti fiscali
 		TipoDocFisc TD01 = new TipoDocFisc("TD01", "fattura");
