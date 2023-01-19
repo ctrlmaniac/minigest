@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
+import me.ctrlmaniac.minigest.repositories.NegozioRepo;
 import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFiscaleRepo;
 
 @Service
@@ -18,6 +20,9 @@ public class ChiusuraFiscaleService {
 
 	@Autowired
 	ChiusuraFiscaleRepartoService cfRepartoService;
+
+	@Autowired
+	NegozioRepo negozioRepo;
 
 	public ChiusuraFiscale get(String id) {
 		Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
@@ -39,8 +44,17 @@ public class ChiusuraFiscaleService {
 		return cfRepo.save(cf);
 	}
 
-	public List<ChiusuraFiscale> getAll() {
-		return cfRepo.findAll();
+	public List<ChiusuraFiscale> getAll(String idNegozio) {
+		Optional<Negozio> negozioOpt = negozioRepo.findById(idNegozio);
+
+		if (negozioOpt.isPresent()) {
+			Negozio negozio = negozioOpt.get();
+
+			return cfRepo.findAllByNegozio(negozio);
+		} else {
+			return null;
+		}
+
 	}
 
 	public void deleteById(String id) {

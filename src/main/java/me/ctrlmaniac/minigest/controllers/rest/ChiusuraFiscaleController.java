@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
@@ -26,8 +27,9 @@ public class ChiusuraFiscaleController {
 	ChiusuraFiscaleService cfService;
 
 	@GetMapping("")
-	public ResponseEntity<List<ChiusuraFiscale>> getAll() {
-		return new ResponseEntity<>(cfService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<ChiusuraFiscale>> getAll(@RequestParam(name = "negozio") String idNegozio) {
+		System.out.println(idNegozio);
+		return new ResponseEntity<>(cfService.getAll(idNegozio), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
