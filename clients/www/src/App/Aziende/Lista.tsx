@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as listAziende } from "~/features/aziende/list";
-import { ErrorScreen, LoadingScreen, Page } from "~/components";
+import { AddFab, ErrorScreen, LoadingScreen, Page } from "~/components";
 import {
   Box,
   Container,
@@ -32,51 +32,54 @@ const AziendeLista: React.FC = () => {
     return <ErrorScreen messaggio="C'è stato un problema..." />;
   } else {
     return (
-      <Page title="Aziende">
-        <Container>
-          <Typography variant="h3" component="h1" gutterBottom>
-            Aziende
-          </Typography>
+      <>
+        <Page title="Aziende">
+          <Container>
+            <Typography variant="h3" component="h1" gutterBottom>
+              Aziende
+            </Typography>
 
-          <Paper>
-            <Box p={2}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell variant="head">
-                      Denominazione/Nome/Cognome
-                    </TableCell>
-                    <TableCell sx={{ width: 50 }} align="center">
-                      <IconFileDescription />
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {list?.map((azienda) => (
-                    <TableRow key={azienda.id}>
-                      <TableCell>
-                        {azienda.denominazione}
-                        {azienda.nome}
-                        {azienda.cognome}
+            <Paper>
+              <Box p={2}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell variant="head">
+                        Denominazione/Nome/Cognome
                       </TableCell>
                       <TableCell sx={{ width: 50 }} align="center">
-                        <IconButton
-                          color="primary"
-                          onClick={() =>
-                            navigate(`/app/aziende/dettagli/${azienda.id}`)
-                          }
-                        >
-                          <IconFileDescription />
-                        </IconButton>
+                        <IconFileDescription />
                       </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Paper>
-        </Container>
-      </Page>
+                  </TableHead>
+                  <TableBody>
+                    {list?.map((azienda) => (
+                      <TableRow key={azienda.id}>
+                        <TableCell>
+                          {azienda.denominazione}
+                          {azienda.nome}
+                          {azienda.cognome}
+                        </TableCell>
+                        <TableCell sx={{ width: 50 }} align="center">
+                          <IconButton
+                            color="primary"
+                            onClick={() =>
+                              navigate(`/app/aziende/dettagli/${azienda.id}`)
+                            }
+                          >
+                            <IconFileDescription />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Box>
+            </Paper>
+          </Container>
+        </Page>
+        <AddFab href="/app/aziende/aggiungi" />
+      </>
     );
   }
 };
