@@ -14,6 +14,9 @@ public class AziendaService {
 	@Autowired
 	AziendaRepo aziendaRepo;
 
+	@Autowired
+	AziendaIndirizzoService aziendaIndirizzoService;
+
 	public Azienda get(String id) {
 		Optional<Azienda> aziendaOpt = aziendaRepo.findById(id);
 
@@ -50,7 +53,48 @@ public class AziendaService {
 			oldAzienda.setIdFiscaleIVAPaese(newAzienda.getIdFiscaleIVAPaese());
 			oldAzienda.setIdFiscaleIVACodice(newAzienda.getIdFiscaleIVACodice());
 			oldAzienda.setCodiceFiscale(newAzienda.getCodiceFiscale());
+
+			// Aggiorna la sede
+			if (newAzienda.getSede() == null && oldAzienda.getSede() != null) {
+				// C'è una sede vecchia ma non c'è una sede nuova
+				aziendaIndirizzoService.deleteById(oldAzienda.getSede().getId());
+			}
+
+			if (newAzienda.getSede() != null) {
+				if (newAzienda.getSede().getId() == null) {
+					// C'è una sede nuova
+					aziendaIndirizzoService.save(newAzienda.getSede());
+				}
+			}
 			oldAzienda.setSede(newAzienda.getSede());
+
+			// Aggiorna il rappresentante fiscale
+			if (newAzienda.getRappresentanteFiscale() == null && oldAzienda.getRappresentanteFiscale() != null) {
+				// C'è un rappresentante fiscale vecchio ma non ce n'è uno nuovo
+				deleteById(oldAzienda.getRappresentanteFiscale().getId());
+			}
+
+			if (newAzienda.getRappresentanteFiscale() != null) {
+				if (newAzienda.getRappresentanteFiscale().getId() == null) {
+					// C'è un rapprensentante fiscale nuovo
+					save(newAzienda.getRappresentanteFiscale());
+				}
+			}
+			oldAzienda.setRappresentanteFiscale(newAzienda.getRappresentanteFiscale());
+
+			// Aggiorna la stabile organizzazione
+			if (newAzienda.getStabileOrganizzazione() == null && oldAzienda.getStabileOrganizzazione() != null) {
+				// C'è una stabile organizzazione vecchia ma non ce n'è una nuova
+				aziendaIndirizzoService.deleteById(oldAzienda.getStabileOrganizzazione().getId());
+			}
+
+			if (newAzienda.getStabileOrganizzazione() != null) {
+				if (newAzienda.getStabileOrganizzazione().getId() == null) {
+					// C'è una stabile organizzazione nuova
+					aziendaIndirizzoService.save(newAzienda.getStabileOrganizzazione());
+				}
+			}
+			oldAzienda.setStabileOrganizzazione(newAzienda.getStabileOrganizzazione());
 
 			return aziendaRepo.save(oldAzienda);
 		}
