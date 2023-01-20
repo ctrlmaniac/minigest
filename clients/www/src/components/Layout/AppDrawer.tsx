@@ -11,6 +11,7 @@ import {
   ListSubheader,
 } from "@mui/material";
 import {
+  IconBuildingWarehouse,
   IconFileBarcode,
   IconFileCertificate,
   IconLayoutDashboard,
@@ -41,6 +42,15 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
           </ListItemButton>
         </List>
         <Divider />
+
+        <List subheader={<ListSubheader>Soggetti Fiscali</ListSubheader>}>
+          <ListItemButton onClick={() => handleNavigate("/aziende")}>
+            <ListItemIcon>
+              <IconBuildingWarehouse />
+            </ListItemIcon>
+            <ListItemText primary="Aziende" />
+          </ListItemButton>
+        </List>
 
         <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
           <ListItemButton onClick={() => handleNavigate("/docfisc/tipo")}>
