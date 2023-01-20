@@ -14,6 +14,7 @@ import Aziende from "./Aziende";
 import DocFisc from "./DocFisc";
 import { default as listNegozi } from "~/features/negozi/listByAzienda";
 import { NegozioContext } from "~/context/negozio";
+import NotFound from "~/NotFound";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -56,6 +57,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/aziende/*" element={<Aziende />} />
               <Route path="/docfisc/*" element={<DocFisc />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
         </TitleContext.Provider>

@@ -7,6 +7,7 @@ import { theme } from "./context/theme";
 import { LoadingScreen } from "./components";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import NotFound from "./NotFound";
 
 const Welcome = React.lazy(() => import("./Welcome"));
 const Login = React.lazy(() => import("./Login"));
@@ -43,6 +44,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 </React.Suspense>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
