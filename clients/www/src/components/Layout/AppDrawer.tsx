@@ -43,7 +43,7 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
         </List>
         <Divider />
 
-        <List subheader={<ListSubheader>Soggetti Fiscali</ListSubheader>}>
+        <List subheader={<ListSubheader>Aziende e negozi</ListSubheader>}>
           <ListItemButton onClick={() => handleNavigate("/aziende")}>
             <ListItemIcon>
               <IconBuildingWarehouse />
