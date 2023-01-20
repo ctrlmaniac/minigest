@@ -46,6 +46,7 @@ public class FatturaService {
 
 		if (fatturaOpt.isPresent()) {
 			Fattura oldFattura = fatturaOpt.get();
+			List<FatturaReparto> reparti = oldFattura.getReparti();
 
 			oldFattura.setTipoDocumento(newFattura.getTipoDocumento());
 			oldFattura.setCedente(newFattura.getCedente());
@@ -54,13 +55,25 @@ public class FatturaService {
 			oldFattura.setNumero(newFattura.getNumero());
 			oldFattura.setTotale(newFattura.getTotale());
 
+			// Salva i nuovi reparti
 			for (FatturaReparto reparto : newFattura.getReparti()) {
 				if (reparto.getId() == null) {
 					fatturaRepartoService.save(reparto);
 				}
 			}
 
-			return fatturaRepo.save(oldFattura);
+			oldFattura.setReparti(newFattura.getReparti());
+
+			Fattura fattura = fatturaRepo.save(oldFattura);
+
+			// Elimina i vecchi reparti
+			for (FatturaReparto reparto : reparti) {
+				if (!newFattura.getReparti().contains(reparto)) {
+					fatturaRepartoService.deleteById(reparto.getId());
+				}
+			}
+
+			return fattura;
 		}
 
 		return null;

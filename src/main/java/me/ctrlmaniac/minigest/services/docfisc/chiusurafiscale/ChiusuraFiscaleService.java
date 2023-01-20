@@ -66,7 +66,7 @@ public class ChiusuraFiscaleService {
 
 		if (cfOpt.isPresent()) {
 			ChiusuraFiscale oldCF = cfOpt.get();
-			// List<ChiusuraFiscaleReparto> reparti = oldCF.getReparti();
+			List<ChiusuraFiscaleReparto> reparti = oldCF.getReparti();
 
 			oldCF.setData(newCF.getData());
 			oldCF.setTotale(newCF.getTotale());
@@ -83,14 +83,12 @@ public class ChiusuraFiscaleService {
 
 			ChiusuraFiscale chiusura = cfRepo.save(oldCF);
 
-			// TODO
 			// Elimina i vecchi reparti
-			// non funziona
-			// for (ChiusuraFiscaleReparto reparto : reparti) {
-			// if (!newCF.getReparti().contains(reparto)) {
-			// cfRepartoService.deleteById(reparto.getId());
-			// }
-			// }
+			for (ChiusuraFiscaleReparto reparto : reparti) {
+				if (!newCF.getReparti().contains(reparto)) {
+					cfRepartoService.deleteById(reparto.getId());
+				}
+			}
 
 			return chiusura;
 		}
