@@ -16,7 +16,7 @@ const DocFisc: React.FC = () => {
     <Routes>
       <Route path="/chiusure-fiscali" element={<ChiusureFiscali />} />
       <Route path="/chiusure-fiscali/aggiungi" element={<AggiungiCF />} />
-      <Route path="/chiusure-fiscali/:id" element={<DettagliCF />} />
+      <Route path="/chiusure-fiscali/dettagli/:id" element={<DettagliCF />} />
       <Route path="/chiusure-fiscali/modifica/:id" element={<ModificaCF />} />
 
       <Route path="/tipo" element={<TipoDocFisc />} />

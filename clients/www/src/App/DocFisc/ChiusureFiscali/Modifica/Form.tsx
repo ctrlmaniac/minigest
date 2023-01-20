@@ -101,7 +101,7 @@ const FormMofidicaCF: React.FC<Props> = ({ chiusura }) => {
 
   const handleSubmit = () => {
     dispatch(update(chiusura.id!, values));
-    navigate(`/app/docfisc/chiusure-fiscali/${chiusura.id!}`);
+    navigate(`/app/docfisc/chiusure-fiscali/dettagli/${chiusura.id!}`);
   };
 
   return (

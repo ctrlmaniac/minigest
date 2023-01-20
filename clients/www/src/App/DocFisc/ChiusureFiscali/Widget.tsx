@@ -61,7 +61,9 @@ const WidgetChiusureFiscali: React.FC = () => {
                   <TableRow
                     key={chiusura.id}
                     onClick={() =>
-                      navigate("/app/docfisc/chiusure-fiscali/" + chiusura.id)
+                      navigate(
+                        "/app/docfisc/chiusure-fiscali/dettagli/" + chiusura.id
+                      )
                     }
                   >
                     <TableCell>{chiusura.data}</TableCell>
