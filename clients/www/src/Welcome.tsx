@@ -20,7 +20,7 @@ const Welcome: React.FC = () => {
           </ThemeProvider>
 
           <Typography variant="h6" component="p" align="center" gutterBottom>
-            Un mini gestionale pensato per le piccole/medie imprese
+            Un mini gestionale pensato per le piccole imprese
           </Typography>
         </Box>
         <Box sx={{ textAlign: "center" }}>
