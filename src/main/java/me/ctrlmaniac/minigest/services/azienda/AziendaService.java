@@ -28,6 +28,11 @@ public class AziendaService {
 	}
 
 	public Azienda save(Azienda a) {
+
+		if (a.getSede() != null) {
+			aziendaIndirizzoService.save(a.getSede());
+		}
+
 		return aziendaRepo.save(a);
 	}
 

@@ -6,6 +6,8 @@ interface AziendaState {
   getError: boolean;
   listing: boolean;
   listError: boolean;
+  posting: boolean;
+  postError: boolean;
   dettagli?: Azienda;
   selected?: Azienda;
   list?: Azienda[];
@@ -16,6 +18,8 @@ const initialState: AziendaState = {
   getError: false,
   listing: false,
   listError: false,
+  posting: false,
+  postError: false,
   dettagli: undefined,
   selected: undefined,
   list: undefined,
@@ -46,6 +50,14 @@ export const aziendaSlice = createSlice({
       state.listError = true;
       state.listing = false;
     },
+    postSuccess: (state, action: PayloadAction<Azienda[]>) => {
+      state.postError = false;
+      state.posting = false;
+    },
+    postFail: (state) => {
+      state.postError = true;
+      state.posting = false;
+    },
   },
 });
 
@@ -55,6 +67,8 @@ export const {
   getSelectedSuccess,
   listSuccess,
   listFail,
+  postSuccess,
+  postFail,
 } = aziendaSlice.actions;
 
 export default aziendaSlice.reducer;

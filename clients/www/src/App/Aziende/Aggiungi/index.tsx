@@ -8,8 +8,12 @@ import {
 } from "@mui/material";
 import React from "react";
 import { AddFab, Page, SaveFab } from "~/components";
+import post from "~/features/aziende/post";
+import { useAppDispatch } from "~/hooks";
 
 const AggiungiAzienda: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [values, setValues] = React.useState({
     denominazione: "",
     titolo: "",
@@ -117,13 +121,16 @@ const AggiungiAzienda: React.FC = () => {
       (value) => value === false
     );
 
-    console.log(areValuesOk, isSedeOk);
-
     setIsDisabled(!(areValuesOk === false && isSedeOk === false));
   }, [errors, sede]);
 
   const handleSubmit = () => {
-    console.log(values);
+    const azienda = {
+      ...values,
+      sede: sede,
+    };
+
+    dispatch(post(azienda));
   };
 
   return (

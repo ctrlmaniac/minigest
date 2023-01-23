@@ -81,8 +81,6 @@ const Dettagli: React.FC = () => {
                 {dettagli!.stabileOrganizzazione.nazione}
               </Typography>
             )}
-
-            <Typography>TODO: Rappresentante fiscale</Typography>
           </Box>
         </Container>
       </Page>
