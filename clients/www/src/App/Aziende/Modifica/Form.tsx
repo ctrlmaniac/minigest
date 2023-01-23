@@ -32,12 +32,12 @@ const Form: React.FC<Props> = ({ azienda }) => {
   });
 
   const [sede, setSede] = React.useState({
-    indirizzo: azienda.sede?.indirizzo,
-    numeroCivico: azienda.sede?.numeroCivico,
-    cap: azienda.sede?.cap,
-    comune: azienda.sede?.comune,
-    provincia: azienda.sede?.provincia,
-    nazione: azienda.sede?.nazione,
+    indirizzo: azienda.sede!.indirizzo,
+    numeroCivico: azienda.sede!.numeroCivico,
+    cap: azienda.sede!.cap,
+    comune: azienda.sede!.comune,
+    provincia: azienda.sede!.provincia,
+    nazione: azienda.sede!.nazione,
   });
 
   const [errors, setErrors] = React.useState({

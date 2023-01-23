@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   React.useEffect(() => {
     if ("aziende" in dettagli) {
-      const azienda = dettagli.aziende[0].id;
+      const azienda = dettagli.aziende[0].id!;
       setAzienda(azienda);
     }
   }, [dettagli]);

@@ -34,7 +34,7 @@ const AziendeDialog: React.FC<Props> = (props) => {
                 <ListItemButton
                   selected={business.id === azienda}
                   key={business.id}
-                  onClick={() => handleChangeAzienda(business.id)}
+                  onClick={() => handleChangeAzienda(business.id!)}
                 >
                   {business.denominazione}
                 </ListItemButton>
