@@ -8,50 +8,56 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Page, SaveFab } from "~/components";
-import post from "~/features/aziende/post";
+import update from "~/features/aziende/update";
 import { useAppDispatch } from "~/hooks";
+import { Azienda } from "~/models";
 
-const AggiungiAzienda: React.FC = () => {
+interface Props {
+  azienda: Azienda;
+}
+
+const Form: React.FC<Props> = ({ azienda }) => {
   const dispatch = useAppDispatch();
 
   const [values, setValues] = React.useState({
-    denominazione: "",
-    titolo: "",
-    nome: "",
-    cognome: "",
-    codiceEORI: "",
-    idFiscaleIVAPaese: "",
-    idFiscaleIVACodice: "",
-    codiceFiscale: "",
+    id: azienda.id!,
+    denominazione: azienda.denominazione,
+    titolo: azienda.titolo,
+    nome: azienda.nome,
+    cognome: azienda.cognome,
+    codiceEORI: azienda.codiceEORI,
+    idFiscaleIVAPaese: azienda.idFiscaleIVAPaese,
+    idFiscaleIVACodice: azienda.idFiscaleIVACodice,
+    codiceFiscale: azienda.codiceFiscale,
   });
 
   const [sede, setSede] = React.useState({
-    indirizzo: "",
-    numeroCivico: "",
-    cap: "",
-    comune: "",
-    provincia: "",
-    nazione: "",
+    indirizzo: azienda.sede?.indirizzo,
+    numeroCivico: azienda.sede?.numeroCivico,
+    cap: azienda.sede?.cap,
+    comune: azienda.sede?.comune,
+    provincia: azienda.sede?.provincia,
+    nazione: azienda.sede?.nazione,
   });
 
   const [errors, setErrors] = React.useState({
-    denominazione: true,
+    denominazione: false,
     titolo: false,
-    nome: true,
-    cognome: true,
+    nome: false,
+    cognome: false,
     codiceEORI: false,
-    idFiscaleIVAPaese: true,
-    idFiscaleIVACodice: true,
-    codiceFiscale: true,
+    idFiscaleIVAPaese: false,
+    idFiscaleIVACodice: false,
+    codiceFiscale: false,
   });
 
   const [sedeErrors, setSedeErrors] = React.useState({
-    indirizzo: true,
+    indirizzo: false,
     numeroCivico: false,
     provincia: false,
-    nazione: true,
-    comune: true,
-    cap: true,
+    nazione: false,
+    comune: false,
+    cap: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,12 +131,12 @@ const AggiungiAzienda: React.FC = () => {
   }, [errors, sede]);
 
   const handleSubmit = () => {
-    const azienda = {
+    const object = {
       ...values,
       sede: sede,
     };
 
-    dispatch(post(azienda));
+    dispatch(update(azienda.id!, object));
   };
 
   return (
@@ -337,4 +343,4 @@ const AggiungiAzienda: React.FC = () => {
   );
 };
 
-export default AggiungiAzienda;
+export default Form;
