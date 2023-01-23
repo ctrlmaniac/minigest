@@ -1,5 +1,5 @@
 export default interface AziendaIndirizzo {
-  id: string;
+  id?: string;
   indirizzo: string;
   numeroCivico: string;
   provincia: string;

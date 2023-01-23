@@ -1,7 +1,7 @@
 import AziendaIndirizzo from "./aziendaIndirizzo";
 
 export default interface Azienda {
-  id: string;
+  id?: string;
   denominazione: string;
   titolo: string;
   nome: string;
@@ -10,7 +10,7 @@ export default interface Azienda {
   idFiscaleIVAPaese: string;
   idFiscaleIVACodice: string;
   codiceFiscale: string;
-  sede: AziendaIndirizzo;
-  stabileOrganizzazione: AziendaIndirizzo;
-  rappresentanteFiscale: Azienda;
+  sede?: AziendaIndirizzo;
+  stabileOrganizzazione?: AziendaIndirizzo;
+  rappresentanteFiscale?: Azienda;
 }
