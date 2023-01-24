@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -51,6 +52,18 @@ public class MinigestRunner implements CommandLineRunner {
 	@Autowired
 	NegozioService negozioService;
 
+	@Value("${admin.email}")
+	private String adminEmail;
+
+	@Value("${admin.pass}")
+	private String adminPass;
+
+	@Value("${admin.fname}")
+	private String adminFName;
+
+	@Value("${admin.lname}")
+	private String adminLName;
+
 	@Override
 	public void run(String... args) throws Exception {
 		// Crea un'azienda
@@ -71,8 +84,8 @@ public class MinigestRunner implements CommandLineRunner {
 		aziendaService.save(shop);
 
 		// Crea un utente
-		String hashPwd = passwordEncoder.encode("12345");
-		Account davide = new Account("davide.dicriscito@gmail.com", "Davide", "Di Criscito", hashPwd, "ADMIN",
+		String hashPwd = passwordEncoder.encode(adminPass);
+		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, "ADMIN",
 				null);
 
 		// Crea una lista di aziende che appartengono a Davide
