@@ -11,6 +11,7 @@ import {
   ListSubheader,
 } from "@mui/material";
 import {
+  IconBuildingStore,
   IconBuildingWarehouse,
   IconFileBarcode,
   IconFileCertificate,
@@ -49,6 +50,12 @@ const AppDrawer: React.FC<Props> = ({ open, handleOpen }) => {
               <IconBuildingWarehouse />
             </ListItemIcon>
             <ListItemText primary="Aziende" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/negozi")}>
+            <ListItemIcon>
+              <IconBuildingStore />
+            </ListItemIcon>
+            <ListItemText primary="Negozi" />
           </ListItemButton>
         </List>
 
