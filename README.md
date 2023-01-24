@@ -16,10 +16,11 @@ Una volta clonato questo repository bisogna creare nella root del progetto un fi
 DB_NAME=minigest
 DB_USER=root
 DB_PASS=root
+DB_HOST=localhost
 ADMIN_EMAIL=davide.dicriscito@gmail.com
 ADMIN_PASS=54321
 ADMIN_FNAME=Davide
-ADMIN_LNAME=Di Criscito
+ADMIN_LNAME=Di Criscitos
 ```
 
 Spring Boot caricherà automaticamente queste variabili nell'applicazione.
