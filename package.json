@@ -10,7 +10,7 @@
     "build": "npx lerna exec --scope=www npm run build",
     "postbuild": "npm run collectclients",
     "runserver": "mvnw spring-boot:run",
-    "build:app": "mvnw package",
+    "package": "mvnw package",
     "run:app": "java -jar target/minigest-0.0.2-SNAPSHOT.jar"
   },
   "devDependencies": {
