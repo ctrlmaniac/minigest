@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { AddFab, LoadingScreen, Page } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import { unseNegozioContext } from "~/context/negozio";
 import { useAziendaContext } from "~/context/azienda";
 import { IconBuildingWarehouse, IconPencil, IconTrash } from "@tabler/icons";
 import { isEmpty } from "lodash";
