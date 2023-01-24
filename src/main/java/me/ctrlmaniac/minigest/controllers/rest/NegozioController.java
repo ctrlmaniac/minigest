@@ -51,7 +51,6 @@ public class NegozioController {
 	}
 
 	@GetMapping("/{id}")
-
 	public ResponseEntity<Negozio> getById(@PathVariable String id) {
 		Negozio negozio = negozioService.get(id);
 
