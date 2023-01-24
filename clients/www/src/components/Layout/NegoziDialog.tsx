@@ -1,5 +1,4 @@
 import React from "react";
-import { useAziendaContext } from "~/context/azienda";
 import { useAppSelector } from "~/hooks";
 import {
   Dialog,
@@ -8,7 +7,7 @@ import {
   List,
   ListItemButton,
 } from "@mui/material";
-import { unseNegozioContext } from "~/context/negozio";
+import { useNegozioContext } from "~/context/negozio";
 
 interface Props {
   open: boolean;
@@ -17,10 +16,11 @@ interface Props {
 
 const NegoziDialog: React.FC<Props> = (props) => {
   const { listByAzienda } = useAppSelector((store) => store.negozi);
-  const { negozio: selectedNegozio, setNegozio } = unseNegozioContext();
+  const { negozio: selectedNegozio, setNegozio } = useNegozioContext();
 
   const handleChange = (id: string) => {
     setNegozio(id);
+    window.localStorage.setItem("negozio", id);
     props.handleOpen(false);
   };
 

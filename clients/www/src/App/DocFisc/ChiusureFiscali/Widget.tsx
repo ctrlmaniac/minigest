@@ -13,7 +13,7 @@ import {
 import { isEmpty } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { unseNegozioContext } from "~/context/negozio";
+import { useNegozioContext } from "~/context/negozio";
 import list from "~/features/chiusureFiscali/list";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
@@ -25,7 +25,7 @@ const WidgetChiusureFiscali: React.FC = () => {
     listError,
     list: chiusure,
   } = useAppSelector((state) => state.chiusureFiscali);
-  const { negozio } = unseNegozioContext();
+  const { negozio } = useNegozioContext();
 
   React.useEffect(() => {
     dispatch(list(negozio));

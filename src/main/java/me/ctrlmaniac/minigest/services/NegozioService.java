@@ -38,6 +38,8 @@ public class NegozioService {
 	}
 
 	public void deleteById(String id) {
+		Negozio newNegozio = new Negozio(null, id);
+		update(id, newNegozio);
 		negozioRepo.deleteById(id);
 	}
 

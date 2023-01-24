@@ -20,8 +20,12 @@ import Negozi from "./Negozi";
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = React.useState<string>("minigest");
-  const [azienda, setAzienda] = React.useState<string>("");
-  const [negozio, setNegozio] = React.useState<string>("");
+  const [azienda, setAzienda] = React.useState<string>(
+    window.localStorage.getItem("azienda") || ""
+  );
+  const [negozio, setNegozio] = React.useState<string>(
+    window.localStorage.getItem("negozio") || ""
+  );
   const { dettagli } = useAppSelector((state) => state.account);
   const { listByAzienda } = useAppSelector((state) => state.negozi);
 
@@ -30,22 +34,30 @@ const App: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if ("aziende" in dettagli) {
-      const azienda = dettagli.aziende[0].id!;
-      setAzienda(azienda);
+    if (window.localStorage.getItem("azienda")) {
+      setAzienda(window.localStorage.getItem("azienda")!);
+    } else {
+      if ("aziende" in dettagli) {
+        const azienda = dettagli.aziende[0].id!;
+        setAzienda(azienda);
+      }
     }
   }, [dettagli]);
 
   React.useEffect(() => {
     if (!isEmpty(azienda)) {
-      dispatch(getAzienda(azienda));
-      dispatch(listNegozi(azienda));
+      dispatch(getAzienda(azienda!));
+      dispatch(listNegozi(azienda!));
     }
   }, [azienda]);
 
   React.useEffect(() => {
-    if (!isEmpty(listByAzienda)) {
-      setNegozio(listByAzienda![0].id!);
+    if (window.localStorage.getItem("negozio")) {
+      setNegozio(window.localStorage.getItem("negozio")!);
+    } else {
+      if (!isEmpty(listByAzienda)) {
+        setNegozio(listByAzienda![0].id!);
+      }
     }
   }, [listByAzienda]);
 

@@ -8,14 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppSelector } from "~/hooks";
-import { useNavigate } from "react-router-dom";
 import { isEmpty } from "lodash";
-import { unseNegozioContext } from "~/context/negozio";
+import { useNegozioContext } from "~/context/negozio";
 
 const WidgetNegozi: React.FC = () => {
   const { listByAzienda } = useAppSelector((store) => store.negozi);
-  const { negozio: selectedNegozio } = unseNegozioContext();
-  const navigate = useNavigate();
+  const { negozio: selectedNegozio } = useNegozioContext();
 
   return (
     <Paper sx={{ height: "100%" }}>

@@ -20,6 +20,7 @@ const AziendeDialog: React.FC<Props> = (props) => {
 
   const handleChangeAzienda = (id: string) => {
     setAzienda(id);
+    window.localStorage.setItem("azienda", id);
     props.handleOpen(false);
   };
 

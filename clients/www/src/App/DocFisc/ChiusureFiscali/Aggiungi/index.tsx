@@ -20,8 +20,7 @@ import { ChiusuraFiscaleReparto } from "~/models";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import post from "~/features/chiusureFiscali/post";
 import RepartiForm from "./RepartiForm";
-import { useNavigate } from "react-router-dom";
-import { unseNegozioContext } from "~/context/negozio";
+import { useNegozioContext } from "~/context/negozio";
 
 interface ValuesState {
   data: string;
@@ -32,9 +31,7 @@ interface ValuesState {
 
 const AggiungiCF: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { negozio } = unseNegozioContext();
-  const { dettagli } = useAppSelector((state) => state.chiusureFiscali);
+  const { negozio } = useNegozioContext();
 
   const [values, setValues] = React.useState<ValuesState>({
     data: new Date().toISOString().split("T")[0],

@@ -17,13 +17,13 @@ import { default as listCF } from "~/features/chiusureFiscali/list";
 import { isEmpty } from "lodash";
 import { IconFileDescription, IconPencil, IconTrash } from "@tabler/icons";
 import remove from "~/features/chiusureFiscali/remove";
-import { unseNegozioContext } from "~/context/negozio";
+import { useNegozioContext } from "~/context/negozio";
 
 const ChiusureFiscali: React.FC = () => {
   const { pathname: path } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { negozio } = unseNegozioContext();
+  const { negozio } = useNegozioContext();
   const { listing, listError, list } = useAppSelector(
     (state) => state.chiusureFiscali
   );

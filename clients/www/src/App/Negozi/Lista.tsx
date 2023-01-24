@@ -3,6 +3,7 @@ import {
   Alert,
   Box,
   Container,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -10,15 +11,18 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { LoadingScreen, Page } from "~/components";
+import { AddFab, LoadingScreen, Page } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { unseNegozioContext } from "~/context/negozio";
 import { useAziendaContext } from "~/context/azienda";
-import { IconBuildingWarehouse } from "@tabler/icons";
+import { IconBuildingWarehouse, IconPencil, IconTrash } from "@tabler/icons";
 import { isEmpty } from "lodash";
 import listByAzienda from "~/features/negozi/listByAzienda";
+import { useNavigate } from "react-router-dom";
+import remove from "~/features/negozi/remove";
 
 const ListaNegozi: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { azienda } = useAziendaContext();
   const { selected } = useAppSelector((state) => state.aziende);
@@ -27,6 +31,10 @@ const ListaNegozi: React.FC = () => {
   React.useEffect(() => {
     dispatch(listByAzienda(azienda));
   }, [azienda]);
+
+  const handleDelete = (id: string) => {
+    dispatch(remove(id));
+  };
 
   if (!isEmpty(selected)) {
     return (
@@ -51,9 +59,27 @@ const ListaNegozi: React.FC = () => {
                 <Box p={2}>
                   <Table>
                     <TableBody>
-                      {list?.map((a) => (
-                        <TableRow key={a.id}>
-                          <TableCell>{a.nome}</TableCell>
+                      {list?.map((n) => (
+                        <TableRow key={n.id}>
+                          <TableCell>{n.nome}</TableCell>
+                          <TableCell sx={{ width: 50 }} align="center">
+                            <IconButton
+                              color="warning"
+                              onClick={() =>
+                                navigate(`/app/negozi/modifica/${n.id!}`)
+                              }
+                            >
+                              <IconPencil />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell sx={{ width: 50 }} align="center">
+                            <IconButton
+                              color="error"
+                              onClick={() => handleDelete(n.id!)}
+                            >
+                              <IconTrash />
+                            </IconButton>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -63,6 +89,7 @@ const ListaNegozi: React.FC = () => {
             )}
           </Container>
         </Page>
+        <AddFab href="/app/negozi/aggiungi" />
       </>
     );
   } else {
