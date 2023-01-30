@@ -1,12 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import getAccount from "~/features/account/get";
 
 // pages
 import Home from "~/pages/Home";
 import Login from "~/pages/Login";
 import App from "~/pages/App";
 import NotFound from "~/pages/NotFound";
-import ErrorPage from "~/pages/ErrorPage";
 import Dashboard from "~/pages/Dashboard";
 import ChiusureFiscali from "~/pages/ChiusureFiscali";
 import Account from "~/pages/Account";
@@ -24,8 +22,6 @@ const router = createBrowserRouter([
     id: "app",
     path: "/app",
     element: <App />,
-    errorElement: <ErrorPage />,
-    loader: getAccount,
     children: [
       {
         path: "",
