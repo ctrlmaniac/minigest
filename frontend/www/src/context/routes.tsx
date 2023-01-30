@@ -9,6 +9,7 @@ import NotFound from "~/pages/NotFound";
 import ErrorPage from "~/pages/ErrorPage";
 import Dashboard from "~/pages/Dashboard";
 import ChiusureFiscali from "~/pages/ChiusureFiscali";
+import Account from "~/pages/Account";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "account",
+        element: <Account />,
       },
       {
         path: "chiusure-fiscali",

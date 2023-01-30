@@ -8,7 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { IconLayoutDashboard } from "@tabler/icons-react";
+import { IconLayoutDashboard, IconUser } from "@tabler/icons-react";
 
 interface Props {
   open: boolean;
@@ -19,7 +19,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
   const navigate = useNavigate();
 
   const handleNavigate = (to: string) => {
-    navigate(`/app/${to}`);
+    navigate(`/app${to}`);
     handleOpen(false);
   };
 
@@ -32,6 +32,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconLayoutDashboard />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/account")}>
+            <ListItemIcon>
+              <IconUser />
+            </ListItemIcon>
+            <ListItemText primary="Account" />
           </ListItemButton>
         </List>
       </Box>
