@@ -5,5 +5,5 @@ export default interface Account {
   email: string;
   fname: string;
   lname: string;
-  aziende: Azienda[];
+  aziende?: Azienda[];
 }

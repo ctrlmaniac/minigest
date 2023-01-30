@@ -8,6 +8,7 @@ import {
   List,
   ListItemButton,
 } from "@mui/material";
+import { isEmpty } from "lodash";
 
 interface Props {
   open: boolean;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const AziendeDialog: React.FC<Props> = (props) => {
-  const { dettagli } = useAppSelector((store) => store.account);
+  const { dettagli: account } = useAppSelector((store) => store.account);
   const { azienda, setAzienda } = useAziendaContext();
 
   const handleChangeAzienda = (id: string) => {
@@ -24,13 +25,17 @@ const AziendeDialog: React.FC<Props> = (props) => {
     props.handleOpen(false);
   };
 
-  if ("aziende" in dettagli) {
+  if (
+    account &&
+    account!.hasOwnProperty("aziende") &&
+    !isEmpty(account!.aziende)
+  ) {
     return (
       <Dialog open={props.open} onClose={() => props.handleOpen(false)}>
         <DialogTitle>Cambia Azienda</DialogTitle>
         <DialogContent dividers>
           <List>
-            {dettagli.aziende.map((business, i) => {
+            {account!.aziende!.map((business, i) => {
               return (
                 <ListItemButton
                   selected={business.id === azienda}

@@ -1,4 +1,4 @@
 export type AziendaContent = {
-  azienda: string;
+  azienda: string | null;
   setAzienda: (c: string) => void;
 };

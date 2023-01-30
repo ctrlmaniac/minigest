@@ -1,4 +1,4 @@
 export type negozioContent = {
-  negozio: string;
+  negozio: string | null;
   setNegozio: (c: string) => void;
 };

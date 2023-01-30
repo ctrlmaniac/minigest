@@ -4,27 +4,27 @@ import type { Account } from "~/models";
 interface AccountState {
   getting: boolean;
   getError: boolean;
-  dettagli: Account | {};
+  dettagli?: Account;
 }
 
 const initialState: AccountState = {
   getting: true,
   getError: false,
-  dettagli: {},
+  dettagli: undefined,
 };
 
 export const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    getSuccess: (state, action: PayloadAction<{}>) => {
+    getSuccess: (state, action: PayloadAction<Account>) => {
       state.dettagli = action.payload;
       state.getError = false;
       state.getting = false;
     },
     getFail: (state) => {
       state.getError = true;
-      state.dettagli = {};
+      state.dettagli = undefined;
       state.getting = false;
     },
   },

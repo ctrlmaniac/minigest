@@ -20,46 +20,40 @@ import Negozi from "./Negozi";
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = React.useState<string>("minigest");
-  const [azienda, setAzienda] = React.useState<string>(
-    window.localStorage.getItem("azienda") || ""
+  const [azienda, setAzienda] = React.useState<string | null>(
+    window.localStorage.getItem("azienda")
   );
-  const [negozio, setNegozio] = React.useState<string>(
-    window.localStorage.getItem("negozio") || ""
+  const [negozio, setNegozio] = React.useState<string | null>(
+    window.localStorage.getItem("negozio")
   );
-  const { dettagli } = useAppSelector((state) => state.account);
-  const { listByAzienda } = useAppSelector((state) => state.negozi);
+  const { dettagli: account } = useAppSelector((state) => state.account);
+  const { listByAzienda: negozi } = useAppSelector((state) => state.negozi);
 
   React.useEffect(() => {
     dispatch(getAccount());
   }, []);
 
   React.useEffect(() => {
-    if (window.localStorage.getItem("azienda")) {
-      setAzienda(window.localStorage.getItem("azienda")!);
-    } else {
-      if ("aziende" in dettagli) {
-        const azienda = dettagli.aziende[0].id!;
+    if (account) {
+      if (account.hasOwnProperty("aziende") && !isEmpty(account.aziende!)) {
+        const azienda = account.aziende![0].id!;
+        dispatch(getAzienda(azienda));
         setAzienda(azienda);
       }
     }
-  }, [dettagli]);
+  }, [account]);
 
   React.useEffect(() => {
-    if (!isEmpty(azienda)) {
-      dispatch(getAzienda(azienda!));
-      dispatch(listNegozi(azienda!));
+    if (azienda) {
+      dispatch(listNegozi(azienda));
     }
   }, [azienda]);
 
   React.useEffect(() => {
-    if (window.localStorage.getItem("negozio")) {
-      setNegozio(window.localStorage.getItem("negozio")!);
-    } else {
-      if (!isEmpty(listByAzienda)) {
-        setNegozio(listByAzienda![0].id!);
-      }
+    if (negozi) {
+      setNegozio(negozi[0].id!);
     }
-  }, [listByAzienda]);
+  }, [negozi]);
 
   return (
     <AziendaContext.Provider value={{ azienda, setAzienda }}>
