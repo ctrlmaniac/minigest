@@ -9,5 +9,6 @@ export default interface Fattura {
   tipoDocumento: TipoDocFisc;
   data: string;
   numero: string;
+  totale: number;
   reparti: FatturaReparto[];
 }

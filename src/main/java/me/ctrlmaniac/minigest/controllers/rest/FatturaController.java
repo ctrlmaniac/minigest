@@ -50,12 +50,12 @@ public class FatturaController {
 	}
 
 	@GetMapping("/acquisto/{id}")
-	public ResponseEntity<List<Fattura>> getAllByCommittente(@PathVariable String idAzienda) {
-		return new ResponseEntity<>(fatturaService.getAllByCommittente(idAzienda), HttpStatus.OK);
+	public ResponseEntity<List<Fattura>> getAllByCommittente(@PathVariable String id) {
+		return new ResponseEntity<>(fatturaService.getAllByCommittente(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/vendita/{id}")
-	public ResponseEntity<List<Fattura>> getAllByCedente(@PathVariable String idAzienda) {
-		return new ResponseEntity<>(fatturaService.getAllByCendente(idAzienda), HttpStatus.OK);
+	public ResponseEntity<List<Fattura>> getAllByCedente(@PathVariable String id) {
+		return new ResponseEntity<>(fatturaService.getAllByCendente(id), HttpStatus.OK);
 	}
 }

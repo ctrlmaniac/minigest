@@ -35,6 +35,12 @@ public class FatturaService {
 	}
 
 	public Fattura save(Fattura f) {
+		if (f.getReparti() != null) {
+			for (FatturaReparto ftReparto : f.getReparti()) {
+				fatturaRepartoService.save(ftReparto);
+			}
+		}
+
 		return fatturaRepo.save(f);
 	}
 
@@ -44,7 +50,7 @@ public class FatturaService {
 		if (azienda == null) {
 			return null;
 		} else {
-			return fatturaRepo.findByCedenteOrderByDataAsc(azienda);
+			return fatturaRepo.findAllByCedenteOrderByDataAsc(azienda);
 		}
 
 	}
@@ -53,9 +59,9 @@ public class FatturaService {
 		Azienda azienda = aziendaService.get(idAzienda);
 
 		if (azienda == null) {
-			return null;
+			return List.of();
 		} else {
-			return fatturaRepo.findByCommittenteOrderByDataAsc(azienda);
+			return fatturaRepo.findAllByCommittenteOrderByDataAsc(azienda);
 		}
 
 	}

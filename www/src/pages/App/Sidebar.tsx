@@ -13,6 +13,7 @@ import {
   IconBuildingStore,
   IconBuildingWarehouse,
   IconFile,
+  IconFileDescription,
   IconFiles,
   IconLayoutDashboard,
   IconUser,
@@ -75,6 +76,14 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconFiles />
             </ListItemIcon>
             <ListItemText primary="Chiusure Fiscali" />
+          </ListItemButton>
+          <ListItemButton
+            onClick={() => handleNavigate("/docfisc/fatture/vendita")}
+          >
+            <ListItemIcon>
+              <IconFileDescription />
+            </ListItemIcon>
+            <ListItemText primary="Fatture Vendita" />
           </ListItemButton>
         </List>
       </Box>

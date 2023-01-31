@@ -22,6 +22,8 @@ import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
 import ChiusureFiscaliAggiungi from "~/pages/ChiusureFiscali/Aggiungi";
 import ChiusureFiscaliDettagli from "~/pages/ChiusureFiscali/Dettagli";
 import ChiusureFiscaliModifica from "~/pages/ChiusureFiscali/Modifica";
+import FattureVenditaLista from "~/pages/FattureVendita/Lista";
+import FattureAggiungi from "~/pages/Fatture/Aggiungi";
 
 const router = createBrowserRouter([
   {
@@ -125,6 +127,19 @@ const router = createBrowserRouter([
               {
                 path: "modifica/:id",
                 element: <ChiusureFiscaliModifica />,
+              },
+            ],
+          },
+          {
+            path: "fatture",
+            children: [
+              {
+                path: "aggiungi",
+                element: <FattureAggiungi />,
+              },
+              {
+                path: "vendita",
+                element: <FattureVenditaLista />,
               },
             ],
           },
