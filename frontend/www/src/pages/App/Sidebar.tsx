@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import {
+  IconBuildingStore,
   IconBuildingWarehouse,
   IconLayoutDashboard,
   IconUser,
@@ -48,6 +49,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconBuildingWarehouse />
             </ListItemIcon>
             <ListItemText primary="Aziende" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/negozi")}>
+            <ListItemIcon>
+              <IconBuildingStore />
+            </ListItemIcon>
+            <ListItemText primary="Negozi" />
           </ListItemButton>
         </List>
       </Box>
