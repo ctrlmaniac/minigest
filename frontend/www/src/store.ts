@@ -6,6 +6,7 @@ import { accountSlice } from "./features/account/slice";
 import { aziendeSlice } from "./features/aziende/slice";
 import { negozioSlice } from "./features/negozi/slice";
 import { tipoDocFiscSlice } from "./features/tipoDocFisc/slice";
+import { chiusureFiscaliSlice } from "./features/chiusureFiscali/slice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     aziende: aziendeSlice.reducer,
     negozi: negozioSlice.reducer,
     tipiDocFisc: tipoDocFiscSlice.reducer,
+    chiusureFiscali: chiusureFiscaliSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
