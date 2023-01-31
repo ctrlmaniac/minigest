@@ -27,9 +27,15 @@ public class ChiusuraFiscaleController {
 	ChiusuraFiscaleService cfService;
 
 	@GetMapping("")
-	public ResponseEntity<List<ChiusuraFiscale>> getAll(@RequestParam(name = "negozio") String idNegozio) {
-		System.out.println(idNegozio);
-		return new ResponseEntity<>(cfService.getAll(idNegozio), HttpStatus.OK);
+	public ResponseEntity<List<ChiusuraFiscale>> getAll(@RequestParam(name = "negozio") String idNegozio,
+			@RequestParam(name = "limit", required = false) String limit) {
+
+		if (limit == null) {
+			return new ResponseEntity<>(cfService.getAll(idNegozio), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(cfService.getLatest7(idNegozio), HttpStatus.OK);
+		}
+
 	}
 
 	@GetMapping("/{id}")

@@ -11,10 +11,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Fattura {
 
 	@Id
@@ -42,9 +46,6 @@ public class Fattura {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<FatturaReparto> reparti;
 
-	public Fattura() {
-	}
-
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, String numero,
 			double totale, List<FatturaReparto> reparti) {
 		this.cedente = cedente;
@@ -53,70 +54,6 @@ public class Fattura {
 		this.data = data;
 		this.numero = numero;
 		this.totale = totale;
-		this.reparti = reparti;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Azienda getCedente() {
-		return cedente;
-	}
-
-	public void setCedente(Azienda cedente) {
-		this.cedente = cedente;
-	}
-
-	public Azienda getCommittente() {
-		return committente;
-	}
-
-	public void setCommittente(Azienda committente) {
-		this.committente = committente;
-	}
-
-	public TipoDocFisc getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-	public void setTipoDocumento(TipoDocFisc tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
-
-	public LocalDate getData() {
-		return data;
-	}
-
-	public void setData(LocalDate data) {
-		this.data = data;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public double getTotale() {
-		return totale;
-	}
-
-	public void setTotale(double totale) {
-		this.totale = totale;
-	}
-
-	public List<FatturaReparto> getReparti() {
-		return reparti;
-	}
-
-	public void setReparti(List<FatturaReparto> reparti) {
 		this.reparti = reparti;
 	}
 

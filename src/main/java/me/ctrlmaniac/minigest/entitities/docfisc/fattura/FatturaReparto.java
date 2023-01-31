@@ -5,8 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class FatturaReparto {
 
 	@Id
@@ -22,44 +26,9 @@ public class FatturaReparto {
 	@Column
 	private double imposta;
 
-	public FatturaReparto() {
-	}
-
 	public FatturaReparto(double aliquota, double imponibile, double imposta) {
 		this.aliquota = aliquota;
 		this.imponibile = imponibile;
-		this.imposta = imposta;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public double getAliquota() {
-		return aliquota;
-	}
-
-	public void setAliquota(double aliquota) {
-		this.aliquota = aliquota;
-	}
-
-	public double getImponibile() {
-		return imponibile;
-	}
-
-	public void setImponibile(double imponibile) {
-		this.imponibile = imponibile;
-	}
-
-	public double getImposta() {
-		return imposta;
-	}
-
-	public void setImposta(double imposta) {
 		this.imposta = imposta;
 	}
 

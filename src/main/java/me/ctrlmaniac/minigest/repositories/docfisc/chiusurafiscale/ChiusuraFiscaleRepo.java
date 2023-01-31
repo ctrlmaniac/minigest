@@ -8,5 +8,7 @@ import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 
 public interface ChiusuraFiscaleRepo extends JpaRepository<ChiusuraFiscale, String> {
-	List<ChiusuraFiscale> findAllByNegozio(Negozio negozio);
+	List<ChiusuraFiscale> findByNegozioOrderByDataAsc(Negozio negozio);
+
+	List<ChiusuraFiscale> findTop7ByNegozioOrderByDataDesc(Negozio negozio);
 }

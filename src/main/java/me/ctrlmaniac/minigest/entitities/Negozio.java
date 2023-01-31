@@ -6,9 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Negozio {
 
 	@Id
@@ -21,35 +25,8 @@ public class Negozio {
 	@Column
 	private String nome;
 
-	public Negozio() {
-	}
-
 	public Negozio(Azienda azienda, String nome) {
 		this.azienda = azienda;
-		this.nome = nome;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Azienda getAzienda() {
-		return azienda;
-	}
-
-	public void setAzienda(Azienda azienda) {
-		this.azienda = azienda;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
 		this.nome = nome;
 	}
 

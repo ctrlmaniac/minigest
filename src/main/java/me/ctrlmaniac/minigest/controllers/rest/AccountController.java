@@ -1,7 +1,6 @@
 package me.ctrlmaniac.minigest.controllers.rest;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,17 +30,13 @@ public class AccountController {
 	AccountRepo accountRepo;
 
 	@GetMapping("")
-	public ResponseEntity<Account> currentUser(Principal principal) {
-		List<Account> users = accountRepo.findByEmail(principal.getName());
-		Account account = new Account();
+	public ResponseEntity<?> currentUser(Principal principal) {
+		Account user = accountRepo.findByEmail(principal.getName());
 
-		if (users.size() == 0) {
-			return new ResponseEntity<Account>(account, HttpStatus.NOT_FOUND);
+		if (user == null) {
+			return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
 		} else {
-			account = new Account(users.get(0).getId(), users.get(0).getEmail(), users.get(0).getFname(),
-					users.get(0).getLname(),
-					users.get(0).getAziende());
-			return new ResponseEntity<Account>(account, HttpStatus.OK);
+			return new ResponseEntity<Account>(user, HttpStatus.OK);
 		}
 	}
 
