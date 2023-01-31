@@ -8,7 +8,11 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { IconLayoutDashboard, IconUser } from "@tabler/icons-react";
+import {
+  IconBuildingWarehouse,
+  IconLayoutDashboard,
+  IconUser,
+} from "@tabler/icons-react";
 
 interface Props {
   open: boolean;
@@ -38,6 +42,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconUser />
             </ListItemIcon>
             <ListItemText primary="Account" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/aziende")}>
+            <ListItemIcon>
+              <IconBuildingWarehouse />
+            </ListItemIcon>
+            <ListItemText primary="Aziende" />
           </ListItemButton>
         </List>
       </Box>

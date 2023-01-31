@@ -11,6 +11,7 @@ import Account from "~/pages/Account";
 import AziendeDettagli from "~/pages/Aziende/Dettagli";
 import AziendeModifica from "~/pages/Aziende/Modifica";
 import AziendeAggiungi from "~/pages/Aziende/Aggiungi";
+import AziendeLista from "~/pages/Aziende/Lista";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "aziende",
         children: [
+          {
+            path: "",
+            element: <AziendeLista />,
+          },
           {
             path: "aggiungi",
             element: <AziendeAggiungi />,

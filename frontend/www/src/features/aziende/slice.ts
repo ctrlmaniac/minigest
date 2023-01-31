@@ -8,8 +8,11 @@ interface AziendeState {
   putError?: string;
   posting: boolean;
   postError?: string;
+  listing: boolean;
+  listError?: string;
   dettagli?: Azienda;
   selected?: Azienda;
+  list?: Azienda[];
 }
 
 const initialState: AziendeState = {
@@ -19,8 +22,11 @@ const initialState: AziendeState = {
   putError: undefined,
   posting: false,
   postError: undefined,
+  listing: true,
+  listError: undefined,
   dettagli: undefined,
   selected: undefined,
+  list: undefined,
 };
 
 export const aziendeSlice = createSlice({
@@ -62,6 +68,16 @@ export const aziendeSlice = createSlice({
       state.postError = action.payload;
       state.posting = false;
     },
+    listSuccess: (state, action: PayloadAction<Azienda[]>) => {
+      state.list = action.payload;
+      state.listError = undefined;
+      state.listing = false;
+    },
+    listFail: (state, action: PayloadAction<string>) => {
+      state.list = undefined;
+      state.listError = action.payload;
+      state.listing = false;
+    },
   },
 });
 
@@ -75,6 +91,8 @@ export const {
   putFail,
   postSuccess,
   postFail,
+  listSuccess,
+  listFail,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;
