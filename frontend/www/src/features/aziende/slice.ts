@@ -4,6 +4,8 @@ import type { Azienda } from "~/types";
 interface AziendeState {
   getting: boolean;
   getError?: string;
+  putting: boolean;
+  putError?: boolean;
   dettagli?: Azienda;
   selected?: Azienda;
 }
@@ -11,12 +13,14 @@ interface AziendeState {
 const initialState: AziendeState = {
   getting: false,
   getError: undefined,
+  putting: false,
+  putError: undefined,
   dettagli: undefined,
   selected: undefined,
 };
 
 export const aziendeSlice = createSlice({
-  name: "account",
+  name: "aziende",
   initialState,
   reducers: {
     getStart: (state) => {
@@ -38,6 +42,14 @@ export const aziendeSlice = createSlice({
     getSelectedFail: (state, action: PayloadAction<string>) => {
       state.selected = undefined;
     },
+    putSuccess: (state) => {
+      state.getError = undefined;
+      state.getting = false;
+    },
+    putFail: (state, action: PayloadAction<string>) => {
+      state.getError = action.payload;
+      state.getting = false;
+    },
   },
 });
 
@@ -47,6 +59,8 @@ export const {
   getSuccess,
   getSelectedSuccess,
   getSelectedFail,
+  putSuccess,
+  putFail,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;

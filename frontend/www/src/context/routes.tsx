@@ -8,6 +8,8 @@ import NotFound from "~/pages/NotFound";
 import Dashboard from "~/pages/Dashboard";
 import ChiusureFiscali from "~/pages/ChiusureFiscali";
 import Account from "~/pages/Account";
+import AziendeDettagli from "~/pages/Aziende/Dettagli";
+import AziendeModifica from "~/pages/Aziende/Modifica";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,19 @@ const router = createBrowserRouter([
       {
         path: "account",
         element: <Account />,
+      },
+      {
+        path: "aziende",
+        children: [
+          {
+            path: "dettagli/:id",
+            element: <AziendeDettagli />,
+          },
+          {
+            path: "modifica/:id",
+            element: <AziendeModifica />,
+          },
+        ],
       },
       {
         path: "chiusure-fiscali",

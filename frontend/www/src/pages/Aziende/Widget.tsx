@@ -2,8 +2,10 @@ import React from "react";
 import { isEmpty } from "lodash";
 import { useAppSelector } from "~/hooks";
 import { Box, List, ListItemButton, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const AziendeWidget: React.FC = () => {
+  const navigate = useNavigate();
   const { dettagli: account } = useAppSelector((state) => state.account);
   const { selected } = useAppSelector((state) => state.aziende);
 
@@ -19,10 +21,9 @@ const AziendeWidget: React.FC = () => {
           <ListItemButton
             key={azienda.id}
             selected={selected?.id === azienda.id}
+            onClick={() => navigate(`/app/aziende/dettagli/${azienda.id}`)}
           >
-            {isEmpty(azienda.nome) && azienda.denominazione}
-            {isEmpty(azienda.denominazione) &&
-              azienda.nome + " " + azienda.cognome}
+            {azienda.denominazione}
           </ListItemButton>
         ))}
       </List>

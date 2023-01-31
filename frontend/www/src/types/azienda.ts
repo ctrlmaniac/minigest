@@ -2,10 +2,8 @@ import AziendaIndirizzo from "./aziendaIndirizzo";
 
 export default interface Azienda {
   id?: string;
-  denominazione: string;
   titolo: string;
-  nome: string;
-  cognome: string;
+  denominazione: string;
   codiceEORI: string;
   idFiscaleIVAPaese: string;
   idFiscaleIVACodice: string;

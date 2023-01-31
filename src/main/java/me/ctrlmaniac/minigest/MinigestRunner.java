@@ -71,7 +71,7 @@ public class MinigestRunner implements CommandLineRunner {
 				"Molinetto di Mazzano", "BS", "IT");
 		aziendaIndirizzoService.save(larapidaSede);
 
-		Azienda larapida = new Azienda("La Rapida di Davide Di Criscito", null, null, null, null, "IT",
+		Azienda larapida = new Azienda(null, "La Rapida di Davide Di Criscito", null, "IT",
 				"03792670980", "DCRDVD90E23B157R", larapidaSede, null, null);
 		aziendaService.save(larapida);
 
@@ -79,7 +79,7 @@ public class MinigestRunner implements CommandLineRunner {
 		AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25100", "Brescia", "BS", "IT");
 		aziendaIndirizzoService.save(shopSede);
 
-		Azienda shop = new Azienda("Shop", null, null, null, null, "IT", "12345678910", "12345678910", shopSede, null,
+		Azienda shop = new Azienda(null, "Shop", null, "IT", "12345678910", "12345678910", shopSede, null,
 				null);
 		aziendaService.save(shop);
 

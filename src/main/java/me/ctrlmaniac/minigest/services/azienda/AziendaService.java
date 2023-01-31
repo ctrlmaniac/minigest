@@ -52,8 +52,6 @@ public class AziendaService {
 
 			oldAzienda.setDenominazione(newAzienda.getDenominazione());
 			oldAzienda.setTitolo(newAzienda.getTitolo());
-			oldAzienda.setNome(newAzienda.getNome());
-			oldAzienda.setCognome(newAzienda.getCognome());
 			oldAzienda.setCodiceEORI(newAzienda.getCodiceEORI());
 			oldAzienda.setIdFiscaleIVAPaese(newAzienda.getIdFiscaleIVAPaese());
 			oldAzienda.setIdFiscaleIVACodice(newAzienda.getIdFiscaleIVACodice());
