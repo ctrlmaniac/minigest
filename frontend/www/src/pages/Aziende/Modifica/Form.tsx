@@ -70,7 +70,7 @@ const AziendeModificaForm: React.FC<Props> = ({ dettagli }) => {
   }, [errors]);
 
   const handleSubmit = () => {
-    dispatch(update(dettagli.id, values));
+    dispatch(update(dettagli.id!, values));
   };
 
   return (
