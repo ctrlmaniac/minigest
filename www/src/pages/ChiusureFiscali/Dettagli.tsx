@@ -108,7 +108,11 @@ const ChiusureFiscaliDettagli: React.FC = () => {
               <SpeedDialAction
                 icon={<IconPencil />}
                 tooltipTitle="modifica"
-                onClick={() => {}}
+                onClick={() =>
+                  navigate(
+                    `/app/docfisc/chiusure-fiscali/modifica/${dettagli?.id!}`
+                  )
+                }
               />
               <SpeedDialAction
                 icon={<IconTrash />}
