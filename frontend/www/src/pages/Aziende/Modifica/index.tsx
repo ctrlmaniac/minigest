@@ -1,13 +1,3 @@
-import {
-  Box,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { isEmpty } from "lodash";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { ErrorScreen, LoadingScreen } from "~/components";
