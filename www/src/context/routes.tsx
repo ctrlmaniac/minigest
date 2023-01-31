@@ -6,7 +6,7 @@ import Login from "~/pages/Login";
 import App from "~/pages/App";
 import NotFound from "~/pages/NotFound";
 import Dashboard from "~/pages/Dashboard";
-import ChiusureFiscali from "~/pages/ChiusureFiscali";
+import ChiusureFiscaliLista from "~/pages/ChiusureFiscali/Lista";
 import Account from "~/pages/Account";
 import AziendeDettagli from "~/pages/Aziende/Dettagli";
 import AziendeModifica from "~/pages/Aziende/Modifica";
@@ -19,6 +19,7 @@ import NegoziModifica from "~/pages/Negozi/Modifica";
 import TipoDocFiscLista from "~/pages/TipoDocFisc/Lista";
 import TipiDocFiscAggiungi from "~/pages/TipoDocFisc/Aggiungi";
 import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
+import ChiusureFiscaliAggiungi from "~/pages/ChiusureFiscali/Aggiungi";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,19 @@ const router = createBrowserRouter([
               {
                 path: "modifica/:id",
                 element: <TipiDocFiscModifica />,
+              },
+            ],
+          },
+          {
+            path: "chiusure-fiscali",
+            children: [
+              {
+                path: "",
+                element: <ChiusureFiscaliLista />,
+              },
+              {
+                path: "aggiungi",
+                element: <ChiusureFiscaliAggiungi />,
               },
             ],
           },
