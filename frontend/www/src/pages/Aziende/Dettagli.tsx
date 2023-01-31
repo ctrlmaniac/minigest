@@ -15,6 +15,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ErrorScreen, LoadingScreen } from "~/components";
 import get from "~/features/aziende/get";
+import remove from "~/features/aziende/remove";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const AziendeDettagli: React.FC = () => {
@@ -124,7 +125,7 @@ const AziendeDettagli: React.FC = () => {
               <SpeedDialAction
                 icon={<IconTrash />}
                 tooltipTitle="elimina"
-                onClick={() => {}}
+                onClick={() => dispatch(remove(azienda?.id!))}
               />
             </SpeedDial>
           </Container>
