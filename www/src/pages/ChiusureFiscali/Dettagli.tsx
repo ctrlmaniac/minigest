@@ -14,12 +14,13 @@ import {
 } from "@mui/material";
 import { ErrorScreen, LoadingScreen } from "~/components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import get from "~/features/chiusureFiscali/get";
 import { IconPencil, IconSettings, IconTrash } from "@tabler/icons-react";
 import remove from "~/features/chiusureFiscali/remove";
 
 const ChiusureFiscaliDettagli: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { dettagli, getting, getError } = useAppSelector(
@@ -34,7 +35,7 @@ const ChiusureFiscaliDettagli: React.FC = () => {
 
   const handleRemove = (id: string) => {
     dispatch(remove(id));
-    window.location.href = "/app/docfisc/chiusure-fiscali";
+    navigate("/app/docfisc/chiusure-fiscali");
   };
 
   if (getting) {
