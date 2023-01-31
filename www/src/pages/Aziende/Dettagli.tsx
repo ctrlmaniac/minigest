@@ -43,7 +43,7 @@ const AziendeDettagli: React.FC = () => {
       <>
         <Box mb={3}>
           <Typography variant="h3" component="h1">
-            Account
+            Dettagli Azienda
           </Typography>
         </Box>
 

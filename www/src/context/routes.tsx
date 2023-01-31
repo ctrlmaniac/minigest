@@ -24,6 +24,7 @@ import ChiusureFiscaliDettagli from "~/pages/ChiusureFiscali/Dettagli";
 import ChiusureFiscaliModifica from "~/pages/ChiusureFiscali/Modifica";
 import FattureVenditaLista from "~/pages/FattureVendita/Lista";
 import FattureAggiungi from "~/pages/Fatture/Aggiungi";
+import FattureDettagli from "~/pages/Fatture/Dettagli";
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
               {
                 path: "vendita",
                 element: <FattureVenditaLista />,
+              },
+              {
+                path: "dettagli/:id",
+                element: <FattureDettagli />,
               },
             ],
           },

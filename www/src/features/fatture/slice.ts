@@ -7,6 +7,9 @@ interface FatturaState {
   list?: Fattura[];
   posting: boolean;
   postError?: string;
+  getting: boolean;
+  getError?: string;
+  dettagli?: Fattura;
 }
 
 const initialState: FatturaState = {
@@ -15,6 +18,9 @@ const initialState: FatturaState = {
   list: undefined,
   posting: true,
   postError: undefined,
+  getting: true,
+  getError: undefined,
+  dettagli: undefined,
 };
 
 export const fattureSlice = createSlice({
@@ -39,10 +45,26 @@ export const fattureSlice = createSlice({
       state.postError = action.payload;
       state.posting = false;
     },
+    getSuccess: (state, action: PayloadAction<Fattura>) => {
+      state.dettagli = action.payload;
+      state.getError = undefined;
+      state.getting = false;
+    },
+    getFail: (state, action: PayloadAction<string>) => {
+      state.dettagli = undefined;
+      state.getError = action.payload;
+      state.getting = false;
+    },
   },
 });
 
-export const { listSuccess, listFail, postSuccess, postFail } =
-  fattureSlice.actions;
+export const {
+  listSuccess,
+  listFail,
+  postSuccess,
+  postFail,
+  getSuccess,
+  getFail,
+} = fattureSlice.actions;
 
 export default fattureSlice.reducer;
