@@ -10,7 +10,7 @@ export default function remove(id: string): AppThunk {
         dispatch(removeSuccess(id));
       })
       .catch((error) => {
-        dispatch(removeFail());
+        dispatch(removeFail(error.message));
       });
   };
 }

@@ -16,6 +16,9 @@ import NegoziLista from "~/pages/Negozi/Lista";
 import NegoziAggiungi from "~/pages/Negozi/Aggiungi";
 import NegoziDettagli from "~/pages/Negozi/Dettagli";
 import NegoziModifica from "~/pages/Negozi/Modifica";
+import TipoDocFiscLista from "~/pages/TipoDocFisc/Lista";
+import TipiDocFiscAggiungi from "~/pages/TipoDocFisc/Aggiungi";
+import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
 
 const router = createBrowserRouter([
   {
@@ -82,8 +85,26 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "chiusure-fiscali",
-        element: <ChiusureFiscali />,
+        path: "docfisc",
+        children: [
+          {
+            path: "tipi",
+            children: [
+              {
+                path: "",
+                element: <TipoDocFiscLista />,
+              },
+              {
+                path: "aggiungi",
+                element: <TipiDocFiscAggiungi />,
+              },
+              {
+                path: "modifica/:id",
+                element: <TipiDocFiscModifica />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

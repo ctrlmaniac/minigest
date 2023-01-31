@@ -1,7 +1,7 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { postSuccess, postFail } from "./slice";
-import { TipoDocFisc } from "~/models";
+import { TipoDocFisc } from "~/types";
 
 export default function post(tdf: TipoDocFisc): AppThunk {
   return async (dispatch) => {
@@ -9,9 +9,10 @@ export default function post(tdf: TipoDocFisc): AppThunk {
       .post(`${Endpoints.TIPO_DOC_FISC}`, tdf)
       .then((response) => {
         dispatch(postSuccess(response.data));
+        window.location.href = `/app/docfisc/tipi`;
       })
       .catch((error) => {
-        dispatch(postFail());
+        dispatch(postFail(error.message));
       });
   };
 }

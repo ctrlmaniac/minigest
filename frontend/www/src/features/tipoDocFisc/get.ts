@@ -10,7 +10,7 @@ export default function get(id: string): AppThunk {
         dispatch(getSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(getFail());
+        dispatch(getFail(error.message));
       });
   };
 }

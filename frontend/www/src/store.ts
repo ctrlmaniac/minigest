@@ -5,12 +5,14 @@ import logger from "redux-logger";
 import { accountSlice } from "./features/account/slice";
 import { aziendeSlice } from "./features/aziende/slice";
 import { negozioSlice } from "./features/negozi/slice";
+import { tipoDocFiscSlice } from "./features/tipoDocFisc/slice";
 
 export const store = configureStore({
   reducer: {
     account: accountSlice.reducer,
     aziende: aziendeSlice.reducer,
     negozi: negozioSlice.reducer,
+    tipiDocFisc: tipoDocFiscSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

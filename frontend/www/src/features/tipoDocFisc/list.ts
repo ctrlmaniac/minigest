@@ -12,7 +12,7 @@ export default function list(): AppThunk {
         dispatch(listSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(listFail());
+        dispatch(listFail(error.message));
       });
   };
 }

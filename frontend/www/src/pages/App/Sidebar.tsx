@@ -7,10 +7,12 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
 } from "@mui/material";
 import {
   IconBuildingStore,
   IconBuildingWarehouse,
+  IconFile,
   IconLayoutDashboard,
   IconUser,
 } from "@tabler/icons-react";
@@ -55,6 +57,15 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconBuildingStore />
             </ListItemIcon>
             <ListItemText primary="Negozi" />
+          </ListItemButton>
+        </List>
+
+        <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
+          <ListItemButton onClick={() => handleNavigate("/docfisc/tipi")}>
+            <ListItemIcon>
+              <IconFile />
+            </ListItemIcon>
+            <ListItemText primary="Tipi di Doc. Fisc." />
           </ListItemButton>
         </List>
       </Box>

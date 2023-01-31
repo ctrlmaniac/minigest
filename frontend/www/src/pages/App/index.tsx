@@ -74,7 +74,7 @@ const App: React.FC = () => {
           handleOpen={setOpenNegoziDialog}
         />
 
-        <Box mt={3} mb={12}>
+        <Box mt={12} mb={12}>
           <Container>
             <Outlet />
           </Container>
