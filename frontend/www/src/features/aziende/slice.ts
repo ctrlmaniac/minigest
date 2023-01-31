@@ -5,7 +5,9 @@ interface AziendeState {
   getting: boolean;
   getError?: string;
   putting: boolean;
-  putError?: boolean;
+  putError?: string;
+  posting: boolean;
+  postError?: string;
   dettagli?: Azienda;
   selected?: Azienda;
 }
@@ -15,6 +17,8 @@ const initialState: AziendeState = {
   getError: undefined,
   putting: false,
   putError: undefined,
+  posting: false,
+  postError: undefined,
   dettagli: undefined,
   selected: undefined,
 };
@@ -50,6 +54,14 @@ export const aziendeSlice = createSlice({
       state.getError = action.payload;
       state.getting = false;
     },
+    postSuccess: (state) => {
+      state.postError = undefined;
+      state.posting = false;
+    },
+    postFail: (state, action: PayloadAction<string>) => {
+      state.postError = action.payload;
+      state.posting = false;
+    },
   },
 });
 
@@ -61,6 +73,8 @@ export const {
   getSelectedFail,
   putSuccess,
   putFail,
+  postSuccess,
+  postFail,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;
