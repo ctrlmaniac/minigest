@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import AziendeWidget from "./Aziende/Widget";
+import NegoziWidget from "./Negozi/Widget";
 
 const Dashboard: React.FC = () => {
   return (
@@ -14,6 +15,9 @@ const Dashboard: React.FC = () => {
       >
         <Grid item xs={12} sm={6}>
           <AziendeWidget />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <NegoziWidget />
         </Grid>
       </Grid>
     </>

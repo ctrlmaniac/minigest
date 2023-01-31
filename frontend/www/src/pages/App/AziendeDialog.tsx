@@ -40,9 +40,7 @@ const AziendeDialog: React.FC<Props> = ({ open, handleOpen }) => {
             selected={azienda.id === selected?.id}
             onClick={() => handleChangeAzienda(azienda.id!)}
           >
-            {isEmpty(azienda.nome) && azienda.denominazione}
-            {isEmpty(azienda.denominazione) &&
-              azienda.nome + " " + azienda.cognome}
+            {azienda.denominazione}
           </ListItemButton>
         ))}
       </List>
@@ -50,7 +48,7 @@ const AziendeDialog: React.FC<Props> = ({ open, handleOpen }) => {
   }
 
   return (
-    <Dialog open={open || isEmpty(selected)} onClose={() => handleOpen(false)}>
+    <Dialog open={open} onClose={() => handleOpen(false)}>
       <DialogTitle>Seleziona Azienda</DialogTitle>
       <DialogContent>{content}</DialogContent>
     </Dialog>
