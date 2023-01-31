@@ -20,6 +20,7 @@ import TipoDocFiscLista from "~/pages/TipoDocFisc/Lista";
 import TipiDocFiscAggiungi from "~/pages/TipoDocFisc/Aggiungi";
 import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
 import ChiusureFiscaliAggiungi from "~/pages/ChiusureFiscali/Aggiungi";
+import ChiusureFiscaliDettagli from "~/pages/ChiusureFiscali/Dettagli";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
               {
                 path: "aggiungi",
                 element: <ChiusureFiscaliAggiungi />,
+              },
+              {
+                path: "dettagli/:id",
+                element: <ChiusureFiscaliDettagli />,
               },
             ],
           },
