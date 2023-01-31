@@ -7,10 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { AddFab } from "~/components";
 import { useAppSelector } from "~/hooks";
 
 const NegoziLista: React.FC = () => {
+  const navigate = useNavigate();
   const { listByAzienda: list } = useAppSelector((state) => state.negozi);
   const { selected } = useAppSelector((state) => state.aziende);
 
@@ -20,7 +22,10 @@ const NegoziLista: React.FC = () => {
     content = (
       <List>
         {list.map((negozio) => (
-          <ListItemButton>
+          <ListItemButton
+            key={negozio.id}
+            onClick={() => navigate(`/app/negozi/dettagli/${negozio.id!}`)}
+          >
             <ListItemText primary={negozio.nome} />
           </ListItemButton>
         ))}

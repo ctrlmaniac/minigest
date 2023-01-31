@@ -14,6 +14,7 @@ import AziendeAggiungi from "~/pages/Aziende/Aggiungi";
 import AziendeLista from "~/pages/Aziende/Lista";
 import NegoziLista from "~/pages/Negozi/Lista";
 import NegoziAggiungi from "~/pages/Negozi/Aggiungi";
+import NegoziDettagli from "~/pages/Negozi/Dettagli";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
           {
             path: "aggiungi",
             element: <NegoziAggiungi />,
+          },
+          {
+            path: "dettagli/:id",
+            element: <NegoziDettagli />,
           },
         ],
       },

@@ -68,6 +68,14 @@ export const negozioSlice = createSlice({
       state.putError = action.payload;
       state.putting = false;
     },
+    removeSuccess: (state) => {
+      state.removeError = undefined;
+      state.removing = false;
+    },
+    removeFail: (state, action: PayloadAction<string>) => {
+      state.removeError = action.payload;
+      state.removing = false;
+    },
   },
 });
 
@@ -81,6 +89,8 @@ export const {
   postFail,
   putSuccess,
   putFail,
+  removeSuccess,
+  removeFail,
 } = negozioSlice.actions;
 
 export default negozioSlice.reducer;

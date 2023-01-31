@@ -24,7 +24,10 @@ const NegoziWidget: React.FC = () => {
     content = (
       <List>
         {list?.map((negozio) => (
-          <ListItemButton selected={selected?.id! === negozio.id!}>
+          <ListItemButton
+            key={negozio.id}
+            selected={selected?.id! === negozio.id!}
+          >
             <ListItemText primary={negozio.nome} />
           </ListItemButton>
         ))}

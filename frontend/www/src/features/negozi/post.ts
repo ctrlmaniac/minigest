@@ -9,6 +9,7 @@ export default function post(negozio: Negozio): AppThunk {
       .post(`${Endpoints.NEGOZI}`, negozio)
       .then((response) => {
         dispatch(postSuccess());
+        window.location.href = "/app/negozi";
       })
       .catch((error) => {
         dispatch(postFail(error.message));
