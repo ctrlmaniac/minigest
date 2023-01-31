@@ -9,6 +9,7 @@ export default function update(id: string, negozio: Negozio): AppThunk {
       .put(`${Endpoints.NEGOZI}/${id}`, negozio)
       .then((response) => {
         dispatch(putSuccess());
+        window.location.href = `/app/negozi/dettagli/${response.data.id}`;
       })
       .catch((error) => {
         dispatch(putFail(error.message));
