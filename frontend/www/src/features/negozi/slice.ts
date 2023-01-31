@@ -31,7 +31,7 @@ const initialState: NegozioState = {
 };
 
 export const negozioSlice = createSlice({
-  name: "negozio",
+  name: "negozi",
   initialState,
   reducers: {
     getSuccess: (state, action: PayloadAction<Negozio>) => {
