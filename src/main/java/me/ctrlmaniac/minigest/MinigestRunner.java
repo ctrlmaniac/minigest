@@ -17,6 +17,8 @@ import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.services.AccountService;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
@@ -24,6 +26,8 @@ import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
 @Component
 public class MinigestRunner implements CommandLineRunner {
@@ -51,6 +55,12 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	NegozioService negozioService;
+
+	@Autowired
+	FatturaService fatturaService;
+
+	@Autowired
+	FatturaRepartoService fatturaRepartoService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -165,6 +175,23 @@ public class MinigestRunner implements CommandLineRunner {
 		TDFService.save(TD26);
 		TDFService.save(TD27);
 		TDFService.save(TD28);
+
+		// Crea Due Fatture
+		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 409.84, 90.16);
+		FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 409.84, 90.16);
+		fatturaRepartoService.save(ftRepartoFt1);
+		fatturaRepartoService.save(ftRepartoFt2);
+
+		List<FatturaReparto> ft1Reparti = new ArrayList<>();
+		ft1Reparti.add(ftRepartoFt1);
+
+		List<FatturaReparto> ft2Reparti = new ArrayList<>();
+		ft1Reparti.add(ftRepartoFt2);
+
+		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), "12345", 500, ft1Reparti);
+		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), "54321", 500, ft2Reparti);
+		fatturaService.save(ft1);
+		fatturaService.save(ft2);
 
 		System.out.println("Application started at http://localhost:8080");
 	}

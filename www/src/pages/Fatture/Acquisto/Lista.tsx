@@ -54,7 +54,7 @@ const FattureAcquistoLista: React.FC = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Data</TableCell>
-                      <TableCell>Committente</TableCell>
+                      <TableCell>Cedente</TableCell>
                       <TableCell>Numero</TableCell>
                       <TableCell>Totale</TableCell>
                     </TableRow>
@@ -63,9 +63,7 @@ const FattureAcquistoLista: React.FC = () => {
                     {fatture?.map((fattura) => (
                       <TableRow key={fattura.id!}>
                         <TableCell>{fattura.data}</TableCell>
-                        <TableCell>
-                          {fattura.committente.denominazione}
-                        </TableCell>
+                        <TableCell>{fattura.cedente.denominazione}</TableCell>
                         <TableCell>{fattura.numero}</TableCell>
                         <TableCell>€ {fattura.totale}</TableCell>
                       </TableRow>
