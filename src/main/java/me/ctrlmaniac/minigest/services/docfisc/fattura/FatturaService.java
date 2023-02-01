@@ -52,7 +52,16 @@ public class FatturaService {
 		} else {
 			return fatturaRepo.findAllByCedenteOrderByDataAsc(azienda);
 		}
+	}
 
+	public List<Fattura> getAllByCommittente(String idAzienda) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return List.of();
+		} else {
+			return fatturaRepo.findAllByCommittenteOrderByDataAsc(azienda);
+		}
 	}
 
 	public List<Fattura> getAllByCedenteByData(String idAzienda, String year, String month) {
@@ -75,15 +84,24 @@ public class FatturaService {
 		}
 	}
 
-	public List<Fattura> getAllByCommittente(String idAzienda) {
+	public List<Fattura> getAllByCedenteByDataSDI(String idAzienda, String year, String month) {
 		Azienda azienda = aziendaService.get(idAzienda);
 
 		if (azienda == null) {
-			return List.of();
+			return null;
 		} else {
-			return fatturaRepo.findAllByCommittenteOrderByDataAsc(azienda);
+			return fatturaRepo.findAllByCedenteByDataSdiAsc(azienda, year, month);
 		}
+	}
 
+	public List<Fattura> getAllByCommittenteByDataSDI(String idAzienda, String year, String month) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCommittenteByDataSdiAsc(azienda, year, month);
+		}
 	}
 
 	public Fattura update(String id, Fattura newFattura) {

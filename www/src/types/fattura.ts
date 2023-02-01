@@ -8,6 +8,7 @@ export default interface Fattura {
   committente: Azienda;
   tipoDocumento: TipoDocFisc;
   data: string;
+  dataSDI?: string;
   numero: string;
   totale: number;
   reparti: FatturaReparto[];

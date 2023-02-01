@@ -1,19 +1,26 @@
 import {
   Alert,
   Box,
+  FormControl,
+  Grid,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 import { IconFile } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AddFab, ErrorScreen, LoadingScreen } from "~/components";
 import listAcquisto from "~/features/fatture/listAcquisto";
 import { useAppDispatch, useAppSelector } from "~/hooks";
@@ -29,11 +36,70 @@ const FattureAcquistoLista: React.FC = () => {
     listing,
   } = useAppSelector((state) => state.fatture);
 
+  const [values, setValues] = React.useState({
+    anno: new Date().getFullYear(),
+    mese: new Date().getMonth() + 1,
+    order: "data",
+  });
+
+  const [errors, setErrors] = React.useState({
+    anno: false,
+    mese: false,
+  });
+
+  let [searchParams, setSearchParams] = useSearchParams({
+    anno: values.anno.toString(),
+    mese: values.mese.toString(),
+    order: "data",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
+
+    const valueAsInt = parseInt(value);
+
+    if (name === "anno") {
+      setErrors({
+        ...errors,
+        anno: valueAsInt < 1970 || valueAsInt > new Date().getFullYear(),
+      });
+    }
+
+    if (name === "mese") {
+      setErrors({
+        ...errors,
+        mese: valueAsInt < 1 || valueAsInt > 12,
+      });
+    }
+  };
+
+  const handleOrderChange = (e: SelectChangeEvent<string>) => {
+    const { value } = e.target;
+
+    setValues({
+      ...values,
+      order: value,
+    });
+  };
+
+  React.useEffect(() => {
+    setSearchParams({
+      anno: values.anno.toString(),
+      mese: values.mese.toString(),
+      order: values.order,
+    });
+  }, [azienda, values]);
+
   React.useEffect(() => {
     if (azienda) {
-      dispatch(listAcquisto(azienda.id!));
+      dispatch(listAcquisto(azienda.id!, searchParams.toString()));
     }
-  }, [azienda]);
+  }, [azienda, searchParams]);
 
   if (listing) {
     return <LoadingScreen />;
@@ -44,6 +110,59 @@ const FattureAcquistoLista: React.FC = () => {
       <>
         <Box mb={3}>
           <Typography variant="h3">Fatture Acquisto</Typography>
+        </Box>
+
+        <Box mb={3}>
+          <Paper>
+            <Box p={2}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                spacing={2}
+              >
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    type="number"
+                    label="Anno"
+                    name="anno"
+                    value={values.anno}
+                    error={errors.anno}
+                    onChange={handleChange}
+                    inputProps={{ max: new Date().getFullYear() }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    type="number"
+                    label="Mese"
+                    name="mese"
+                    value={values.mese}
+                    error={errors.mese}
+                    onChange={handleChange}
+                    inputProps={{ min: 1, max: 12 }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Ordina per data/data SDI</InputLabel>
+                    <Select
+                      value={values.order}
+                      label="Ordina per data/data SDI"
+                      name="order"
+                      onChange={handleOrderChange}
+                    >
+                      <MenuItem value="data">Data fattura</MenuItem>
+                      <MenuItem value="sdi">Data SDI</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Box>
+          </Paper>
         </Box>
 
         <Box>
@@ -57,7 +176,9 @@ const FattureAcquistoLista: React.FC = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
+                      <TableCell>Tipo</TableCell>
                       <TableCell>Data</TableCell>
+                      <TableCell>Data SDI</TableCell>
                       <TableCell>Cedente</TableCell>
                       <TableCell>Numero</TableCell>
                       <TableCell>Totale</TableCell>
@@ -69,7 +190,9 @@ const FattureAcquistoLista: React.FC = () => {
                   <TableBody>
                     {fatture?.map((fattura) => (
                       <TableRow key={fattura.id!}>
+                        <TableCell>{fattura.tipoDocumento.codice}</TableCell>
                         <TableCell>{fattura.data}</TableCell>
+                        <TableCell>{fattura.dataSDI}</TableCell>
                         <TableCell>{fattura.cedente.denominazione}</TableCell>
                         <TableCell>{fattura.numero}</TableCell>
                         <TableCell>€ {fattura.totale}</TableCell>

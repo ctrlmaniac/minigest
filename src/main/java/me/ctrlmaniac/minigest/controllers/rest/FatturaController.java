@@ -53,9 +53,14 @@ public class FatturaController {
 	@GetMapping("/acquisto/{id}")
 	public ResponseEntity<List<Fattura>> getAllByCommittente(@PathVariable String id,
 			@RequestParam(name = "anno", required = false) String year,
-			@RequestParam(name = "mese", required = false) String month) {
+			@RequestParam(name = "mese", required = false) String month,
+			@RequestParam(name = "order", required = false) String order) {
 
 		if (year != null && month != null) {
+			if (order.equals("sdi")) {
+				return new ResponseEntity<>(fatturaService.getAllByCommittenteByDataSDI(id, year, month),
+						HttpStatus.OK);
+			}
 			return new ResponseEntity<>(fatturaService.getAllByCommittenteByData(id, year, month), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(fatturaService.getAllByCommittente(id), HttpStatus.OK);
@@ -65,10 +70,15 @@ public class FatturaController {
 	@GetMapping("/vendita/{id}")
 	public ResponseEntity<List<Fattura>> getAllByCedente(@PathVariable String id,
 			@RequestParam(name = "anno", required = false) String year,
-			@RequestParam(name = "mese", required = false) String month) {
+			@RequestParam(name = "mese", required = false) String month,
+			@RequestParam(name = "order", required = false) String order) {
 
 		if (year != null && month != null) {
-			return new ResponseEntity<>(fatturaService.getAllByCedenteByData(id, year, month), HttpStatus.OK);
+			if (order.equals("sdi")) {
+				return new ResponseEntity<>(fatturaService.getAllByCedenteByDataSDI(id, year, month), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(fatturaService.getAllByCedenteByData(id, year, month), HttpStatus.OK);
+			}
 		} else {
 			return new ResponseEntity<>(fatturaService.getAllByCendente(id), HttpStatus.OK);
 		}
