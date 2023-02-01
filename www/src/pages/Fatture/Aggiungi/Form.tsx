@@ -25,6 +25,8 @@ import { useAppDispatch } from "~/hooks";
 import post from "~/features/fatture/post";
 import FatturaScadenza from "~/types/fatturaScadenza";
 import FormScadenza from "./FormScadenza";
+import FatturaPagamento from "~/types/fatturaPagamento";
+import FormPagamento from "./FormPagamento";
 
 interface Props {
   tipiDocumento: TipoDocFisc[];
@@ -40,6 +42,7 @@ interface ValuesState {
   totale: number;
   reparti: FatturaReparto[] | [];
   scadenze: FatturaScadenza[] | [];
+  pagamenti: FatturaPagamento[] | [];
 }
 
 const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
@@ -54,6 +57,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
     totale: 0,
     reparti: [],
     scadenze: [],
+    pagamenti: [],
   });
 
   const [errors, setErrors] = React.useState({
@@ -65,10 +69,12 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
     totale: false,
     reparti: true,
     scadenze: true,
+    pagamenti: false,
   });
 
   const [openFormReparti, setOpenFormReparti] = React.useState(false);
   const [openFormScadenze, setOpenFormScadenze] = React.useState(false);
+  const [openFormPagamenti, setOpenFormPagamenti] = React.useState(false);
   const [isDisabled, setIsDisabled] = React.useState(true);
 
   React.useEffect(() => {
@@ -199,6 +205,26 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
     });
   };
 
+  // PAGAMENTI
+  const handleSubmitPagamento = (pagamento: FatturaPagamento) => {
+    const pagamenti = [...values.pagamenti, pagamento];
+
+    setValues({
+      ...values,
+      pagamenti: pagamenti,
+    });
+  };
+
+  const handleDeletePagamento = (index: number) => {
+    const pagamenti = [...values.pagamenti];
+    pagamenti.splice(index, 1);
+
+    setValues({
+      ...values,
+      pagamenti: pagamenti,
+    });
+  };
+
   const handleSubmit = () => {
     const fattura = {
       cedente: values.cedente!,
@@ -209,6 +235,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
       totale: values.totale,
       reparti: values.reparti!,
       scadenze: values.scadenze!,
+      pagamenti: values.pagamenti!,
     };
 
     dispatch(post(fattura));
@@ -404,7 +431,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
         </Paper>
       </Box>
 
-      <Box>
+      <Box mb={3}>
         <Paper>
           <Box p={2}>
             <Grid
@@ -466,6 +493,68 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
         </Paper>
       </Box>
 
+      <Box>
+        <Paper>
+          <Box p={2}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <Grid item xs={6}>
+                <Typography variant="h6" gutterBottom>
+                  Pagamenti
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{ textAlign: "right" }}>
+                  <Button onClick={() => setOpenFormPagamenti(true)}>
+                    aggiungi
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Box mt={2}>
+              {isEmpty(values.pagamenti) ? (
+                <Alert severity="warning">
+                  Questa fattura non ha pagamenti registrati
+                </Alert>
+              ) : (
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Data</TableCell>
+                      <TableCell>Importo</TableCell>
+                      <TableCell sx={{ width: 50 }} align="center">
+                        <IconTrash />
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {values.pagamenti.map((pagamento, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{pagamento.data}</TableCell>
+                        <TableCell>€ {pagamento.importo}</TableCell>
+                        <TableCell>
+                          <IconButton
+                            color="error"
+                            onClick={() => handleDeletePagamento(i)}
+                          >
+                            <IconTrash />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+
       <FormReparto
         open={openFormReparti}
         handleClose={setOpenFormReparti}
@@ -476,6 +565,12 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
         open={openFormScadenze}
         handleClose={setOpenFormScadenze}
         onSubmit={handleSubmitScadenza}
+      />
+
+      <FormPagamento
+        open={openFormPagamenti}
+        handleClose={setOpenFormPagamenti}
+        onSubmit={handleSubmitPagamento}
       />
 
       <SaveFab disabled={isDisabled} handleClick={handleSubmit} />

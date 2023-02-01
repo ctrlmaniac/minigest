@@ -1,4 +1,5 @@
 import Azienda from "./azienda";
+import FatturaPagamento from "./fatturaPagamento";
 import FatturaReparto from "./fatturaReparto";
 import FatturaScadenza from "./fatturaScadenza";
 import TipoDocFisc from "./tipoDocFisc";
@@ -14,4 +15,5 @@ export default interface Fattura {
   totale: number;
   reparti: FatturaReparto[];
   scadenze: FatturaScadenza[];
+  pagamenti?: FatturaPagamento[];
 }

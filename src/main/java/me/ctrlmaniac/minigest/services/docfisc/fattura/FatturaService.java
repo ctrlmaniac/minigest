@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
@@ -51,6 +52,12 @@ public class FatturaService {
 		if (f.getScadenze() != null) {
 			for (FatturaScadenza scadenza : f.getScadenze()) {
 				fatturaScadenzaService.save(scadenza);
+			}
+		}
+
+		if (f.getPagamenti() != null) {
+			for (FatturaPagamento pagamento : f.getPagamenti()) {
+				fatturaPagamentoService.save(pagamento);
 			}
 		}
 
@@ -144,8 +151,16 @@ public class FatturaService {
 				}
 			}
 
+			// Salva i nuovi pagamenti
+			for (FatturaPagamento pagamento : newFattura.getPagamenti()) {
+				if (pagamento.getId() == null) {
+					fatturaPagamentoService.save(pagamento);
+				}
+			}
+
 			oldFattura.setReparti(newFattura.getReparti());
 			oldFattura.setScadenze(newFattura.getScadenze());
+			oldFattura.setPagamenti(newFattura.getPagamenti());
 
 			Fattura fattura = fatturaRepo.save(oldFattura);
 
@@ -160,6 +175,13 @@ public class FatturaService {
 			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
 				if (!newFattura.getScadenze().contains(scadenza)) {
 					fatturaScadenzaService.deleteById(scadenza.getId());
+				}
+			}
+
+			// Elimina i vecchi pagamenti
+			for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
+				if (!newFattura.getPagamenti().contains(pagamento)) {
+					fatturaPagamentoService.deleteById(pagamento.getId());
 				}
 			}
 
