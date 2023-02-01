@@ -46,7 +46,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
     cedente: null,
     committente: null,
     tipoDocumento: find(tipiDocumento, ["descrizione", "fattura"]) || null,
-    data: "",
+    data: new Date().toISOString().split("T")[0],
     numero: "",
     totale: 0,
     reparti: [],
@@ -198,7 +198,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
                   disablePortal
                   options={tipiDocumento}
                   getOptionLabel={(option) => option.descrizione}
-                  defaultValue={find(tipiDocumento, ["descrizione", "fattura"])}
+                  value={values.tipoDocumento}
                   isOptionEqualToValue={(option, value) =>
                     option.descrizione === value.descrizione
                   }
@@ -221,6 +221,10 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
                   disablePortal
                   options={aziende}
                   getOptionLabel={(option) => option.denominazione}
+                  value={values.cedente}
+                  isOptionEqualToValue={(option, value) =>
+                    option.denominazione === value.denominazione
+                  }
                   onChange={handleCedenteChange}
                   renderInput={(params) => (
                     <TextField
@@ -240,6 +244,10 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
                   disablePortal
                   options={aziende!}
                   getOptionLabel={(option) => option.denominazione}
+                  value={values.committente}
+                  isOptionEqualToValue={(option, value) =>
+                    option.denominazione === value.denominazione
+                  }
                   onChange={handleCommittenteChange}
                   renderInput={(params) => (
                     <TextField
