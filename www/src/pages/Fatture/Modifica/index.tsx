@@ -14,10 +14,16 @@ const FattureModifica: React.FC = () => {
   const { dettagli, getting, getError } = useAppSelector(
     (state) => state.fatture
   );
-  const { list: aziende, listing } = useAppSelector((state) => state.aziende);
-  const { list: tdfs, listing: tdfsListing } = useAppSelector(
-    (state) => state.tipiDocFisc
-  );
+  const {
+    list: aziende,
+    listing,
+    listError,
+  } = useAppSelector((state) => state.aziende);
+  const {
+    list: tdfs,
+    listing: tdfsListing,
+    listError: tdfsListError,
+  } = useAppSelector((state) => state.tipiDocFisc);
 
   React.useEffect(() => {
     dispatch(listAziende());
@@ -30,8 +36,8 @@ const FattureModifica: React.FC = () => {
 
   if (getting || listing || tdfsListing) {
     return <LoadingScreen />;
-  } else if (getError) {
-    return <ErrorScreen message={getError} />;
+  } else if (getError || listError || tdfsListError) {
+    return <ErrorScreen message="Errore caricamento dati" />;
   } else {
     return (
       <Form dettagli={dettagli!} aziende={aziende!} tipiDocumento={tdfs!} />

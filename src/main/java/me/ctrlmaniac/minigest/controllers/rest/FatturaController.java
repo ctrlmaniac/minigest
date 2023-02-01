@@ -60,8 +60,9 @@ public class FatturaController {
 			if (order.equals("sdi")) {
 				return new ResponseEntity<>(fatturaService.getAllByCommittenteByDataSDI(id, year, month),
 						HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(fatturaService.getAllByCommittenteByData(id, year, month), HttpStatus.OK);
 			}
-			return new ResponseEntity<>(fatturaService.getAllByCommittenteByData(id, year, month), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(fatturaService.getAllByCommittente(id), HttpStatus.OK);
 		}

@@ -17,6 +17,7 @@ import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ErrorScreen, LoadingScreen } from "~/components";
 import get from "~/features/fatture/get";
+import remove from "~/features/fatture/remove";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const FattureDettagli: React.FC = () => {
@@ -33,6 +34,11 @@ const FattureDettagli: React.FC = () => {
       dispatch(get(id));
     }
   }, [id]);
+
+  const handleDelete = () => {
+    dispatch(remove(id!));
+    navigate(-1);
+  };
 
   if (getting) {
     return <LoadingScreen />;
@@ -147,7 +153,7 @@ const FattureDettagli: React.FC = () => {
               <SpeedDialAction
                 icon={<IconTrash />}
                 tooltipTitle="elimina"
-                onClick={() => {}}
+                onClick={handleDelete}
               />
             </SpeedDial>
           </Container>

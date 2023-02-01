@@ -145,7 +145,7 @@ public class MinigestRunner implements CommandLineRunner {
 		TipoDocFisc TD01 = TDFService.getByCodice("TD01");
 
 		// Crea Due Fatture
-		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 409.84, 90.16);
+		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 819.67, 180.33);
 		FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 409.84, 90.16);
 		fatturaRepartoService.save(ftRepartoFt1);
 		fatturaRepartoService.save(ftRepartoFt2);
@@ -157,7 +157,7 @@ public class MinigestRunner implements CommandLineRunner {
 		ft1Reparti.add(ftRepartoFt2);
 
 		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "12345",
-				500, ft1Reparti, null, null);
+				1000, ft1Reparti, null, null);
 		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "54321",
 				500, ft2Reparti, null, null);
 		fatturaService.save(ft1);

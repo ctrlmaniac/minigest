@@ -130,7 +130,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende, dettagli }) => {
     if (required) {
       setErrors({
         ...errors,
-        [name]: value.length < 1,
+        [name]: value.toString().length < 1,
       });
     }
   };
