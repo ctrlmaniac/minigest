@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import { LoadingScreen } from "~/components";
 
 // pages
 const Home = React.lazy(() => import("~/pages/Home"));
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
       },
       {
         path: "account",
-        element: <Account />,
+        element: (
+          <React.Suspense fallback={<LoadingScreen />}>
+            <Account />
+          </React.Suspense>
+        ),
       },
       {
         path: "aziende",

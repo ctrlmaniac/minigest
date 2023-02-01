@@ -1,1 +1,0 @@
-import{j as t}from"./index-f45c03a1.js";import{B as n}from"./Box-3112786e.js";const i=e=>t(n,{sx:{height:"80vh",display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"},children:e.children||null});export{i as S};
