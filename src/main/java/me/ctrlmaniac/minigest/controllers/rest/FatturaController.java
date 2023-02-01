@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
@@ -50,12 +51,26 @@ public class FatturaController {
 	}
 
 	@GetMapping("/acquisto/{id}")
-	public ResponseEntity<List<Fattura>> getAllByCommittente(@PathVariable String id) {
-		return new ResponseEntity<>(fatturaService.getAllByCommittente(id), HttpStatus.OK);
+	public ResponseEntity<List<Fattura>> getAllByCommittente(@PathVariable String id,
+			@RequestParam(name = "anno", required = false) String year,
+			@RequestParam(name = "mese", required = false) String month) {
+
+		if (year != null && month != null) {
+			return new ResponseEntity<>(fatturaService.getAllByCommittenteByData(id, year, month), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(fatturaService.getAllByCommittente(id), HttpStatus.OK);
+		}
 	}
 
 	@GetMapping("/vendita/{id}")
-	public ResponseEntity<List<Fattura>> getAllByCedente(@PathVariable String id) {
-		return new ResponseEntity<>(fatturaService.getAllByCendente(id), HttpStatus.OK);
+	public ResponseEntity<List<Fattura>> getAllByCedente(@PathVariable String id,
+			@RequestParam(name = "anno", required = false) String year,
+			@RequestParam(name = "mese", required = false) String month) {
+
+		if (year != null && month != null) {
+			return new ResponseEntity<>(fatturaService.getAllByCedenteByData(id, year, month), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(fatturaService.getAllByCendente(id), HttpStatus.OK);
+		}
 	}
 }

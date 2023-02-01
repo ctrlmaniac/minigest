@@ -55,6 +55,26 @@ public class FatturaService {
 
 	}
 
+	public List<Fattura> getAllByCedenteByData(String idAzienda, String year, String month) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCedenteByData(azienda, year, month);
+		}
+	}
+
+	public List<Fattura> getAllByCommittenteByData(String idAzienda, String year, String month) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCommittenteByData(azienda, year, month);
+		}
+	}
+
 	public List<Fattura> getAllByCommittente(String idAzienda) {
 		Azienda azienda = aziendaService.get(idAzienda);
 
