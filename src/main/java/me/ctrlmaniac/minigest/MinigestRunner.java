@@ -81,7 +81,7 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.warn("Runner start");
+		log.info("Runner start");
 
 		// Crea un'azienda
 		AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
@@ -164,7 +164,7 @@ public class MinigestRunner implements CommandLineRunner {
 		fatturaService.save(ft2);
 
 		System.out.println("Application started at http://localhost:8080");
-		log.warn("Runner ends");
+		log.info("Runner ends");
 	}
 
 	private List<TipoDocFisc> loadTipiDocFiscFromCsv(String filename) {
