@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
@@ -30,6 +31,7 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
 @Component
+@Slf4j
 public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
@@ -76,6 +78,8 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		log.warn("Runner start");
+
 		// Crea un'azienda
 		AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
 				"Molinetto di Mazzano", "BS", "IT");
@@ -194,6 +198,7 @@ public class MinigestRunner implements CommandLineRunner {
 		fatturaService.save(ft2);
 
 		System.out.println("Application started at http://localhost:8080");
+		log.warn("Runner ends");
 	}
 
 }

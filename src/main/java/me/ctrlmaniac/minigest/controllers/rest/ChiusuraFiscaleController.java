@@ -26,16 +26,28 @@ public class ChiusuraFiscaleController {
 	@Autowired
 	ChiusuraFiscaleService cfService;
 
+	@PostMapping("")
+	public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscale cf) {
+		cfService.save(cf);
+		return new ResponseEntity<ChiusuraFiscale>(cf, HttpStatus.CREATED);
+	}
+
 	@GetMapping("")
-	public ResponseEntity<List<ChiusuraFiscale>> getAll(@RequestParam(name = "negozio") String idNegozio,
-			@RequestParam(name = "limit", required = false) String limit) {
+	public ResponseEntity<List<ChiusuraFiscale>> getAllByNegozio(
+			@RequestParam(name = "negozio", required = true) String idNegozio) {
+		return new ResponseEntity<>(cfService.getAll(idNegozio), HttpStatus.OK);
+	}
 
-		if (limit == null) {
-			return new ResponseEntity<>(cfService.getAll(idNegozio), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(cfService.getLatest7(idNegozio), HttpStatus.OK);
-		}
+	@GetMapping("/last7")
+	public ResponseEntity<List<ChiusuraFiscale>> getLast7(
+			@RequestParam(name = "negozio", required = true) String idNegozio) {
+		return new ResponseEntity<>(cfService.getLast7(idNegozio), HttpStatus.OK);
+	}
 
+	@GetMapping("/{negozio}/{year}-{month}")
+	public ResponseEntity<List<ChiusuraFiscale>> getAllByNegozioByData(@PathVariable String idNegozio,
+			@PathVariable int year, @PathVariable int month) {
+		return new ResponseEntity<>(cfService.getAllByNegozioByData(idNegozio, year, month), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -43,12 +55,6 @@ public class ChiusuraFiscaleController {
 		ChiusuraFiscale cf = cfService.get(id);
 
 		return new ResponseEntity<>(cf, cf == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
-	}
-
-	@PostMapping("")
-	public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscale cf) {
-		cfService.save(cf);
-		return new ResponseEntity<ChiusuraFiscale>(cf, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")

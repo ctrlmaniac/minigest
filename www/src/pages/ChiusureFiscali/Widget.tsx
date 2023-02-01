@@ -4,7 +4,6 @@ import {
   Button,
   IconButton,
   Paper,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -16,7 +15,7 @@ import { IconFile } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import getLatest5 from "~/features/chiusureFiscali/getLatest5";
+import getLast7 from "~/features/chiusureFiscali/getLast7";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const ChiusureFiscaliWidget = () => {
@@ -30,7 +29,7 @@ const ChiusureFiscaliWidget = () => {
 
   React.useEffect(() => {
     if (negozio) {
-      dispatch(getLatest5(negozio.id!));
+      dispatch(getLast7(negozio.id!));
     }
   }, [negozio]);
 

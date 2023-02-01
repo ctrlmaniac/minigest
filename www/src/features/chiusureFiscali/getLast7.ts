@@ -2,9 +2,9 @@ import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { listSuccess, listFail } from "./slice";
 
-export default function getLatest5(idNegozio: string): AppThunk {
+export default function getLast7(idNegozio: string): AppThunk {
   return async (dispatch) => {
-    let endpoint = `${Endpoints.CHIUSURE_FISCALI}?negozio=${idNegozio}&limit=5`;
+    let endpoint = `${Endpoints.CHIUSURE_FISCALI}/last7?negozio=${idNegozio}`;
 
     api
       .get(endpoint)

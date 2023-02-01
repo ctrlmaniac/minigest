@@ -57,7 +57,11 @@ public class ChiusuraFiscaleService {
 
 	}
 
-	public List<ChiusuraFiscale> getLatest7(String idNegozio) {
+	public List<ChiusuraFiscale> getAllByNegozioByData(String idNegozio, int year, int month) {
+		return cfRepo.findAllByNegozioByYearByMonth(idNegozio, year, month);
+	}
+
+	public List<ChiusuraFiscale> getLast7(String idNegozio) {
 		Optional<Negozio> negozioOpt = negozioRepo.findById(idNegozio);
 
 		if (negozioOpt.isPresent()) {
