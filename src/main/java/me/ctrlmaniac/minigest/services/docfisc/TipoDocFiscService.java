@@ -25,6 +25,16 @@ public class TipoDocFiscService {
 		return null;
 	}
 
+	public TipoDocFisc getByCodice(String codice) {
+		TipoDocFisc tdf = tdfRepo.findByCodice(codice);
+
+		if (tdf == null) {
+			return null;
+		} else {
+			return tdf;
+		}
+	}
+
 	public TipoDocFisc save(TipoDocFisc cf) {
 		return tdfRepo.save(cf);
 	}
