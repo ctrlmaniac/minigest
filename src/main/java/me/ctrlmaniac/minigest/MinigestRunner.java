@@ -138,7 +138,7 @@ public class MinigestRunner implements CommandLineRunner {
 		CFService.save(cf);
 
 		// Carica i tipi di documenti fiscali da CSV
-		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("tipidocfisc.csv")) {
+		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("media/tipidocfisc.csv")) {
 			TDFService.save(tdf);
 		}
 
