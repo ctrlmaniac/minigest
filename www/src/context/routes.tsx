@@ -22,10 +22,11 @@ import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
 import ChiusureFiscaliAggiungi from "~/pages/ChiusureFiscali/Aggiungi";
 import ChiusureFiscaliDettagli from "~/pages/ChiusureFiscali/Dettagli";
 import ChiusureFiscaliModifica from "~/pages/ChiusureFiscali/Modifica";
-import FattureVenditaLista from "~/pages/FattureVendita/Lista";
+import FattureVenditaLista from "~/pages/Fatture/Vendita/Lista";
 import FattureAggiungi from "~/pages/Fatture/Aggiungi";
 import FattureDettagli from "~/pages/Fatture/Dettagli";
 import FattureModifica from "~/pages/Fatture/Modifica";
+import FattureAcquistoLista from "~/pages/Fatture/Acquisto/Lista";
 
 const router = createBrowserRouter([
   {
@@ -140,16 +141,20 @@ const router = createBrowserRouter([
                 element: <FattureAggiungi />,
               },
               {
-                path: "vendita",
-                element: <FattureVenditaLista />,
-              },
-              {
                 path: "dettagli/:id",
                 element: <FattureDettagli />,
               },
               {
                 path: "modifica/:id",
                 element: <FattureModifica />,
+              },
+              {
+                path: "vendita",
+                element: <FattureVenditaLista />,
+              },
+              {
+                path: "acquisto",
+                element: <FattureAcquistoLista />,
               },
             ],
           },

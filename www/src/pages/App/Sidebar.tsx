@@ -85,6 +85,14 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             </ListItemIcon>
             <ListItemText primary="Fatture Vendita" />
           </ListItemButton>
+          <ListItemButton
+            onClick={() => handleNavigate("/docfisc/fatture/acquisto")}
+          >
+            <ListItemIcon>
+              <IconFileDescription />
+            </ListItemIcon>
+            <ListItemText primary="Fatture Acquisto" />
+          </ListItemButton>
         </List>
       </Box>
     </Drawer>
