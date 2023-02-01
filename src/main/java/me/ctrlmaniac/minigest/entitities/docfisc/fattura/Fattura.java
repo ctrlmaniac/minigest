@@ -49,9 +49,15 @@ public class Fattura {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<FatturaReparto> reparti;
 
-	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data,
-			LocalDate dataSDI, String numero,
-			double totale, List<FatturaReparto> reparti) {
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<FatturaScadenza> scadenze;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<FatturaPagamento> pagamenti;
+
+	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, LocalDate dataSDI,
+			String numero, double totale, List<FatturaReparto> reparti, List<FatturaScadenza> scadenze,
+			List<FatturaPagamento> pagamenti) {
 		this.cedente = cedente;
 		this.committente = committente;
 		this.tipoDocumento = tipoDocumento;
@@ -60,6 +66,8 @@ public class Fattura {
 		this.numero = numero;
 		this.totale = totale;
 		this.reparti = reparti;
+		this.scadenze = scadenze;
+		this.pagamenti = pagamenti;
 	}
 
 }
