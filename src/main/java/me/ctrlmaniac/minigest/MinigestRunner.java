@@ -39,170 +39,170 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 @Slf4j
 public class MinigestRunner implements CommandLineRunner {
 
-  @Autowired
-  AziendaService aziendaService;
+	@Autowired
+	AziendaService aziendaService;
 
-  @Autowired
-  AccountService accountService;
+	@Autowired
+	AccountService accountService;
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-  @Autowired
-  AziendaIndirizzoService aziendaIndirizzoService;
+	@Autowired
+	AziendaIndirizzoService aziendaIndirizzoService;
 
-  @Autowired
-  TipoDocFiscService TDFService;
+	@Autowired
+	TipoDocFiscService TDFService;
 
-  @Autowired
-  ChiusuraFiscaleService CFService;
+	@Autowired
+	ChiusuraFiscaleService CFService;
 
-  @Autowired
-  ChiusuraFiscaleRepartoService CFRService;
+	@Autowired
+	ChiusuraFiscaleRepartoService CFRService;
 
-  @Autowired
-  NegozioService negozioService;
+	@Autowired
+	NegozioService negozioService;
 
-  @Autowired
-  FatturaService fatturaService;
+	@Autowired
+	FatturaService fatturaService;
 
-  @Autowired
-  FatturaRepartoService fatturaRepartoService;
+	@Autowired
+	FatturaRepartoService fatturaRepartoService;
 
-  @Autowired
-  FatturaScadenzaService fatturaScadenzaService;
+	@Autowired
+	FatturaScadenzaService fatturaScadenzaService;
 
-  @Value("${admin.email}")
-  private String adminEmail;
+	@Value("${admin.email}")
+	private String adminEmail;
 
-  @Value("${admin.pass}")
-  private String adminPass;
+	@Value("${admin.pass}")
+	private String adminPass;
 
-  @Value("${admin.fname}")
-  private String adminFName;
+	@Value("${admin.fname}")
+	private String adminFName;
 
-  @Value("${admin.lname}")
-  private String adminLName;
+	@Value("${admin.lname}")
+	private String adminLName;
 
-  @Override
-  public void run(String... args) throws Exception {
-    log.info("Runner start");
+	@Override
+	public void run(String... args) throws Exception {
+		log.info("Runner start");
 
-    // Crea un'azienda
-    AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
-        "Molinetto di Mazzano", "BS", "IT");
-    aziendaIndirizzoService.save(larapidaSede);
+		// Crea un'azienda
+		AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
+				"Molinetto di Mazzano", "BS", "IT");
+		aziendaIndirizzoService.save(larapidaSede);
 
-    Azienda larapida = new Azienda(null, "La Rapida di Davide Di Criscito", null, "IT",
-        "03792670980", "DCRDVD90E23B157R", larapidaSede, null, null);
-    aziendaService.save(larapida);
+		Azienda larapida = new Azienda(null, "La Rapida di Davide Di Criscito", null, "IT",
+				"03792670980", "DCRDVD90E23B157R", larapidaSede, null, null);
+		aziendaService.save(larapida);
 
-    // Crea una seconda azienda
-    AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25100", "Brescia", "BS", "IT");
-    aziendaIndirizzoService.save(shopSede);
+		// Crea una seconda azienda
+		AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25100", "Brescia", "BS", "IT");
+		aziendaIndirizzoService.save(shopSede);
 
-    Azienda shop = new Azienda(null, "Shop", null, "IT", "12345678910", "12345678910", shopSede, null,
-        null);
-    aziendaService.save(shop);
+		Azienda shop = new Azienda(null, "Shop", null, "IT", "12345678910", "12345678910", shopSede, null,
+				null);
+		aziendaService.save(shop);
 
-    // Crea un utente
-    String hashPwd = passwordEncoder.encode(adminPass);
-    Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, "ADMIN",
-        null);
+		// Crea un utente
+		String hashPwd = passwordEncoder.encode(adminPass);
+		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, "ADMIN",
+				null);
 
-    // Crea una lista di aziende che appartengono a Davide
-    List<Azienda> davideAziende = new ArrayList<>();
-    davideAziende.add(larapida);
-    davideAziende.add(shop);
-    davide.setAziende(davideAziende);
+		// Crea una lista di aziende che appartengono a Davide
+		List<Azienda> davideAziende = new ArrayList<>();
+		davideAziende.add(larapida);
+		davideAziende.add(shop);
+		davide.setAziende(davideAziende);
 
-    // Salva l'account
-    accountService.save(davide);
+		// Salva l'account
+		accountService.save(davide);
 
-    // Crea un negozio
-    Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
-    negozioService.save(larapidaNegozio);
+		// Crea un negozio
+		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
+		negozioService.save(larapidaNegozio);
 
-    // Crea un secondo negozio
-    Negozio shopNegozio = new Negozio(shop, "Negozio Shop");
-    negozioService.save(shopNegozio);
+		// Crea un secondo negozio
+		Negozio shopNegozio = new Negozio(shop, "Negozio Shop");
+		negozioService.save(shopNegozio);
 
-    // Crea una Chiusura Fiscale
-    ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
-    ChiusuraFiscaleReparto cfr2 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
+		// Crea una Chiusura Fiscale
+		ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
+		ChiusuraFiscaleReparto cfr2 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
 
-    CFRService.save(cfr1);
-    CFRService.save(cfr2);
+		CFRService.save(cfr1);
+		CFRService.save(cfr2);
 
-    List<ChiusuraFiscaleReparto> cfrs = new ArrayList<>();
-    cfrs.add(cfr1);
-    cfrs.add(cfr2);
+		List<ChiusuraFiscaleReparto> cfrs = new ArrayList<>();
+		cfrs.add(cfr1);
+		cfrs.add(cfr2);
 
-    ChiusuraFiscale cf = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 1000, 100, cfrs);
+		ChiusuraFiscale cf = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 1000, 100, cfrs);
 
-    CFService.save(cf);
+		CFService.save(cf);
 
-    // Carica i tipi di documenti fiscali da CSV
-    for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("media/tipidocfisc.csv")) {
-      TDFService.save(tdf);
-    }
+		// Carica i tipi di documenti fiscali da CSV
+		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("media/tipidocfisc.csv")) {
+			TDFService.save(tdf);
+		}
 
-    TipoDocFisc TD01 = TDFService.getByCodice("TD01");
+		TipoDocFisc TD01 = TDFService.getByCodice("TD01");
 
-    // Crea una fattura
-    FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 409.84, 90.16);
-    fatturaRepartoService.save(ftRepartoFt1);
+		// Crea una fattura
+		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 409.84, 90.16);
+		fatturaRepartoService.save(ftRepartoFt1);
 
-    List<FatturaReparto> ftRepartiFt1 = new ArrayList<>();
-    ftRepartiFt1.add(ftRepartoFt1);
+		List<FatturaReparto> ftRepartiFt1 = new ArrayList<>();
+		ftRepartiFt1.add(ftRepartoFt1);
 
-    FatturaScadenza ftScadenzaFt1 = new FatturaScadenza(LocalDate.now(), 500);
-    fatturaScadenzaService.save(ftScadenzaFt1);
+		FatturaScadenza ftScadenzaFt1 = new FatturaScadenza(LocalDate.now(), 500);
+		fatturaScadenzaService.save(ftScadenzaFt1);
 
-    List<FatturaScadenza> ftScadenzeFt1 = new ArrayList<>();
-    ftScadenzeFt1.add(ftScadenzaFt1);
+		List<FatturaScadenza> ftScadenzeFt1 = new ArrayList<>();
+		ftScadenzeFt1.add(ftScadenzaFt1);
 
-    Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "12345", 500,
-        ftRepartiFt1, ftScadenzeFt1, null);
-    fatturaService.save(ft1);
+		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "12345", 500,
+				ftRepartiFt1, null, null);
+		fatturaService.save(ft1);
 
-    // Crea una seconda fattura
-    FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 819.67, 180.33);
-    fatturaRepartoService.save(ftRepartoFt2);
+		// Crea una seconda fattura
+		FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 819.67, 180.33);
+		fatturaRepartoService.save(ftRepartoFt2);
 
-    List<FatturaReparto> ftRepartiFt2 = new ArrayList<>();
-    ftRepartiFt1.add(ftRepartoFt2);
+		List<FatturaReparto> ftRepartiFt2 = new ArrayList<>();
+		ftRepartiFt1.add(ftRepartoFt2);
 
-    FatturaScadenza ftScadenzaFt2 = new FatturaScadenza(LocalDate.now(), 1000);
-    fatturaScadenzaService.save(ftScadenzaFt2);
+		FatturaScadenza ftScadenzaFt2 = new FatturaScadenza(LocalDate.now(), 1000);
+		fatturaScadenzaService.save(ftScadenzaFt2);
 
-    List<FatturaScadenza> ftScadenzeFt2 = new ArrayList<>();
-    ftScadenzeFt1.add(ftScadenzaFt2);
+		List<FatturaScadenza> ftScadenzeFt2 = new ArrayList<>();
+		ftScadenzeFt2.add(ftScadenzaFt2);
 
-    Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "54321", 1000,
-        ftRepartiFt2, ftScadenzeFt2, null);
-    fatturaService.save(ft2);
+		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "54321", 1000,
+				ftRepartiFt2, ftScadenzeFt2, null);
+		fatturaService.save(ft2);
 
-    log.info("Application started at http://localhost:8080");
-    log.info("Runner ends");
-  }
+		log.info("Application started at http://localhost:8080");
+		log.info("Runner ends");
+	}
 
-  private List<TipoDocFisc> loadTipiDocFiscFromCsv(String filename) {
-    List<TipoDocFisc> tipiDocFisc = new ArrayList<>();
+	private List<TipoDocFisc> loadTipiDocFiscFromCsv(String filename) {
+		List<TipoDocFisc> tipiDocFisc = new ArrayList<>();
 
-    try {
-      CSVReader csvReader = new CSVReader(new FileReader(filename));
+		try {
+			CSVReader csvReader = new CSVReader(new FileReader(filename));
 
-      String[] values = null;
+			String[] values = null;
 
-      while ((values = csvReader.readNext()) != null) {
-        tipiDocFisc.add(new TipoDocFisc(values[0].trim(), values[1].trim()));
-      }
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+			while ((values = csvReader.readNext()) != null) {
+				tipiDocFisc.add(new TipoDocFisc(values[0].trim(), values[1].trim()));
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 
-    return tipiDocFisc;
-  }
+		return tipiDocFisc;
+	}
 
 }

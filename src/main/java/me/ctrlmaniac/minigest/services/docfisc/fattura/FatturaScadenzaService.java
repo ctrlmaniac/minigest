@@ -30,7 +30,7 @@ public class FatturaScadenzaService {
 	}
 
 	public List<FatturaScadenza> getAll() {
-		return fatturaScadenzaRepo.findAll();
+		return fatturaScadenzaRepo.findAllOrderByDataAsc();
 	}
 
 	public void deleteById(String id) {

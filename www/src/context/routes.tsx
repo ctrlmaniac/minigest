@@ -45,6 +45,7 @@ const FattureModifica = React.lazy(() => import("~/pages/Fatture/Modifica"));
 const FattureAcquistoLista = React.lazy(
   () => import("~/pages/Fatture/Acquisto/Lista")
 );
+const Scadenzario = React.lazy(() => import("~/pages/Scadenzario"));
 
 // ROUTER
 const router = createBrowserRouter([
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<LoadingScreen />}>
             <Account />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: "scadenzario",
+        element: (
+          <React.Suspense fallback={<LoadingScreen />}>
+            <Scadenzario />
           </React.Suspense>
         ),
       },

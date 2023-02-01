@@ -12,6 +12,7 @@ import {
 import {
   IconBuildingStore,
   IconBuildingWarehouse,
+  IconCalendarDue,
   IconFile,
   IconFileDescription,
   IconFiles,
@@ -92,6 +93,15 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconFileDescription />
             </ListItemIcon>
             <ListItemText primary="Fatture Acquisto" />
+          </ListItemButton>
+        </List>
+
+        <List subheader={<ListSubheader>Utilità</ListSubheader>}>
+          <ListItemButton onClick={() => handleNavigate("/scadenzario")}>
+            <ListItemIcon>
+              <IconCalendarDue />
+            </ListItemIcon>
+            <ListItemText primary="Scadenzario" />
           </ListItemButton>
         </List>
       </Box>

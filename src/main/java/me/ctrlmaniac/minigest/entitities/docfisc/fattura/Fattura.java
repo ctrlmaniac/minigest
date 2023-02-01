@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
@@ -55,6 +56,9 @@ public class Fattura {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<FatturaPagamento> pagamenti;
 
+	@Transient
+	private boolean evasa;
+
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, LocalDate dataSDI,
 			String numero, double totale, List<FatturaReparto> reparti, List<FatturaScadenza> scadenze,
 			List<FatturaPagamento> pagamenti) {
@@ -68,6 +72,21 @@ public class Fattura {
 		this.reparti = reparti;
 		this.scadenze = scadenze;
 		this.pagamenti = pagamenti;
+	}
+
+	public boolean getEvasa() {
+		double scadenze = 0;
+		double pagamenti = 0;
+
+		for (FatturaScadenza scadenza : this.getScadenze()) {
+			scadenze += scadenza.getImporto();
+		}
+
+		for (FatturaPagamento pagamento : this.getPagamenti()) {
+			pagamenti += pagamento.getImporto();
+		}
+
+		return pagamenti >= scadenze;
 	}
 
 }
