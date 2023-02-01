@@ -108,7 +108,7 @@ const FattureDettagli: React.FC = () => {
         </Box>
 
         {dettagli?.reparti.map((reparto) => (
-          <Box mb={3}>
+          <Box mb={3} key={reparto.id}>
             <Paper>
               <Box p={2}>
                 <Typography variant="h6">

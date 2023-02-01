@@ -23,10 +23,12 @@ import FormReparto from "./FormReparto";
 import { IconTrash } from "@tabler/icons-react";
 import { useAppDispatch } from "~/hooks";
 import post from "~/features/fatture/post";
+import update from "~/features/fatture/update";
 
 interface Props {
   tipiDocumento: TipoDocFisc[];
   aziende: Azienda[];
+  dettagli: Fattura;
 }
 
 interface ValuesState {
@@ -39,27 +41,27 @@ interface ValuesState {
   reparti: FatturaReparto[] | [];
 }
 
-const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
+const Form: React.FC<Props> = ({ tipiDocumento, aziende, dettagli }) => {
   const dispatch = useAppDispatch();
 
   const [values, setValues] = React.useState<ValuesState>({
-    cedente: null,
-    committente: null,
-    tipoDocumento: find(tipiDocumento, ["descrizione", "fattura"]) || null,
-    data: new Date().toISOString().split("T")[0],
-    numero: "",
-    totale: 0,
-    reparti: [],
+    cedente: dettagli.cedente,
+    committente: dettagli.committente,
+    tipoDocumento: dettagli.tipoDocumento,
+    data: dettagli.data,
+    numero: dettagli.numero,
+    totale: dettagli.totale,
+    reparti: dettagli.reparti,
   });
 
   const [errors, setErrors] = React.useState({
-    cedente: true,
-    committente: true,
+    cedente: false,
+    committente: false,
     tipoDocumento: false,
     data: false,
-    numero: true,
+    numero: false,
     totale: false,
-    reparti: true,
+    reparti: false,
   });
 
   const [open, setOpen] = React.useState(false);
@@ -173,7 +175,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
       reparti: values.reparti!,
     };
 
-    dispatch(post(fattura));
+    dispatch(update(dettagli.id!, fattura));
   };
 
   return (

@@ -10,6 +10,8 @@ interface FatturaState {
   getting: boolean;
   getError?: string;
   dettagli?: Fattura;
+  putting: boolean;
+  putError?: string;
 }
 
 const initialState: FatturaState = {
@@ -21,6 +23,8 @@ const initialState: FatturaState = {
   getting: true,
   getError: undefined,
   dettagli: undefined,
+  putting: true,
+  putError: undefined,
 };
 
 export const fattureSlice = createSlice({
@@ -55,6 +59,14 @@ export const fattureSlice = createSlice({
       state.getError = action.payload;
       state.getting = false;
     },
+    putSuccess: (state) => {
+      state.putError = undefined;
+      state.putting = false;
+    },
+    putFail: (state, action: PayloadAction<string>) => {
+      state.putError = action.payload;
+      state.putting = false;
+    },
   },
 });
 
@@ -65,6 +77,8 @@ export const {
   postFail,
   getSuccess,
   getFail,
+  putSuccess,
+  putFail,
 } = fattureSlice.actions;
 
 export default fattureSlice.reducer;
