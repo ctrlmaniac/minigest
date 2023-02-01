@@ -38,6 +38,9 @@ public class Fattura {
 	private LocalDate data;
 
 	@Column
+	private LocalDate dataRicezioneSDI;
+
+	@Column
 	private String numero;
 
 	@Column
@@ -46,12 +49,14 @@ public class Fattura {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<FatturaReparto> reparti;
 
-	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, String numero,
+	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data,
+			LocalDate dataRicezioneSDI, String numero,
 			double totale, List<FatturaReparto> reparti) {
 		this.cedente = cedente;
 		this.committente = committente;
 		this.tipoDocumento = tipoDocumento;
 		this.data = data;
+		this.dataRicezioneSDI = dataRicezioneSDI;
 		this.numero = numero;
 		this.totale = totale;
 		this.reparti = reparti;

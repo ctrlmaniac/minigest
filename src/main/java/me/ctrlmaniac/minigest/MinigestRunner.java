@@ -156,9 +156,9 @@ public class MinigestRunner implements CommandLineRunner {
 		List<FatturaReparto> ft2Reparti = new ArrayList<>();
 		ft1Reparti.add(ftRepartoFt2);
 
-		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), "12345",
+		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now(), "12345",
 				500, ft1Reparti);
-		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), "54321",
+		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now(), "54321",
 				500, ft2Reparti);
 		fatturaService.save(ft1);
 		fatturaService.save(ft2);
