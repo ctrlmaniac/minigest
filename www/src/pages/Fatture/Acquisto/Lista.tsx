@@ -23,6 +23,7 @@ import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AddFab, ErrorScreen, LoadingScreen } from "~/components";
 import listAcquisto from "~/features/fatture/listAcquisto";
+import getSelected from "~/features/negozi/getSelected";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const FattureAcquistoLista: React.FC = () => {
@@ -109,7 +110,12 @@ const FattureAcquistoLista: React.FC = () => {
     return (
       <>
         <Box mb={3}>
-          <Typography variant="h3">Fatture Acquisto</Typography>
+          <Typography variant="h3" gutterBottom>
+            Fatture Acquisto
+          </Typography>
+          <Typography>
+            Stai visualizzando le fatture dell'azienda {azienda?.denominazione}
+          </Typography>
         </Box>
 
         <Box mb={3}>

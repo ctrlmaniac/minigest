@@ -109,7 +109,12 @@ const FattureVenditaLista: React.FC = () => {
     return (
       <>
         <Box mb={3}>
-          <Typography variant="h3">Fatture Vendita</Typography>
+          <Typography variant="h3" gutterBottom>
+            Fatture Vendita
+          </Typography>
+          <Typography>
+            Stai visualizzando le fatture dell'azienda {azienda?.denominazione}
+          </Typography>
         </Box>
 
         <Box mb={3}>
