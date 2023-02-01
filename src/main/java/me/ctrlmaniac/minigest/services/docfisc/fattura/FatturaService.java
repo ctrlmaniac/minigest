@@ -61,7 +61,7 @@ public class FatturaService {
 		if (azienda == null) {
 			return null;
 		} else {
-			return fatturaRepo.findAllByCedenteByData(azienda, year, month);
+			return fatturaRepo.findAllByCedenteByYearByMonth(azienda, year, month);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class FatturaService {
 		if (azienda == null) {
 			return null;
 		} else {
-			return fatturaRepo.findAllByCommittenteByData(azienda, year, month);
+			return fatturaRepo.findAllByCommittenteByYearByMonth(azienda, year, month);
 		}
 	}
 

@@ -30,7 +30,7 @@ public class TipoDocFiscService {
 	}
 
 	public List<TipoDocFisc> getAll() {
-		return tdfRepo.findAll();
+		return tdfRepo.findAllByOrderByCodiceAsc();
 	}
 
 	public void deleteById(String id) {
