@@ -163,7 +163,7 @@ public class MinigestRunner implements CommandLineRunner {
 		fatturaService.save(ft1);
 		fatturaService.save(ft2);
 
-		System.out.println("Application started at http://localhost:8080");
+		log.info("Application started at http://localhost:8080");
 		log.info("Runner ends");
 	}
 
