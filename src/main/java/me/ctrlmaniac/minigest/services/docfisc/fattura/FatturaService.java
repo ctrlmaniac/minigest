@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
-import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
@@ -46,6 +45,12 @@ public class FatturaService {
 		if (f.getReparti() != null) {
 			for (FatturaReparto ftReparto : f.getReparti()) {
 				fatturaRepartoService.save(ftReparto);
+			}
+		}
+
+		if (f.getScadenze() != null) {
+			for (FatturaScadenza scadenza : f.getScadenze()) {
+				fatturaScadenzaService.save(scadenza);
 			}
 		}
 
@@ -126,29 +131,16 @@ public class FatturaService {
 			oldFattura.setTotale(newFattura.getTotale());
 
 			// Salva i nuovi reparti
-			if (newFattura.getReparti() != null) {
-				for (FatturaReparto reparto : newFattura.getReparti()) {
-					if (reparto.getId() == null) {
-						fatturaRepartoService.save(reparto);
-					}
+			for (FatturaReparto reparto : newFattura.getReparti()) {
+				if (reparto.getId() == null) {
+					fatturaRepartoService.save(reparto);
 				}
 			}
 
 			// Salva le nuove scadenze
-			if (newFattura.getScadenze() != null) {
-				for (FatturaScadenza scadenza : newFattura.getScadenze()) {
-					if (scadenza.getId() == null) {
-						fatturaScadenzaService.save(scadenza);
-					}
-				}
-			}
-
-			// Salva i nuovi pagamenti
-			if (newFattura.getPagamenti() != null) {
-				for (FatturaPagamento pagamento : newFattura.getPagamenti()) {
-					if (pagamento.getId() == null) {
-						fatturaPagamentoService.save(pagamento);
-					}
+			for (FatturaScadenza scadenza : newFattura.getScadenze()) {
+				if (scadenza.getId() == null) {
+					fatturaScadenzaService.save(scadenza);
 				}
 			}
 
@@ -165,20 +157,9 @@ public class FatturaService {
 			}
 
 			// Elimina le vecchie scadenze
-			if (oldFattura.getScadenze() != null) {
-				for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
-					if (!newFattura.getScadenze().contains(scadenza)) {
-						fatturaScadenzaService.deleteById(scadenza.getId());
-					}
-				}
-			}
-
-			// Elimina i vecchi pagamenti
-			if (oldFattura.getPagamenti() != null) {
-				for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
-					if (!newFattura.getPagamenti().contains(pagamento)) {
-						fatturaPagamentoService.deleteById(pagamento.getId());
-					}
+			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
+				if (!newFattura.getScadenze().contains(scadenza)) {
+					fatturaScadenzaService.deleteById(scadenza.getId());
 				}
 			}
 

@@ -23,6 +23,7 @@ import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.services.AccountService;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
@@ -31,6 +32,7 @@ import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
 @Component
@@ -66,6 +68,9 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	FatturaRepartoService fatturaRepartoService;
+
+	@Autowired
+	FatturaScadenzaService fatturaScadenzaService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -144,7 +149,8 @@ public class MinigestRunner implements CommandLineRunner {
 
 		TipoDocFisc TD01 = TDFService.getByCodice("TD01");
 
-		// Crea Due Fatture
+		/** CREA DUE FATTURE */
+		// Crea due reparti
 		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 819.67, 180.33);
 		FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 409.84, 90.16);
 		fatturaRepartoService.save(ftRepartoFt1);
@@ -156,10 +162,22 @@ public class MinigestRunner implements CommandLineRunner {
 		List<FatturaReparto> ft2Reparti = new ArrayList<>();
 		ft1Reparti.add(ftRepartoFt2);
 
+		// Crea due scadenze
+		FatturaScadenza ftScadenzaft1 = new FatturaScadenza(LocalDate.now(), 1000);
+		FatturaScadenza ftScadenzaft2 = new FatturaScadenza(LocalDate.now(), 500);
+		fatturaScadenzaService.save(ftScadenzaft1);
+		fatturaScadenzaService.save(ftScadenzaft2);
+
+		List<FatturaScadenza> ftScadenzeft1 = new ArrayList<>();
+		ftScadenzeft1.add(ftScadenzaft1);
+
+		List<FatturaScadenza> ftScadenzeft2 = new ArrayList<>();
+		ftScadenzeft2.add(ftScadenzaft2);
+
 		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "12345",
-				1000, ft1Reparti, null, null);
+				1000, ft1Reparti, ftScadenzeft1, null);
 		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "54321",
-				500, ft2Reparti, null, null);
+				500, ft2Reparti, ftScadenzeft2, null);
 		fatturaService.save(ft1);
 		fatturaService.save(ft2);
 

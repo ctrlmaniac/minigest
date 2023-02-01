@@ -1,32 +1,49 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 // pages
-import Home from "~/pages/Home";
-import Login from "~/pages/Login";
-import App from "~/pages/App";
-import NotFound from "~/pages/NotFound";
-import Dashboard from "~/pages/Dashboard";
-import ChiusureFiscaliLista from "~/pages/ChiusureFiscali/Lista";
-import Account from "~/pages/Account";
-import AziendeDettagli from "~/pages/Aziende/Dettagli";
-import AziendeModifica from "~/pages/Aziende/Modifica";
-import AziendeAggiungi from "~/pages/Aziende/Aggiungi";
-import AziendeLista from "~/pages/Aziende/Lista";
-import NegoziLista from "~/pages/Negozi/Lista";
-import NegoziAggiungi from "~/pages/Negozi/Aggiungi";
-import NegoziDettagli from "~/pages/Negozi/Dettagli";
-import NegoziModifica from "~/pages/Negozi/Modifica";
-import TipoDocFiscLista from "~/pages/TipoDocFisc/Lista";
-import TipiDocFiscAggiungi from "~/pages/TipoDocFisc/Aggiungi";
-import TipiDocFiscModifica from "~/pages/TipoDocFisc/Modifica";
-import ChiusureFiscaliAggiungi from "~/pages/ChiusureFiscali/Aggiungi";
-import ChiusureFiscaliDettagli from "~/pages/ChiusureFiscali/Dettagli";
-import ChiusureFiscaliModifica from "~/pages/ChiusureFiscali/Modifica";
-import FattureVenditaLista from "~/pages/Fatture/Vendita/Lista";
-import FattureAggiungi from "~/pages/Fatture/Aggiungi";
-import FattureDettagli from "~/pages/Fatture/Dettagli";
-import FattureModifica from "~/pages/Fatture/Modifica";
-import FattureAcquistoLista from "~/pages/Fatture/Acquisto/Lista";
+const Home = React.lazy(() => import("~/pages/Home"));
+const Login = React.lazy(() => import("~/pages/Login"));
+const App = React.lazy(() => import("~/pages/App"));
+const NotFound = React.lazy(() => import("~/pages/NotFound"));
+const Dashboard = React.lazy(() => import("~/pages/Dashboard"));
+const ChiusureFiscaliLista = React.lazy(
+  () => import("~/pages/ChiusureFiscali/Lista")
+);
+const Account = React.lazy(() => import("~/pages/Account"));
+const AziendeDettagli = React.lazy(() => import("~/pages/Aziende/Dettagli"));
+const AziendeModifica = React.lazy(() => import("~/pages/Aziende/Modifica"));
+const AziendeAggiungi = React.lazy(() => import("~/pages/Aziende/Aggiungi"));
+const AziendeLista = React.lazy(() => import("~/pages/Aziende/Lista"));
+const NegoziLista = React.lazy(() => import("~/pages/Negozi/Lista"));
+const NegoziAggiungi = React.lazy(() => import("~/pages/Negozi/Aggiungi"));
+const NegoziDettagli = React.lazy(() => import("~/pages/Negozi/Dettagli"));
+const NegoziModifica = React.lazy(() => import("~/pages/Negozi/Modifica"));
+const TipoDocFiscLista = React.lazy(() => import("~/pages/TipoDocFisc/Lista"));
+const TipiDocFiscAggiungi = React.lazy(
+  () => import("~/pages/TipoDocFisc/Aggiungi")
+);
+const TipiDocFiscModifica = React.lazy(
+  () => import("~/pages/TipoDocFisc/Modifica")
+);
+const ChiusureFiscaliAggiungi = React.lazy(
+  () => import("~/pages/ChiusureFiscali/Aggiungi")
+);
+const ChiusureFiscaliDettagli = React.lazy(
+  () => import("~/pages/ChiusureFiscali/Dettagli")
+);
+const ChiusureFiscaliModifica = React.lazy(
+  () => import("~/pages/ChiusureFiscali/Modifica")
+);
+const FattureVenditaLista = React.lazy(
+  () => import("~/pages/Fatture/Vendita/Lista")
+);
+const FattureAggiungi = React.lazy(() => import("~/pages/Fatture/Aggiungi"));
+const FattureDettagli = React.lazy(() => import("~/pages/Fatture/Dettagli"));
+const FattureModifica = React.lazy(() => import("~/pages/Fatture/Modifica"));
+const FattureAcquistoLista = React.lazy(
+  () => import("~/pages/Fatture/Acquisto/Lista")
+);
 
 const router = createBrowserRouter([
   {
