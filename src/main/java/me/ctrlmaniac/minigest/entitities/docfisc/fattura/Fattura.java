@@ -38,7 +38,7 @@ public class Fattura {
 	private LocalDate data;
 
 	@Column
-	private LocalDate dataRicezioneSDI;
+	private LocalDate dataSDI;
 
 	@Column
 	private String numero;
@@ -50,13 +50,13 @@ public class Fattura {
 	private List<FatturaReparto> reparti;
 
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data,
-			LocalDate dataRicezioneSDI, String numero,
+			LocalDate dataSDI, String numero,
 			double totale, List<FatturaReparto> reparti) {
 		this.cedente = cedente;
 		this.committente = committente;
 		this.tipoDocumento = tipoDocumento;
 		this.data = data;
-		this.dataRicezioneSDI = dataRicezioneSDI;
+		this.dataSDI = dataSDI;
 		this.numero = numero;
 		this.totale = totale;
 		this.reparti = reparti;
