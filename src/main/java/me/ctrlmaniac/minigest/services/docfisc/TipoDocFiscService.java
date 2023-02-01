@@ -25,12 +25,22 @@ public class TipoDocFiscService {
 		return null;
 	}
 
+	public TipoDocFisc getByCodice(String codice) {
+		TipoDocFisc tdf = tdfRepo.findByCodice(codice);
+
+		if (tdf == null) {
+			return null;
+		} else {
+			return tdf;
+		}
+	}
+
 	public TipoDocFisc save(TipoDocFisc cf) {
 		return tdfRepo.save(cf);
 	}
 
 	public List<TipoDocFisc> getAll() {
-		return tdfRepo.findAll();
+		return tdfRepo.findAllByOrderByCodiceAsc();
 	}
 
 	public void deleteById(String id) {

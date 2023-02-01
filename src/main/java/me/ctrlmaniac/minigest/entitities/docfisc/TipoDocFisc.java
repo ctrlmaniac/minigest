@@ -5,8 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class TipoDocFisc {
 
 	@Id
@@ -19,35 +23,8 @@ public class TipoDocFisc {
 	@Column
 	private String descrizione;
 
-	public TipoDocFisc() {
-	}
-
 	public TipoDocFisc(String codice, String descrizione) {
 		this.codice = codice;
-		this.descrizione = descrizione;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCodice() {
-		return codice;
-	}
-
-	public void setCodice(String codice) {
-		this.codice = codice;
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
 

@@ -6,9 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
+import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 
 @Service
 public class FatturaService {
@@ -18,6 +20,9 @@ public class FatturaService {
 
 	@Autowired
 	FatturaRepartoService fatturaRepartoService;
+
+	@Autowired
+	AziendaService aziendaService;
 
 	public Fattura get(String id) {
 		Optional<Fattura> fatturaOpt = fatturaRepo.findById(id);
@@ -30,15 +35,55 @@ public class FatturaService {
 	}
 
 	public Fattura save(Fattura f) {
+		if (f.getReparti() != null) {
+			for (FatturaReparto ftReparto : f.getReparti()) {
+				fatturaRepartoService.save(ftReparto);
+			}
+		}
+
 		return fatturaRepo.save(f);
 	}
 
-	public List<Fattura> getAll() {
-		return fatturaRepo.findAll();
+	public List<Fattura> getAllByCendente(String idAzienda) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCedenteOrderByDataAsc(azienda);
+		}
+
 	}
 
-	public void deleteById(String id) {
-		fatturaRepo.deleteById(id);
+	public List<Fattura> getAllByCedenteByData(String idAzienda, String year, String month) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCedenteByYearByMonth(azienda, year, month);
+		}
+	}
+
+	public List<Fattura> getAllByCommittenteByData(String idAzienda, String year, String month) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return null;
+		} else {
+			return fatturaRepo.findAllByCommittenteByYearByMonth(azienda, year, month);
+		}
+	}
+
+	public List<Fattura> getAllByCommittente(String idAzienda) {
+		Azienda azienda = aziendaService.get(idAzienda);
+
+		if (azienda == null) {
+			return List.of();
+		} else {
+			return fatturaRepo.findAllByCommittenteOrderByDataAsc(azienda);
+		}
+
 	}
 
 	public Fattura update(String id, Fattura newFattura) {
@@ -77,5 +122,17 @@ public class FatturaService {
 		}
 
 		return null;
+	}
+
+	public void deleteById(String id) {
+		Fattura fattura = get(id);
+
+		if (fattura != null) {
+			fattura.setCedente(null);
+			fattura.setCommittente(null);
+
+			Fattura tmpFattura = update(id, fattura);
+			fatturaRepo.deleteById(tmpFattura.getId());
+		}
 	}
 }

@@ -37,12 +37,6 @@ public class NegozioService {
 		return negozioRepo.findAllByAzienda(azienda);
 	}
 
-	public void deleteById(String id) {
-		Negozio newNegozio = new Negozio(null, id);
-		update(id, newNegozio);
-		negozioRepo.deleteById(id);
-	}
-
 	public Negozio update(String id, Negozio newNegozio) {
 		Optional<Negozio> oldNegozioOpt = negozioRepo.findById(id);
 
@@ -56,5 +50,16 @@ public class NegozioService {
 		}
 
 		return null;
+	}
+
+	public void deleteById(String id) {
+		Negozio negozio = get(id);
+
+		if (negozio != null) {
+			negozio.setAzienda(null);
+			Negozio newNegozio = update(id, negozio);
+
+			negozioRepo.deleteById(newNegozio.getId());
+		}
 	}
 }

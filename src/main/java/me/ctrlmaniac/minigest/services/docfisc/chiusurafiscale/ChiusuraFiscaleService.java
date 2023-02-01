@@ -50,7 +50,31 @@ public class ChiusuraFiscaleService {
 		if (negozioOpt.isPresent()) {
 			Negozio negozio = negozioOpt.get();
 
-			return cfRepo.findAllByNegozio(negozio);
+			return cfRepo.findByNegozioOrderByDataAsc(negozio);
+		} else {
+			return null;
+		}
+
+	}
+
+	public List<ChiusuraFiscale> getAllByNegozioByData(String idNegozio, String year, String month) {
+		Optional<Negozio> negozioOpt = negozioRepo.findById(idNegozio);
+
+		if (negozioOpt.isPresent()) {
+			Negozio negozio = negozioOpt.get();
+			return cfRepo.findAllByNegozioByYearByMonth(negozio, year, month);
+		} else {
+			return null;
+		}
+	}
+
+	public List<ChiusuraFiscale> getLast7(String idNegozio) {
+		Optional<Negozio> negozioOpt = negozioRepo.findById(idNegozio);
+
+		if (negozioOpt.isPresent()) {
+			Negozio negozio = negozioOpt.get();
+
+			return cfRepo.findTop7ByNegozioOrderByDataDesc(negozio);
 		} else {
 			return null;
 		}
