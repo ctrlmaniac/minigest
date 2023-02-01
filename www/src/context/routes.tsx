@@ -46,23 +46,40 @@ const FattureAcquistoLista = React.lazy(
   () => import("~/pages/Fatture/Acquisto/Lista")
 );
 
+// ROUTER
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <React.Suspense fallback={<LoadingScreen />}>
+        <Home />
+      </React.Suspense>
+    ),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <React.Suspense fallback={<LoadingScreen />}>
+        <Login />
+      </React.Suspense>
+    ),
   },
   {
     id: "app",
     path: "/app",
-    element: <App />,
+    element: (
+      <React.Suspense fallback={<LoadingScreen />}>
+        <App />
+      </React.Suspense>
+    ),
     children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: (
+          <React.Suspense fallback={<LoadingScreen />}>
+            <Dashboard />
+          </React.Suspense>
+        ),
       },
       {
         path: "account",
@@ -77,19 +94,35 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <AziendeLista />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <AziendeLista />
+              </React.Suspense>
+            ),
           },
           {
             path: "aggiungi",
-            element: <AziendeAggiungi />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <AziendeAggiungi />
+              </React.Suspense>
+            ),
           },
           {
             path: "dettagli/:id",
-            element: <AziendeDettagli />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <AziendeDettagli />
+              </React.Suspense>
+            ),
           },
           {
             path: "modifica/:id",
-            element: <AziendeModifica />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <AziendeModifica />
+              </React.Suspense>
+            ),
           },
         ],
       },
@@ -98,19 +131,35 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <NegoziLista />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <NegoziLista />
+              </React.Suspense>
+            ),
           },
           {
             path: "aggiungi",
-            element: <NegoziAggiungi />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <NegoziAggiungi />
+              </React.Suspense>
+            ),
           },
           {
             path: "dettagli/:id",
-            element: <NegoziDettagli />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <NegoziDettagli />
+              </React.Suspense>
+            ),
           },
           {
             path: "modifica/:id",
-            element: <NegoziModifica />,
+            element: (
+              <React.Suspense fallback={<LoadingScreen />}>
+                <NegoziModifica />
+              </React.Suspense>
+            ),
           },
         ],
       },
@@ -122,15 +171,27 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <TipoDocFiscLista />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <TipoDocFiscLista />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "aggiungi",
-                element: <TipiDocFiscAggiungi />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <TipiDocFiscAggiungi />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "modifica/:id",
-                element: <TipiDocFiscModifica />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <TipiDocFiscModifica />
+                  </React.Suspense>
+                ),
               },
             ],
           },
@@ -139,19 +200,35 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <ChiusureFiscaliLista />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <ChiusureFiscaliLista />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "aggiungi",
-                element: <ChiusureFiscaliAggiungi />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <ChiusureFiscaliAggiungi />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "dettagli/:id",
-                element: <ChiusureFiscaliDettagli />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <ChiusureFiscaliDettagli />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "modifica/:id",
-                element: <ChiusureFiscaliModifica />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <ChiusureFiscaliModifica />
+                  </React.Suspense>
+                ),
               },
             ],
           },
@@ -160,23 +237,43 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "aggiungi",
-                element: <FattureAggiungi />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <FattureAggiungi />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "dettagli/:id",
-                element: <FattureDettagli />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <FattureDettagli />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "modifica/:id",
-                element: <FattureModifica />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <FattureModifica />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "vendita",
-                element: <FattureVenditaLista />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <FattureVenditaLista />
+                  </React.Suspense>
+                ),
               },
               {
                 path: "acquisto",
-                element: <FattureAcquistoLista />,
+                element: (
+                  <React.Suspense fallback={<LoadingScreen />}>
+                    <FattureAcquistoLista />
+                  </React.Suspense>
+                ),
               },
             ],
           },
@@ -186,7 +283,11 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <React.Suspense fallback={<LoadingScreen />}>
+        <NotFound />
+      </React.Suspense>
+    ),
   },
 ]);
 
