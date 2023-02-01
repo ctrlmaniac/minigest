@@ -8,7 +8,7 @@
     "collectclient": "bash collectclient.sh",
     "dev": "npx lerna exec --scope=www npm run dev",
     "build": "npx lerna exec --scope=www npm run build",
-    "postbuild": "npm run collectclient && git add . && git commit -m \"collected client\" && git push",
+    "postbuild": "npm run collectclient && git add . && git commit -m \"collected client\"",
     "runserver": "mvnw spring-boot:run",
     "package": "mvnw package",
     "run:app": "java -jar target/minigest-0.0.2-SNAPSHOT.jar"
