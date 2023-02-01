@@ -1,6 +1,7 @@
 import {
   Alert,
   Box,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -9,14 +10,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { IconFile } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { AddFab, ErrorScreen, LoadingScreen } from "~/components";
 import listAcquisto from "~/features/fatture/listAcquisto";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const FattureAcquistoLista: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { selected: azienda } = useAppSelector((state) => state.aziende);
   const {
@@ -57,6 +61,9 @@ const FattureAcquistoLista: React.FC = () => {
                       <TableCell>Cedente</TableCell>
                       <TableCell>Numero</TableCell>
                       <TableCell>Totale</TableCell>
+                      <TableCell sx={{ width: 50 }} align="center">
+                        <IconFile />
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -66,6 +73,18 @@ const FattureAcquistoLista: React.FC = () => {
                         <TableCell>{fattura.cedente.denominazione}</TableCell>
                         <TableCell>{fattura.numero}</TableCell>
                         <TableCell>€ {fattura.totale}</TableCell>
+                        <TableCell align="center">
+                          <IconButton
+                            color="info"
+                            onClick={() =>
+                              navigate(
+                                `/app/docfisc/fatture/dettagli/${fattura.id!}`
+                              )
+                            }
+                          >
+                            <IconFile />
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

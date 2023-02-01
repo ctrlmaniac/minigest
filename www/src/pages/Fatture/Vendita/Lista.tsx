@@ -1,6 +1,7 @@
 import {
   Alert,
   Box,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -9,14 +10,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { IconFile } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { AddFab, ErrorScreen, LoadingScreen } from "~/components";
 import listVendita from "~/features/fatture/listVendita";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 
 const FattureVenditaLista: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { selected: azienda } = useAppSelector((state) => state.aziende);
   const {
@@ -57,6 +61,9 @@ const FattureVenditaLista: React.FC = () => {
                       <TableCell>Committente</TableCell>
                       <TableCell>Numero</TableCell>
                       <TableCell>Totale</TableCell>
+                      <TableCell sx={{ width: 50 }} align="center">
+                        <IconFile />
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -68,6 +75,18 @@ const FattureVenditaLista: React.FC = () => {
                         </TableCell>
                         <TableCell>{fattura.numero}</TableCell>
                         <TableCell>€ {fattura.totale}</TableCell>
+                        <TableCell align="center">
+                          <IconButton
+                            color="info"
+                            onClick={() =>
+                              navigate(
+                                `/app/docfisc/fatture/dettagli/${fattura.id!}`
+                              )
+                            }
+                          >
+                            <IconFile />
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
