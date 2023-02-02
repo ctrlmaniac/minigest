@@ -3,7 +3,7 @@ package me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -27,16 +27,11 @@ public class ChiusuraFiscale {
 	@ManyToOne
 	private Negozio negozio;
 
-	@Column
 	private LocalDate data;
-
-	@Column
 	private double totale;
-
-	@Column
 	private int numeroDocFisc;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "chiusuraFiscale", cascade = CascadeType.ALL)
 	private List<ChiusuraFiscaleReparto> reparti;
 
 	public ChiusuraFiscale(Negozio negozio, LocalDate data, double totale, int numeroDocFisc,
@@ -46,6 +41,13 @@ public class ChiusuraFiscale {
 		this.totale = totale;
 		this.numeroDocFisc = numeroDocFisc;
 		this.reparti = reparti;
+	}
+
+	public ChiusuraFiscale(Negozio negozio, LocalDate data, double totale, int numeroDocFisc) {
+		this.negozio = negozio;
+		this.data = data;
+		this.totale = totale;
+		this.numeroDocFisc = numeroDocFisc;
 	}
 
 }

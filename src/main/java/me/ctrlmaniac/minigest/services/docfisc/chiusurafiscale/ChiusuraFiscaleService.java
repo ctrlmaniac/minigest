@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
@@ -34,14 +35,24 @@ public class ChiusuraFiscaleService {
 		return null;
 	}
 
-	public ChiusuraFiscale save(ChiusuraFiscale cf) {
+	public ChiusuraFiscale save(ChiusuraFiscaleDTO cf) {
+		ChiusuraFiscale chiusuraFiscale = new ChiusuraFiscale();
+
+		chiusuraFiscale.setNegozio(cf.getNegozio());
+		chiusuraFiscale.setData(cf.getData());
+		chiusuraFiscale.setTotale(cf.getTotale());
+		chiusuraFiscale.setNumeroDocFisc(cf.getNumeroDocFisc());
+
+		ChiusuraFiscale saved = cfRepo.save(chiusuraFiscale);
+
 		if (cf.getReparti() != null) {
-			for (ChiusuraFiscaleReparto cfReparto : cf.getReparti()) {
-				cfRepartoService.save(cfReparto);
+			for (ChiusuraFiscaleReparto reparto : cf.getReparti()) {
+				reparto.setChiusuraFiscale(saved);
+				cfRepartoService.save(reparto);
 			}
 		}
 
-		return cfRepo.save(cf);
+		return chiusuraFiscale;
 	}
 
 	public List<ChiusuraFiscale> getAll(String idNegozio) {
@@ -81,24 +92,27 @@ public class ChiusuraFiscaleService {
 
 	}
 
-	public void deleteById(String id) {
-		cfRepo.deleteById(id);
-	}
-
 	public ChiusuraFiscale update(String id, ChiusuraFiscale newCF) {
 		Optional<ChiusuraFiscale> cfOpt = cfRepo.findById(id);
 
 		if (cfOpt.isPresent()) {
 			ChiusuraFiscale oldCF = cfOpt.get();
-			List<ChiusuraFiscaleReparto> reparti = oldCF.getReparti();
 
 			oldCF.setData(newCF.getData());
 			oldCF.setTotale(newCF.getTotale());
 			oldCF.setNumeroDocFisc(newCF.getNumeroDocFisc());
 
+			// Elimina i vecchi reparti
+			for (ChiusuraFiscaleReparto reparto : oldCF.getReparti()) {
+				if (!newCF.getReparti().contains(reparto)) {
+					cfRepartoService.deleteById(reparto.getId());
+				}
+			}
+
 			// salva il nuovo reparto
 			for (ChiusuraFiscaleReparto reparto : newCF.getReparti()) {
 				if (reparto.getId() == null) {
+					reparto.setChiusuraFiscale(oldCF);
 					cfRepartoService.save(reparto);
 				}
 			}
@@ -107,16 +121,21 @@ public class ChiusuraFiscaleService {
 
 			ChiusuraFiscale chiusura = cfRepo.save(oldCF);
 
-			// Elimina i vecchi reparti
-			for (ChiusuraFiscaleReparto reparto : reparti) {
-				if (!newCF.getReparti().contains(reparto)) {
-					cfRepartoService.deleteById(reparto.getId());
-				}
-			}
-
 			return chiusura;
 		}
 
 		return null;
+	}
+
+	public void deleteById(String id) {
+		ChiusuraFiscale chiusuraFiscale = get(id);
+
+		if (chiusuraFiscale != null) {
+			cfRepo.deleteById(chiusuraFiscale.getId());
+
+			for (ChiusuraFiscaleReparto reparto : chiusuraFiscale.getReparti()) {
+				cfRepartoService.deleteById(reparto.getId());
+			}
+		}
 	}
 }

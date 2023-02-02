@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;
+import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
 import me.ctrlmaniac.minigest.dto.FatturaDTO;
 import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
@@ -55,13 +56,13 @@ public class MinigestRunner implements CommandLineRunner {
 	AziendaIndirizzoService aziendaIndirizzoService;
 
 	@Autowired
-	TipoDocFiscService TDFService;
+	TipoDocFiscService tdFservice;
 
 	@Autowired
-	ChiusuraFiscaleService CFService;
+	ChiusuraFiscaleService chiusuraFiscaleService;
 
 	@Autowired
-	ChiusuraFiscaleRepartoService CFRService;
+	ChiusuraFiscaleRepartoService cfRepartoService;
 
 	@Autowired
 	NegozioService negozioService;
@@ -134,26 +135,21 @@ public class MinigestRunner implements CommandLineRunner {
 		negozioService.save(shopNegozio);
 
 		// Crea una Chiusura Fiscale
-		ChiusuraFiscaleReparto cfr1 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
-		ChiusuraFiscaleReparto cfr2 = new ChiusuraFiscaleReparto(22, 500, 0, 0);
+		ChiusuraFiscaleDTO cfDTO = new ChiusuraFiscaleDTO(larapidaNegozio, LocalDate.now(), 1000, 50, null);
+		ChiusuraFiscale cf = chiusuraFiscaleService.save(cfDTO);
 
-		CFRService.save(cfr1);
-		CFRService.save(cfr2);
+		ChiusuraFiscaleReparto cfReparto1 = new ChiusuraFiscaleReparto(cf, 22, 500, 0, 0);
+		cfRepartoService.save(cfReparto1);
 
-		List<ChiusuraFiscaleReparto> cfrs = new ArrayList<>();
-		cfrs.add(cfr1);
-		cfrs.add(cfr2);
-
-		ChiusuraFiscale cf = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 1000, 100, cfrs);
-
-		CFService.save(cf);
+		ChiusuraFiscaleReparto cfReparto2 = new ChiusuraFiscaleReparto(cf, 10, 500, 0, 0);
+		cfRepartoService.save(cfReparto2);
 
 		// Carica i tipi di documenti fiscali da CSV
 		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("media/tipidocfisc.csv")) {
-			TDFService.save(tdf);
+			tdFservice.save(tdf);
 		}
 
-		TipoDocFisc TD01 = TDFService.getByCodice("TD01");
+		TipoDocFisc TD01 = tdFservice.getByCodice("TD01");
 
 		// Crea una fattura
 		FatturaDTO ft1DTO = new FatturaDTO(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),

@@ -19,11 +19,12 @@ import {
 import { IconEdit, IconFile, IconTrash } from "@tabler/icons-react";
 import remove from "~/features/chiusureFiscali/remove";
 import { isEmpty } from "lodash";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import listByDate from "~/features/chiusureFiscali/listByDate";
 
 const ChiusureFiscaliLista: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { selected: negozio } = useAppSelector((state) => state.negozi);
   const {
@@ -174,12 +175,26 @@ const ChiusureFiscaliLista: React.FC = () => {
                         <TableCell>{cf.totale}</TableCell>
                         <TableCell>{cf.numeroDocFisc}</TableCell>
                         <TableCell>
-                          <IconButton color="info">
+                          <IconButton
+                            color="info"
+                            onClick={() =>
+                              navigate(
+                                `/app/docfisc/chiusure-fiscali/dettagli/${cf.id!}`
+                              )
+                            }
+                          >
                             <IconFile />
                           </IconButton>
                         </TableCell>
                         <TableCell>
-                          <IconButton color="warning">
+                          <IconButton
+                            color="warning"
+                            onClick={() =>
+                              navigate(
+                                `/app/docfisc/chiusure-fiscali/modifica/${cf.id!}`
+                              )
+                            }
+                          >
                             <IconEdit />
                           </IconButton>
                         </TableCell>
