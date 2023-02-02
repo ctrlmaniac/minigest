@@ -11,7 +11,8 @@
     "postbuild": "npm run collectclient && git add . && git commit -m \"collected client\" && git push",
     "runserver": "mvnw spring-boot:run",
     "package": "mvnw package",
-    "run:app": "java -jar target/minigest-0.0.2-SNAPSHOT.jar"
+    "run:app": "java -jar target/minigest-0.0.2-SNAPSHOT.jar",
+    "test": "mvnw test"
   },
   "devDependencies": {
     "lerna": "^5.6.2"
