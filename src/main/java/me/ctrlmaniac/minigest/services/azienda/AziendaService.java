@@ -37,7 +37,7 @@ public class AziendaService {
 	}
 
 	public List<Azienda> getAll() {
-		return aziendaRepo.findAll();
+		return aziendaRepo.findAllByOrderByDenominazioneAsc();
 	}
 
 	public void deleteById(String id) {

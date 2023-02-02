@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.ctrlmaniac.minigest.dto.FatturaDTO;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
@@ -27,16 +28,16 @@ public class FatturaController {
 	FatturaService fatturaService;
 
 	@PostMapping("")
-	public ResponseEntity<Fattura> create(@RequestBody Fattura cf) {
-		fatturaService.save(cf);
-		return new ResponseEntity<Fattura>(cf, HttpStatus.CREATED);
+	public ResponseEntity<Fattura> create(@RequestBody FatturaDTO ft) {
+		Fattura fattura = fatturaService.save(ft);
+		return new ResponseEntity<Fattura>(fattura, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Fattura> getById(@PathVariable String id) {
-		Fattura cf = fatturaService.get(id);
+		Fattura ft = fatturaService.get(id);
 
-		return new ResponseEntity<>(cf, cf == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+		return new ResponseEntity<>(ft, ft == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
@@ -46,8 +47,8 @@ public class FatturaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Fattura> update(@PathVariable String id, @RequestBody Fattura cf) {
-		return new ResponseEntity<>(fatturaService.update(id, cf), HttpStatus.OK);
+	public ResponseEntity<Fattura> update(@PathVariable String id, @RequestBody Fattura ft) {
+		return new ResponseEntity<>(fatturaService.update(id, ft), HttpStatus.OK);
 	}
 
 	@GetMapping("/acquisto/{id}")

@@ -37,6 +37,10 @@ public class FatturaScadenzaService {
 		fatturaScadenzaRepo.deleteById(id);
 	}
 
+	public void delete(FatturaScadenza scadenza) {
+		fatturaScadenzaRepo.delete(scadenza);
+	}
+
 	public FatturaScadenza update(String id, FatturaScadenza newScadenza) {
 		Optional<FatturaScadenza> scadenzaOpt = fatturaScadenzaRepo.findById(id);
 

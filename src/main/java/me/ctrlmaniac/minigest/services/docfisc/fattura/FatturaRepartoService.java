@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepartoRepo;
 
@@ -33,8 +34,16 @@ public class FatturaRepartoService {
 		return fatturaRepartoRepo.findAll();
 	}
 
+	public List<FatturaReparto> getAllByFattura(Fattura fattura) {
+		return fatturaRepartoRepo.findAllByFattura(fattura);
+	}
+
 	public void deleteById(String id) {
 		fatturaRepartoRepo.deleteById(id);
+	}
+
+	public void delete(FatturaReparto reparto) {
+		fatturaRepartoRepo.delete(reparto);
 	}
 
 	public FatturaReparto update(String id, FatturaReparto newReparto) {

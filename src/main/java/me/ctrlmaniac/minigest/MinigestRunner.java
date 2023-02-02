@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;
+import me.ctrlmaniac.minigest.dto.FatturaDTO;
 import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
@@ -22,6 +23,7 @@ import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.services.AccountService;
@@ -31,6 +33,7 @@ import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaPagamentoService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
@@ -71,6 +74,9 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	FatturaScadenzaService fatturaScadenzaService;
+
+	@Autowired
+	FatturaPagamentoService fatturaPagamentoService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -150,38 +156,37 @@ public class MinigestRunner implements CommandLineRunner {
 		TipoDocFisc TD01 = TDFService.getByCodice("TD01");
 
 		// Crea una fattura
-		FatturaReparto ftRepartoFt1 = new FatturaReparto(22, 409.84, 90.16);
+		FatturaDTO ft1DTO = new FatturaDTO(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
+				"12345",
+				500, null, null, null);
+		Fattura ft1 = fatturaService.save(ft1DTO);
+
+		FatturaReparto ftRepartoFt1 = new FatturaReparto(ft1, 22, 409.84, 90.16);
 		fatturaRepartoService.save(ftRepartoFt1);
 
-		List<FatturaReparto> ftRepartiFt1 = new ArrayList<>();
-		ftRepartiFt1.add(ftRepartoFt1);
-
-		FatturaScadenza ftScadenzaFt1 = new FatturaScadenza(LocalDate.now(), 500);
+		FatturaScadenza ftScadenzaFt1 = new FatturaScadenza(ft1, LocalDate.now(), 500);
 		fatturaScadenzaService.save(ftScadenzaFt1);
 
-		List<FatturaScadenza> ftScadenzeFt1 = new ArrayList<>();
-		ftScadenzeFt1.add(ftScadenzaFt1);
-
-		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "12345", 500,
-				ftRepartiFt1, null, null);
-		fatturaService.save(ft1);
+		FatturaPagamento ftPagamentoFt1 = new FatturaPagamento(ft1, LocalDate.now(), 500);
+		fatturaPagamentoService.save(ftPagamentoFt1);
 
 		// Crea una seconda fattura
-		FatturaReparto ftRepartoFt2 = new FatturaReparto(22, 819.67, 180.33);
+		FatturaDTO ft2DTO = new FatturaDTO(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
+				"54321",
+				1000, null, null, null);
+		Fattura ft2 = fatturaService.save(ft2DTO);
+
+		FatturaReparto ftRepartoFt2 = new FatturaReparto(ft2, 22, 819.67, 180.33);
 		fatturaRepartoService.save(ftRepartoFt2);
 
-		List<FatturaReparto> ftRepartiFt2 = new ArrayList<>();
-		ftRepartiFt1.add(ftRepartoFt2);
-
-		FatturaScadenza ftScadenzaFt2 = new FatturaScadenza(LocalDate.now(), 1000);
+		FatturaScadenza ftScadenzaFt2 = new FatturaScadenza(ft2, LocalDate.now(), 500);
 		fatturaScadenzaService.save(ftScadenzaFt2);
 
-		List<FatturaScadenza> ftScadenzeFt2 = new ArrayList<>();
-		ftScadenzeFt2.add(ftScadenzaFt2);
+		FatturaScadenza ftScadenza2Ft2 = new FatturaScadenza(ft2, LocalDate.now().plusWeeks(1), 500);
+		fatturaScadenzaService.save(ftScadenza2Ft2);
 
-		Fattura ft2 = new Fattura(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1), "54321", 1000,
-				ftRepartiFt2, ftScadenzeFt2, null);
-		fatturaService.save(ft2);
+		FatturaPagamento ftPagamentoFt2 = new FatturaPagamento(ft2, LocalDate.now(), 500);
+		fatturaPagamentoService.save(ftPagamentoFt2);
 
 		log.info("Application started at http://localhost:8080");
 		log.info("Runner ends");

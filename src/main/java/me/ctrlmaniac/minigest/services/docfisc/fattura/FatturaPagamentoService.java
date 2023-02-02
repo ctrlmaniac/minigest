@@ -37,6 +37,10 @@ public class FatturaPagamentoService {
 		fatturaPagamentoRepo.deleteById(id);
 	}
 
+	public void delete(FatturaPagamento pagamento) {
+		fatturaPagamentoRepo.delete(pagamento);
+	}
+
 	public FatturaPagamento update(String id, FatturaPagamento newPagamento) {
 		Optional<FatturaPagamento> pagamentoOpt = fatturaPagamentoRepo.findById(id);
 

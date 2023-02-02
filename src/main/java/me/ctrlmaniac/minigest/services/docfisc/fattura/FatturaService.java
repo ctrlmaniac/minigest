@@ -13,6 +13,7 @@ import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.dto.FatturaDTO;
 
 @Service
 public class FatturaService {
@@ -42,26 +43,41 @@ public class FatturaService {
 		return null;
 	}
 
-	public Fattura save(Fattura f) {
+	public Fattura save(FatturaDTO f) {
+		Fattura fattura = new Fattura();
+
+		fattura.setCedente(f.getCedente());
+		fattura.setTipoDocumento(f.getTipoDocumento());
+		fattura.setCedente(f.getCedente());
+		fattura.setCommittente(f.getCommittente());
+		fattura.setData(f.getData());
+		fattura.setNumero(f.getNumero());
+		fattura.setTotale(f.getTotale());
+
+		Fattura saved = fatturaRepo.save(fattura);
+
 		if (f.getReparti() != null) {
-			for (FatturaReparto ftReparto : f.getReparti()) {
-				fatturaRepartoService.save(ftReparto);
+			for (FatturaReparto reparto : f.getReparti()) {
+				reparto.setFattura(saved);
+				fatturaRepartoService.save(reparto);
 			}
 		}
 
 		if (f.getScadenze() != null) {
 			for (FatturaScadenza scadenza : f.getScadenze()) {
+				scadenza.setFattura(saved);
 				fatturaScadenzaService.save(scadenza);
 			}
 		}
 
 		if (f.getPagamenti() != null) {
 			for (FatturaPagamento pagamento : f.getPagamenti()) {
+				pagamento.setFattura(saved);
 				fatturaPagamentoService.save(pagamento);
 			}
 		}
 
-		return fatturaRepo.save(f);
+		return fattura;
 	}
 
 	public List<Fattura> getAllByCendente(String idAzienda) {
@@ -140,6 +156,7 @@ public class FatturaService {
 			// Salva i nuovi reparti
 			for (FatturaReparto reparto : newFattura.getReparti()) {
 				if (reparto.getId() == null) {
+					reparto.setFattura(oldFattura);
 					fatturaRepartoService.save(reparto);
 				}
 			}
@@ -147,6 +164,7 @@ public class FatturaService {
 			// Salva le nuove scadenze
 			for (FatturaScadenza scadenza : newFattura.getScadenze()) {
 				if (scadenza.getId() == null) {
+					scadenza.setFattura(oldFattura);
 					fatturaScadenzaService.save(scadenza);
 				}
 			}
@@ -154,7 +172,34 @@ public class FatturaService {
 			// Salva i nuovi pagamenti
 			for (FatturaPagamento pagamento : newFattura.getPagamenti()) {
 				if (pagamento.getId() == null) {
+					pagamento.setFattura(oldFattura);
 					fatturaPagamentoService.save(pagamento);
+				}
+			}
+
+			// TODO
+			// Elimina i vecchi reparti
+			for (FatturaReparto reparto : oldFattura.getReparti()) {
+				if (!newFattura.getReparti().contains(reparto)) {
+					fatturaRepartoService.delete(reparto);
+				}
+			}
+
+			// TODO
+			// Elimina le vecchie scadenze
+			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
+				if (!newFattura.getScadenze().contains(scadenza)) {
+					fatturaScadenzaService.delete(scadenza);
+				}
+			}
+
+			// TODO
+			// Elimina i vecchi pagamenti
+			for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
+				if (!newFattura.getPagamenti().contains(pagamento)) {
+					System.out.println(pagamento.getId());
+
+					fatturaPagamentoService.deleteById(pagamento.getId());
 				}
 			}
 
@@ -162,30 +207,7 @@ public class FatturaService {
 			oldFattura.setScadenze(newFattura.getScadenze());
 			oldFattura.setPagamenti(newFattura.getPagamenti());
 
-			Fattura fattura = fatturaRepo.save(oldFattura);
-
-			// Elimina i vecchi reparti
-			for (FatturaReparto reparto : oldFattura.getReparti()) {
-				if (!newFattura.getReparti().contains(reparto)) {
-					fatturaRepartoService.deleteById(reparto.getId());
-				}
-			}
-
-			// Elimina le vecchie scadenze
-			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
-				if (!newFattura.getScadenze().contains(scadenza)) {
-					fatturaScadenzaService.deleteById(scadenza.getId());
-				}
-			}
-
-			// Elimina i vecchi pagamenti
-			for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
-				if (!newFattura.getPagamenti().contains(pagamento)) {
-					fatturaPagamentoService.deleteById(pagamento.getId());
-				}
-			}
-
-			return fattura;
+			return fatturaRepo.save(oldFattura);
 
 		}
 
@@ -204,7 +226,15 @@ public class FatturaService {
 			fatturaRepo.deleteById(tmpFattura.getId());
 
 			for (FatturaReparto reparto : fattura.getReparti()) {
-				fatturaRepartoService.deleteById(reparto.getId());
+				fatturaRepartoService.delete(reparto);
+			}
+
+			for (FatturaScadenza scadenza : fattura.getScadenze()) {
+				fatturaScadenzaService.delete(scadenza);
+			}
+
+			for (FatturaPagamento pagamento : fattura.getPagamenti()) {
+				fatturaPagamentoService.delete(pagamento);
 			}
 		}
 	}
