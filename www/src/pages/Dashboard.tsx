@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import AziendeWidget from "./Aziende/Widget";
 import NegoziWidget from "./Negozi/Widget";
 import ChiusureFiscaliWidget from "./ChiusureFiscali/Widget";
+import ScadenzarioWidget from "./Scadenzario/Widget";
 
 const Dashboard: React.FC = () => {
   return (
@@ -22,6 +23,9 @@ const Dashboard: React.FC = () => {
         </Grid>
         <Grid item xs={12}>
           <ChiusureFiscaliWidget />
+        </Grid>
+        <Grid item xs={12}>
+          <ScadenzarioWidget />
         </Grid>
       </Grid>
     </>
