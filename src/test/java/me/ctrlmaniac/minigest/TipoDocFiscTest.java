@@ -26,14 +26,15 @@ public class TipoDocFiscTest {
 		List<TipoDocFisc> lista = tipoDocFiscService.getAll();
 
 		assertNotNull(lista);
-
+		assertEquals(lista.size(), 19);
 	}
 
-@Test
+	@Test
 	void checkCodice() {
 		TipoDocFisc TD24 = tipoDocFiscService.getByCodice("TD24");
 
 		assertNotNull(TD24);
-		assertEquals(TD24.getDescrizione(), "fattura differita di cui all'art. 21, comma 4, terzo periodo lett. a) DPR 633/72");
+		assertEquals(TD24.getDescrizione(),
+				"fattura differita di cui all'art. 21, comma 4, terzo periodo lett. a) DPR 633/72");
 	}
 }
