@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaScadenzaRepo;
 
@@ -31,6 +32,10 @@ public class FatturaScadenzaService {
 
 	public List<FatturaScadenza> getAll() {
 		return fatturaScadenzaRepo.findAllOrderByDataAsc();
+	}
+
+	public List<FatturaScadenza> getAllByFattura(Fattura fattura) {
+		return fatturaScadenzaRepo.findAllByFattura(fattura);
 	}
 
 	public void deleteById(String id) {

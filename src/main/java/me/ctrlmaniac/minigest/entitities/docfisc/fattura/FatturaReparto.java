@@ -1,7 +1,6 @@
 package me.ctrlmaniac.minigest.entitities.docfisc.fattura;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
@@ -9,13 +8,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class FatturaReparto {
 
@@ -25,8 +27,6 @@ public class FatturaReparto {
 
 	@ManyToOne
 	@JsonIncludeProperties("id")
-	@Cascade(CascadeType.SAVE_UPDATE)
-	@JoinColumn(name = "fattura_id")
 	Fattura fattura;
 
 	private double aliquota;
@@ -38,6 +38,22 @@ public class FatturaReparto {
 		this.aliquota = aliquota;
 		this.imponibile = imponibile;
 		this.imposta = imposta;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// self check
+		if (this == o)
+			return true;
+		// null check
+		if (o == null)
+			return false;
+		// type check and cast
+		if (getClass() != o.getClass())
+			return false;
+		FatturaReparto reparto = (FatturaReparto) o;
+		// field comparison
+		return Objects.equals(id, reparto.getId());
 	}
 
 }

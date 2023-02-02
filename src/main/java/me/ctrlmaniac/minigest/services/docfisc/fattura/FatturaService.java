@@ -153,6 +153,27 @@ public class FatturaService {
 			oldFattura.setNumero(newFattura.getNumero());
 			oldFattura.setTotale(newFattura.getTotale());
 
+			// Elimina i vecchi reparti
+			for (FatturaReparto reparto : oldFattura.getReparti()) {
+				if (!newFattura.getReparti().contains(reparto)) {
+					fatturaRepartoService.deleteById(reparto.getId());
+				}
+			}
+
+			// Elimina le vecchie scadenze
+			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
+				if (!newFattura.getScadenze().contains(scadenza)) {
+					fatturaScadenzaService.deleteById(scadenza.getId());
+				}
+			}
+
+			// Elimina i vecchi pagamenti
+			for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
+				if (!newFattura.getPagamenti().contains(pagamento)) {
+					fatturaPagamentoService.deleteById(pagamento.getId());
+				}
+			}
+
 			// Salva i nuovi reparti
 			for (FatturaReparto reparto : newFattura.getReparti()) {
 				if (reparto.getId() == null) {
@@ -177,32 +198,6 @@ public class FatturaService {
 				}
 			}
 
-			// TODO
-			// Elimina i vecchi reparti
-			for (FatturaReparto reparto : oldFattura.getReparti()) {
-				if (!newFattura.getReparti().contains(reparto)) {
-					fatturaRepartoService.delete(reparto);
-				}
-			}
-
-			// TODO
-			// Elimina le vecchie scadenze
-			for (FatturaScadenza scadenza : oldFattura.getScadenze()) {
-				if (!newFattura.getScadenze().contains(scadenza)) {
-					fatturaScadenzaService.delete(scadenza);
-				}
-			}
-
-			// TODO
-			// Elimina i vecchi pagamenti
-			for (FatturaPagamento pagamento : oldFattura.getPagamenti()) {
-				if (!newFattura.getPagamenti().contains(pagamento)) {
-					System.out.println(pagamento.getId());
-
-					fatturaPagamentoService.deleteById(pagamento.getId());
-				}
-			}
-
 			oldFattura.setReparti(newFattura.getReparti());
 			oldFattura.setScadenze(newFattura.getScadenze());
 			oldFattura.setPagamenti(newFattura.getPagamenti());
@@ -218,23 +213,18 @@ public class FatturaService {
 		Fattura fattura = get(id);
 
 		if (fattura != null) {
-			fattura.setCedente(null);
-			fattura.setCommittente(null);
-
-			Fattura tmpFattura = update(id, fattura);
-
-			fatturaRepo.deleteById(tmpFattura.getId());
+			fatturaRepo.deleteById(fattura.getId());
 
 			for (FatturaReparto reparto : fattura.getReparti()) {
-				fatturaRepartoService.delete(reparto);
+				fatturaRepartoService.deleteById(reparto.getId());
 			}
 
 			for (FatturaScadenza scadenza : fattura.getScadenze()) {
-				fatturaScadenzaService.delete(scadenza);
+				fatturaScadenzaService.deleteById(scadenza.getId());
 			}
 
 			for (FatturaPagamento pagamento : fattura.getPagamenti()) {
-				fatturaPagamentoService.delete(pagamento);
+				fatturaPagamentoService.deleteById(pagamento.getId());
 			}
 		}
 	}
