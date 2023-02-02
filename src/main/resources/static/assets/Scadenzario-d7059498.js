@@ -1,0 +1,1 @@
+import{j as r,F as a,B as o}from"./index-735c612a.js";import{T as e}from"./Typography-d0b266ea.js";const t=()=>r(a,{children:r(o,{mb:3,children:r(e,{variant:"h3",children:"Scadenzario"})})});export{t as default};

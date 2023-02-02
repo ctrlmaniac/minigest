@@ -1,1 +1,0 @@
-import{j as r,W as t,a as e}from"./index-f96e3560.js";import{C as s}from"./Container-8d72809c.js";import{T as a}from"./Typography-4d9115c9.js";import{A as i}from"./Alert-bac571b5.js";const c=({message:o})=>r(t,{children:e(s,{maxWidth:"xs",children:[r(a,{variant:"h3",component:"h1",gutterBottom:!0,children:"Oops!"}),r(i,{severity:"error",children:o})]})});export{c as E};

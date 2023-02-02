@@ -1,1 +1,0 @@
-import{E as e,a as i}from"./index-e540bbee.js";import{at as n,au as o}from"./index-f96e3560.js";function c(){return async a=>{let s=`${e.TIPO_DOC_FISC}`;i.get(s).then(t=>{a(n(t.data))}).catch(t=>{a(o(t.message))})}}export{c as l};
