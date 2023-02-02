@@ -16,4 +16,5 @@ export default interface Fattura {
   reparti: FatturaReparto[];
   scadenze: FatturaScadenza[];
   pagamenti?: FatturaPagamento[];
+  evasa?: boolean;
 }

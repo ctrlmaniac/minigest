@@ -18,10 +18,18 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { IconPencil, IconSettings, IconTrash } from "@tabler/icons-react";
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconInfoCircle,
+  IconPencil,
+  IconSettings,
+  IconTrash,
+} from "@tabler/icons-react";
 import remove from "~/features/fatture/remove";
 import { useAppDispatch } from "~/hooks";
 import { Fattura } from "~/types";
+import { green, orange } from "@mui/material/colors";
 
 interface Props {
   dettagli: Fattura;
@@ -39,7 +47,15 @@ const FattureDettagli: React.FC<Props> = ({ dettagli }) => {
   return (
     <>
       <Box mb={3}>
-        <Typography variant="h3">Dettagli Fattura</Typography>
+        <Typography variant="h3" gutterBottom>
+          Dettagli Fattura
+        </Typography>
+
+        {dettagli.evasa ? (
+          <Alert severity="success">Fattura pagata!</Alert>
+        ) : (
+          <Alert severity="warning">Fattura da pagare!</Alert>
+        )}
       </Box>
 
       <Box mb={3}>
@@ -112,7 +128,7 @@ const FattureDettagli: React.FC<Props> = ({ dettagli }) => {
                 <TableRow>
                   <TableCell>Aliquota</TableCell>
                   <TableCell>Imponibile</TableCell>
-                  <TableCell>imposta</TableCell>
+                  <TableCell>Imposta</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -137,15 +153,23 @@ const FattureDettagli: React.FC<Props> = ({ dettagli }) => {
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell sx={{ width: 50 }} align="center"></TableCell>
                   <TableCell>Data</TableCell>
-                  <TableCell>Importo</TableCell>
+                  <TableCell align="right">Importo</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {dettagli?.scadenze.map((scadenza) => (
                   <TableRow key={scadenza.id}>
+                    <TableCell>
+                      {scadenza.pagato ? (
+                        <IconCircleCheck color={green[500]} />
+                      ) : (
+                        <IconAlertCircle color={orange[500]} />
+                      )}
+                    </TableCell>
                     <TableCell>{scadenza.data}</TableCell>
-                    <TableCell>€ {scadenza.importo}</TableCell>
+                    <TableCell align="right">{scadenza.importo} €</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
