@@ -16,11 +16,8 @@ import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 public class TipoDocFiscTest {
 
 	@Autowired
-	TipoDocFiscService tipoDocFiscService;
+	private TipoDocFiscService tipoDocFiscService;
 
-	/**
-	 * 
-	 */
 	@Test
 	void checkLoadFromCsv() {
 		List<TipoDocFisc> lista = tipoDocFiscService.getAll();

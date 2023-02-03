@@ -25,16 +25,16 @@ import me.ctrlmaniac.minigest.dto.FatturaDTO;
 public class FatturaTest {
 
 	@Autowired
-	AziendaService aziendaService;
+	private AziendaService aziendaService;
 
 	@Autowired
-	TipoDocFiscService tipoDocFiscService;
+	private TipoDocFiscService tipoDocFiscService;
 
 	@Autowired
-	FatturaService fatturaService;
+	private FatturaService fatturaService;
 
 	@Autowired
-	FatturaRepartoService fatturaRepartoService;
+	private FatturaRepartoService fatturaRepartoService;
 
 	@Test
 	void testFatturaCreation() {
