@@ -20,7 +20,7 @@ DB_HOST=localhost
 ADMIN_EMAIL=davide.dicriscito@gmail.com
 ADMIN_PASS=54321
 ADMIN_FNAME=Davide
-ADMIN_LNAME=Di Criscitos
+ADMIN_LNAME=Di Criscito
 ```
 
 Spring Boot caricherà automaticamente queste variabili nell'applicazione.
