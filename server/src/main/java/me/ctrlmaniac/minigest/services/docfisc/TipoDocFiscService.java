@@ -13,7 +13,7 @@ import me.ctrlmaniac.minigest.repositories.docfisc.TipoDocFiscRepo;
 public class TipoDocFiscService {
 
 	@Autowired
-	TipoDocFiscRepo tdfRepo;
+	private TipoDocFiscRepo tdfRepo;
 
 	public TipoDocFisc get(String id) {
 		Optional<TipoDocFisc> tdfOpt = tdfRepo.findById(id);

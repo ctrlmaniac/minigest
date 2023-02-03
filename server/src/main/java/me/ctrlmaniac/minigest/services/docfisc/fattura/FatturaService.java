@@ -19,19 +19,19 @@ import me.ctrlmaniac.minigest.dto.FatturaDTO;
 public class FatturaService {
 
 	@Autowired
-	AziendaService aziendaService;
+	private AziendaService aziendaService;
 
 	@Autowired
-	FatturaRepo fatturaRepo;
+	private FatturaRepo fatturaRepo;
 
 	@Autowired
-	FatturaRepartoService fatturaRepartoService;
+	private FatturaRepartoService fatturaRepartoService;
 
 	@Autowired
-	FatturaScadenzaService fatturaScadenzaService;
+	private FatturaScadenzaService fatturaScadenzaService;
 
 	@Autowired
-	FatturaPagamentoService fatturaPagamentoService;
+	private FatturaPagamentoService fatturaPagamentoService;
 
 	public Fattura get(String id) {
 		Optional<Fattura> fatturaOpt = fatturaRepo.findById(id);

@@ -14,7 +14,7 @@ import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepartoRepo;
 public class FatturaRepartoService {
 
 	@Autowired
-	FatturaRepartoRepo fatturaRepartoRepo;
+	private FatturaRepartoRepo fatturaRepartoRepo;
 
 	public FatturaReparto get(String id) {
 		Optional<FatturaReparto> repartoOpt = fatturaRepartoRepo.findById(id);

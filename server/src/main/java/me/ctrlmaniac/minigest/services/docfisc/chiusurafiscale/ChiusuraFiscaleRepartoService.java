@@ -13,7 +13,7 @@ import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFisca
 public class ChiusuraFiscaleRepartoService {
 
 	@Autowired
-	ChiusuraFiscaleRepartoRepo cfRepo;
+	private ChiusuraFiscaleRepartoRepo cfRepo;
 
 	public ChiusuraFiscaleReparto get(String id) {
 		Optional<ChiusuraFiscaleReparto> cfOpt = cfRepo.findById(id);

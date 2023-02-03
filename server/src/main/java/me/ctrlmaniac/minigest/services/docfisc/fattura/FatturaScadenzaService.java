@@ -14,7 +14,7 @@ import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaScadenzaRepo;
 public class FatturaScadenzaService {
 
 	@Autowired
-	FatturaScadenzaRepo fatturaScadenzaRepo;
+	private FatturaScadenzaRepo fatturaScadenzaRepo;
 
 	public FatturaScadenza get(String id) {
 		Optional<FatturaScadenza> scadenzaOpt = fatturaScadenzaRepo.findById(id);

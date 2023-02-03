@@ -12,7 +12,7 @@ import me.ctrlmaniac.minigest.repositories.azienda.AziendaIndirizzoRepo;
 @Service
 public class AziendaIndirizzoService {
 	@Autowired
-	AziendaIndirizzoRepo indirizzoRepo;
+	private AziendaIndirizzoRepo indirizzoRepo;
 
 	public AziendaIndirizzo get(String id) {
 		Optional<AziendaIndirizzo> indirizzoOpt = indirizzoRepo.findById(id);

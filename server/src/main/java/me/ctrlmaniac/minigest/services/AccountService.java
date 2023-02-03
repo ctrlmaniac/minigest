@@ -19,7 +19,7 @@ import me.ctrlmaniac.minigest.repositories.AccountRepo;
 public class AccountService implements UserDetailsService {
 
 	@Autowired
-	AccountRepo accountRepo;
+	private AccountRepo accountRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -14,7 +14,7 @@ import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaPagamentoRepo;
 public class FatturaPagamentoService {
 
 	@Autowired
-	FatturaPagamentoRepo fatturaPagamentoRepo;
+	private FatturaPagamentoRepo fatturaPagamentoRepo;
 
 	public FatturaPagamento get(String id) {
 		Optional<FatturaPagamento> pagamentoOpt = fatturaPagamentoRepo.findById(id);

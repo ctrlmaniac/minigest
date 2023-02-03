@@ -13,7 +13,7 @@ import me.ctrlmaniac.minigest.repositories.NegozioRepo;
 @Service
 public class NegozioService {
 	@Autowired
-	NegozioRepo negozioRepo;
+	private NegozioRepo negozioRepo;
 
 	public Negozio get(String id) {
 		Optional<Negozio> negozioOpt = negozioRepo.findById(id);
