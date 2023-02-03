@@ -50,7 +50,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker compose down
+          script: docker-compose down --rmi all
 
       - name: run docker pull
         uses: appleboy/ssh-action@master
@@ -68,4 +68,4 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker compose up -d
+          script: docker compose up -d --build
