@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rm -rf src/main/resources/static
-cp -r www/dist src/main/resources/static
+rm -rf server/src/main/resources/static
+cp -r www/dist server/src/main/resources/static
