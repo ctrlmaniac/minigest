@@ -9,10 +9,10 @@
     "dev": "npx lerna exec --scope=www npm run dev",
     "build": "npx lerna exec --scope=www npm run build",
     "postbuild": "npm run collectclient && git add . && git commit -m \"collected client\" && git push",
-    "runserver": "mvnw spring-boot:run",
-    "package": "mvnw package",
+    "runserver": "mvnw install && mvnw spring-boot:run -pl server",
+    "package": "mvnw package -pl server",
     "run:app": "java -jar target/minigest-0.0.2-SNAPSHOT.jar",
-    "test": "mvnw test"
+    "test": "mvnw test -pl server"
   },
   "devDependencies": {
     "lerna": "^5.6.2"
