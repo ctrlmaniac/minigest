@@ -5,12 +5,16 @@ interface AccountState {
   getting: boolean;
   getError?: string;
   dettagli?: Account;
+  registering: boolean;
+  registerError?: string;
 }
 
 const initialState: AccountState = {
   getting: false,
   getError: undefined,
   dettagli: undefined,
+  registering: false,
+  registerError: undefined,
 };
 
 export const accountSlice = createSlice({
@@ -30,9 +34,28 @@ export const accountSlice = createSlice({
       state.dettagli = undefined;
       state.getting = false;
     },
+    registerStart: (state) => {
+      state.registering = true;
+      state.registerError = undefined;
+    },
+    registerSuccess: (state) => {
+      state.registerError = undefined;
+      state.registering = false;
+    },
+    registerFail: (state, action: PayloadAction<string>) => {
+      state.registerError = action.payload;
+      state.registering = false;
+    },
   },
 });
 
-export const { getStart, getFail, getSuccess } = accountSlice.actions;
+export const {
+  getStart,
+  getFail,
+  getSuccess,
+  registerStart,
+  registerSuccess,
+  registerFail,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

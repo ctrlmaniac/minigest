@@ -8,12 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class AppConfig {
+public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeHttpRequests()
+				.requestMatchers("/api/account").permitAll()
 				.requestMatchers("/app", "/app/**", "/api/**").authenticated()
 				.requestMatchers("/**").permitAll()
 				.and().formLogin().loginPage("/login")

@@ -10,8 +10,12 @@ import {
 import React, { HtmlHTMLAttributes } from "react";
 import { SaveFab } from "~/components";
 import { logoTheme } from "~/context/theme";
+import register from "~/features/account/register";
+import { useAppDispatch } from "~/hooks";
 
 const Registrati: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [account, setAccount] = React.useState({
     fname: "",
     lname: "",
@@ -171,7 +175,7 @@ const Registrati: React.FC = () => {
       },
     };
 
-    console.log(object);
+    dispatch(register(object));
   };
 
   return (
@@ -371,7 +375,7 @@ const Registrati: React.FC = () => {
                     label="CAP"
                     name="cap"
                     value={sede.cap}
-                    error={sedeError.indirizzo}
+                    error={sedeError.cap}
                     required
                     onChange={handleSedeChange}
                   />

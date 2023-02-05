@@ -94,6 +94,7 @@ public class AccountController {
 			accountTmp.setLname(form.getAccount().getLname());
 			accountTmp.setEmail(form.getAccount().getEmail());
 			accountTmp.setPassword(hashPwd);
+			accountTmp.setRole("USER");
 
 			List<Azienda> accountAziende = new ArrayList<>();
 			accountAziende.add(azienda);
