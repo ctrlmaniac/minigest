@@ -1,0 +1,1 @@
+import{a as e,E as n}from"./index-30e337fd.js";import{as as o,at as r}from"./index-7862eb00.js";function i(s){return async t=>{e.get(`${n.NEGOZI}/${s}`).then(a=>{t(o(a.data))}).catch(a=>{t(r(a.message))})}}export{i as g};

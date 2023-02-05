@@ -1,0 +1,1 @@
+import{E as e,a as i}from"./index-30e337fd.js";import{a5 as n,a6 as o}from"./index-7862eb00.js";function c(){return async t=>{let s=`${e.SCADENZARIO}`;i.get(s).then(a=>{t(n(a.data))}).catch(a=>{t(o(a.message))})}}export{c as l};
