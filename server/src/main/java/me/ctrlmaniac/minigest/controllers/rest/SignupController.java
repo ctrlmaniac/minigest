@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -97,13 +94,6 @@ public class SignupController {
 			Account account = accountService.save(accountTmp);
 
 			if (account.getId() != null) {
-
-				Authentication authentication = authenticationManager
-						.authenticate(new UsernamePasswordAuthenticationToken(
-								account.getEmail(), account.getPassword()));
-
-				SecurityContextHolder.getContext().setAuthentication(authentication);
-
 				return new ResponseEntity<>("Utente creato con successo", HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
