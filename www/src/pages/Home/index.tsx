@@ -29,8 +29,11 @@ const Home: React.FC = () => {
           </Typography>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <Button variant="contained" href="/app">
+          <Button variant="contained" href="/app" sx={{ marginRight: 2 }}>
             Accedi
+          </Button>
+          <Button variant="outlined" href="/registrati">
+            registrati
           </Button>
         </Box>
 

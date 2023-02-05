@@ -4,6 +4,7 @@ import { LoadingScreen } from "~/components";
 
 // pages
 const Home = React.lazy(() => import("~/pages/Home"));
+const Registrati = React.lazy(() => import("~/pages/Registrati"));
 const Login = React.lazy(() => import("~/pages/Login"));
 const App = React.lazy(() => import("~/pages/App"));
 const NotFound = React.lazy(() => import("~/pages/NotFound"));
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
     element: (
       <React.Suspense fallback={<LoadingScreen />}>
         <Login />
+      </React.Suspense>
+    ),
+  },
+  {
+    path: "/registrati",
+    element: (
+      <React.Suspense fallback={<LoadingScreen />}>
+        <Registrati />
       </React.Suspense>
     ),
   },
