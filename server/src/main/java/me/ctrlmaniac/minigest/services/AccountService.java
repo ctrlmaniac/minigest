@@ -41,4 +41,8 @@ public class AccountService implements UserDetailsService {
 		return accountRepo.save(a);
 	}
 
+	public Account findByEmail(String email) {
+		return accountRepo.findByEmail(email);
+	}
+
 }
