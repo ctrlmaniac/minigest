@@ -15,6 +15,7 @@ interface AziendeState {
   dettagli?: Azienda;
   selected?: Azienda;
   list?: Azienda[];
+  esiste: boolean;
 }
 
 const initialState: AziendeState = {
@@ -31,6 +32,7 @@ const initialState: AziendeState = {
   dettagli: undefined,
   selected: undefined,
   list: undefined,
+  esiste: false,
 };
 
 export const aziendeSlice = createSlice({
@@ -90,6 +92,9 @@ export const aziendeSlice = createSlice({
       state.removeError = action.payload;
       state.removing = false;
     },
+    getExists: (state, action: PayloadAction<boolean>) => {
+      state.esiste = action.payload;
+    },
   },
 });
 
@@ -107,6 +112,7 @@ export const {
   listFail,
   removeSuccess,
   removeFail,
+  getExists,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;

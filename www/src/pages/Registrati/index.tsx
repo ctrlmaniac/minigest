@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Container,
   Grid,
@@ -7,14 +8,16 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import React, { HtmlHTMLAttributes } from "react";
+import React from "react";
 import { SaveFab } from "~/components";
 import { logoTheme } from "~/context/theme";
+import { useAppDispatch, useAppSelector } from "~/hooks";
 import register from "~/features/account/register";
-import { useAppDispatch } from "~/hooks";
+import exists from "~/features/aziende/exists";
 
 const Registrati: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { esiste } = useAppSelector((state) => state.aziende);
 
   const [account, setAccount] = React.useState({
     fname: "",
@@ -86,6 +89,10 @@ const Registrati: React.FC = () => {
       [name]: value.toString().length < 1,
     });
   };
+
+  React.useEffect(() => {
+    dispatch(exists(azienda.idFiscaleIVAPaese, azienda.idFiscaleIVACodice));
+  }, [azienda]);
 
   const [sede, setSede] = React.useState({
     indirizzo: "",
@@ -320,6 +327,13 @@ const Registrati: React.FC = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <Alert severity={esiste ? "error" : "success"}>
+                    {esiste
+                      ? "Azienda già presente"
+                      : "Azienda disponibile per essere registrata"}
+                  </Alert>
+                </Grid>
+                <Grid item xs={12}>
                   <TextField
                     label="Codice Fiscale"
                     name="codiceFiscale"
@@ -439,7 +453,7 @@ const Registrati: React.FC = () => {
         </Box>
       </Container>
 
-      <SaveFab handleClick={handleSubmit} disabled={isDisabled} />
+      <SaveFab handleClick={handleSubmit} disabled={isDisabled || esiste} />
     </>
   );
 };
