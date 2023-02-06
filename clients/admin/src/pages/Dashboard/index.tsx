@@ -1,9 +1,10 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
 const Dashboard: React.FC = () => {
   return (
     <>
-      <h1>ADMIN</h1>
+      <Typography>Benvenuto nella sezione admin!</Typography>
     </>
   );
 };

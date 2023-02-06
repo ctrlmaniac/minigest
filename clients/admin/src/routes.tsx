@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./pages/Root";
 import Dashboard from "./pages/Dashboard";
-import Prova from "./pages/Prova";
+import TipoDocFiscLista from "./pages/TipoDocFisc/Lista";
+import TipiDocFiscModifica from "./pages/TipoDocFisc/Modifica";
+import TipiDocFiscAggiungi from "./pages/TipoDocFisc/Aggiungi";
 
 export default createBrowserRouter(
   [
@@ -14,8 +16,26 @@ export default createBrowserRouter(
           element: <Dashboard />,
         },
         {
-          path: "prova",
-          element: <Prova />,
+          path: "docfisc",
+          children: [
+            {
+              path: "tipi",
+              children: [
+                {
+                  path: "",
+                  element: <TipoDocFiscLista />,
+                },
+                {
+                  path: "modifica/:id",
+                  element: <TipiDocFiscModifica />,
+                },
+                {
+                  path: "aggiungi",
+                  element: <TipiDocFiscAggiungi />,
+                },
+              ],
+            },
+          ],
         },
       ],
     },
