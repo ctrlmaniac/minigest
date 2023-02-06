@@ -20,8 +20,8 @@ public class SecurityConfig {
 				.requestMatchers("/app", "/app/***").authenticated()
 				.requestMatchers("/admin", "/admin/**").authenticated()
 				.requestMatchers("/**").permitAll()
-				.and().formLogin().loginPage("/login")
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+				.and().formLogin().loginPage("/accedi")
+				.and().logout().logoutUrl("/esci").logoutSuccessUrl("/")
 				.and().httpBasic();
 		return http.build();
 	}
