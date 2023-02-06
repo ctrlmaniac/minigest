@@ -88,18 +88,23 @@ public class AccountController {
 			Azienda azienda = aziendaService.save(aziendaTmp);
 
 			// Crea il negozio
-			Negozio negozio = new Negozio();
-			negozio.setAzienda(azienda);
-			negozio.setNome(form.getNegozio().getNome());
-			negozioService.save(negozio);
+			Negozio negozioTmp = new Negozio();
+			negozioTmp.setAzienda(azienda);
+			negozioTmp.setNome(form.getNegozio().getNome());
+			Negozio negozio = negozioService.save(negozioTmp);
+
+			System.out.println(form.getAccount().getPassword());
 
 			// Crea l'utente
-			String hashPwd = passwordEncoder.encode(form.getAccount().getPassword());
 
 			Optional<AccountRole> roleUser = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+			String fname = form.getAccount().getFname();
+			String lname = form.getAccount().getLname();
+			String email = form.getAccount().getEmail();
+			String hashPwd = passwordEncoder.encode(form.getAccount().getPassword());
 
-			Account accountTmp = new Account(form.getAccount().getFname(), form.getAccount().getLname(),
-					form.getAccount().getEmail(), hashPwd, roleUser.get(), null);
+			Account accountTmp = new Account(fname, lname, email, hashPwd,
+					roleUser.get(), null);
 
 			List<Azienda> accountAziende = new ArrayList<>();
 			accountAziende.add(azienda);
@@ -109,9 +114,14 @@ public class AccountController {
 			Account account = accountService.save(accountTmp);
 
 			if (account.getId() != null) {
-				return new ResponseEntity<>("Utente creato con successo", HttpStatus.CREATED);
+				return new ResponseEntity<>("Utente creato con successo",
+						HttpStatus.CREATED);
 			} else {
-				return new ResponseEntity<>("Errore creazione utente", HttpStatus.BAD_REQUEST);
+				negozioService.deleteById(negozio.getId());
+				aziendaService.deleteById(azienda.getId());
+				aziendaIndirizzoService.deleteById(sede.getId());
+				return new ResponseEntity<>("Errore creazione utente",
+						HttpStatus.BAD_REQUEST);
 			}
 		}
 	}
