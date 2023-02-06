@@ -15,6 +15,7 @@ public class SecurityConfig {
 		http.csrf().disable()
 				.authorizeHttpRequests()
 				.requestMatchers("/api/account").permitAll()
+				.requestMatchers("/api/aziende/esiste").permitAll()
 				.requestMatchers("/app", "/app/**", "/api/**").authenticated()
 				.requestMatchers("/**").permitAll()
 				.and().formLogin().loginPage("/login")

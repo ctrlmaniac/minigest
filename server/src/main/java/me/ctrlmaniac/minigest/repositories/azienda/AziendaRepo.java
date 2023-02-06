@@ -8,4 +8,6 @@ import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 
 public interface AziendaRepo extends JpaRepository<Azienda, String> {
 	List<Azienda> findAllByOrderByDenominazioneAsc();
+
+	boolean existsByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice);
 }

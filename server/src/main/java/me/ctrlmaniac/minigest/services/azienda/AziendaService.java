@@ -27,6 +27,10 @@ public class AziendaService {
 		return null;
 	}
 
+	public boolean exists(String paese, String codice) {
+		return aziendaRepo.existsByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(paese, codice);
+	}
+
 	public Azienda save(Azienda a) {
 
 		if (a.getSede() != null) {
