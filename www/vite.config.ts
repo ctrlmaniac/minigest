@@ -35,10 +35,10 @@ export default defineConfig(({ command }) => {
               if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
                 extType = "img";
               }
-              return `app/assets/${extType}/[name]-[hash][extname]`;
+              return `www/assets/${extType}/[name]-[hash][extname]`;
             },
-            chunkFileNames: "app/assets/js/[name]-[hash].js",
-            entryFileNames: "app/assets/js/[name]-[hash].js",
+            chunkFileNames: "www/assets/js/[name]-[hash].js",
+            entryFileNames: "www/assets/js/[name]-[hash].js",
           },
         },
       },
