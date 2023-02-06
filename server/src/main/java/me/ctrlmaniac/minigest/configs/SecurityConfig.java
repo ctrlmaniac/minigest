@@ -18,7 +18,7 @@ public class SecurityConfig {
 				.requestMatchers("/api/aziende/esiste").permitAll()
 				.requestMatchers("/api", "/api/***").authenticated()
 				.requestMatchers("/app", "/app/***").authenticated()
-				.requestMatchers("/admin", "/admin/**").authenticated()
+				.requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
 				.requestMatchers("/**").permitAll()
 				.and().formLogin().loginPage("/accedi")
 				.and().logout().logoutUrl("/esci").logoutSuccessUrl("/")

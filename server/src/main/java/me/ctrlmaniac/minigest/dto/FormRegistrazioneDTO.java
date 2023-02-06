@@ -1,8 +1,8 @@
 package me.ctrlmaniac.minigest.dto;
 
 import lombok.Data;
-import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
+import me.ctrlmaniac.minigest.entitities.account.Account;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 

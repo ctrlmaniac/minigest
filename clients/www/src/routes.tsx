@@ -3,6 +3,7 @@ import Root from "./pages/Root";
 import Dashboard from "./pages/Dashboard";
 import Prova from "./pages/Prova";
 import Accedi from "./pages/Accedi";
+import Admin from "./pages/Admin";
 
 export default createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export default createBrowserRouter([
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "admin",
+        element: <Admin />,
       },
       {
         path: "accedi",

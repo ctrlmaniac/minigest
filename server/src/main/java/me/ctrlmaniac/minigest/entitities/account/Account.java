@@ -1,12 +1,18 @@
-package me.ctrlmaniac.minigest.entitities;
+package me.ctrlmaniac.minigest.entitities.account;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,28 +30,36 @@ public class Account {
 	@Column(unique = true)
 	private String email;
 
-	@Column
 	private String fname;
 
-	@Column
 	private String lname;
 
-	@Column
+	@JsonIgnore
 	private String password;
 
-	@Column(columnDefinition = "varchar(255) default 'CUSTOMER'")
-	private String role;
+	@ManyToMany(fetch = FetchType.EAGER)
+	Set<AccountRole> roles = new HashSet<>();
 
 	@OneToMany
 	private List<Azienda> aziende;
 
-	public Account(String email, String fname, String lname, String password, String role, List<Azienda> aziende) {
+	public Account(String email, String fname, String lname, String password, Set<AccountRole> roles,
+			List<Azienda> aziende) {
 		this.email = email;
 		this.fname = fname;
 		this.lname = lname;
 		this.password = password;
-		this.role = role;
+		this.roles = roles;
 		this.aziende = aziende;
 	}
 
+	public Account(String email, String fname, String lname, String password, AccountRole role,
+			List<Azienda> aziende) {
+		this.email = email;
+		this.fname = fname;
+		this.lname = lname;
+		this.password = password;
+		this.roles.add(role);
+		this.aziende = aziende;
+	}
 }

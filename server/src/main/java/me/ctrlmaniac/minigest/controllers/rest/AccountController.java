@@ -3,6 +3,7 @@ package me.ctrlmaniac.minigest.controllers.rest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,14 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.dto.FormRegistrazioneDTO;
-import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
+import me.ctrlmaniac.minigest.entitities.account.Account;
+import me.ctrlmaniac.minigest.entitities.account.AccountRole;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
-import me.ctrlmaniac.minigest.services.AccountService;
+import me.ctrlmaniac.minigest.enums.AccountRoleEnum;
 import me.ctrlmaniac.minigest.services.NegozioService;
+import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.repositories.account.AccountRoleRepo;
 
 @RestController
 @RequestMapping("/api/account")
@@ -42,6 +46,9 @@ public class AccountController {
 
 	@Autowired
 	NegozioService negozioService;
+
+	@Autowired
+	AccountRoleRepo accountRoleRepo;
 
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {
@@ -89,12 +96,10 @@ public class AccountController {
 			// Crea l'utente
 			String hashPwd = passwordEncoder.encode(form.getAccount().getPassword());
 
-			Account accountTmp = new Account();
-			accountTmp.setFname(form.getAccount().getFname());
-			accountTmp.setLname(form.getAccount().getLname());
-			accountTmp.setEmail(form.getAccount().getEmail());
-			accountTmp.setPassword(hashPwd);
-			accountTmp.setRole("USER");
+			Optional<AccountRole> roleUser = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+
+			Account accountTmp = new Account(form.getAccount().getFname(), form.getAccount().getLname(),
+					form.getAccount().getEmail(), hashPwd, roleUser.get(), null);
 
 			List<Azienda> accountAziende = new ArrayList<>();
 			accountAziende.add(azienda);

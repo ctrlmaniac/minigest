@@ -1,10 +1,10 @@
 package me.ctrlmaniac.minigest.controllers.rest;
 
-import me.ctrlmaniac.minigest.entitities.Account;
+import me.ctrlmaniac.minigest.entitities.account.Account;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
-import me.ctrlmaniac.minigest.services.AccountService;
+import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 

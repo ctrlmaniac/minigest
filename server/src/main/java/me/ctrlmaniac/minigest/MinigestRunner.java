@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +17,9 @@ import com.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
 import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
 import me.ctrlmaniac.minigest.dto.FatturaDTO;
-import me.ctrlmaniac.minigest.entitities.Account;
 import me.ctrlmaniac.minigest.entitities.Negozio;
+import me.ctrlmaniac.minigest.entitities.account.Account;
+import me.ctrlmaniac.minigest.entitities.account.AccountRole;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
@@ -27,8 +29,10 @@ import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
-import me.ctrlmaniac.minigest.services.AccountService;
+import me.ctrlmaniac.minigest.enums.AccountRoleEnum;
+import me.ctrlmaniac.minigest.repositories.account.AccountRoleRepo;
 import me.ctrlmaniac.minigest.services.NegozioService;
+import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
@@ -48,6 +52,9 @@ public class MinigestRunner implements CommandLineRunner {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AccountRoleRepo accountRoleRepo;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -95,6 +102,13 @@ public class MinigestRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("Runner start");
 
+		// Salva i ruoli
+		for (AccountRoleEnum role : AccountRoleEnum.values()) {
+			AccountRole accountRole = new AccountRole();
+			accountRole.setName(role);
+			accountRoleRepo.save(accountRole);
+		}
+
 		// Crea un'azienda
 		AziendaIndirizzo larapidaSede = new AziendaIndirizzo("Viale Alcide De Gasperi", "6", "25080",
 				"Molinetto di Mazzano", "BS", "IT");
@@ -114,7 +128,9 @@ public class MinigestRunner implements CommandLineRunner {
 
 		// Crea un utente
 		String hashPwd = passwordEncoder.encode(adminPass);
-		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, "ADMIN",
+		Optional<AccountRole> adminRole = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+
+		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, adminRole.get(),
 				null);
 
 		// Crea una lista di aziende che appartengono a Davide
