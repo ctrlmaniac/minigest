@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./pages/Root";
-import Dashboard from "./pages/Dashboard";
-import Prova from "./pages/Prova";
+import Home from "./pages/Home";
 import Accedi from "./pages/Accedi";
 import Admin from "./pages/Admin";
 
@@ -12,7 +11,7 @@ export default createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: <Home />,
       },
       {
         path: "admin",
@@ -21,10 +20,6 @@ export default createBrowserRouter([
       {
         path: "accedi",
         element: <Accedi />,
-      },
-      {
-        path: "prova",
-        element: <Prova />,
       },
     ],
   },

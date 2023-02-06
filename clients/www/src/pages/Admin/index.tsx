@@ -1,10 +1,11 @@
 import React from "react";
+import { Alert } from "@mui/material";
 
 const Admin: React.FC = () => {
   return (
-    <>
-      <h1>devi essere admin per accedere</h1>
-    </>
+    <Alert severity="error">
+      Devi essere ADMIN per poter accedere a questa sezione!
+    </Alert>
   );
 };
 
