@@ -1,18 +1,9 @@
-import {
-  Alert,
-  Box,
-  Container,
-  Grid,
-  Paper,
-  TextField,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Grid, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
-import { SaveFab } from "components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import register from "~/features/account/register";
 import exists from "~/features/aziende/exists";
+import { SaveFab } from "components";
 
 const Registrati: React.FC = () => {
   const dispatch = useAppDispatch();
