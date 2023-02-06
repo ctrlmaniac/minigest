@@ -128,7 +128,7 @@ public class MinigestRunner implements CommandLineRunner {
 
 		// Crea un utente
 		String hashPwd = passwordEncoder.encode(adminPass);
-		Optional<AccountRole> adminRole = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+		Optional<AccountRole> adminRole = accountRoleRepo.findByName(AccountRoleEnum.ROLE_ADMIN);
 
 		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, adminRole.get(),
 				null);
