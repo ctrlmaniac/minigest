@@ -98,12 +98,12 @@ public class AccountController {
 			// Crea l'utente
 
 			Optional<AccountRole> roleUser = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+			String email = form.getAccount().getEmail();
 			String fname = form.getAccount().getFname();
 			String lname = form.getAccount().getLname();
-			String email = form.getAccount().getEmail();
 			String hashPwd = passwordEncoder.encode(form.getAccount().getPassword());
 
-			Account accountTmp = new Account(fname, lname, email, hashPwd,
+			Account accountTmp = new Account(email, fname, lname, hashPwd,
 					roleUser.get(), null);
 
 			List<Azienda> accountAziende = new ArrayList<>();

@@ -18,7 +18,7 @@ export default function register(object: Object): AppThunk {
       .post(Endpoints.ACCOUNT, object)
       .then((response) => {
         dispatch(registerSuccess());
-        window.location.href = "/accedi";
+        window.location.href = "/app";
       })
       .catch((error) => {
         let message = "errore";
