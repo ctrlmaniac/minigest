@@ -37,8 +37,8 @@ export default defineConfig(({ command }) => {
               }
               return `app/assets/${extType}/[name]-[hash][extname]`;
             },
-            chunkFileNames: "app/assets/js/[name]-[hash].js",
-            entryFileNames: "app/assets/js/[name]-[hash].js",
+            chunkFileNames: "www/assets/js/[name]-[hash].js",
+            entryFileNames: "www/assets/js/[name]-[hash].js",
           },
         },
       },
