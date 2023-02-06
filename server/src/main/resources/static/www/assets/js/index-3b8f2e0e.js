@@ -1,1 +1,0 @@
-import{a as r}from"./index-d7aa2fc7.js";import{A as t}from"./Alert-bdd99482.js";import"./styled-5feea428.js";import"./Paper-c3ac5033.js";import"./ButtonBase-7d0beb75.js";const m=()=>r(t,{severity:"warning",children:"Pagina non trovata!"});export{m as default};
