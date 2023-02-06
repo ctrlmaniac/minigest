@@ -1,9 +1,17 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./pages/Root";
-import Dashboard from "./pages/Dashboard";
-import TipoDocFiscLista from "./pages/TipoDocFisc/Lista";
-import TipiDocFiscModifica from "./pages/TipoDocFisc/Modifica";
-import TipiDocFiscAggiungi from "./pages/TipoDocFisc/Aggiungi";
+
+// Pages
+const Root = React.lazy(() => import("~/pages/Root"));
+const Dashboard = React.lazy(() => import("~/pages/Dashboard"));
+const TipoDocFiscLista = React.lazy(() => import("~/pages/TipoDocFisc/Lista"));
+const TipoDocFiscModifica = React.lazy(
+  () => import("~/pages/TipoDocFisc/Modifica")
+);
+const TipoDocFiscAggiungi = React.lazy(
+  () => import("~/pages/TipoDocFisc/Aggiungi")
+);
+const NotFound = React.lazy(() => import("~/pages/NotFound"));
 
 export default createBrowserRouter(
   [
@@ -27,17 +35,21 @@ export default createBrowserRouter(
                 },
                 {
                   path: "modifica/:id",
-                  element: <TipiDocFiscModifica />,
+                  element: <TipoDocFiscModifica />,
                 },
                 {
                   path: "aggiungi",
-                  element: <TipiDocFiscAggiungi />,
+                  element: <TipoDocFiscAggiungi />,
                 },
               ],
             },
           ],
         },
       ],
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ],
   { basename: "/admin" }
