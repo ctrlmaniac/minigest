@@ -9,21 +9,15 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ReactController {
 
 	@GetMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}", "/error" })
-	public String getWWW(HttpServletRequest request) {
+	public String getClient(HttpServletRequest request) {
+		String url = request.getRequestURI();
 
-		return "www/index.html";
+		if (url.startsWith("/admin")) {
+			return "/admin/index.html";
+		} else if (url.startsWith("/app")) {
+			return "/app/index.html";
+		}
+
+		return "/www/index.html";
 	}
-
-	@GetMapping(value = { "/app" })
-	public String getApp(HttpServletRequest request) {
-
-		return "app/index.html";
-	}
-
-	@GetMapping(value = { "/admin" })
-	public String getAdmin(HttpServletRequest request) {
-
-		return "admin/index.html";
-	}
-
 }
