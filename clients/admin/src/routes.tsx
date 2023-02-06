@@ -1,4 +1,5 @@
 import React from "react";
+import { LoadingScreen } from "components";
 import { createBrowserRouter } from "react-router-dom";
 
 // Pages
@@ -17,11 +18,19 @@ export default createBrowserRouter(
   [
     {
       path: "/",
-      element: <Root />,
+      element: (
+        <React.Suspense fallback={<LoadingScreen />}>
+          <Root />
+        </React.Suspense>
+      ),
       children: [
         {
           path: "",
-          element: <Dashboard />,
+          element: (
+            <React.Suspense fallback={<LoadingScreen />}>
+              <Dashboard />
+            </React.Suspense>
+          ),
         },
         {
           path: "docfisc",
@@ -31,15 +40,27 @@ export default createBrowserRouter(
               children: [
                 {
                   path: "",
-                  element: <TipoDocFiscLista />,
+                  element: (
+                    <React.Suspense fallback={<LoadingScreen />}>
+                      <TipoDocFiscLista />
+                    </React.Suspense>
+                  ),
                 },
                 {
                   path: "modifica/:id",
-                  element: <TipoDocFiscModifica />,
+                  element: (
+                    <React.Suspense fallback={<LoadingScreen />}>
+                      <TipoDocFiscModifica />
+                    </React.Suspense>
+                  ),
                 },
                 {
                   path: "aggiungi",
-                  element: <TipoDocFiscAggiungi />,
+                  element: (
+                    <React.Suspense fallback={<LoadingScreen />}>
+                      <TipoDocFiscAggiungi />
+                    </React.Suspense>
+                  ),
                 },
               ],
             },
@@ -49,7 +70,11 @@ export default createBrowserRouter(
     },
     {
       path: "*",
-      element: <NotFound />,
+      element: (
+        <React.Suspense fallback={<LoadingScreen />}>
+          <NotFound />
+        </React.Suspense>
+      ),
     },
   ],
   { basename: "/admin" }
