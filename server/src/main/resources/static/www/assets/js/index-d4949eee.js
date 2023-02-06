@@ -1,0 +1,1 @@
+import{a as r}from"./index-d7aa2fc7.js";import{A as e}from"./Alert-bdd99482.js";import"./styled-5feea428.js";import"./Paper-c3ac5033.js";import"./ButtonBase-7d0beb75.js";const a=()=>r(e,{severity:"error",children:"Devi essere registrato per poter accedere a questa sezione!"});export{a as default};
