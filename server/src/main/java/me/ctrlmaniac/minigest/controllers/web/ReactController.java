@@ -14,6 +14,12 @@ public class ReactController {
 		return "www/index.html";
 	}
 
+	@GetMapping(value = { "/app" })
+	public String getApp(HttpServletRequest request) {
+
+		return "app/index.html";
+	}
+
 	@GetMapping(value = { "/admin" })
 	public String getAdmin(HttpServletRequest request) {
 
