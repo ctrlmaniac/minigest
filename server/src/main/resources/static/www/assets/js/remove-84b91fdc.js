@@ -1,0 +1,1 @@
+import{a as s,E as o}from"./index-30e337fd.js";import{a9 as m,aa as n}from"./index-5f51ca44.js";function p(e){return async a=>{s.delete(`${o.CHIUSURE_FISCALI}/${e}`).then(r=>{a(m(e))}).catch(r=>{a(n(r.message))})}}export{p as r};

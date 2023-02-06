@@ -1,0 +1,11 @@
+export type { default as Account } from "./account";
+export type { default as Azienda } from "./azienda";
+export type { default as AziendaIndirizzo } from "./aziendaIndirizzo";
+export type { default as ChiusuraFiscale } from "./chiusuraFiscale";
+export type { default as ChiusuraFiscaleReparto } from "./chiusuraFiscaleReparto";
+export type { default as Fattura } from "./fattura";
+export type { default as FatturaReparto } from "./fatturaReparto";
+export type { default as FatturaScadenza } from "./fatturaScadenza";
+export type { default as FatturaPagamento } from "./fatturaPagamento";
+export type { default as Negozio } from "./negozio";
+export type { default as TipoDocFisc } from "./tipoDocFisc";
