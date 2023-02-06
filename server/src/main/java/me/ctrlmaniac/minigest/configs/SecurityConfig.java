@@ -16,9 +16,12 @@ public class SecurityConfig {
 				.authorizeHttpRequests()
 				.requestMatchers("/api/account").permitAll()
 				.requestMatchers("/api/aziende/esiste").permitAll()
-				.requestMatchers("/app", "/app/**", "/api/**").authenticated()
+				.requestMatchers("/api", "/api/***").authenticated()
+				.requestMatchers("/app", "/app/***").authenticated()
+				.requestMatchers("/admin", "/admin/**").authenticated()
 				.requestMatchers("/**").permitAll()
 				.and().formLogin().loginPage("/login")
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
 				.and().httpBasic();
 		return http.build();
 	}
