@@ -6,9 +6,9 @@ import { LoadingScreen } from "~/components";
 const Home = React.lazy(() => import("~/pages/Home"));
 const Registrati = React.lazy(() => import("~/pages/Registrati"));
 const Login = React.lazy(() => import("~/pages/Login"));
-const App = React.lazy(() => import("~/pages/App"));
+const App = React.lazy(() => import("~/pages/Root"));
 const NotFound = React.lazy(() => import("~/pages/NotFound"));
-const Dashboard = React.lazy(() => import("~/pages/Dashboard"));
+const Dashboard = React.lazy(() => import("~/pages/Dashboard/Dashboard"));
 const ChiusureFiscaliLista = React.lazy(
   () => import("~/pages/ChiusureFiscali/Lista")
 );

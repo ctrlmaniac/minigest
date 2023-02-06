@@ -52,13 +52,17 @@ public class AccountController {
 
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {
-		Account user = accountService.findByEmail(principal.getName());
+		if (principal != null) {
+			Account user = accountService.findByEmail(principal.getName());
 
-		if (user == null) {
-			return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<Account>(user, HttpStatus.OK);
+			if (user != null) {
+				return new ResponseEntity<Account>(user, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
+			}
 		}
+
+		return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
 	}
 
 	@PostMapping("")
