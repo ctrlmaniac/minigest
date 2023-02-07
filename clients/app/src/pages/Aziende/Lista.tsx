@@ -8,6 +8,7 @@ import {
   Table,
   TableBody,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 import { isEmpty } from "lodash";
@@ -26,9 +27,11 @@ const AziendeLista: React.FC = () => {
     listError,
   } = useAppSelector((state) => state.aziende);
 
+  const [denominazione, setDenominazione] = React.useState("");
+
   React.useEffect(() => {
-    dispatch(list());
-  }, []);
+    dispatch(list(denominazione));
+  }, [denominazione]);
 
   if (listing) {
     return <LoadingScreen />;
@@ -41,25 +44,43 @@ const AziendeLista: React.FC = () => {
           <Typography variant="h3" component="h1">
             Lista Aziende
           </Typography>
+        </Box>
 
-          {isEmpty(aziende) && (
-            <Alert severity="warning">Non ci sono aziende!</Alert>
-          )}
+        <Box mb={3}>
+          <Paper>
+            <Box p={2}>
+              <TextField
+                fullWidth
+                label="Cerca per denominazione"
+                name="denominazione"
+                value={denominazione}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDenominazione(e.target.value)
+                }
+              />
+            </Box>
+          </Paper>
         </Box>
 
         <Box>
           <Paper>
             <Box p={2}>
-              <List>
-                {aziende?.map((azienda) => (
-                  <ListItemButton
-                    key={azienda.id}
-                    onClick={() => navigate(`/aziende/dettagli/${azienda.id}`)}
-                  >
-                    <ListItemText primary={azienda.denominazione} />
-                  </ListItemButton>
-                ))}
-              </List>
+              {isEmpty(aziende) ? (
+                <Alert severity="info">Non ci sono aziende!</Alert>
+              ) : (
+                <List>
+                  {aziende?.map((azienda) => (
+                    <ListItemButton
+                      key={azienda.id}
+                      onClick={() =>
+                        navigate(`/aziende/dettagli/${azienda.id}`)
+                      }
+                    >
+                      <ListItemText primary={azienda.denominazione} />
+                    </ListItemButton>
+                  ))}
+                </List>
+              )}
             </Box>
           </Paper>
         </Box>

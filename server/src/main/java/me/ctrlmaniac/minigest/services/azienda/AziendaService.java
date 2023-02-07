@@ -44,6 +44,10 @@ public class AziendaService {
 		return aziendaRepo.findAllByOrderByDenominazioneAsc();
 	}
 
+	public List<Azienda> searchByDenominazione(String denominazione) {
+		return aziendaRepo.searchByDenominazione(denominazione);
+	}
+
 	public void deleteById(String id) {
 		aziendaRepo.deleteById(id);
 	}

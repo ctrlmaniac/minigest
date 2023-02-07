@@ -27,7 +27,12 @@ public class AziendaController {
 	AziendaService aziendaService;
 
 	@GetMapping("")
-	public ResponseEntity<List<Azienda>> getAll() {
+	public ResponseEntity<List<Azienda>> getAll(
+			@RequestParam(name = "denominazione", required = false) String denominazione) {
+		if (denominazione != null) {
+			return new ResponseEntity<>(aziendaService.searchByDenominazione(denominazione), HttpStatus.OK);
+		}
+
 		return new ResponseEntity<>(aziendaService.getAll(), HttpStatus.OK);
 	}
 

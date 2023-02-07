@@ -17,7 +17,7 @@ public interface AccountRepo extends JpaRepository<Account, String> {
 
 	boolean existsByEmail(String email);
 
-	@Query("SELECT a FROM Account a WHERE a.email LIKE :email%")
+	@Query("SELECT a FROM Account a WHERE a.email LIKE %:email%")
 	List<Account> searchByEmail(@Param("email") String email);
 
 }
