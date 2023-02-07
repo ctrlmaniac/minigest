@@ -4,7 +4,7 @@ import { listSuccess, listFail } from "./slice";
 
 export default function list(): AppThunk {
   return async (dispatch) => {
-    let endpoint = `${Endpoints.RUOLI}`;
+    let endpoint = `${Endpoints.ACCOUNT}/ruoli`;
 
     api
       .get(endpoint)

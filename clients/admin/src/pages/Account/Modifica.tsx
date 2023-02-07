@@ -70,10 +70,14 @@ const AccountModifica: React.FC = () => {
                 multiple
                 id="tags-filled"
                 options={ruoli || []}
-                isOptionEqualToValue={(option, value) =>
-                  option.name === value.name
-                }
-                getOptionLabel={(option) => option.name}
+                isOptionEqualToValue={(
+                  option: AccountRole,
+                  value: AccountRole
+                ) => option.name === value.name}
+                getOptionLabel={(option) => {
+                  let opt = option as AccountRole;
+                  return opt.name;
+                }}
                 value={values}
                 onChange={(event, newValue) => {
                   setValues(newValue);
