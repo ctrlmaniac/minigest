@@ -53,4 +53,8 @@ public class AccountService implements UserDetailsService {
 		return accountRepo.existsByEmail(email);
 	}
 
+	public List<Account> findAll() {
+		return accountRepo.findAll();
+	}
+
 }

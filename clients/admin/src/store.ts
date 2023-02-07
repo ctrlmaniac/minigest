@@ -3,10 +3,12 @@ import logger from "redux-logger";
 
 // reducers
 import { tipoDocFiscSlice } from "./features/tipoDocFisc/slice";
+import { accountRoleSlice } from "./features/accountRole/slice";
 
 export const store = configureStore({
   reducer: {
     tipiDocFisc: tipoDocFiscSlice.reducer,
+    accountRuoli: accountRoleSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

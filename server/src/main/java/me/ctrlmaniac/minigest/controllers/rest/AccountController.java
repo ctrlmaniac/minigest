@@ -73,6 +73,11 @@ public class AccountController {
 	@Value("${host}")
 	private String host;
 
+	@GetMapping("/list")
+	public ResponseEntity<List<Account>> findAll() {
+		return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
+	}
+
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {
 		if (principal != null) {
