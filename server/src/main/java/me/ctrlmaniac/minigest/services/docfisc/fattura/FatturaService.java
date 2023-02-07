@@ -11,9 +11,9 @@ import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
+import me.ctrlmaniac.minigest.payloads.FatturaPaylaod;
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
-import me.ctrlmaniac.minigest.dto.FatturaDTO;
 
 @Service
 public class FatturaService {
@@ -43,7 +43,7 @@ public class FatturaService {
 		return null;
 	}
 
-	public Fattura save(FatturaDTO f) {
+	public Fattura save(FatturaPaylaod f) {
 		Fattura fattura = new Fattura();
 
 		fattura.setCedente(f.getCedente());

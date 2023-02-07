@@ -1,11 +1,14 @@
 package me.ctrlmaniac.minigest.controllers.rest;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,18 +17,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.context.Context;
 
-import me.ctrlmaniac.minigest.dto.FormRegistrazioneDTO;
+import me.ctrlmaniac.minigest.dao.EmailDetails;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.account.Account;
 import me.ctrlmaniac.minigest.entitities.account.AccountRole;
+import me.ctrlmaniac.minigest.entitities.account.PasswordReset;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.enums.AccountRoleEnum;
+import me.ctrlmaniac.minigest.payloads.RegistrazionePaylaod;
+import me.ctrlmaniac.minigest.payloads.RequestPasswordResetPayload;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
+import me.ctrlmaniac.minigest.services.account.PasswordResetService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.email.EmailService;
 import me.ctrlmaniac.minigest.repositories.account.AccountRoleRepo;
 
 @RestController
@@ -33,22 +42,31 @@ import me.ctrlmaniac.minigest.repositories.account.AccountRoleRepo;
 public class AccountController {
 
 	@Autowired
-	AccountService accountService;
+	private AccountService accountService;
 
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	AziendaIndirizzoService aziendaIndirizzoService;
+	private AziendaIndirizzoService aziendaIndirizzoService;
 
 	@Autowired
-	AziendaService aziendaService;
+	private AziendaService aziendaService;
 
 	@Autowired
-	NegozioService negozioService;
+	private NegozioService negozioService;
 
 	@Autowired
-	AccountRoleRepo accountRoleRepo;
+	private AccountRoleRepo accountRoleRepo;
+
+	@Autowired
+	private PasswordResetService passwordResetService;
+
+	@Autowired
+	private EmailService emailService;
+
+	@Value("${host}")
+	private String host;
 
 	@GetMapping("")
 	public ResponseEntity<?> currentUser(Principal principal) {
@@ -66,7 +84,7 @@ public class AccountController {
 	}
 
 	@PostMapping("")
-	public ResponseEntity<String> register(@RequestBody FormRegistrazioneDTO form) {
+	public ResponseEntity<String> register(@RequestBody RegistrazionePaylaod form) {
 		if (accountService.findByEmail(form.getAccount().getEmail()) != null) {
 			return new ResponseEntity<>("email già registrata", HttpStatus.CONFLICT);
 		} else {
@@ -126,6 +144,39 @@ public class AccountController {
 				aziendaIndirizzoService.deleteById(sede.getId());
 				return new ResponseEntity<>("Errore creazione utente",
 						HttpStatus.BAD_REQUEST);
+			}
+		}
+	}
+
+	@PostMapping("/request-password-reset")
+	public ResponseEntity<String> resetPassword(@RequestBody RequestPasswordResetPayload payload) {
+		Account account = accountService.findByEmail(payload.getEmail());
+
+		if (account == null) {
+			return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+		} else {
+			String token = UUID.randomUUID().toString();
+			LocalDate expirationDate = LocalDate.now().plusDays(1);
+
+			PasswordReset accountToken = passwordResetService.generateToken(account, token, expirationDate);
+
+			if (accountToken != null) {
+				EmailDetails details = new EmailDetails();
+				details.setRecipient(account.getEmail());
+				details.setSubject("Resetta la tua password");
+
+				String link = this.host + "password-reset/?token=" + accountToken.getToken();
+
+				Context context = new Context();
+				context.setVariable("token", link);
+
+				String status = emailService.sendHtmlEmail(details, "email/password-reset.html", context);
+
+				System.out.println(status);
+
+				return new ResponseEntity<>("Token password reset generato", HttpStatus.CREATED);
+			} else {
+				return new ResponseEntity<>("Impossibile generare token", HttpStatus.BAD_REQUEST);
 			}
 		}
 	}

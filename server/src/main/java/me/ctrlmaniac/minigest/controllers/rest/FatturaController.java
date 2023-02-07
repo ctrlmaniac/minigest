@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import me.ctrlmaniac.minigest.dto.FatturaDTO;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.payloads.FatturaPaylaod;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +28,7 @@ public class FatturaController {
 	FatturaService fatturaService;
 
 	@PostMapping("")
-	public ResponseEntity<Fattura> create(@RequestBody FatturaDTO ft) {
+	public ResponseEntity<Fattura> create(@RequestBody FatturaPaylaod ft) {
 		Fattura fattura = fatturaService.save(ft);
 		return new ResponseEntity<Fattura>(fattura, HttpStatus.CREATED);
 	}

@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
+import me.ctrlmaniac.minigest.payloads.ChiusuraFiscalePayload;
 import me.ctrlmaniac.minigest.repositories.NegozioRepo;
 import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFiscaleRepo;
 
@@ -35,7 +35,7 @@ public class ChiusuraFiscaleService {
 		return null;
 	}
 
-	public ChiusuraFiscale save(ChiusuraFiscaleDTO cf) {
+	public ChiusuraFiscale save(ChiusuraFiscalePayload cf) {
 		ChiusuraFiscale chiusuraFiscale = new ChiusuraFiscale();
 
 		chiusuraFiscale.setNegozio(cf.getNegozio());

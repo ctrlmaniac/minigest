@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 import com.opencsv.CSVReader;
 
 import lombok.extern.slf4j.Slf4j;
-import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
-import me.ctrlmaniac.minigest.dto.FatturaDTO;
 import me.ctrlmaniac.minigest.entitities.Negozio;
 import me.ctrlmaniac.minigest.entitities.account.Account;
 import me.ctrlmaniac.minigest.entitities.account.AccountRole;
@@ -30,6 +28,8 @@ import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaPagamento;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.enums.AccountRoleEnum;
+import me.ctrlmaniac.minigest.payloads.ChiusuraFiscalePayload;
+import me.ctrlmaniac.minigest.payloads.FatturaPaylaod;
 import me.ctrlmaniac.minigest.repositories.account.AccountRoleRepo;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
@@ -151,7 +151,7 @@ public class MinigestRunner implements CommandLineRunner {
 		negozioService.save(shopNegozio);
 
 		// Crea una Chiusura Fiscale
-		ChiusuraFiscaleDTO cfDTO = new ChiusuraFiscaleDTO(larapidaNegozio, LocalDate.now(), 1000, 50, null);
+		ChiusuraFiscalePayload cfDTO = new ChiusuraFiscalePayload(larapidaNegozio, LocalDate.now(), 1000, 50, null);
 		ChiusuraFiscale cf = chiusuraFiscaleService.save(cfDTO);
 
 		ChiusuraFiscaleReparto cfReparto1 = new ChiusuraFiscaleReparto(cf, 22, 500, 0, 0);
@@ -168,7 +168,7 @@ public class MinigestRunner implements CommandLineRunner {
 		TipoDocFisc TD01 = tdFservice.getByCodice("TD01");
 
 		// Crea una fattura
-		FatturaDTO ft1DTO = new FatturaDTO(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
+		FatturaPaylaod ft1DTO = new FatturaPaylaod(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
 				"12345",
 				500, null, null, null);
 		Fattura ft1 = fatturaService.save(ft1DTO);
@@ -183,7 +183,7 @@ public class MinigestRunner implements CommandLineRunner {
 		fatturaPagamentoService.save(ftPagamentoFt1);
 
 		// Crea una seconda fattura
-		FatturaDTO ft2DTO = new FatturaDTO(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
+		FatturaPaylaod ft2DTO = new FatturaPaylaod(shop, larapida, TD01, LocalDate.now(), LocalDate.now().plusMonths(1),
 				"54321",
 				1000, null, null, null);
 		Fattura ft2 = fatturaService.save(ft2DTO);

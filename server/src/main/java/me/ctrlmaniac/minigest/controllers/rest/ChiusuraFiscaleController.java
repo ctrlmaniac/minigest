@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entitities.docfisc.chiusurafiscale.ChiusuraFiscale;
+import me.ctrlmaniac.minigest.payloads.ChiusuraFiscalePayload;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
-import me.ctrlmaniac.minigest.dto.ChiusuraFiscaleDTO;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class ChiusuraFiscaleController {
 	ChiusuraFiscaleService cfService;
 
 	@PostMapping("")
-	public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscaleDTO cf) {
+	public ResponseEntity<ChiusuraFiscale> create(@RequestBody ChiusuraFiscalePayload cf) {
 		ChiusuraFiscale chiusuraFiscale = cfService.save(cf);
 		return new ResponseEntity<ChiusuraFiscale>(chiusuraFiscale, HttpStatus.CREATED);
 	}

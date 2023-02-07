@@ -17,9 +17,9 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entitities.docfisc.fattura.FatturaReparto;
+import me.ctrlmaniac.minigest.payloads.FatturaPaylaod;
 import me.ctrlmaniac.minigest.entitities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
-import me.ctrlmaniac.minigest.dto.FatturaDTO;
 
 @SpringBootTest
 public class FatturaTest {
@@ -51,7 +51,7 @@ public class FatturaTest {
 		TipoDocFisc TD01 = tipoDocFiscService.getByCodice("TD01");
 
 		// Crea una fattura
-		FatturaDTO fatturaDTO = new FatturaDTO(cedente, committente, TD01, LocalDate.now(),
+		FatturaPaylaod fatturaDTO = new FatturaPaylaod(cedente, committente, TD01, LocalDate.now(),
 				LocalDate.now().plusWeeks(1),
 				"100",
 				1000, null, null, null);
