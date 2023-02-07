@@ -1,0 +1,1 @@
+import{j as r,F as a}from"./index-4b97cdf6.js";import{T as e}from"./Typography-106ca826.js";import"./styled-5442df72.js";const s=()=>r(a,{children:r(e,{children:"Benvenuto nella sezione admin!"})});export{s as default};
