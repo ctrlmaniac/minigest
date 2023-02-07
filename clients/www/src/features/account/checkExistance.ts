@@ -10,12 +10,12 @@ export default function checkExistance(email: string): AppThunk {
         dispatch(setExists(response.data));
       })
       .catch((error) => {
-        let message = "errore";
+        let message = false;
 
         if (error.response) {
           message = error.response.data;
         } else {
-          message = error.message;
+          message = false;
         }
 
         dispatch(setExists(message));

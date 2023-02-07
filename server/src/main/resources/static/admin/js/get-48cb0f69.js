@@ -1,0 +1,1 @@
+import{a as s,E as n}from"./index-20e41f20.js";import{a7 as o,a8 as r}from"./index-7ea7d510.js";function i(e){return async t=>{s.get(`${n.ACCOUNT}/${e}`).then(a=>{t(o(a.data))}).catch(a=>{t(r(a.message))})}}export{i as g};
