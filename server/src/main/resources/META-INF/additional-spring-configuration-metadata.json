@@ -19,6 +19,11 @@
       "name": "admin.lname",
       "type": "java.lang.String",
       "description": "Admin last name"
+    },
+    {
+      "name": "host",
+      "type": "java.lang.String",
+      "description": "L'url del sito web"
     }
   ]
 }

@@ -16,6 +16,10 @@ services:
       - ADMIN_PASS=${ADMIN_PASS}
       - ADMIN_FNAME=${ADMIN_FNAME}
       - ADMIN_LNAME=${ADMIN_LNAME}
+      - HOST=${HOST}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
 
   mysqldb:
     container_name: minigest-db
