@@ -100,11 +100,6 @@ public class AccountController {
 				user.setLname(payload.getLname());
 				user.setEmail(payload.getEmail());
 
-				if (payload.getPassword() != null || payload.getPassword() != "") {
-					String hashPwd = passwordEncoder.encode(payload.getPassword());
-					user.setPassword(hashPwd);
-				}
-
 				accountService.save(user);
 
 				return new ResponseEntity<>("Account modificato con successo", HttpStatus.OK);

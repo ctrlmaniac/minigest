@@ -10,6 +10,7 @@ const ChiusureFiscaliLista = React.lazy(
   () => import("~/pages/ChiusureFiscali/Lista")
 );
 const Account = React.lazy(() => import("~/pages/Account"));
+const AccountModifica = React.lazy(() => import("~/pages/Account/Modifica"));
 const AziendeDettagli = React.lazy(() => import("~/pages/Aziende/Dettagli"));
 const AziendeModifica = React.lazy(() => import("~/pages/Aziende/Modifica"));
 const AziendeAggiungi = React.lazy(() => import("~/pages/Aziende/Aggiungi"));
@@ -54,11 +55,24 @@ export default createBrowserRouter(
         },
         {
           path: "account",
-          element: (
-            <React.Suspense fallback={<LoadingScreen />}>
-              <Account />
-            </React.Suspense>
-          ),
+          children: [
+            {
+              path: "",
+              element: (
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <Account />
+                </React.Suspense>
+              ),
+            },
+            {
+              path: "modifica",
+              element: (
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <AccountModifica />
+                </React.Suspense>
+              ),
+            },
+          ],
         },
         {
           path: "scadenzario",

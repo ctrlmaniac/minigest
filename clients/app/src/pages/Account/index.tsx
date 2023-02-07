@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Paper,
@@ -7,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { EditFab } from "components";
 import { useAppSelector } from "~/hooks";
 
 const Account: React.FC = () => {
@@ -43,6 +44,8 @@ const Account: React.FC = () => {
           </Box>
         </Paper>
       </Box>
+
+      <EditFab href="account/modifica" />
     </>
   );
 };

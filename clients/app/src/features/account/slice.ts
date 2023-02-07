@@ -5,12 +5,16 @@ interface AccountState {
   getting: boolean;
   getError?: string;
   dettagli?: Account;
+  reqPwResetMessage?: string;
+  reqUpdateMessage?: string;
 }
 
 const initialState: AccountState = {
   getting: false,
   getError: undefined,
   dettagli: undefined,
+  reqPwResetMessage: undefined,
+  reqUpdateMessage: undefined,
 };
 
 export const accountSlice = createSlice({
@@ -30,9 +34,16 @@ export const accountSlice = createSlice({
       state.dettagli = undefined;
       state.getting = false;
     },
+    setReqPwMessage: (state, action: PayloadAction<string>) => {
+      state.reqPwResetMessage = action.payload;
+    },
+    setReqUpdateMessage: (state, action: PayloadAction<string>) => {
+      state.reqUpdateMessage = action.payload;
+    },
   },
 });
 
-export const { getStart, getFail, getSuccess } = accountSlice.actions;
+export const { getStart, getFail, getSuccess, setReqPwMessage } =
+  accountSlice.actions;
 
 export default accountSlice.reducer;
