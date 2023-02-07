@@ -1,6 +1,8 @@
 package me.ctrlmaniac.minigest;
 
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +163,7 @@ public class MinigestRunner implements CommandLineRunner {
 		cfRepartoService.save(cfReparto2);
 
 		// Carica i tipi di documenti fiscali da CSV
-		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv("media/tipidocfisc.csv")) {
+		for (TipoDocFisc tdf : loadTipiDocFiscFromCsv()) {
 			tdFservice.save(tdf);
 		}
 
@@ -204,18 +206,20 @@ public class MinigestRunner implements CommandLineRunner {
 		log.info("Runner ends");
 	}
 
-	private List<TipoDocFisc> loadTipiDocFiscFromCsv(String filename) {
+	private List<TipoDocFisc> loadTipiDocFiscFromCsv() {
 		List<TipoDocFisc> tipiDocFisc = new ArrayList<>();
 
+		InputStream in = getClass().getClassLoader().getResourceAsStream("media/csv/tipidocfisc.csv");
+
 		try {
-			CSVReader csvReader = new CSVReader(new FileReader(filename));
+			CSVReader reader = new CSVReader(new InputStreamReader(in));
 
 			String[] values = null;
 
-			while ((values = csvReader.readNext()) != null) {
+			while ((values = reader.readNext()) != null) {
 				tipiDocFisc.add(new TipoDocFisc(values[0].trim(), values[1].trim()));
 			}
-		} catch (Exception e) {
+		} catch (IOException e) {
 			log.error(e.getMessage());
 		}
 

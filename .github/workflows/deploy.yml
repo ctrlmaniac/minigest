@@ -17,7 +17,7 @@ jobs:
           distribution: "temurin"
 
       - name: Build with Maven
-        run: mvn package -Dmaven.test.skip
+        run: mvn -DskipTests clean compile package
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
