@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -129,20 +131,20 @@ public class MinigestRunner implements CommandLineRunner {
 		aziendaService.save(shop);
 
 		// Crea un utente dummy
-		Optional<AccountRole> userRole = accountRoleRepo.findByName(AccountRoleEnum.USER);
+		Optional<AccountRole> userRole = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
 		Account dummy = new Account("mario.rossi@email.com", "Mario", "Rossi", passwordEncoder.encode("12345"),
 				userRole.get(), null);
 		accountService.save(dummy);
 
 		// Crea L'admin
 		String hashPwd = passwordEncoder.encode(adminPass);
-		Optional<AccountRole> adminRole = accountRoleRepo.findByName(AccountRoleEnum.ADMIN);
+		Optional<AccountRole> adminRole = accountRoleRepo.findByName(AccountRoleEnum.ROLE_ADMIN);
 
 		Account davide = new Account(adminEmail, adminFName, adminLName, hashPwd, adminRole.get(),
 				null);
 
 		// Crea una lista di aziende che appartengono a Davide
-		List<Azienda> davideAziende = new ArrayList<>();
+		Set<Azienda> davideAziende = new HashSet<>();
 		davideAziende.add(larapida);
 		davideAziende.add(shop);
 		davide.setAziende(davideAziende);

@@ -1,8 +1,10 @@
 package me.ctrlmaniac.minigest.entitities.account;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -12,7 +14,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -40,11 +41,12 @@ public class Account {
 	@ManyToMany(fetch = FetchType.EAGER)
 	Set<AccountRole> roles = new HashSet<>();
 
-	@OneToMany
-	private List<Azienda> aziende;
+	@ManyToMany
+	@JsonIgnoreProperties("utenti")
+	private Set<Azienda> aziende;
 
 	public Account(String email, String fname, String lname, String password, Set<AccountRole> roles,
-			List<Azienda> aziende) {
+			Set<Azienda> aziende) {
 		this.email = email;
 		this.fname = fname;
 		this.lname = lname;
@@ -54,13 +56,17 @@ public class Account {
 	}
 
 	public Account(String email, String fname, String lname, String password, AccountRole role,
-			List<Azienda> aziende) {
+			Set<Azienda> aziende) {
 		this.email = email;
 		this.fname = fname;
 		this.lname = lname;
 		this.password = password;
 		this.roles.add(role);
 		this.aziende = aziende;
+	}
+
+	public void addAzienda(Azienda azienda) {
+		this.aziende.add(azienda);
 	}
 
 	@Override

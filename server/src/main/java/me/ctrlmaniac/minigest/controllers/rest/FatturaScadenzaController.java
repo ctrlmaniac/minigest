@@ -9,6 +9,7 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 
 import java.util.List;
+import java.util.Set;
 import java.security.Principal;
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class FatturaScadenzaController {
 		if (user == null) {
 			return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
 		} else {
-			List<Azienda> aziende = user.getAziende();
+			Set<Azienda> aziende = user.getAziende();
 
 			if (aziende.size() == 0) {
 				return new ResponseEntity<String>("Non ci sono aziende per questo account", HttpStatus.NOT_FOUND);

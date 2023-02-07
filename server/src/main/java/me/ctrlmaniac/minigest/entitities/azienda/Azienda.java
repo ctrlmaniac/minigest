@@ -23,13 +23,8 @@ public class Azienda {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@Column
 	private String titolo;
-
-	@Column
 	private String denominazione;
-
-	@Column
 	private String codiceEORI;
 
 	@Column(columnDefinition = "varchar(2)")

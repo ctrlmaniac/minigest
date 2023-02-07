@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
+import me.ctrlmaniac.minigest.entitities.account.Account;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.account.AccountService;
+import me.ctrlmaniac.minigest.payloads.AddAccountToAziendaPayload;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,9 @@ public class AziendaController {
 
 	@Autowired
 	AziendaService aziendaService;
+
+	@Autowired
+	AccountService accountService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Azienda>> getAll(
@@ -64,5 +70,25 @@ public class AziendaController {
 	public ResponseEntity<Boolean> exists(@RequestParam(name = "paese", required = true) String paese,
 			@RequestParam(name = "codice", required = true) String codice) {
 		return new ResponseEntity<>(aziendaService.exists(paese, codice), HttpStatus.OK);
+	}
+
+	@PostMapping("/add-user")
+	public ResponseEntity<String> addAccountToAzienda(@RequestBody AddAccountToAziendaPayload payload) {
+		Account account = accountService.findById(payload.getAccount().getId());
+
+		if (account != null) {
+			Azienda azienda = aziendaService.get(payload.getAzienda().getId());
+
+			if (azienda != null) {
+				account.addAzienda(azienda);
+
+				return new ResponseEntity<>("Azienda aggiunta con successo", HttpStatus.CREATED);
+
+			}
+
+			return new ResponseEntity<>("Azienda non trovata", HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>("Account non trovato", HttpStatus.NOT_FOUND);
 	}
 }

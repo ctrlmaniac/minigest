@@ -1,5 +1,5 @@
 package me.ctrlmaniac.minigest.enums;
 
 public enum AccountRoleEnum {
-	USER, ADMIN
+	ROLE_USER, ROLE_ADMIN
 }
