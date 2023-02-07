@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +81,33 @@ public class AccountController {
 				return new ResponseEntity<Account>(user, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
+			}
+		}
+
+		return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<String> updateUser(Principal principal, @RequestBody Account payload) {
+		if (principal != null) {
+			Account user = accountService.findByEmail(principal.getName());
+
+			if (user == null) {
+				return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+			} else {
+				user.setFname(payload.getFname());
+				user.setLname(payload.getLname());
+				user.setEmail(payload.getEmail());
+
+				if (payload.getPassword() != null || payload.getPassword() != "") {
+					String hashPwd = passwordEncoder.encode(payload.getPassword());
+					user.setPassword(hashPwd);
+				}
+
+				accountService.save(user);
+
+				return new ResponseEntity<>("Account modificato con successo", HttpStatus.OK);
 			}
 		}
 
