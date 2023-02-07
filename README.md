@@ -21,6 +21,12 @@ ADMIN_EMAIL=davide.dicriscito@gmail.com
 ADMIN_PASS=54321
 ADMIN_FNAME=Davide
 ADMIN_LNAME=Di Criscito
+
+HOST=http://localhost:8080/
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_USERNAME=davide.dicriscito@gmail.com
+EMAIL_PASSWORD=asdfasdassaaa
 ```
 
 Spring Boot caricherà automaticamente queste variabili nell'applicazione.
