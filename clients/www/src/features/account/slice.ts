@@ -8,6 +8,7 @@ interface AccountState {
   pwReset: string;
   isPwReset: boolean;
   reqPwResetMessage?: String;
+  exists: boolean;
 }
 
 const initialState: AccountState = {
@@ -18,6 +19,7 @@ const initialState: AccountState = {
   pwReset: "Password non ancora cambiata",
   isPwReset: false,
   reqPwResetMessage: undefined,
+  exists: false,
 };
 
 export const accountSlice = createSlice({
@@ -55,6 +57,9 @@ export const accountSlice = createSlice({
     setReqPwMessage: (state, action: PayloadAction<string>) => {
       state.reqPwResetMessage = action.payload;
     },
+    setExists: (state, action: PayloadAction<boolean>) => {
+      state.exists = action.payload;
+    },
   },
 });
 
@@ -67,6 +72,7 @@ export const {
   pwResetSuccess,
   pwResetFail,
   setReqPwMessage,
+  setExists,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

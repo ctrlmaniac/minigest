@@ -2,12 +2,14 @@ import { Alert, Box, Grid, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import register from "~/features/account/register";
-import exists from "~/features/aziende/exists";
+import { default as checkAziendaExistance } from "~/features/aziende/exists";
 import { SaveFab } from "components";
+import checkExistance from "~/features/account/checkExistance";
 
 const Registrati: React.FC = () => {
   const dispatch = useAppDispatch();
   const { esiste } = useAppSelector((state) => state.aziende);
+  const { exists } = useAppSelector((state) => state.account);
 
   const [account, setAccount] = React.useState({
     fname: "",
@@ -81,8 +83,17 @@ const Registrati: React.FC = () => {
   };
 
   React.useEffect(() => {
-    dispatch(exists(azienda.idFiscaleIVAPaese, azienda.idFiscaleIVACodice));
+    dispatch(
+      checkAziendaExistance(
+        azienda.idFiscaleIVAPaese,
+        azienda.idFiscaleIVACodice
+      )
+    );
   }, [azienda]);
+
+  React.useEffect(() => {
+    dispatch(checkExistance(account.email));
+  }, [account]);
 
   const [sede, setSede] = React.useState({
     indirizzo: "",
@@ -221,6 +232,12 @@ const Registrati: React.FC = () => {
                   onChange={handleAccountChange}
                   type="email"
                 />
+                <Alert
+                  severity={exists ? "error" : "success"}
+                  sx={{ marginTop: 2 }}
+                >
+                  {exists ? "Email già registrata" : "Email disponibile"}
+                </Alert>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -429,7 +446,10 @@ const Registrati: React.FC = () => {
         </Paper>
       </Box>
 
-      <SaveFab handleClick={handleSubmit} disabled={isDisabled || esiste} />
+      <SaveFab
+        handleClick={handleSubmit}
+        disabled={isDisabled || esiste || exists}
+      />
     </>
   );
 };

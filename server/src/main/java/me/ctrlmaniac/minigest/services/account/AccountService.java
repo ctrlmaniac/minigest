@@ -49,4 +49,8 @@ public class AccountService implements UserDetailsService {
 		return accountRepo.findByEmail(email);
 	}
 
+	public boolean exists(String email) {
+		return accountRepo.existsByEmail(email);
+	}
+
 }
