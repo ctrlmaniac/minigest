@@ -19,4 +19,8 @@ public class PasswordResetService {
 		PasswordReset accountToken = new PasswordReset(account, token, expiration);
 		return passwordResetRepo.save(accountToken);
 	}
+
+	public PasswordReset findByToken(String token) {
+		return passwordResetRepo.findByToken(token);
+	}
 }

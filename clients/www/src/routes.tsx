@@ -6,9 +6,8 @@ import { LoadingScreen } from "components";
 const Root = React.lazy(() => import("~/pages/Root"));
 const Home = React.lazy(() => import("~/pages/Home"));
 const Accedi = React.lazy(() => import("~/pages/Accedi"));
-const Admin = React.lazy(() => import("~/pages/Admin"));
-const App = React.lazy(() => import("~/pages/App"));
 const Registrati = React.lazy(() => import("~/pages/Registrati"));
+const PasswordReset = React.lazy(() => import("~/pages/PasswordReset"));
 const NotFound = React.lazy(() => import("~/pages/NotFound"));
 
 export default createBrowserRouter([
@@ -45,18 +44,10 @@ export default createBrowserRouter([
         ),
       },
       {
-        path: "admin",
+        path: "password-reset",
         element: (
           <React.Suspense fallback={<LoadingScreen />}>
-            <Admin />
-          </React.Suspense>
-        ),
-      },
-      {
-        path: "app",
-        element: (
-          <React.Suspense fallback={<LoadingScreen />}>
-            <App />
+            <PasswordReset />
           </React.Suspense>
         ),
       },

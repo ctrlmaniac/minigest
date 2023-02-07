@@ -5,12 +5,16 @@ import {
   Container,
   Paper,
   TextField,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
-import { logoTheme } from "components";
+import { isEmpty } from "lodash";
+import { useAppDispatch, useAppSelector } from "~/hooks";
+import generateToken from "~/features/account/generateToken";
 
 const Accedi: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { reqPwResetMessage } = useAppSelector((state) => state.account);
+
   const [values, setValues] = React.useState({
     username: "",
     password: "",
@@ -23,6 +27,12 @@ const Accedi: React.FC = () => {
       ...values,
       [name]: value.trim(),
     });
+  };
+
+  const handleResetPassword = () => {
+    if (!isEmpty(values.username)) {
+      dispatch(generateToken(values.username));
+    }
   };
 
   return (
@@ -56,6 +66,14 @@ const Accedi: React.FC = () => {
               accedi
             </Button>
           </form>
+          <Box mt={2}>
+            <Button fullWidth onClick={() => handleResetPassword()}>
+              resetta password
+            </Button>
+            {!isEmpty(reqPwResetMessage) && (
+              <Typography>{reqPwResetMessage}</Typography>
+            )}
+          </Box>
         </Box>
       </Paper>
     </Container>

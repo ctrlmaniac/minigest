@@ -3,11 +3,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface AccountState {
   registering: boolean;
   registerError?: string;
+  pwResetTokenMessage: string;
+  isPwResetTokenValid: boolean;
+  pwReset: string;
+  isPwReset: boolean;
+  reqPwResetMessage?: String;
 }
 
 const initialState: AccountState = {
   registering: false,
   registerError: undefined,
+  pwResetTokenMessage: "Token non trovato",
+  isPwResetTokenValid: false,
+  pwReset: "Password non ancora cambiata",
+  isPwReset: false,
+  reqPwResetMessage: undefined,
 };
 
 export const accountSlice = createSlice({
@@ -26,10 +36,37 @@ export const accountSlice = createSlice({
       state.registerError = action.payload;
       state.registering = false;
     },
+    pwTokenFail: (state, action: PayloadAction<string>) => {
+      state.pwResetTokenMessage = action.payload;
+      state.isPwResetTokenValid = false;
+    },
+    pwTokenSuccess: (state, action: PayloadAction<string>) => {
+      state.pwResetTokenMessage = action.payload;
+      state.isPwResetTokenValid = true;
+    },
+    pwResetSuccess: (state, action: PayloadAction<string>) => {
+      state.pwReset = action.payload;
+      state.isPwReset = true;
+    },
+    pwResetFail: (state, action: PayloadAction<string>) => {
+      state.pwReset = action.payload;
+      state.isPwReset = false;
+    },
+    setReqPwMessage: (state, action: PayloadAction<string>) => {
+      state.reqPwResetMessage = action.payload;
+    },
   },
 });
 
-export const { registerStart, registerSuccess, registerFail } =
-  accountSlice.actions;
+export const {
+  registerStart,
+  registerSuccess,
+  registerFail,
+  pwTokenFail,
+  pwTokenSuccess,
+  pwResetSuccess,
+  pwResetFail,
+  setReqPwMessage,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

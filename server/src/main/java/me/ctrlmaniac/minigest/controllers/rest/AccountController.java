@@ -27,8 +27,10 @@ import me.ctrlmaniac.minigest.entitities.account.PasswordReset;
 import me.ctrlmaniac.minigest.entitities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entitities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.enums.AccountRoleEnum;
+import me.ctrlmaniac.minigest.payloads.CheckToken;
 import me.ctrlmaniac.minigest.payloads.RegistrazionePaylaod;
 import me.ctrlmaniac.minigest.payloads.RequestPasswordResetPayload;
+import me.ctrlmaniac.minigest.payloads.ResetPasswordPayload;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.PasswordResetService;
@@ -178,6 +180,46 @@ public class AccountController {
 			} else {
 				return new ResponseEntity<>("Impossibile generare token", HttpStatus.BAD_REQUEST);
 			}
+		}
+	}
+
+	@PostMapping("/token")
+	public ResponseEntity<String> checkToken(@RequestBody CheckToken token) {
+		LocalDate now = LocalDate.now();
+
+		PasswordReset passwordReset = passwordResetService.findByToken(token.getToken());
+
+		if (passwordReset != null) {
+			if (passwordReset.getExpiryDate().isAfter(now)) {
+				return new ResponseEntity<>("Token valido", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Token scaduto", HttpStatus.GONE);
+			}
+		} else {
+			return new ResponseEntity<>("Token non trovato", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PostMapping("/password-reset")
+	public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordPayload payload) {
+		LocalDate now = LocalDate.now();
+
+		PasswordReset token = passwordResetService.findByToken(payload.getToken());
+
+		if (token != null) {
+			if (token.getExpiryDate().isAfter(now)) {
+				Account account = token.getAccount();
+				String hashPwd = passwordEncoder.encode(payload.getPassword());
+				account.setPassword(hashPwd);
+
+				accountService.save(account);
+
+				return new ResponseEntity<>("Password modificata con successo", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Token scaduto", HttpStatus.GONE);
+			}
+		} else {
+			return new ResponseEntity<>("Token non trovato", HttpStatus.NOT_FOUND);
 		}
 	}
 
