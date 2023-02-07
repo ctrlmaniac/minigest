@@ -174,7 +174,7 @@ public class AccountController {
 
 			// Crea l'utente
 
-			Optional<AccountRole> roleUser = accountRoleRepo.findByName(AccountRoleEnum.ROLE_USER);
+			Optional<AccountRole> roleUser = accountRoleRepo.findByName(AccountRoleEnum.USER);
 			String email = form.getAccount().getEmail();
 			String fname = form.getAccount().getFname();
 			String lname = form.getAccount().getLname();
