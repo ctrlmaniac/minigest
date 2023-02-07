@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { LoadingScreen } from "components";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -13,6 +13,9 @@ const TipoDocFiscAggiungi = React.lazy(
   () => import("~/pages/TipoDocFisc/Aggiungi")
 );
 const NotFound = React.lazy(() => import("~/pages/NotFound"));
+const AccountList = React.lazy(() => import("~/pages/Account"));
+const AccountDettagli = React.lazy(() => import("~/pages/Account/Dettagli"));
+const AccountModifica = React.lazy(() => import("~/pages/Account/Modifica"));
 
 export default createBrowserRouter(
   [
@@ -63,6 +66,35 @@ export default createBrowserRouter(
                   ),
                 },
               ],
+            },
+          ],
+        },
+        {
+          path: "account",
+          children: [
+            {
+              path: "",
+              element: (
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <AccountList />
+                </React.Suspense>
+              ),
+            },
+            {
+              path: "dettagli/:id",
+              element: (
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <AccountDettagli />
+                </React.Suspense>
+              ),
+            },
+            {
+              path: "modifica/:id",
+              element: (
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <AccountModifica />
+                </React.Suspense>
+              ),
             },
           ],
         },

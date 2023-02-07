@@ -2,6 +2,7 @@ package me.ctrlmaniac.minigest.services.account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,6 +56,16 @@ public class AccountService implements UserDetailsService {
 
 	public List<Account> findAll() {
 		return accountRepo.findAll();
+	}
+
+	public Account findById(String id) {
+		Optional<Account> opt = accountRepo.findById(id);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
 	}
 
 }

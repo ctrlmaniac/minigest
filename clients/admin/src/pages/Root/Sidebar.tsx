@@ -9,16 +9,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import {
-  IconBuildingStore,
-  IconBuildingWarehouse,
-  IconCalendarDue,
-  IconFile,
-  IconFileDescription,
-  IconFiles,
-  IconLayoutDashboard,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconFile, IconLayoutDashboard, IconUser } from "@tabler/icons-react";
 
 interface Props {
   open: boolean;
@@ -42,6 +33,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconLayoutDashboard />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/account")}>
+            <ListItemIcon>
+              <IconUser />
+            </ListItemIcon>
+            <ListItemText primary="Account" />
           </ListItemButton>
         </List>
 

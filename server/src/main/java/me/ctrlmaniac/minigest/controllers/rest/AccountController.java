@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.Context;
@@ -34,6 +35,7 @@ import me.ctrlmaniac.minigest.payloads.CheckToken;
 import me.ctrlmaniac.minigest.payloads.RegistrazionePaylaod;
 import me.ctrlmaniac.minigest.payloads.RequestPasswordResetPayload;
 import me.ctrlmaniac.minigest.payloads.ResetPasswordPayload;
+import me.ctrlmaniac.minigest.payloads.UpdateRolesPayload;
 import me.ctrlmaniac.minigest.services.NegozioService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.PasswordResetService;
@@ -74,8 +76,29 @@ public class AccountController {
 	private String host;
 
 	@GetMapping("/list")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<Account>> findAll() {
 		return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Account> find(@PathVariable String id) {
+		Account account = accountService.findById(id);
+		return new ResponseEntity<>(account, account != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Account> find(@PathVariable String id, @RequestBody UpdateRolesPayload payload) {
+		Account account = accountService.findById(id);
+
+		if (account != null) {
+			account.setRoles(payload.getRoles());
+			accountService.save(account);
+		}
+
+		return new ResponseEntity<>(account, account != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("")
