@@ -4,6 +4,8 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -23,9 +25,11 @@ const AccountList: React.FC = () => {
     listing,
   } = useAppSelector((state) => state.account);
 
+  const [email, setEmail] = React.useState("");
+
   React.useEffect(() => {
-    dispatch(list());
-  }, []);
+    dispatch(list(email));
+  }, [email]);
 
   if (listing) {
     return <LoadingScreen />;
@@ -38,23 +42,45 @@ const AccountList: React.FC = () => {
           <Typography variant="h3">Account</Typography>
         </Box>
 
-        {isEmpty(accounts) ? (
-          <Alert severity="info">Non ci sono account disponibili</Alert>
-        ) : (
-          <List>
-            {accounts?.map((account) => (
-              <ListItemButton
-                key={account.id}
-                onClick={() => navigate("dettagli/" + account.id)}
-              >
-                <ListItemText
-                  primary={account.email}
-                  secondary={account.fname + " " + account.lname}
-                />
-              </ListItemButton>
-            ))}
-          </List>
-        )}
+        <Box mb={2}>
+          <Paper>
+            <Box>
+              <TextField
+                label="cerca per email"
+                name="email"
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(e.target.value)
+                }
+                fullWidth
+              />
+            </Box>
+          </Paper>
+        </Box>
+
+        <Box>
+          <Paper>
+            <Box p={2}>
+              {isEmpty(accounts) ? (
+                <Alert severity="info">Non ci sono account disponibili</Alert>
+              ) : (
+                <List>
+                  {accounts?.map((account) => (
+                    <ListItemButton
+                      key={account.id}
+                      onClick={() => navigate("dettagli/" + account.id)}
+                    >
+                      <ListItemText
+                        primary={account.email}
+                        secondary={account.fname + " " + account.lname}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              )}
+            </Box>
+          </Paper>
+        </Box>
       </>
     );
   }

@@ -77,7 +77,11 @@ public class AccountController {
 
 	@GetMapping("/list")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<List<Account>> findAll() {
+	public ResponseEntity<List<Account>> findAll(@RequestParam(name = "email", required = false) String email) {
+		if (email != null) {
+			return new ResponseEntity<>(accountService.searchByEmail(email), HttpStatus.OK);
+		}
+
 		return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
 	}
 

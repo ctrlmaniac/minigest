@@ -68,4 +68,8 @@ public class AccountService implements UserDetailsService {
 		return null;
 	}
 
+	public List<Account> searchByEmail(String email) {
+		return accountRepo.searchByEmail(email);
+	}
+
 }
