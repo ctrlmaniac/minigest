@@ -7,6 +7,7 @@ const Root = lazy(() => import("~/pages/Root"));
 const NotFound = lazy(() => import("~/pages/NotFound"));
 const Home = lazy(() => import("~/pages/Home"));
 const Accedi = lazy(() => import("~/pages/Accedi"));
+const Registrati = lazy(() => import("~/pages/Registrati"));
 
 export default createBrowserRouter([
   {
@@ -30,6 +31,14 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <Accedi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/registrati",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <Registrati />
           </Suspense>
         ),
       },

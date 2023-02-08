@@ -31,4 +31,10 @@ public class AziendeRestController {
 		return new ResponseEntity<>(aziendaService.findAll(), HttpStatus.OK);
 	}
 
+	@GetMapping("/exists")
+	public ResponseEntity<Boolean> exists(@RequestParam(name = "nazione", required = true) String nazione,
+			@RequestParam(name = "codice", required = true) String codice) {
+		return new ResponseEntity<Boolean>(aziendaService.exists(nazione, codice), HttpStatus.OK);
+	}
+
 }

@@ -57,7 +57,7 @@ public class Azienda {
 	@JsonIgnoreProperties("azienda")
 	Set<Negozio> negozi = new HashSet<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "account_aziende")
 	@JsonIncludeProperties({ "id", "email" })
 	Set<Account> utenti = new HashSet<>();

@@ -10,7 +10,6 @@ import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 @Getter
@@ -30,14 +29,13 @@ public class Account {
 	private String nome;
 	private String cognome;
 
-	@JsonIgnore
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<AccountRuolo> ruoli = new HashSet<>();
 
-	@ManyToMany(mappedBy = "utenti")
-	@JsonIncludeProperties({ "id", "denominazione" })
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
+	@JsonIncludeProperties({ "id", "denominazione", "negozi" })
 	Set<Azienda> aziende = new HashSet<>();
 
 	public Account(String email, String nome, String cognome, String password) {

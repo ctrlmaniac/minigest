@@ -5,6 +5,7 @@ do
   client="${d##*/}"
 
   rm -rfv minigest/src/main/resources/static/$client
+  rm -rfv minigest/src/main/resources/templates/$client
   mkdir minigest/src/main/resources/static/$client
   mkdir minigest/src/main/resources/templates/$client
 

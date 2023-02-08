@@ -12,9 +12,11 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors().disable().authorizeHttpRequests()
+		http.csrf().disable().authorizeHttpRequests()
 				.requestMatchers("/api/account/register", "/api/account/register/**").permitAll()
+				.requestMatchers("/api/aziende/exists").permitAll()
 				.requestMatchers("/api", "/api/**").authenticated()
+
 				.requestMatchers("/", "/**").permitAll()
 				.and().formLogin().loginPage("/accedi")
 				.and().logout().logoutUrl("/esci").logoutSuccessUrl("/")
