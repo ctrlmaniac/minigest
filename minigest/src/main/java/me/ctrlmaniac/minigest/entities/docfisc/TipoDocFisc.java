@@ -1,5 +1,6 @@
-package me.ctrlmaniac.minigest.entities.azienda;
+package me.ctrlmaniac.minigest.entities.docfisc;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,30 +8,23 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
-public class AziendaIndirizzo {
+@Entity
+public class TipoDocFisc {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	private String indirizzo;
-	private String numeroCivico;
-	private String cap;
-	private String comune;
-	private String provincia;
-	private String nazione;
+	@Column(unique = true)
+	private String codice;
 
-	public AziendaIndirizzo(String indirizzo, String numeroCivico, String cap, String comune, String provincia,
-			String nazione) {
-		this.indirizzo = indirizzo;
-		this.numeroCivico = numeroCivico;
-		this.cap = cap;
-		this.comune = comune;
-		this.provincia = provincia;
-		this.nazione = nazione;
+	private String descizione;
+
+	public TipoDocFisc(String codice, String descizione) {
+		this.codice = codice;
+		this.descizione = descizione;
 	}
 
 	@Override
@@ -41,7 +35,7 @@ public class AziendaIndirizzo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AziendaIndirizzo other = (AziendaIndirizzo) obj;
+		TipoDocFisc other = (TipoDocFisc) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -57,5 +51,4 @@ public class AziendaIndirizzo {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 }
