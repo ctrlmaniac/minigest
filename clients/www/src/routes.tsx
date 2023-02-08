@@ -8,6 +8,7 @@ const NotFound = lazy(() => import("~/pages/NotFound"));
 const Home = lazy(() => import("~/pages/Home"));
 const Accedi = lazy(() => import("~/pages/Accedi"));
 const Registrati = lazy(() => import("~/pages/Registrati"));
+const Forbidden = lazy(() => import("~/pages/Forbidden"));
 
 export default createBrowserRouter([
   {
@@ -41,6 +42,48 @@ export default createBrowserRouter([
             <Registrati />
           </Suspense>
         ),
+      },
+      {
+        path: "/app",
+        children: [
+          {
+            path: "",
+            element: (
+              <Suspense fallback={<LoadingScreen />}>
+                <Forbidden />
+              </Suspense>
+            ),
+          },
+          {
+            path: "*",
+            element: (
+              <Suspense fallback={<LoadingScreen />}>
+                <Forbidden />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: "/admin",
+        children: [
+          {
+            path: "",
+            element: (
+              <Suspense fallback={<LoadingScreen />}>
+                <Forbidden />
+              </Suspense>
+            ),
+          },
+          {
+            path: "*",
+            element: (
+              <Suspense fallback={<LoadingScreen />}>
+                <Forbidden />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },

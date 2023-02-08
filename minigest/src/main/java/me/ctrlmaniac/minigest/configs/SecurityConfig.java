@@ -30,7 +30,7 @@ public class SecurityConfig {
 
 		http = http.formLogin((form) -> form.loginPage("/accedi").permitAll());
 
-		http = http.logout((logout) -> logout.logoutUrl("/esci").permitAll());
+		http = http.logout((logout) -> logout.logoutUrl("/esci").logoutSuccessUrl("/").permitAll());
 
 		return http.build();
 	}
