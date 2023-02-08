@@ -23,6 +23,7 @@ import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.utils.DataLoader;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -47,6 +48,9 @@ public class ApplicationRunner implements CommandLineRunner {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private AziendaService aziendaService;
@@ -99,7 +103,7 @@ public class ApplicationRunner implements CommandLineRunner {
 		AccountRuolo ruoloAdmin = ruoloService.findByNome(RuoloEnum.ROLE_ADMIN);
 
 		Account admin = new Account(adminEmail, adminFName, adminLName,
-				adminPassword);
+				passwordEncoder.encode(adminPassword));
 		admin.addRuolo(ruoloAdmin);
 		accountService.save(admin);
 
