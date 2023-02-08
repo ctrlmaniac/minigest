@@ -12,6 +12,8 @@ public class ReactWebController {
 	public String getClient(HttpServletRequest request) {
 		String url = request.getRequestURI();
 
+		System.out.println(url);
+
 		if (url.startsWith("/admin")) {
 			return "/admin/index.html";
 		} else if (url.startsWith("/app")) {

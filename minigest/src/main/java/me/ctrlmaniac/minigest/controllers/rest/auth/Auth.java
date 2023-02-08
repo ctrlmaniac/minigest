@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import me.ctrlmaniac.minigest.payloads.LoginPayload;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.entities.account.Account;
@@ -35,7 +38,7 @@ public class Auth {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginPayload payload) {
+	public ResponseEntity<?> login(@RequestBody LoginPayload payload, HttpServletRequest request) {
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 
 		try {
@@ -47,6 +50,9 @@ public class Auth {
 			if (auth.isAuthenticated()) {
 				context.setAuthentication(auth);
 				SecurityContextHolder.setContext(context);
+
+				HttpSession session = request.getSession(true);
+				session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
 				return ResponseEntity.ok("utente autenticato");
 			} else {
