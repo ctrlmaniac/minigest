@@ -7,7 +7,9 @@
   ],
   "scripts": {
     "clean": "npx lerna clean",
-    "build": "npx lerna exec -- npm run build"
+    "collectclients": "bash collectclients.sh",
+    "build": "npx lerna exec -- npm run build",
+    "postbuild": "npm run collectclients && git add . && git commit -m \"collected clients\" && git push"
   },
   "devDependencies": {
     "lerna": "^5.6.2"
