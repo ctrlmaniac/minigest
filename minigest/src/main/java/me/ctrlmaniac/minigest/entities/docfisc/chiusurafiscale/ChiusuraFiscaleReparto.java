@@ -32,13 +32,6 @@ public class ChiusuraFiscaleReparto {
 	private double totaleAnnulli;
 	private double totaleResi;
 
-	public ChiusuraFiscaleReparto(double aliquota, double totale, double totaleAnnulli, double totaleResi) {
-		this.aliquota = aliquota;
-		this.totale = totale;
-		this.totaleAnnulli = totaleAnnulli;
-		this.totaleResi = totaleResi;
-	}
-
 	public ChiusuraFiscaleReparto(ChiusuraFiscale chiusuraFiscale, double aliquota, double totale, double totaleAnnulli,
 			double totaleResi) {
 		this.chiusuraFiscale = chiusuraFiscale;
