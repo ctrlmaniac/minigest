@@ -62,7 +62,9 @@ const Accedi: React.FC = () => {
     dispatch(accountExists(values.email));
   }, [values]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     dispatch(login(values));
   };
 
@@ -70,65 +72,67 @@ const Accedi: React.FC = () => {
     <>
       <Container maxWidth="xs">
         <Paper>
-          <Box p={2}>
-            <TextField
-              fullWidth
-              label="Email"
-              name="email"
-              value={values.email}
-              error={errors.email}
-              onChange={handleChange}
-              margin="normal"
-            />
-
-            {values.email.toString().length > 1 && (
-              <Alert severity={exists ? "success" : "error"}>
-                {exists ? "Utente esistente!" : "Utente non esistente!"}
-              </Alert>
-            )}
-
-            <TextField
-              fullWidth
-              label="Password"
-              name="password"
-              value={values.password}
-              error={errors.password}
-              onChange={handleChange}
-              margin="normal"
-              type={showPassword ? "text" : "password"}
-            />
-            <FormControlLabel
-              value="mostra password"
-              control={
-                <Checkbox
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setShowPassword(e.target.checked)
-                  }
-                />
-              }
-              label="mostra password"
-            />
-
-            <Box mt={1}>
-              <Button
+          <form onSubmit={handleSubmit} method="post">
+            <Box p={2}>
+              <TextField
                 fullWidth
-                variant="contained"
-                type="submit"
-                disabled={isDisabled || !exists}
-                onClick={handleSubmit}
-              >
-                Accedi
-              </Button>
+                label="Email"
+                name="email"
+                value={values.email}
+                error={errors.email}
+                onChange={handleChange}
+                margin="normal"
+              />
+
+              {values.email.toString().length > 1 && (
+                <Alert severity={exists ? "success" : "error"}>
+                  {exists ? "Utente esistente!" : "Utente non esistente!"}
+                </Alert>
+              )}
+
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                value={values.password}
+                error={errors.password}
+                onChange={handleChange}
+                margin="normal"
+                type={showPassword ? "text" : "password"}
+              />
+              <FormControlLabel
+                value="mostra password"
+                control={
+                  <Checkbox
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setShowPassword(e.target.checked)
+                    }
+                  />
+                }
+                label="mostra password"
+              />
+
+              <Box mt={1}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  type="submit"
+                  disabled={isDisabled || !exists}
+                  onClick={handleSubmit}
+                >
+                  Accedi
+                </Button>
+              </Box>
+              {!isEmpty(loginResponse) && (
+                <Alert
+                  severity={loginError ? "error" : "success"}
+                  sx={{ marginTop: 2 }}
+                >
+                  {loginResponse}
+                </Alert>
+              )}
             </Box>
-            {!isEmpty(loginResponse) && (
-              <Alert
-                severity={loginError ? "error" : "success"}
-                sx={{ marginTop: 2 }}
-              >
-                {loginResponse}
-              </Alert>
-            )}
-          </Box>
+          </form>
         </Paper>
         {status && <LinearProgress />}
       </Container>
