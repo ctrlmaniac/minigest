@@ -1,6 +1,7 @@
 package me.ctrlmaniac.minigest.services.negozio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,17 +14,27 @@ import me.ctrlmaniac.minigest.repositories.negozio.NegozioRepo;
 public class NegozioService {
 
 	@Autowired
-	private NegozioRepo negozioRepo;
+	private NegozioRepo repo;
+
+	public Negozio findById(String id) {
+		Optional<Negozio> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
+	}
 
 	public List<Negozio> findAll() {
-		return negozioRepo.findAll();
+		return repo.findAll();
 	}
 
 	public List<Negozio> findAllByAzienda(Azienda azienda) {
-		return negozioRepo.findAllByAzienda(azienda);
+		return repo.findAllByAzienda(azienda);
 	}
 
 	public Negozio save(Negozio negozio) {
-		return negozioRepo.save(negozio);
+		return repo.save(negozio);
 	}
 }
