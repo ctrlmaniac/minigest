@@ -6,12 +6,16 @@ import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entities.docfisc.TipoDocFisc;
+import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
+import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
+import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
+import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 import me.ctrlmaniac.minigest.utils.DataLoader;
 
@@ -21,6 +25,8 @@ import org.springframework.boot.CommandLineRunner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Slf4j
 @Component
@@ -46,6 +52,12 @@ public class ApplicationRunner implements CommandLineRunner {
 
 	@Autowired
 	private NegozioService negozioService;
+
+	@Autowired
+	private ChiusuraFiscaleService chiusuraFiscaleService;
+
+	@Autowired
+	private ChiusuraFiscaleRepartoService chiusuraFiscaleRepartoService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -107,6 +119,16 @@ public class ApplicationRunner implements CommandLineRunner {
 		// Crea un negozio
 		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
 		negozioService.save(larapidaNegozio);
+
+		// Crea una chiusura fiscale
+		ChiusuraFiscale cf1 = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 100, 20);
+		chiusuraFiscaleService.save(cf1);
+
+		ChiusuraFiscaleReparto cf1Reparto1 = new ChiusuraFiscaleReparto(cf1, 22, 50, 0, 0);
+		chiusuraFiscaleRepartoService.save(cf1Reparto1);
+		ChiusuraFiscaleReparto cf1Reparto2 = new ChiusuraFiscaleReparto(cf1, 10, 50, 0, 0);
+		chiusuraFiscaleRepartoService.save(cf1Reparto2);
+
 	}
 
 }
