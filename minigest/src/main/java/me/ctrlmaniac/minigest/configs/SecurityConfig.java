@@ -11,17 +11,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests()
-				.anyRequest().authenticated()
-				.and().formLogin()
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.cors().disable().authorizeHttpRequests()
+				.requestMatchers("/api/account/register", "/api/account/register/**").permitAll()
+				.requestMatchers("/api", "/api/**").authenticated()
+				.requestMatchers("/", "/**").permitAll()
+				.and().formLogin().loginPage("/accedi")
+				.and().logout().logoutUrl("/esci").logoutSuccessUrl("/")
 				.and().httpBasic();
 
 		return http.build();
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 }

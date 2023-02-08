@@ -52,6 +52,10 @@ public class AccountService implements UserDetailsService {
 		return accountRepo.findAll();
 	}
 
+	public boolean existsByEmail(String email) {
+		return accountRepo.existsByEmail(email);
+	}
+
 	public Account save(Account account) {
 		return accountRepo.save(account);
 	}
