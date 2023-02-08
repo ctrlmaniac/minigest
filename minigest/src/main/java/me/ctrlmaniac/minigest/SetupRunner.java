@@ -132,6 +132,7 @@ public class SetupRunner implements CommandLineRunner {
 		aziendaIndirizzoService.save(shopSede);
 
 		Azienda shop = new Azienda(null, "Shop", null, "IT", "09876543212", "09876543212", shopSede, null, null);
+		shop.addUtente(admin);
 		aziendaService.save(shop);
 
 		// Crea un negozio
@@ -139,18 +140,22 @@ public class SetupRunner implements CommandLineRunner {
 		negozioService.save(larapidaNegozio);
 
 		// Crea una chiusura fiscale
-		ChiusuraFiscale cf1 = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(), 100, 20);
+		ChiusuraFiscale cf1 = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(),
+				100, 20);
 		chiusuraFiscaleService.save(cf1);
 
-		ChiusuraFiscaleReparto cf1Reparto1 = new ChiusuraFiscaleReparto(cf1, 22, 50, 0, 0);
+		ChiusuraFiscaleReparto cf1Reparto1 = new ChiusuraFiscaleReparto(cf1, 22, 50,
+				0, 0);
 		chiusuraFiscaleRepartoService.save(cf1Reparto1);
-		ChiusuraFiscaleReparto cf1Reparto2 = new ChiusuraFiscaleReparto(cf1, 10, 50, 0, 0);
+		ChiusuraFiscaleReparto cf1Reparto2 = new ChiusuraFiscaleReparto(cf1, 10, 50,
+				0, 0);
 		chiusuraFiscaleRepartoService.save(cf1Reparto2);
 
 		// Crea una fattura
 		TipoDocFisc TD01 = tipoDocFiscService.findByCodice("TD01");
 
-		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusWeeks(1), "12345", 122);
+		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(),
+				LocalDate.now().plusWeeks(1), "12345", 122);
 		fatturaService.save(ft1);
 
 		FatturaReparto ft1Reparto1 = new FatturaReparto(ft1, 22, 100, 22);

@@ -1,4 +1,5 @@
 import AziendaIndirizzo from "./aziendaIndirizzo";
+import Negozio from "./negozio";
 
 export default interface Azienda {
   id?: string;
@@ -11,4 +12,5 @@ export default interface Azienda {
   sede?: AziendaIndirizzo;
   stabileOrganizzazione?: AziendaIndirizzo;
   rappresentanteFiscale?: Azienda;
+  negozi?: Negozio[];
 }

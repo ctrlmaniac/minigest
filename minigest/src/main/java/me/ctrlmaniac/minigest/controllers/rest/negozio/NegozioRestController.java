@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
+import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
@@ -35,5 +38,17 @@ public class NegozioRestController {
 		}
 
 		return new ResponseEntity<>(negozioService.findAll(), HttpStatus.OK);
+	}
+
+	@PostMapping("")
+	public ResponseEntity<?> save(@RequestBody Negozio payload) {
+		Negozio negozio = negozioService.save(payload);
+
+		if (negozio.getId() != null) {
+			return new ResponseEntity<>(negozio, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Impossibile creare negozio", HttpStatus.BAD_REQUEST);
+
 	}
 }
