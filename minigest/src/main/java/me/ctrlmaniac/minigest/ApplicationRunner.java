@@ -8,6 +8,8 @@ import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
@@ -16,7 +18,9 @@ import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.utils.DataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +62,12 @@ public class ApplicationRunner implements CommandLineRunner {
 
 	@Autowired
 	private ChiusuraFiscaleRepartoService chiusuraFiscaleRepartoService;
+
+	@Autowired
+	private FatturaService fatturaService;
+
+	@Autowired
+	private FatturaRepartoService fatturaRepartoService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -116,6 +126,13 @@ public class ApplicationRunner implements CommandLineRunner {
 		larapida.addUtente(admin);
 		aziendaService.save(larapida);
 
+		// Crea una seconda azienda
+		AziendaIndirizzo shopSede = new AziendaIndirizzo("Viale Italia", "1", "25124", "Brescia", "BS", "IT");
+		aziendaIndirizzoService.save(shopSede);
+
+		Azienda shop = new Azienda(null, "Shop", null, "IT", "09876543212", "09876543212", shopSede, null, null);
+		aziendaService.save(shop);
+
 		// Crea un negozio
 		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
 		negozioService.save(larapidaNegozio);
@@ -128,6 +145,15 @@ public class ApplicationRunner implements CommandLineRunner {
 		chiusuraFiscaleRepartoService.save(cf1Reparto1);
 		ChiusuraFiscaleReparto cf1Reparto2 = new ChiusuraFiscaleReparto(cf1, 10, 50, 0, 0);
 		chiusuraFiscaleRepartoService.save(cf1Reparto2);
+
+		// Crea una fattura
+		TipoDocFisc TD01 = tipoDocFiscService.findByCodice("TD01");
+
+		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now(), LocalDate.now().plusWeeks(1), "12345", 122);
+		fatturaService.save(ft1);
+
+		FatturaReparto ft1Reparto1 = new FatturaReparto(ft1, 22, 100, 22);
+		fatturaRepartoService.save(ft1Reparto1);
 
 	}
 
