@@ -1,4 +1,4 @@
 export enum Endpoints {
-  ACCOUNT = "/account/register",
+  ACCOUNT = "/account",
   AZIENDE = "/aziende",
 }

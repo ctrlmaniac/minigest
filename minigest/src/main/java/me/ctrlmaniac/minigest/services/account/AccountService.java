@@ -12,18 +12,15 @@ import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AccountService implements UserDetailsService {
@@ -57,19 +54,16 @@ public class AccountService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) {
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		Account user = findByEmail(username);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Account account = findByEmail(username);
 
-		if (user != null) {
-			for (AccountRuolo ruolo : user.getRuoli()) {
-				authorities.add(new SimpleGrantedAuthority(ruolo.getNome().name()));
-			}
-
-			return new User(username, user.getPassword(), authorities);
+		if (account == null) {
+			throw new UsernameNotFoundException(username);
 		}
 
-		return null;
+		UserDetails user = new User(account.getEmail(), account.getPassword(), account.getAuthorities());
+
+		return user;
 	}
 
 	public List<Account> findAll() {

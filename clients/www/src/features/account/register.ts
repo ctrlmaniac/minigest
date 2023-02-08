@@ -4,7 +4,7 @@ import { AppThunk } from "~/store";
 export default function register(payload: any): AppThunk {
   return async () => {
     api
-      .post(`${Endpoints.ACCOUNT}`, payload)
+      .post(`${Endpoints.ACCOUNT}/register`, payload)
       .then((response) => {
         window.location.href = "/app";
       })

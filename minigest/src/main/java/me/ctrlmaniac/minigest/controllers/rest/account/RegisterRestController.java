@@ -1,8 +1,12 @@
 package me.ctrlmaniac.minigest.controllers.rest.account;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +24,27 @@ public class RegisterRestController {
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private AuthenticationManager authManager;
+
 	@GetMapping("")
 	public ResponseEntity<Boolean> exists(@RequestParam(name = "email", required = true) String email) {
 		return new ResponseEntity<>(accountService.existsByEmail(email), HttpStatus.OK);
 	}
 
 	@PostMapping("")
-	public ResponseEntity<Account> register(@RequestBody Account account) {
-		return new ResponseEntity<>(accountService.save(account), HttpStatus.CREATED);
+	public ResponseEntity<Account> register(@RequestBody Account payload) {
+		Account account = accountService.save(payload);
+
+		if (account.getId() != null) {
+			Authentication auth = authManager
+					.authenticate(new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword()));
+			SecurityContextHolder.getContext().setAuthentication(auth);
+
+			return new ResponseEntity<>(account, HttpStatus.CREATED);
+		}
+
+		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
 	}
 }

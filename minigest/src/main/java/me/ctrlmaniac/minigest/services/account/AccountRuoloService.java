@@ -19,7 +19,7 @@ public class AccountRuoloService {
 	}
 
 	public AccountRuolo findByNome(RuoloEnum ruolo) {
-		Optional<AccountRuolo> opt = ruoloRepo.findByNome(ruolo);
+		Optional<AccountRuolo> opt = ruoloRepo.findByAuthority(ruolo);
 
 		if (opt.isPresent()) {
 			return opt.get();

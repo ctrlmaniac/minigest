@@ -9,15 +9,18 @@ import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
-@Getter
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Setter
+@Getter
 @NoArgsConstructor
 @ToString
 @Entity
-public class Account {
+public class Account implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -28,11 +31,14 @@ public class Account {
 
 	private String nome;
 	private String cognome;
-
 	private String password;
+	private boolean enabled;
+	private boolean credentialsNonExpired;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<AccountRuolo> ruoli = new HashSet<>();
+	private Collection<AccountRuolo> authorities = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
 	@JsonIncludeProperties({ "id", "denominazione", "negozi" })
@@ -43,12 +49,24 @@ public class Account {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.password = password;
+		this.enabled = true;
+		this.credentialsNonExpired = true;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
 	}
 
 	public Account(String email, String nome, String cognome) {
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
+		this.enabled = true;
+		this.credentialsNonExpired = true;
+		this.accountNonExpired = true;
+		this.accountNonLocked = true;
+	}
+
+	public String getUsername() {
+		return this.email;
 	}
 
 	public void addAzienda(Azienda azienda) {
@@ -56,7 +74,7 @@ public class Account {
 	}
 
 	public void addRuolo(AccountRuolo ruolo) {
-		ruoli.add(ruolo);
+		authorities.add(ruolo);
 	}
 
 	@Override

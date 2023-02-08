@@ -1,33 +1,38 @@
 package me.ctrlmaniac.minigest.entities.account;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
 
-@Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Entity
-public class AccountRuolo {
+public class AccountRuolo implements GrantedAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
 	@Enumerated(EnumType.STRING)
-	private RuoloEnum nome;
+	private RuoloEnum authority;
 
 	public AccountRuolo(RuoloEnum nome) {
-		this.nome = nome;
+		this.authority = nome;
+	}
+
+	@Override
+	public String getAuthority() {
+		return this.authority.name();
 	}
 
 	@Override

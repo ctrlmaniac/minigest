@@ -5,7 +5,7 @@ import { setExists } from "./slice";
 export default function accountExists(email: string = ""): AppThunk {
   return async (dispatch) => {
     api
-      .get(`${Endpoints.ACCOUNT}?email=${email}`)
+      .get(`${Endpoints.ACCOUNT}/register?email=${email}`)
       .then((response) => {
         dispatch(setExists(response.data));
       })
