@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.FetchType;
@@ -13,7 +14,9 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import me.ctrlmaniac.minigest.entities.account.Account;
+import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "idFiscaleIVAPaese", "idFiscaleIVACodice" }) })
 public class Azienda {
@@ -49,6 +53,32 @@ public class Azienda {
 	@JsonIgnoreProperties({ "utenti", "rappresentanteFiscale" })
 	private Azienda rappresentanteFiscale;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "azienda")
+	@JsonIgnoreProperties("azienda")
+	Set<Negozio> negozi = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "account_aziende")
+	@JsonIncludeProperties({ "id", "email" })
+	Set<Account> utenti = new HashSet<>();
+
+	public Azienda(String titolo, String denominazione, String codiceEORI, String idFiscaleIVAPaese,
+			String idFiscaleIVACodice, String codiceFiscale, AziendaIndirizzo sede,
+			AziendaIndirizzo stabileOrganizzazione, Azienda rappresentanteFiscale, Set<Negozio> negozi,
+			Set<Account> utenti) {
+		this.titolo = titolo;
+		this.denominazione = denominazione;
+		this.codiceEORI = codiceEORI;
+		this.idFiscaleIVAPaese = idFiscaleIVAPaese;
+		this.idFiscaleIVACodice = idFiscaleIVACodice;
+		this.codiceFiscale = codiceFiscale;
+		this.sede = sede;
+		this.stabileOrganizzazione = stabileOrganizzazione;
+		this.rappresentanteFiscale = rappresentanteFiscale;
+		this.negozi = negozi;
+		this.utenti = utenti;
+	}
+
 	public Azienda(String titolo, String denominazione, String codiceEORI, String idFiscaleIVAPaese,
 			String idFiscaleIVACodice, String codiceFiscale, AziendaIndirizzo sede,
 			AziendaIndirizzo stabileOrganizzazione, Azienda rappresentanteFiscale) {
@@ -63,13 +93,12 @@ public class Azienda {
 		this.rappresentanteFiscale = rappresentanteFiscale;
 	}
 
-	@ManyToMany
-	@JoinTable(name = "account_aziende")
-	@JsonIncludeProperties({ "id", "email" })
-	Set<Account> utenti = new HashSet<>();
-
 	public void addUtente(Account utente) {
 		utenti.add(utente);
+	}
+
+	public void addNegozio(Negozio negozio) {
+		negozi.add(negozio);
 	}
 
 	@Override

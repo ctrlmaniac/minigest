@@ -5,10 +5,13 @@ import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
+import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.negozio.NegozioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -31,6 +34,9 @@ public class ApplicationRunner implements CommandLineRunner {
 
 	@Autowired
 	private AziendaIndirizzoService aziendaIndirizzoService;
+
+	@Autowired
+	private NegozioService negozioService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -84,6 +90,9 @@ public class ApplicationRunner implements CommandLineRunner {
 		larapida.addUtente(admin);
 		aziendaService.save(larapida);
 
+		// Crea un negozio
+		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
+		negozioService.save(larapidaNegozio);
 	}
 
 }

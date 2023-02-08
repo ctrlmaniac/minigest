@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.controllers.aziende;
+package me.ctrlmaniac.minigest.controllers.rest.aziende;
 
 import java.util.List;
 

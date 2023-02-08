@@ -1,32 +1,37 @@
-package me.ctrlmaniac.minigest.entities.account;
+package me.ctrlmaniac.minigest.entities.negozio;
+
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import me.ctrlmaniac.minigest.enums.RuoloEnum;
+import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Entity
-public class AccountRuolo {
+public class Negozio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@Enumerated(EnumType.STRING)
-	private RuoloEnum nome;
+	@ManyToOne
+	@JsonIncludeProperties({ "id", "denominazione" })
+	private Azienda azienda;
 
-	public AccountRuolo(RuoloEnum nome) {
+	private String nome;
+
+	public Negozio(Azienda azienda, String nome) {
+		this.azienda = azienda;
 		this.nome = nome;
 	}
 
@@ -46,7 +51,7 @@ public class AccountRuolo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AccountRuolo other = (AccountRuolo) obj;
+		Negozio other = (Negozio) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,5 +59,4 @@ public class AccountRuolo {
 			return false;
 		return true;
 	}
-
 }

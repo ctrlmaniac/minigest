@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 public class Account {
 
