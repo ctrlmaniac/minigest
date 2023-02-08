@@ -10,24 +10,24 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
-	
+
 	@Autowired
-	AccountRepo accountRepo;
-	
+	private AccountRepo accountRepo;
+
 	public Account findByEmail(String email) {
 		Optional<Account> opt = accountRepo.findByEmail(email);
-		
+
 		if (opt.isPresent()) {
 			return opt.get();
 		}
-		
+
 		return null;
 	}
-	
+
 	public List<Account> findAll() {
 		return accountRepo.findAll();
 	}
-	
+
 	public Account save(Account account) {
 		return accountRepo.save(account);
 	}

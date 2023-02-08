@@ -9,14 +9,14 @@ import java.util.List;
 
 @Service
 public class AziendaService {
-	
+
 	@Autowired
-	AziendaRepo aziendaRepo;
-	
+	private AziendaRepo aziendaRepo;
+
 	public List<Azienda> findAll() {
 		return aziendaRepo.findAll();
 	}
-	
+
 	public Azienda save(Azienda azienda) {
 		return aziendaRepo.save(azienda);
 	}
