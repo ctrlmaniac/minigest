@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -20,7 +21,13 @@ public class AziendeRestController {
 	AziendaService aziendaService;
 
 	@GetMapping("")
-	public ResponseEntity<List<Azienda>> findAll() {
+	public ResponseEntity<List<Azienda>> findAll(
+			@RequestParam(name = "denominazione", required = false) String denominazione) {
+
+		if (denominazione != null) {
+			return new ResponseEntity<>(aziendaService.searchByDenominazione(denominazione), HttpStatus.OK);
+		}
+
 		return new ResponseEntity<>(aziendaService.findAll(), HttpStatus.OK);
 	}
 
