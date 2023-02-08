@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class TipoDocFiscService {
 
 	@Autowired
-	TipoDocFiscRepo repo;
+	private TipoDocFiscRepo repo;
 
-	TipoDocFisc findByCodice(String codice) {
+	public TipoDocFisc findByCodice(String codice) {
 		Optional<TipoDocFisc> opt = repo.findByCodice(codice);
 
 		if (opt.isPresent()) {
@@ -22,5 +23,13 @@ public class TipoDocFiscService {
 		}
 
 		return null;
+	}
+
+	public List<TipoDocFisc> findAll() {
+		return repo.findAll();
+	}
+
+	public TipoDocFisc save(TipoDocFisc tipo) {
+		return repo.save(tipo);
 	}
 }

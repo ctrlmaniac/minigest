@@ -5,12 +5,15 @@ import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
+import me.ctrlmaniac.minigest.entities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
+import me.ctrlmaniac.minigest.utils.DataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +25,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class ApplicationRunner implements CommandLineRunner {
+
+	@Autowired
+	private DataLoader loader;
+
+	@Autowired
+	private TipoDocFiscService tipoDocFiscService;
 
 	@Autowired
 	private AccountRuoloService ruoloService;
@@ -53,6 +62,11 @@ public class ApplicationRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("App running at: http://localhost:8080");
+
+		// Salva i TipoDocFisc
+		for (TipoDocFisc tipo : loader.loadTipoDocFisc("media/csv/tipidocfisc.csv")) {
+			tipoDocFiscService.save(tipo);
+		}
 
 		// Salva i ruoli
 		for (RuoloEnum ruolo : RuoloEnum.values()) {
