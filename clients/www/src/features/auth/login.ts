@@ -7,7 +7,7 @@ export default function login(payload: any): AppThunk {
     dispatch(loginStart());
 
     api
-      .post(`${Endpoints.ACCOUNT}/login`, payload)
+      .post(`${Endpoints.AUTH}/login`, payload)
       .then((response) => {
         dispatch(loginSuccess(response.data));
 

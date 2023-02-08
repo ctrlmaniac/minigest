@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { Box, Grid, Paper, TextField, Typography, Alert } from "@mui/material";
-import { default as checkAccountExistance } from "~/features/account/exists";
+import { default as checkAccountExistance } from "~/features/auth/exists";
 import { default as checkAziendaExistance } from "~/features/aziende/exists";
 import { SaveFab } from "components";
-import register from "~/features/account/register";
+import register from "~/features/auth/register";
 
 const Registrati: React.FC = () => {
   const dispatch = useAppDispatch();

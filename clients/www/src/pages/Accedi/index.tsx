@@ -11,8 +11,8 @@ import {
   Checkbox,
   LinearProgress,
 } from "@mui/material";
-import accountExists from "~/features/account/exists";
-import login from "~/features/account/login";
+import accountExists from "~/features/auth/exists";
+import login from "~/features/auth/login";
 import { isEmpty } from "lodash";
 
 const Accedi: React.FC = () => {

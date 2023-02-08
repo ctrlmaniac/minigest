@@ -99,4 +99,8 @@ public class AccountService implements UserDetailsService {
 
 		return accountRepo.save(account);
 	}
+
+	public void deleteById(String id) {
+		accountRepo.deleteById(id);
+	}
 }

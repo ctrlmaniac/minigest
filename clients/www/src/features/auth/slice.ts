@@ -14,8 +14,8 @@ const initialState: AccountState = {
   loginResponse: "",
 };
 
-export const accountSlice = createSlice({
-  name: "account",
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     setExists: (state, action: PayloadAction<boolean>) => {
@@ -40,6 +40,6 @@ export const accountSlice = createSlice({
 });
 
 export const { setExists, loginStart, loginSuccess, loginFail } =
-  accountSlice.actions;
+  authSlice.actions;
 
-export default accountSlice.reducer;
+export default authSlice.reducer;

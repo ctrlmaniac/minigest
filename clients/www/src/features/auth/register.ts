@@ -2,19 +2,22 @@ import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 
 export default function register(payload: any): AppThunk {
-  return async () => {
+  return async (dispatch) => {
     api
-      .post(`${Endpoints.ACCOUNT}/register`, payload)
+      .post(`${Endpoints.AUTH}/register`, payload)
       .then((response) => {
+        console.log(response);
         window.location.href = "/app";
       })
       .catch((error) => {
-        let message = false;
+        console.log(error);
+
+        let message = "Errore";
 
         if (error.response) {
           message = error.response.data;
         } else {
-          message = false;
+          message = "Errore";
         }
 
         console.log(message);
