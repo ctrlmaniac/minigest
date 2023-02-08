@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "admin.email",
+      "type": "java.lang.String",
+      "description": "L'email dell'Admin"
+    },
+    {
+      "name": "admin.fname",
+      "type": "java.lang.String",
+      "description": "Il nome dell'Admin"
+    },
+    {
+      "name": "admin.lname",
+      "type": "java.lang.String",
+      "description": "Il cognome dell'Admin"
+    },
+    {
+      "name": "admin.password",
+      "type": "java.lang.String",
+      "description": "La password dell'Admin"
+    }
+  ]
+}
