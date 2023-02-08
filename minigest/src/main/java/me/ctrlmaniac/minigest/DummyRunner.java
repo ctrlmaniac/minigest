@@ -1,8 +1,6 @@
 package me.ctrlmaniac.minigest;
 
-import me.ctrlmaniac.minigest.enums.RuoloEnum;
 import me.ctrlmaniac.minigest.entities.account.Account;
-import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
 import me.ctrlmaniac.minigest.entities.docfisc.TipoDocFisc;
@@ -12,7 +10,6 @@ import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
-import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
@@ -21,12 +18,11 @@ import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleSe
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
-import me.ctrlmaniac.minigest.utils.DataLoader;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -35,22 +31,14 @@ import java.time.LocalDate;
 
 @Slf4j
 @Component
-public class ApplicationRunner implements CommandLineRunner {
-
-	@Autowired
-	private DataLoader loader;
+@Order(2)
+public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
 	private TipoDocFiscService tipoDocFiscService;
 
 	@Autowired
-	private AccountRuoloService ruoloService;
-
-	@Autowired
 	private AccountService accountService;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private AziendaService aziendaService;
@@ -76,36 +64,11 @@ public class ApplicationRunner implements CommandLineRunner {
 	@Value("${admin.email}")
 	private String adminEmail;
 
-	@Value("${admin.fname}")
-	private String adminFName;
-
-	@Value("${admin.lname}")
-	private String adminLName;
-
-	@Value("${admin.password}")
-	private String adminPassword;
-
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("App running at: http://localhost:8080");
 
-		// Salva i TipoDocFisc
-		for (TipoDocFisc tipo : loader.loadTipoDocFisc("media/csv/tipidocfisc.csv")) {
-			tipoDocFiscService.save(tipo);
-		}
-
-		// Salva i ruoli
-		for (RuoloEnum ruolo : RuoloEnum.values()) {
-			ruoloService.save(new AccountRuolo(ruolo));
-		}
-
-		// Crea un utente admin
-		AccountRuolo ruoloAdmin = ruoloService.findByNome(RuoloEnum.ROLE_ADMIN);
-
-		Account admin = new Account(adminEmail, adminFName, adminLName,
-				passwordEncoder.encode(adminPassword));
-		admin.addRuolo(ruoloAdmin);
-		accountService.save(admin);
+		Account admin = accountService.findByEmail(adminEmail);
 
 		// Crea un rappresentante fiscale
 		AziendaIndirizzo rappresentanteSede = new AziendaIndirizzo("Via Margheriti", "19", "25124", "Brescia", "BS",
