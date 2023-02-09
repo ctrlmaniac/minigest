@@ -26,8 +26,6 @@ const Root: React.FC = () => {
     dispatch(getPrincipal());
   }, []);
 
-  console.log(account);
-
   if (getting) {
     return <LoadingScreen />;
   } else {
