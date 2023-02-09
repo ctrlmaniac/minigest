@@ -103,4 +103,20 @@ public class AccountService implements UserDetailsService {
 	public void deleteById(String id) {
 		accountRepo.deleteById(id);
 	}
+
+	public Account update(String id, Account payload) {
+		Optional<Account> opt = accountRepo.findById(id);
+
+		if (opt.isPresent()) {
+			Account old = opt.get();
+
+			old.setNome(payload.getNome());
+			old.setCognome(payload.getCognome());
+			old.setEmail(payload.getEmail());
+
+			return accountRepo.save(old);
+		}
+
+		return null;
+	}
 }

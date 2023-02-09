@@ -5,12 +5,16 @@ interface State {
   getting: boolean;
   getError?: string;
   dettagli?: Account;
+  updating: boolean;
+  updateError?: string;
 }
 
 const initialState: State = {
   getting: false,
   getError: undefined,
   dettagli: undefined,
+  updating: false,
+  updateError: undefined,
 };
 
 export const accountSlice = createSlice({
@@ -30,9 +34,26 @@ export const accountSlice = createSlice({
       state.getError = action.payload;
       state.getting = false;
     },
+    putStart: (state) => {
+      state.updating = true;
+      state.updateError = undefined;
+    },
+    putSuccess: (state, action: PayloadAction<Account>) => {
+      state.updateError = undefined;
+      state.dettagli = {
+        ...state.dettagli,
+        ...action.payload,
+      };
+      state.updating = false;
+    },
+    putFail: (state, action: PayloadAction<string>) => {
+      state.updateError = action.payload;
+      state.updating = false;
+    },
   },
 });
 
-export const { getStart, getSuccess, getFail } = accountSlice.actions;
+export const { getStart, getSuccess, getFail, putStart, putFail, putSuccess } =
+  accountSlice.actions;
 
 export default accountSlice.reducer;
