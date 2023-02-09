@@ -4,6 +4,7 @@ import { LoadingScreen } from "components";
 
 // Pages
 const Root = lazy(() => import("~/pages/Root"));
+const Error = lazy(() => import("~/pages/Error"));
 const Dashboard = lazy(() => import("~/pages/Dashboard"));
 
 export default createBrowserRouter(
@@ -13,6 +14,11 @@ export default createBrowserRouter(
       element: (
         <Suspense fallback={<LoadingScreen />}>
           <Root />
+        </Suspense>
+      ),
+      errorElement: (
+        <Suspense fallback={<LoadingScreen />}>
+          <Error />
         </Suspense>
       ),
       children: [
