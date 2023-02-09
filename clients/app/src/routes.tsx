@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Children, lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { LoadingScreen } from "components";
 
@@ -12,6 +12,7 @@ const Aziende = lazy(() => import("~/pages/Aziende"));
 const AziendaDettagli = lazy(() => import("~/pages/Aziende/Dettagli"));
 const AziendaAggiungi = lazy(() => import("~/pages/Aziende/Aggiungi"));
 const AziendaModifica = lazy(() => import("~/pages/Aziende/Modifica"));
+const Negozi = lazy(() => import("~/pages/Negozi"));
 
 export default createBrowserRouter(
   [
@@ -89,6 +90,19 @@ export default createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingScreen />}>
                   <AziendaModifica />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "negozi",
+          children: [
+            {
+              path: "",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <Negozi />
                 </Suspense>
               ),
             },

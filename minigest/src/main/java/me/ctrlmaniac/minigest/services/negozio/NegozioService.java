@@ -50,4 +50,18 @@ public class NegozioService {
 
 		repo.delete(negozio);
 	}
+
+	public Negozio update(String id, Negozio payload) {
+		Optional<Negozio> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			Negozio old = opt.get();
+
+			old.setNome(payload.getNome());
+
+			return repo.save(old);
+		}
+
+		return null;
+	}
 }

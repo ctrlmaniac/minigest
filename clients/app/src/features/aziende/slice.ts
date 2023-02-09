@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { findIndex, remove } from "lodash";
 import { Azienda, Negozio } from "~/types";
 
 interface State {
@@ -128,6 +129,24 @@ export const aziendeSlice = createSlice({
       state.putResponse = action.payload;
       state.posting = false;
     },
+    updateSelectedNegozio(state, action: PayloadAction<Negozio>) {
+      const negozio = action.payload;
+      const negozi = [...state.selected!.negozi!];
+      const index = findIndex(negozi, (o) => o.id === negozio.id);
+
+      if (index >= 0) {
+        negozi[index] = negozio;
+
+        state.selected!.negozi = negozi;
+      }
+    },
+    deleteSelectedNegozio(state, action: PayloadAction<string>) {
+      const negozi = [...state.selected!.negozi!];
+
+      remove(negozi, (o) => o.id === action.payload);
+
+      state.selected!.negozi = negozi;
+    },
     unsetResponses: (state) => {
       state.removeResponse = undefined;
       state.postResponse = undefined;
@@ -156,6 +175,8 @@ export const {
   putFail,
   putStart,
   putSuccess,
+  updateSelectedNegozio,
+  deleteSelectedNegozio,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;
