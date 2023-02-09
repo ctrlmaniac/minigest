@@ -15,4 +15,8 @@ public class FatturaRepartoService {
 	public FatturaReparto save(FatturaReparto reparto) {
 		return repo.save(reparto);
 	}
+
+	public void delete(FatturaReparto reparto) {
+		repo.delete(reparto);
+	}
 }

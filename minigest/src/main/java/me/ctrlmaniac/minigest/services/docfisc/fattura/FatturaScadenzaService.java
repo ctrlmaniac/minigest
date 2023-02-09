@@ -12,7 +12,11 @@ public class FatturaScadenzaService {
 	@Autowired
 	private FatturaScadenzaRepo repo;
 
-	public FatturaScadenza save(FatturaScadenza reparto) {
-		return repo.save(reparto);
+	public FatturaScadenza save(FatturaScadenza scadenza) {
+		return repo.save(scadenza);
+	}
+
+	public void delete(FatturaScadenza scadenza) {
+		repo.delete(scadenza);
 	}
 }

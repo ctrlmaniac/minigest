@@ -3,6 +3,7 @@ package me.ctrlmaniac.minigest.services.azienda;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class AziendaService {
 
 	@Autowired
 	private NegozioService negozioService;
+
+	@Autowired
+	private FatturaService fatturaService;
 
 	public Azienda findById(String id) {
 		Optional<Azienda> opt = aziendaRepo.findById(id);
@@ -69,5 +73,45 @@ public class AziendaService {
 		}
 
 		return aziendaRepo.save(azienda);
+	}
+
+	public void deleteById(String id) {
+		Optional<Azienda> opt = aziendaRepo.findById(id);
+
+		if (opt.isPresent()) {
+			Azienda azienda = opt.get();
+
+			fatturaService.deleteAllByCedente(azienda);
+			fatturaService.deleteAllByCommittente(azienda);
+
+			for (Negozio negozio : azienda.getNegozi()) {
+				negozioService.delete(negozio);
+			}
+
+			aziendaRepo.deleteById(id);
+		}
+	}
+
+	public Azienda update(String id, Azienda payload) {
+		Optional<Azienda> opt = aziendaRepo.findById(id);
+
+		if (opt.isPresent()) {
+			Azienda old = opt.get();
+
+			old.setCodiceEORI(payload.getCodiceEORI());
+			old.setCodiceFiscale(payload.getCodiceFiscale());
+			old.setDenominazione(payload.getDenominazione());
+			old.setIdFiscaleIVACodice(payload.getIdFiscaleIVACodice());
+			old.setIdFiscaleIVAPaese(payload.getIdFiscaleIVAPaese());
+			old.setTitolo(payload.getTitolo());
+
+			if (payload.getSede() != null) {
+				indirizzoService.update(payload.getSede().getId(), payload.getSede());
+			}
+
+			return aziendaRepo.save(old);
+		}
+
+		return null;
 	}
 }

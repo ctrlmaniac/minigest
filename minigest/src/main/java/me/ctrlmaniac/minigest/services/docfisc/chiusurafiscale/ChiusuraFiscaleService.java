@@ -1,6 +1,5 @@
 package me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +10,6 @@ import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.repositories.docfisc.chiusurafiscale.ChiusuraFiscaleRepo;
-import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 @Service
 public class ChiusuraFiscaleService {
@@ -21,9 +19,6 @@ public class ChiusuraFiscaleService {
 
 	@Autowired
 	private ChiusuraFiscaleRepartoService repartoService;
-
-	@Autowired
-	private NegozioService negozioService;
 
 	public ChiusuraFiscale find(String id) {
 		Optional<ChiusuraFiscale> opt = repo.findById(id);
@@ -35,16 +30,13 @@ public class ChiusuraFiscaleService {
 		return null;
 	}
 
-	public List<ChiusuraFiscale> findAll(String idNegozio) {
-		Negozio negozio = negozioService.findById(idNegozio);
+	public List<ChiusuraFiscale> findAll(Negozio negozio) {
+		return repo.findByNegozioOrderByDataAsc(negozio);
 
-		if (negozio != null) {
-			System.out.println("qui");
-			return repo.findByNegozioOrderByDataAsc(negozio);
-		}
+	}
 
-		return new ArrayList<>();
-
+	public List<ChiusuraFiscale> findAllByNegozio(Negozio negozio) {
+		return repo.findAllByNegozio(negozio);
 	}
 
 	public List<ChiusuraFiscale> findAllByYearAndByMonth(Negozio negozio, String year, String month) {
@@ -60,5 +52,13 @@ public class ChiusuraFiscaleService {
 		}
 
 		return repo.save(chiusura);
+	}
+
+	public void delete(ChiusuraFiscale chiusura) {
+		for (ChiusuraFiscaleReparto reparto : chiusura.getReparti()) {
+			repartoService.delete(reparto);
+		}
+
+		repo.delete(chiusura);
 	}
 }

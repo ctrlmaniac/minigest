@@ -12,7 +12,11 @@ public class FatturaPagamentoService {
 	@Autowired
 	private FatturaPagamentoRepo repo;
 
-	public FatturaPagamento save(FatturaPagamento reparto) {
-		return repo.save(reparto);
+	public FatturaPagamento save(FatturaPagamento pagamento) {
+		return repo.save(pagamento);
+	}
+
+	public void delete(FatturaPagamento pagamento) {
+		repo.delete(pagamento);
 	}
 }

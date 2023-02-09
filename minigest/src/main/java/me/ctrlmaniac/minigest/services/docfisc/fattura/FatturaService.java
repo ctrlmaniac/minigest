@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.repositories.docfisc.fattura.FatturaRepo;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaPagamento;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 import java.util.Optional;
@@ -15,6 +18,15 @@ public class FatturaService {
 
 	@Autowired
 	private FatturaRepo repo;
+
+	@Autowired
+	private FatturaScadenzaService scadenzaService;
+
+	@Autowired
+	private FatturaPagamentoService pagamentoService;
+
+	@Autowired
+	private FatturaRepartoService repartoService;
 
 	public Fattura save(Fattura fattura) {
 		return repo.save(fattura);
@@ -56,5 +68,41 @@ public class FatturaService {
 
 	public List<Fattura> findAllByCommittenteByDataSDI(Azienda committente, String year, String month) {
 		return repo.findAllByCommittenteByDataSdiAsc(committente, year, month);
+	}
+
+	public void deleteAllByCedente(Azienda cedente) {
+		for (Fattura fattura : repo.findAllByCedente(cedente)) {
+			for (FatturaReparto reparto : fattura.getReparti()) {
+				repartoService.delete(reparto);
+			}
+
+			for (FatturaScadenza scadenza : fattura.getScadenze()) {
+				scadenzaService.delete(scadenza);
+			}
+
+			for (FatturaPagamento pagamento : fattura.getPagamenti()) {
+				pagamentoService.delete(pagamento);
+			}
+
+			repo.delete(fattura);
+		}
+	}
+
+	public void deleteAllByCommittente(Azienda committente) {
+		for (Fattura fattura : repo.findAllByCommittente(committente)) {
+			for (FatturaReparto reparto : fattura.getReparti()) {
+				repartoService.delete(reparto);
+			}
+
+			for (FatturaScadenza scadenza : fattura.getScadenze()) {
+				scadenzaService.delete(scadenza);
+			}
+
+			for (FatturaPagamento pagamento : fattura.getPagamenti()) {
+				pagamentoService.delete(pagamento);
+			}
+
+			repo.delete(fattura);
+		}
 	}
 }

@@ -1,17 +1,24 @@
 package me.ctrlmaniac.minigest.entities.negozio;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
+import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
 
 @Getter
 @Setter
@@ -30,9 +37,17 @@ public class Negozio {
 
 	private String nome;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "negozio")
+	@JsonIgnore
+	private Set<ChiusuraFiscale> chiusure = new HashSet<>();
+
 	public Negozio(Azienda azienda, String nome) {
 		this.azienda = azienda;
 		this.nome = nome;
+	}
+
+	public void addChiusura(ChiusuraFiscale chiusuraFiscale) {
+		this.chiusure.add(chiusuraFiscale);
 	}
 
 	@Override

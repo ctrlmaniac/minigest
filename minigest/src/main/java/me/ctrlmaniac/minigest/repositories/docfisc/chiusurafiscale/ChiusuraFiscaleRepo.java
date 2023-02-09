@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface ChiusuraFiscaleRepo extends JpaRepository<ChiusuraFiscale, String> {
 
+	List<ChiusuraFiscale> findAllByNegozio(Negozio negozio);
+
 	List<ChiusuraFiscale> findByNegozioOrderByDataAsc(Negozio negozio);
 
 	@Query("SELECT c FROM ChiusuraFiscale c WHERE c.negozio=:negozio AND YEAR(c.data)=:year AND MONTH(c.data)=:month ORDER BY c.data ASC")

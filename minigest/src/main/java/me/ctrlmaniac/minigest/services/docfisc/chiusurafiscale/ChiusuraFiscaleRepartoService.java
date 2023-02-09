@@ -15,4 +15,8 @@ public class ChiusuraFiscaleRepartoService {
 	public ChiusuraFiscaleReparto save(ChiusuraFiscaleReparto reparto) {
 		return repo.save(reparto);
 	}
+
+	public void delete(ChiusuraFiscaleReparto reparto) {
+		repo.delete(reparto);
+	}
 }
