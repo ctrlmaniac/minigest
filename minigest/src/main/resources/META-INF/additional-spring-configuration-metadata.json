@@ -19,11 +19,6 @@
       "name": "admin.password",
       "type": "java.lang.String",
       "description": "La password dell'Admin"
-    },
-    {
-      "name": "jwt.secret",
-      "type": "java.lang.String",
-      "description": "JWT secrek key"
     }
   ]
 }

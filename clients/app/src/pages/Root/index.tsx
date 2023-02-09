@@ -26,37 +26,43 @@ const Root: React.FC = () => {
     dispatch(getPrincipal());
   }, []);
 
+  console.log(account);
+
   if (getting) {
     return <LoadingScreen />;
   } else {
-    if (!isEmpty(getError)) {
-      return <ErrorScreen message={getError!} />;
+    if (!isEmpty(getError) || isEmpty(account)) {
+      return (
+        <ErrorScreen
+          message={getError! || "Devi accedere per vedere questa sezione!"}
+        />
+      );
+    } else {
+      return (
+        <>
+          <Navbar
+            handleDrawerOpen={setOpenSidebar}
+            handleAziendeDialogOpen={setOpenAziendeDialog}
+            handleNegoziDialogOpen={setOpenNegoziDialog}
+          />
+          <Sidebar open={openSidebar} handleOpen={setOpenSidebar} />
+          <AziendeDialog
+            open={openAziendeDialog}
+            handleOpen={setOpenAziendeDialog}
+          />
+          <NegoziDialog
+            open={openNegoziDialog}
+            handleOpen={setOpenNegoziDialog}
+          />
+
+          <Box mt={12} mb={12}>
+            <Container>
+              <Outlet />
+            </Container>
+          </Box>
+        </>
+      );
     }
-
-    return (
-      <>
-        <Navbar
-          handleDrawerOpen={setOpenSidebar}
-          handleAziendeDialogOpen={setOpenAziendeDialog}
-          handleNegoziDialogOpen={setOpenNegoziDialog}
-        />
-        <Sidebar open={openSidebar} handleOpen={setOpenSidebar} />
-        <AziendeDialog
-          open={openAziendeDialog}
-          handleOpen={setOpenAziendeDialog}
-        />
-        <NegoziDialog
-          open={openNegoziDialog}
-          handleOpen={setOpenNegoziDialog}
-        />
-
-        <Box mt={12} mb={12}>
-          <Container>
-            <Outlet />
-          </Container>
-        </Box>
-      </>
-    );
   }
 };
 

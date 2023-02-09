@@ -42,19 +42,19 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItemButton>
-          <ListItemButton onClick={() => handleNavigate("/app/account")}>
+          <ListItemButton onClick={() => handleNavigate("/account")}>
             <ListItemIcon>
               <IconUser />
             </ListItemIcon>
             <ListItemText primary="Account" />
           </ListItemButton>
-          <ListItemButton onClick={() => handleNavigate("/app/aziende")}>
+          <ListItemButton onClick={() => handleNavigate("/aziende")}>
             <ListItemIcon>
               <IconBuildingWarehouse />
             </ListItemIcon>
             <ListItemText primary="Aziende" />
           </ListItemButton>
-          <ListItemButton onClick={() => handleNavigate("/app/negozi")}>
+          <ListItemButton onClick={() => handleNavigate("/negozi")}>
             <ListItemIcon>
               <IconBuildingStore />
             </ListItemIcon>
@@ -64,7 +64,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
 
         <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
           <ListItemButton
-            onClick={() => handleNavigate("/app/docfisc/chiusure-fiscali")}
+            onClick={() => handleNavigate("/docfisc/chiusure-fiscali")}
           >
             <ListItemIcon>
               <IconFiles />
@@ -72,7 +72,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
           <ListItemButton
-            onClick={() => handleNavigate("/app/docfisc/fatture/vendita")}
+            onClick={() => handleNavigate("/docfisc/fatture/vendita")}
           >
             <ListItemIcon>
               <IconFileDescription />
@@ -80,7 +80,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             <ListItemText primary="Fatture Vendita" />
           </ListItemButton>
           <ListItemButton
-            onClick={() => handleNavigate("/app/docfisc/fatture/acquisto")}
+            onClick={() => handleNavigate("/docfisc/fatture/acquisto")}
           >
             <ListItemIcon>
               <IconFileDescription />
@@ -90,7 +90,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
         </List>
 
         <List subheader={<ListSubheader>Utilità</ListSubheader>}>
-          <ListItemButton onClick={() => handleNavigate("/app/scadenzario")}>
+          <ListItemButton onClick={() => handleNavigate("/scadenzario")}>
             <ListItemIcon>
               <IconCalendarDue />
             </ListItemIcon>

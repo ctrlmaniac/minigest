@@ -6,23 +6,28 @@ import { LoadingScreen } from "components";
 const Root = lazy(() => import("~/pages/Root"));
 const Dashboard = lazy(() => import("~/pages/Dashboard"));
 
-export default createBrowserRouter([
+export default createBrowserRouter(
+  [
+    {
+      path: "",
+      element: (
+        <Suspense fallback={<LoadingScreen />}>
+          <Root />
+        </Suspense>
+      ),
+      children: [
+        {
+          path: "",
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <Dashboard />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+  ],
   {
-    path: "",
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Root />
-      </Suspense>
-    ),
-    children: [
-      {
-        path: "",
-        element: (
-          <Suspense fallback={<LoadingScreen />}>
-            <Dashboard />
-          </Suspense>
-        ),
-      },
-    ],
-  },
-]);
+    basename: "/app",
+  }
+);
