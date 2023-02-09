@@ -482,7 +482,7 @@ const Registrati: React.FC = () => {
       </Box>
 
       <SaveFab
-        handleClick={handleSubmit}
+        onClick={handleSubmit}
         disabled={isDisabled || aziendaExists || accountExists}
       />
     </>

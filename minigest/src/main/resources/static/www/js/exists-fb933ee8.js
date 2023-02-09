@@ -1,0 +1,1 @@
+import{a as o,E as n}from"./index-7e7d8b38.js";import{W as i}from"./index-efae79f1.js";function p(e=""){return async t=>{o.get(`${n.AUTH}?email=${e}`).then(s=>{t(i(s.data))}).catch(s=>{let a=!1;s.response?a=s.response.data:a=!1,console.log(a)})}}export{p as a};
