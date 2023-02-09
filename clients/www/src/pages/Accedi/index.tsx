@@ -14,8 +14,10 @@ import {
 import accountExists from "~/features/auth/exists";
 import login from "~/features/auth/login";
 import { isEmpty } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const Accedi: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     exists,
@@ -112,7 +114,7 @@ const Accedi: React.FC = () => {
                 label="mostra password"
               />
 
-              <Box mt={1}>
+              <Box mt={1} mb={2}>
                 <Button
                   fullWidth
                   variant="contained"
@@ -121,6 +123,15 @@ const Accedi: React.FC = () => {
                   onClick={handleSubmit}
                 >
                   Accedi
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  fullWidth
+                  variant="text"
+                  onClick={() => navigate("/account/password/forgot")}
+                >
+                  password dimenticata
                 </Button>
               </Box>
               {!isEmpty(loginResponse) && (

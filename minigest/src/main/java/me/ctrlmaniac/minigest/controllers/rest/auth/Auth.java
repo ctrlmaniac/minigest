@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import me.ctrlmaniac.minigest.payloads.LoginPayload;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.entities.account.Account;
+import me.ctrlmaniac.minigest.payloads.auth.Login;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -38,7 +38,7 @@ public class Auth {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginPayload payload, HttpServletRequest request) {
+	public ResponseEntity<?> login(@RequestBody Login payload, HttpServletRequest request) {
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 
 		try {
