@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Account } from "~/types";
+import { remove } from "lodash";
+import { Account, Azienda } from "~/types";
 
 interface State {
   getting: boolean;
@@ -50,10 +51,27 @@ export const accountSlice = createSlice({
       state.updateError = action.payload;
       state.updating = false;
     },
+    removeAzienda: (state, action: PayloadAction<string>) => {
+      const aziende = [...state.dettagli?.aziende!];
+
+      remove(aziende, (o) => o.id === action.payload);
+
+      state.dettagli = {
+        ...state.dettagli!,
+        aziende: aziende,
+      };
+    },
   },
 });
 
-export const { getStart, getSuccess, getFail, putStart, putFail, putSuccess } =
-  accountSlice.actions;
+export const {
+  getStart,
+  getSuccess,
+  getFail,
+  putStart,
+  putFail,
+  putSuccess,
+  removeAzienda,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

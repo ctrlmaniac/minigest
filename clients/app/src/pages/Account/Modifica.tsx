@@ -133,7 +133,7 @@ const AccountModifica: React.FC = () => {
       )}
 
       <SaveFab
-        handleClick={handleSubmit}
+        onClick={handleSubmit}
         disabled={isDisabled || (values.email !== dettagli?.email && exists)}
       />
     </>

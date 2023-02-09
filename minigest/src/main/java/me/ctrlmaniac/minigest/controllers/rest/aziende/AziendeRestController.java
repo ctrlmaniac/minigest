@@ -73,9 +73,16 @@ public class AziendeRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteById(@PathVariable String id) {
-		aziendaService.deleteById(id);
+		Azienda azienda = aziendaService.findById(id);
 
-		return new ResponseEntity<>("Azienda eliminata", HttpStatus.OK);
+		if (azienda != null) {
+			aziendaService.deleteById(id);
+
+			return new ResponseEntity<>("Azienda eliminata", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Impossibile eliminare azienda", HttpStatus.OK);
+
 	}
 
 	@GetMapping("/exists")

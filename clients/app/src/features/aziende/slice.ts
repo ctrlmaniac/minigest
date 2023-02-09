@@ -129,7 +129,7 @@ export const aziendeSlice = createSlice({
       state.putResponse = action.payload;
       state.posting = false;
     },
-    updateSelectedNegozio(state, action: PayloadAction<Negozio>) {
+    updateSelectedNegozio: (state, action: PayloadAction<Negozio>) => {
       const negozio = action.payload;
       const negozi = [...state.selected!.negozi!];
       const index = findIndex(negozi, (o) => o.id === negozio.id);
@@ -140,7 +140,7 @@ export const aziendeSlice = createSlice({
         state.selected!.negozi = negozi;
       }
     },
-    deleteSelectedNegozio(state, action: PayloadAction<string>) {
+    deleteSelectedNegozio: (state, action: PayloadAction<string>) => {
       const negozi = [...state.selected!.negozi!];
 
       remove(negozi, (o) => o.id === action.payload);
@@ -151,6 +151,13 @@ export const aziendeSlice = createSlice({
       state.removeResponse = undefined;
       state.postResponse = undefined;
       state.putResponse = undefined;
+    },
+    removeFromSelected: (state, action: PayloadAction<string>) => {
+      if (state.selected) {
+        if (state.selected!.id === action.payload) {
+          state.selected = undefined;
+        }
+      }
     },
   },
 });
@@ -177,6 +184,7 @@ export const {
   putSuccess,
   updateSelectedNegozio,
   deleteSelectedNegozio,
+  removeFromSelected,
 } = aziendeSlice.actions;
 
 export default aziendeSlice.reducer;

@@ -275,7 +275,7 @@ const AziendaAggiungi: React.FC = () => {
       </Snackbar>
 
       <SaveFab
-        handleClick={handleSubmit}
+        onClick={handleSubmit}
         disabled={exists || isDisabled}
         loading={posting}
       />

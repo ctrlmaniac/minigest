@@ -9,11 +9,15 @@ const Splash: React.FC<Props> = (props) => {
   return (
     <Box
       sx={{
-        height: "80vh",
+        height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
+        position: "fixed",
+        top: 0,
+        right: 0,
+        left: 0,
       }}
     >
       {props.children || null}

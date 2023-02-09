@@ -284,7 +284,7 @@ const Form: React.FC<Props> = ({ dettagli }) => {
       </Snackbar>
 
       <SaveFab
-        handleClick={handleSubmit}
+        onClick={handleSubmit}
         disabled={exists || isDisabled}
         loading={putting}
       />

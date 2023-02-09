@@ -13,6 +13,13 @@ const AziendaDettagli = lazy(() => import("~/pages/Aziende/Dettagli"));
 const AziendaAggiungi = lazy(() => import("~/pages/Aziende/Aggiungi"));
 const AziendaModifica = lazy(() => import("~/pages/Aziende/Modifica"));
 const Negozi = lazy(() => import("~/pages/Negozi"));
+const ChiusureFiscali = lazy(() => import("~/pages/ChiusureFiscali"));
+const ChiusureFiscaliDettagli = lazy(
+  () => import("~/pages/ChiusureFiscali/Dettagli")
+);
+const ChiusureFiscaliAggiungi = lazy(
+  () => import("~/pages/ChiusureFiscali/Aggiungi")
+);
 
 export default createBrowserRouter(
   [
@@ -103,6 +110,35 @@ export default createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingScreen />}>
                   <Negozi />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "docfisc/chiusure-fiscali",
+          children: [
+            {
+              path: "",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <ChiusureFiscali />
+                </Suspense>
+              ),
+            },
+            {
+              path: "aggiungi",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <ChiusureFiscaliAggiungi />
+                </Suspense>
+              ),
+            },
+            {
+              path: "dettagli/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <ChiusureFiscaliDettagli />
                 </Suspense>
               ),
             },

@@ -4,13 +4,13 @@ import { IconDeviceFloppy } from "@tabler/icons-react";
 import { green } from "@mui/material/colors";
 
 interface Props {
-  handleClick: Function;
+  onClick?: Function;
   disabled: boolean;
   loading?: boolean;
 }
 
 const SaveFab: React.FC<Props> = ({
-  handleClick,
+  onClick = () => {},
   disabled,
   loading = false,
 }) => {
@@ -20,7 +20,7 @@ const SaveFab: React.FC<Props> = ({
         <Fab
           aria-label="salva"
           color="primary"
-          onClick={() => handleClick()}
+          onClick={() => onClick()}
           disabled={disabled}
         >
           <IconDeviceFloppy />

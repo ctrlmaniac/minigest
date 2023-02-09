@@ -6,23 +6,18 @@ import { isEmpty } from "lodash";
 import {
   Alert,
   Box,
-  CircularProgress,
-  Container,
   Paper,
   Snackbar,
-  SpeedDial,
-  SpeedDialAction,
   Table,
   TableBody,
   TableCell,
   TableRow,
   Typography,
 } from "@mui/material";
-import { IconPencil, IconSettings, IconTrash } from "@tabler/icons-react";
 import remove from "~/features/aziende/remove";
-import { red } from "@mui/material/colors";
 import get from "~/features/aziende/get";
 import { unsetResponses } from "~/features/aziende/slice";
+import { DialActions } from "components";
 
 const AziendaDettagli = () => {
   const navigate = useNavigate();
@@ -131,34 +126,11 @@ const AziendaDettagli = () => {
           </Paper>
         </Box>
 
-        <Box sx={{ position: "fixed", bottom: 16, right: 16 }}>
-          <Container sx={{ textAlign: "right", position: "relative" }}>
-            <SpeedDial ariaLabel="azioni su azienda" icon={<IconSettings />}>
-              <SpeedDialAction
-                icon={<IconPencil />}
-                tooltipTitle="modifica"
-                onClick={() => navigate(`/aziende/modifica/${id}`)}
-              />
-              <SpeedDialAction
-                icon={<IconTrash />}
-                tooltipTitle="elimina"
-                onClick={handleDelete}
-              />
-            </SpeedDial>
-            {removing && (
-              <CircularProgress
-                size={68}
-                sx={{
-                  color: red[500],
-                  position: "absolute",
-                  bottom: -6,
-                  right: 18,
-                  zIndex: 1,
-                }}
-              />
-            )}
-          </Container>
-        </Box>
+        <DialActions
+          handleEdit={() => navigate(`/aziende/modifica/${id}`)}
+          handleDelete={handleDelete}
+          loading={removing}
+        />
 
         <Snackbar open={!isEmpty(removeResponse)} autoHideDuration={500}>
           <Alert severity={removeError ? "error" : "success"}>
