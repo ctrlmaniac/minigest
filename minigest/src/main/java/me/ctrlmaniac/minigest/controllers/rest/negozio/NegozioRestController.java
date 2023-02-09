@@ -29,7 +29,7 @@ public class NegozioRestController {
 	private AziendaService aziendaService;
 
 	@GetMapping("")
-	public ResponseEntity<?> findAll(@RequestParam(name = "azienda", required = false) String idAzienda) {
+	public ResponseEntity<?> findAll(@RequestParam(name = "azienda", required = true) String idAzienda) {
 		if (idAzienda != null) {
 			Azienda azienda = aziendaService.findById(idAzienda);
 
@@ -40,7 +40,7 @@ public class NegozioRestController {
 			return new ResponseEntity<>("Azienda non trovata", HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(negozioService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>("Devi fornire un'azienda", HttpStatus.OK);
 	}
 
 	@PostMapping("")
