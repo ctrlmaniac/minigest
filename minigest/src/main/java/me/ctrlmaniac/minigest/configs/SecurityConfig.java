@@ -7,8 +7,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -32,6 +34,9 @@ public class SecurityConfig {
 
 		http = http.logout((logout) -> logout.logoutUrl("/esci").logoutSuccessUrl("/").permitAll());
 
+		http = http.securityContext((securityContext) -> securityContext
+				.requireExplicitSave(true));
+
 		return http.build();
 	}
 
@@ -44,5 +49,10 @@ public class SecurityConfig {
 	AuthenticationManager authenticationManager(
 			AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
+	}
+
+	@Bean
+	SecurityContextRepository securityContextRepository() {
+		return new HttpSessionSecurityContextRepository();
 	}
 }
