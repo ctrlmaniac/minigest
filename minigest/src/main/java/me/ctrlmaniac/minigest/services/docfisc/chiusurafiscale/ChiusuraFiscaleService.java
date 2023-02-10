@@ -43,15 +43,17 @@ public class ChiusuraFiscaleService {
 		return repo.findAllByNegozioAndByYearAndByMonth(negozio, year, month);
 	}
 
-	public ChiusuraFiscale save(ChiusuraFiscale chiusura) {
+	public ChiusuraFiscale save(ChiusuraFiscale payload) {
+		ChiusuraFiscale chiusura = repo.save(payload);
 
-		if (chiusura.getReparti().size() != 0) {
-			for (ChiusuraFiscaleReparto reparto : chiusura.getReparti()) {
+		if (payload.getReparti().size() != 0) {
+			for (ChiusuraFiscaleReparto reparto : payload.getReparti()) {
+				reparto.setChiusuraFiscale(chiusura);
 				repartoService.save(reparto);
 			}
 		}
 
-		return repo.save(chiusura);
+		return chiusura;
 	}
 
 	public void delete(ChiusuraFiscale chiusura) {
