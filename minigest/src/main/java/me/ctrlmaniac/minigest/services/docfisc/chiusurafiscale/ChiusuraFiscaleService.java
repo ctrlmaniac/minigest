@@ -63,4 +63,35 @@ public class ChiusuraFiscaleService {
 
 		repo.delete(chiusura);
 	}
+
+	public ChiusuraFiscale update(String id, ChiusuraFiscale payload) {
+		Optional<ChiusuraFiscale> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			ChiusuraFiscale chiusura = opt.get();
+
+			chiusura.setData(payload.getData());
+			chiusura.setTotale(payload.getTotale());
+			chiusura.setNumeroDocFisc(payload.getNumeroDocFisc());
+
+			// Elimina i vecchi reparti
+			for (ChiusuraFiscaleReparto reparto : chiusura.getReparti()) {
+				if (!payload.getReparti().contains(reparto)) {
+					repartoService.delete(reparto);
+				}
+			}
+
+			// Salva i nuovi reparti
+			for (ChiusuraFiscaleReparto reparto : payload.getReparti()) {
+				if (reparto.getId() == null) {
+					reparto.setChiusuraFiscale(chiusura);
+					repartoService.save(reparto);
+				}
+			}
+
+			return repo.save(chiusura);
+		}
+
+		return null;
+	}
 }
