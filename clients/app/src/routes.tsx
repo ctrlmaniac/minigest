@@ -20,6 +20,9 @@ const ChiusureFiscaliDettagli = lazy(
 const ChiusureFiscaliAggiungi = lazy(
   () => import("~/pages/ChiusureFiscali/Aggiungi")
 );
+const ChiusureFiscaliModifica = lazy(
+  () => import("~/pages/ChiusureFiscali/Modifica")
+);
 
 export default createBrowserRouter(
   [
@@ -139,6 +142,14 @@ export default createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingScreen />}>
                   <ChiusureFiscaliDettagli />
+                </Suspense>
+              ),
+            },
+            {
+              path: "modifica/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <ChiusureFiscaliModifica />
                 </Suspense>
               ),
             },

@@ -58,6 +58,10 @@ public class ChiusuraFiscale {
 		this.reparti.add(reparto);
 	}
 
+	public void removeReparto(ChiusuraFiscaleReparto reparto) {
+		this.reparti.remove(reparto);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

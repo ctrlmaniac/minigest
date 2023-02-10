@@ -1,5 +1,7 @@
 package me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,13 @@ public class ChiusuraFiscaleRepartoService {
 
 	public void delete(ChiusuraFiscaleReparto reparto) {
 		repo.delete(reparto);
+	}
+
+	public void deleteById(String id) {
+		Optional<ChiusuraFiscaleReparto> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			repo.deleteById(id);
+		}
 	}
 }

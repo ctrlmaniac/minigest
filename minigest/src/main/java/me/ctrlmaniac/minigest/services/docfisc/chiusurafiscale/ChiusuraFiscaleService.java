@@ -74,7 +74,6 @@ public class ChiusuraFiscaleService {
 			chiusura.setTotale(payload.getTotale());
 			chiusura.setNumeroDocFisc(payload.getNumeroDocFisc());
 
-			// Elimina i vecchi reparti
 			for (ChiusuraFiscaleReparto reparto : chiusura.getReparti()) {
 				if (!payload.getReparti().contains(reparto)) {
 					repartoService.delete(reparto);
@@ -88,6 +87,8 @@ public class ChiusuraFiscaleService {
 					repartoService.save(reparto);
 				}
 			}
+
+			chiusura.setReparti(payload.getReparti());
 
 			return repo.save(chiusura);
 		}

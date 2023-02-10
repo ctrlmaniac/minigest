@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { remove } from "lodash";
+import { findIndex, remove } from "lodash";
 import { ChiusuraFiscale } from "~/types";
 
 interface State {
@@ -108,6 +108,29 @@ export const chiusureFiscaliSlice = createSlice({
       state.posting = false;
       state.response = action.payload;
     },
+    putStart: (state) => {
+      state.putting = true;
+      state.response = undefined;
+      state.putError = false;
+    },
+    putSuccess: (state, action: PayloadAction<ChiusuraFiscale>) => {
+      const list = [...state.list!];
+      const index = findIndex(list, (o) => o.id === action.payload.id);
+
+      if (index >= 0) {
+        list[index] = action.payload;
+        state.list = list;
+      }
+
+      state.response = "chiusura fiscale modificata";
+      state.putError = false;
+      state.putting = false;
+    },
+    putFail: (state, action: PayloadAction<string>) => {
+      state.putError = true;
+      state.putting = false;
+      state.response = action.payload;
+    },
   },
 });
 
@@ -125,7 +148,10 @@ export const {
   removeFromList,
   postFail,
   postStart,
-  postSuccess
+  postSuccess,
+  putFail,
+  putStart,
+  putSuccess,
 } = chiusureFiscaliSlice.actions;
 
 export default chiusureFiscaliSlice.reducer;
