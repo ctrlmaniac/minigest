@@ -26,6 +26,7 @@ import {
   IconBuildingWarehouse,
   IconCircleCheck,
   IconFile,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { green, red } from "@mui/material/colors";
 
@@ -196,7 +197,7 @@ const Fatture: React.FC = () => {
                           </TableCell>
                           <TableCell>Numero</TableCell>
                           <TableCell sx={{ width: 50 }} align="center">
-                            <IconCircleCheck />
+                            <IconInfoCircle />
                           </TableCell>
                           <TableCell sx={{ width: 50 }} align="center">
                             <IconFile />

@@ -24,6 +24,9 @@ const ChiusureFiscaliModifica = lazy(
   () => import("~/pages/ChiusureFiscali/Modifica")
 );
 const Fatture = lazy(() => import("~/pages/Fatture"));
+const FattureDettagli = lazy(() => import("~/pages/Fatture/Dettagli"));
+const FattureAggiungi = lazy(() => import("~/pages/Fatture/Aggiungi"));
+const FattureModifica = lazy(() => import("~/pages/Fatture/Modifica"));
 
 export default createBrowserRouter(
   [
@@ -159,6 +162,30 @@ export default createBrowserRouter(
         {
           path: "docfisc/fatture",
           children: [
+            {
+              path: "dettagli/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <FattureDettagli />
+                </Suspense>
+              ),
+            },
+            {
+              path: "modifica/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <FattureModifica />
+                </Suspense>
+              ),
+            },
+            {
+              path: "aggiungi",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <FattureAggiungi />
+                </Suspense>
+              ),
+            },
             {
               path: ":mode",
               element: (

@@ -2,16 +2,12 @@ import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { listStart, listSuccess, listFail } from "./slice";
 
-export default function list(
-  mode: string,
-  azienda: string,
-  query: string = "sdi=false"
-): AppThunk {
+export default function list(): AppThunk {
   return async (dispatch) => {
     dispatch(listStart());
 
     api
-      .get(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`)
+      .get(`${Endpoints.TIPIDOCFISC}`)
       .then((response) => {
         dispatch(listSuccess(response.data));
       })

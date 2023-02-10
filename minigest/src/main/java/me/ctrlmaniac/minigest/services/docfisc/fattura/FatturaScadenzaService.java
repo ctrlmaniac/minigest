@@ -19,4 +19,8 @@ public class FatturaScadenzaService {
 	public void delete(FatturaScadenza scadenza) {
 		repo.delete(scadenza);
 	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

@@ -2,6 +2,7 @@ package me.ctrlmaniac.minigest.entities.docfisc.fattura;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
@@ -50,13 +51,13 @@ public class Fattura {
 	private double totale;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "fattura", cascade = CascadeType.ALL)
-	private Set<FatturaReparto> reparti;
+	private Set<FatturaReparto> reparti = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "fattura", cascade = CascadeType.ALL)
-	private Set<FatturaScadenza> scadenze;
+	private Set<FatturaScadenza> scadenze = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "fattura", cascade = CascadeType.ALL)
-	private Set<FatturaPagamento> pagamenti;
+	private Set<FatturaPagamento> pagamenti = new HashSet<>();
 
 	@Transient
 	private double imponibile;

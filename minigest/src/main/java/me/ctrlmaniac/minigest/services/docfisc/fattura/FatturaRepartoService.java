@@ -19,4 +19,8 @@ public class FatturaRepartoService {
 	public void delete(FatturaReparto reparto) {
 		repo.delete(reparto);
 	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

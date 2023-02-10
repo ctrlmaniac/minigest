@@ -1,19 +1,16 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import { listStart, listSuccess, listFail } from "./slice";
+import { postStart, postSuccess, postFail } from "./slice";
+import { Fattura } from "~/types";
 
-export default function list(
-  mode: string,
-  azienda: string,
-  query: string = "sdi=false"
-): AppThunk {
+export default function post(payload: Fattura): AppThunk {
   return async (dispatch) => {
-    dispatch(listStart());
+    dispatch(postStart());
 
     api
-      .get(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`)
+      .post(`${Endpoints.FATTURE}`, payload)
       .then((response) => {
-        dispatch(listSuccess(response.data));
+        dispatch(postSuccess(response.data));
       })
       .catch((error) => {
         let message = "Errore";
@@ -24,7 +21,7 @@ export default function list(
           message = "Errore";
         }
 
-        dispatch(listFail(message));
+        dispatch(postFail(message));
       });
   };
 }

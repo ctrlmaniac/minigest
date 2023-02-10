@@ -32,6 +32,9 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
     handleOpen(false);
   };
 
+  const anno = new Date().getFullYear();
+  const mese = new Date().getMonth() + 1;
+
   return (
     <Drawer anchor="left" open={open} onClose={() => handleOpen(false)}>
       <Box sx={{ width: 250 }}>
@@ -72,7 +75,11 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
           <ListItemButton
-            onClick={() => handleNavigate("/docfisc/fatture/vendita")}
+            onClick={() =>
+              handleNavigate(
+                `/docfisc/fatture/vendita?anno=${anno}&mese=${mese}&sdi=false`
+              )
+            }
           >
             <ListItemIcon>
               <IconFileDescription />
@@ -80,7 +87,11 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             <ListItemText primary="Fatture Vendita" />
           </ListItemButton>
           <ListItemButton
-            onClick={() => handleNavigate("/docfisc/fatture/acquisto")}
+            onClick={() =>
+              handleNavigate(
+                `/docfisc/fatture/acquisto?anno=${anno}&mese=${mese}&sdi=false`
+              )
+            }
           >
             <ListItemIcon>
               <IconFileDescription />

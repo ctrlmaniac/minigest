@@ -1,19 +1,16 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import { listStart, listSuccess, listFail } from "./slice";
+import { removeStart, removeSuccess, removeFail } from "./slice";
+import { removeAzienda } from "../account/slice";
 
-export default function list(
-  mode: string,
-  azienda: string,
-  query: string = "sdi=false"
-): AppThunk {
+export default function remove(id: string): AppThunk {
   return async (dispatch) => {
-    dispatch(listStart());
+    dispatch(removeStart());
 
     api
-      .get(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`)
+      .delete(`${Endpoints.FATTURE}/${id}`)
       .then((response) => {
-        dispatch(listSuccess(response.data));
+        dispatch(removeSuccess(response.data));
       })
       .catch((error) => {
         let message = "Errore";
@@ -24,7 +21,7 @@ export default function list(
           message = "Errore";
         }
 
-        dispatch(listFail(message));
+        dispatch(removeFail(message));
       });
   };
 }

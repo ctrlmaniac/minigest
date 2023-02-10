@@ -70,6 +70,22 @@ public class FatturaService {
 		return repo.findAllByCommittenteByDataSdiAsc(committente, year, month);
 	}
 
+	public void delete(Fattura fattura) {
+		for (FatturaReparto reparto : fattura.getReparti()) {
+			repartoService.delete(reparto);
+		}
+
+		for (FatturaScadenza scadenza : fattura.getScadenze()) {
+			scadenzaService.delete(scadenza);
+		}
+
+		for (FatturaPagamento pagamento : fattura.getPagamenti()) {
+			pagamentoService.delete(pagamento);
+		}
+
+		repo.delete(fattura);
+	}
+
 	public void deleteAllByCedente(Azienda cedente) {
 		for (Fattura fattura : repo.findAllByCedente(cedente)) {
 			for (FatturaReparto reparto : fattura.getReparti()) {
@@ -104,5 +120,71 @@ public class FatturaService {
 
 			repo.delete(fattura);
 		}
+	}
+
+	public Fattura update(String id, Fattura payload) {
+		Optional<Fattura> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			Fattura fattura = opt.get();
+
+			fattura.setCedente(payload.getCedente());
+			fattura.setCommittente(payload.getCommittente());
+			fattura.setData(payload.getData());
+			fattura.setDataSDI(payload.getDataSDI());
+			fattura.setTipoDocumento(payload.getTipoDocumento());
+			fattura.setTotale(payload.getTotale());
+
+			// REPARTI
+			for (FatturaReparto reparto : fattura.getReparti()) {
+				if (!payload.getReparti().contains(reparto)) {
+					repartoService.deleteById(reparto.getId());
+				}
+			}
+
+			for (FatturaReparto reparto : payload.getReparti()) {
+				if (reparto.getId() == null) {
+					reparto.setFattura(fattura);
+					repartoService.save(reparto);
+				}
+			}
+
+			// Scadenze
+			for (FatturaScadenza scadenza : fattura.getScadenze()) {
+				if (!payload.getScadenze().contains(scadenza)) {
+					scadenzaService.deleteById(scadenza.getId());
+				}
+			}
+
+			for (FatturaScadenza scadenza : payload.getScadenze()) {
+				if (scadenza.getId() == null) {
+					scadenza.setFattura(fattura);
+					scadenzaService.save(scadenza);
+				}
+			}
+
+			// Pagamenti
+			for (FatturaPagamento pagamento : fattura.getPagamenti()) {
+				if (!payload.getPagamenti().contains(pagamento)) {
+					pagamentoService.deleteById(pagamento.getId());
+				}
+			}
+
+			for (FatturaPagamento pagamento : payload.getPagamenti()) {
+				if (pagamento.getId() == null) {
+					pagamento.setFattura(fattura);
+					pagamentoService.save(pagamento);
+				}
+			}
+
+			// Salva tutto
+			fattura.setReparti(payload.getReparti());
+			fattura.setScadenze(payload.getScadenze());
+			fattura.setPagamenti(payload.getPagamenti());
+
+			return repo.save(fattura);
+		}
+
+		return null;
 	}
 }

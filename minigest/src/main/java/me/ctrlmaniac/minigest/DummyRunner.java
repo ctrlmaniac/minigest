@@ -1,12 +1,14 @@
-package me.ctrlmaniac.minigest.utils;
+package me.ctrlmaniac.minigest;
 
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
@@ -27,6 +29,8 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 @Component
+@Order(2)
+@Slf4j
 public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
@@ -61,6 +65,8 @@ public class DummyRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		log.info("Excecuting dummy");
+
 		Account admin = accountService.findByEmail(adminEmail);
 
 		// Crea un rappresentante fiscale

@@ -19,4 +19,8 @@ public class FatturaPagamentoService {
 	public void delete(FatturaPagamento pagamento) {
 		repo.delete(pagamento);
 	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

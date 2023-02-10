@@ -20,11 +20,11 @@ public class TipoDocFisc {
 	@Column(unique = true)
 	private String codice;
 
-	private String descizione;
+	private String descrizione;
 
 	public TipoDocFisc(String codice, String descizione) {
 		this.codice = codice;
-		this.descizione = descizione;
+		this.descrizione = descizione;
 	}
 
 	@Override

@@ -113,15 +113,7 @@ export const fattureSlice = createSlice({
       state.response = undefined;
       state.putError = false;
     },
-    putSuccess: (state, action: PayloadAction<Fattura>) => {
-      const list = [...state.list!];
-      const index = findIndex(list, (o) => o.id === action.payload.id);
-
-      if (index >= 0) {
-        list[index] = action.payload;
-        state.list = list;
-      }
-
+    putSuccess: (state, action: PayloadAction<string>) => {
       state.response = "fattura modificata";
       state.putError = false;
       state.putting = false;

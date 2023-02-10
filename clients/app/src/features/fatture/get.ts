@@ -1,19 +1,15 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import { listStart, listSuccess, listFail } from "./slice";
+import { getStart, getSuccess, getFail } from "./slice";
 
-export default function list(
-  mode: string,
-  azienda: string,
-  query: string = "sdi=false"
-): AppThunk {
+export default function get(id: string): AppThunk {
   return async (dispatch) => {
-    dispatch(listStart());
+    dispatch(getStart());
 
     api
-      .get(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`)
+      .get(`${Endpoints.FATTURE}/${id}`)
       .then((response) => {
-        dispatch(listSuccess(response.data));
+        dispatch(getSuccess(response.data));
       })
       .catch((error) => {
         let message = "Errore";
@@ -24,7 +20,7 @@ export default function list(
           message = "Errore";
         }
 
-        dispatch(listFail(message));
+        dispatch(getFail(message));
       });
   };
 }

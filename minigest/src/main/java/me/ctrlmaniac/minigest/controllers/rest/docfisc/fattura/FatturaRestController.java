@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +35,47 @@ public class FatturaRestController {
 		return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
 	}
 
+	@PostMapping("")
+	public ResponseEntity<?> post(@RequestBody Fattura payload) {
+		Fattura fattura = service.save(payload);
+
+		if (fattura != null) {
+			return new ResponseEntity<>(fattura, HttpStatus.CREATED);
+		}
+
+		return new ResponseEntity<>("Impossibile creare fattura", HttpStatus.NOT_FOUND);
+	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Fattura> findById(String id) {
+	public ResponseEntity<Fattura> findById(@PathVariable String id) {
 		Fattura fattura = service.findById(id);
 
 		return new ResponseEntity<>(fattura, fattura != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable String id) {
+		Fattura fattura = service.findById(id);
+
+		if (fattura != null) {
+			service.delete(fattura);
+
+			return new ResponseEntity<>("Fattura eliminata con successo!", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("impossibile trovare fattura", HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable String id, @RequestBody Fattura payload) {
+		Fattura fattura = service.update(id, payload);
+
+		if (fattura != null) {
+			return new ResponseEntity<>("Fattura modificata!", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Impossibile modificare fattura!", HttpStatus.NOT_FOUND);
+
 	}
 
 	@GetMapping("/vendita/{idAzienda}")
