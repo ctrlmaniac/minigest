@@ -31,7 +31,7 @@ public class ChiusuraFiscaleRestController {
 	@GetMapping("")
 	public ResponseEntity<?> findAll(
 			@RequestParam(name = "negozio", required = true) String idNegozio,
-			@RequestParam(name = "anno", required = true) String year,
+			@RequestParam(name = "anno", required = false) String year,
 			@RequestParam(name = "mese", required = false) String month) {
 
 		Negozio negozio = negozioService.findById(idNegozio);
