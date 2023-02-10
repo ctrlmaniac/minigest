@@ -1,0 +1,1 @@
+import{a as r,E as o}from"./index-369028e4.js";import{b4 as n,b5 as g,b6 as i}from"./index-8d810eb5.js";function E(s){return async t=>{t(n()),r.get(`${o.FATTURE}/${s}`).then(e=>{t(g(e.data))}).catch(e=>{let a="Errore";e.response?a=e.response.data:a="Errore",t(i(a))})}}export{E as g};
