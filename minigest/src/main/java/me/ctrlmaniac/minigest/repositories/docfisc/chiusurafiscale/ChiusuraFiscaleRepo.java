@@ -15,6 +15,8 @@ public interface ChiusuraFiscaleRepo extends JpaRepository<ChiusuraFiscale, Stri
 
 	List<ChiusuraFiscale> findByNegozioOrderByDataAsc(Negozio negozio);
 
+	List<ChiusuraFiscale> findTop7ByNegozioOrderByDataDesc(Negozio negozio);
+
 	@Query("SELECT c FROM ChiusuraFiscale c WHERE c.negozio=:negozio AND YEAR(c.data)=:year AND MONTH(c.data)=:month ORDER BY c.data ASC")
 	List<ChiusuraFiscale> findAllByNegozioAndByYearAndByMonth(@Param("negozio") Negozio negozio,
 			@Param("year") String year, @Param("month") String month);

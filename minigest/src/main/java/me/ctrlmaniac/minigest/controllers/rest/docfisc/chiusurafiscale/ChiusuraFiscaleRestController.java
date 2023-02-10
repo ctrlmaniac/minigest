@@ -47,6 +47,19 @@ public class ChiusuraFiscaleRestController {
 		return new ResponseEntity<>("Negozio non trovato", HttpStatus.NOT_FOUND);
 	}
 
+	@GetMapping("/last7")
+	public ResponseEntity<?> getLast7(
+			@RequestParam(name = "negozio", required = true) String idNegozio) {
+
+		Negozio negozio = negozioService.findById(idNegozio);
+
+		if (negozio != null) {
+			return new ResponseEntity<>(service.findLast7(negozio), HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Negozio non trovato", HttpStatus.NOT_FOUND);
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> get(@PathVariable String id) {
 		ChiusuraFiscale chiusura = service.find(id);
@@ -90,6 +103,5 @@ public class ChiusuraFiscaleRestController {
 		}
 
 		return new ResponseEntity<>("Impossibile modificare chiusura fiscale", HttpStatus.NOT_FOUND);
-
 	}
 }

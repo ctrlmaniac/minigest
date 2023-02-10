@@ -89,7 +89,7 @@ const WidgetNegozi: React.FC = () => {
           {isEmpty(selected) && (
             <Alert severity="info" variant="outlined">
               <AlertTitle>Devi selezionare un negozio!</AlertTitle>
-              Clicca su <IconBuildingStore /> per selezionarne una!
+              Clicca su <IconBuildingStore /> per selezionarne uno!
             </Alert>
           )}
           <List>
@@ -97,7 +97,7 @@ const WidgetNegozi: React.FC = () => {
               <ListItemButton
                 key={negozio.id}
                 selected={!isEmpty(selected) && negozio.id === selected.id}
-                onClick={() => navigate(`/negozi/dettagli/${negozio.id}`)}
+                onClick={() => navigate(`/negozi`)}
               >
                 <ListItemText primary={negozio.nome} />
               </ListItemButton>

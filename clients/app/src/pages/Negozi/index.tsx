@@ -28,7 +28,7 @@ import React from "react";
 import { AddFab } from "components";
 import { updateSelectedNegozio } from "~/features/aziende/slice";
 import remove from "~/features/negozi/remove";
-import { unsetResponses } from "~/features/negozi/slice";
+import { unsetResponse } from "~/features/negozi/slice";
 import update from "~/features/negozi/update";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import post from "~/features/negozi/post";
@@ -39,14 +39,9 @@ const Negozi: React.FC = () => {
   const { selected: selectedAzienda } = useAppSelector(
     (state) => state.aziende
   );
-  const {
-    putting,
-    putError,
-    putResponse,
-    removeError,
-    removeResponse,
-    posting,
-  } = useAppSelector((state) => state.negozi);
+  const { putting, putError, removeError, posting, response } = useAppSelector(
+    (state) => state.negozi
+  );
 
   const [editMode, setEditMode] = React.useState(false);
   const [createMode, setCreateMode] = React.useState(false);
@@ -69,7 +64,7 @@ const Negozi: React.FC = () => {
     dispatch(remove(id));
 
     setTimeout(() => {
-      dispatch(unsetResponses());
+      dispatch(unsetResponse());
     }, 2000);
   };
 
@@ -101,7 +96,7 @@ const Negozi: React.FC = () => {
     closeDialog();
 
     setTimeout(() => {
-      dispatch(unsetResponses());
+      dispatch(unsetResponse());
       dispatch(updateSelectedNegozio(values));
     }, 1000);
   };
@@ -223,13 +218,8 @@ const Negozi: React.FC = () => {
         {putting && <LinearProgress />}
       </Dialog>
 
-      <Snackbar open={!isEmpty(putResponse)}>
-        <Alert severity={putError ? "error" : "success"}>{putResponse}</Alert>
-      </Snackbar>
-      <Snackbar open={!isEmpty(removeResponse)}>
-        <Alert severity={removeError ? "error" : "success"}>
-          {removeResponse}
-        </Alert>
+      <Snackbar open={!isEmpty(response)}>
+        <Alert severity="info">{response}</Alert>
       </Snackbar>
 
       {!isEmpty(selectedAzienda) && (

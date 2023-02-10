@@ -95,4 +95,8 @@ public class ChiusuraFiscaleService {
 
 		return null;
 	}
+
+	public List<ChiusuraFiscale> findLast7(Negozio negozio) {
+		return repo.findTop7ByNegozioOrderByDataDesc(negozio);
+	}
 }
