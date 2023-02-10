@@ -17,6 +17,7 @@ import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscaleReparto;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
+import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
@@ -25,6 +26,7 @@ import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
@@ -59,6 +61,9 @@ public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
 	FatturaRepartoService fatturaRepartoService;
+
+	@Autowired
+	FatturaScadenzaService fatturaScadenzaService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -125,6 +130,9 @@ public class DummyRunner implements CommandLineRunner {
 
 		FatturaReparto ft1Reparto1 = new FatturaReparto(ft1, 22, 100, 22);
 		fatturaRepartoService.save(ft1Reparto1);
+
+		FatturaScadenza ft1Scadenza1 = new FatturaScadenza(ft1, ft1.getDataSDI(), 122);
+		fatturaScadenzaService.save(ft1Scadenza1);
 
 		// Crea una seconda fattura
 		Fattura ft2 = new Fattura(larapida, shop, TD01, LocalDate.now().minusDays(2),

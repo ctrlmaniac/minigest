@@ -27,6 +27,7 @@ const Fatture = lazy(() => import("~/pages/Fatture"));
 const FattureDettagli = lazy(() => import("~/pages/Fatture/Dettagli"));
 const FattureAggiungi = lazy(() => import("~/pages/Fatture/Aggiungi"));
 const FattureModifica = lazy(() => import("~/pages/Fatture/Modifica"));
+const Scadenzario = lazy(() => import("~/pages/Scadenzario"));
 
 export default createBrowserRouter(
   [
@@ -195,6 +196,14 @@ export default createBrowserRouter(
               ),
             },
           ],
+        },
+        {
+          path: "scadenzario",
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <Scadenzario />
+            </Suspense>
+          ),
         },
       ],
     },

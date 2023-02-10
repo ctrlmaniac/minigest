@@ -78,7 +78,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende, dettagli }) => {
     dataSDI: false,
     numero: false,
     totale: false,
-    reparti: isEmpty(dettagli.scadenze),
+    reparti: isEmpty(dettagli.reparti),
     scadenze: false,
     pagamenti: false,
   });
