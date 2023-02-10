@@ -4,4 +4,5 @@ export enum Endpoints {
   AZIENDE = "/aziende",
   NEGOZI = "/negozi",
   CHIUSURE_FISCALI = "/docfisc/chiusure-fiscali",
+  FATTURE = "/docfisc/fatture",
 }
