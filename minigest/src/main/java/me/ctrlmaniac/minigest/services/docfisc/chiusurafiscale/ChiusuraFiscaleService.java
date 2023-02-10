@@ -39,7 +39,7 @@ public class ChiusuraFiscaleService {
 		return repo.findAllByNegozio(negozio);
 	}
 
-	public List<ChiusuraFiscale> findAllByYearAndByMonth(Negozio negozio, String year, String month) {
+	public List<ChiusuraFiscale> findAllByNegozioAndByData(Negozio negozio, String year, String month) {
 		return repo.findAllByNegozioAndByYearAndByMonth(negozio, year, month);
 	}
 

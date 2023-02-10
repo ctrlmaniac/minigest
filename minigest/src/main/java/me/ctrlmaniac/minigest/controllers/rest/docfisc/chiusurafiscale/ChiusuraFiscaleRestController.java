@@ -29,14 +29,22 @@ public class ChiusuraFiscaleRestController {
 	NegozioService negozioService;
 
 	@GetMapping("")
-	public ResponseEntity<?> findAll(@RequestParam(name = "negozio", required = true) String idNegozio) {
+	public ResponseEntity<?> findAll(
+			@RequestParam(name = "negozio", required = true) String idNegozio,
+			@RequestParam(name = "anno", required = true) String year,
+			@RequestParam(name = "mese", required = false) String month) {
+
 		Negozio negozio = negozioService.findById(idNegozio);
 
 		if (negozio != null) {
-			return new ResponseEntity<>(service.findAll(negozio), HttpStatus.OK);
+			if (year != null && month != null) {
+				return new ResponseEntity<>(service.findAllByNegozioAndByData(negozio, year, month), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(service.findAllByNegozio(negozio), HttpStatus.OK);
+			}
 		}
 
-		return new ResponseEntity<>("negozio non trovato", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Negozio non trovato", HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/{id}")
