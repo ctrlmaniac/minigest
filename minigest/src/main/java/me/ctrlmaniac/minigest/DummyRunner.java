@@ -19,6 +19,7 @@ import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
+import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
@@ -37,6 +38,9 @@ public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
 	AccountService accountService;
+
+	@Autowired
+	AccountRuoloService accountRuoloService;
 
 	@Autowired
 	AziendaIndirizzoService aziendaIndirizzoService;
@@ -71,8 +75,11 @@ public class DummyRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Excecuting dummy");
-
 		Account admin = accountService.findByEmail(adminEmail);
+
+		// Crea un secondo utente
+		Account account = new Account("mario@email.com", "Mario", "Rossi", "12345");
+		accountService.save(account);
 
 		// Crea un rappresentante fiscale
 		AziendaIndirizzo rappresentanteSede = new AziendaIndirizzo("Via Margheriti", "19", "25124", "Brescia", "BS",

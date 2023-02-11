@@ -23,6 +23,10 @@ public class SecurityConfig {
 		http = http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/api/auth/**").permitAll()
 				.requestMatchers("/api/aziende/exists").permitAll()
+				.requestMatchers("/api/account/principal", "/api/account/principal/**")
+				.hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+				.requestMatchers("/api/account", "/api/account/**").hasAnyAuthority("ROLE_ADMIN")
+				.requestMatchers("/api/account/ruoli", "/api/account/ruoli**").hasAnyAuthority("ROLE_ADMIN")
 				.requestMatchers("/api", "/api/**").authenticated()
 				.requestMatchers("/app", "/app/**").authenticated()
 				.requestMatchers("/admin", "/admin/**").hasAnyAuthority("ROLE_ADMIN")

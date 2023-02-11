@@ -9,7 +9,6 @@ import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
@@ -38,7 +37,7 @@ public class Account implements UserDetails {
 	private boolean accountNonLocked;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<AccountRuolo> authorities = new HashSet<>();
+	private Set<AccountRuolo> authorities = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
 	@JsonIncludeProperties({ "id", "denominazione", "negozi" })

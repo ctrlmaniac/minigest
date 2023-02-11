@@ -43,6 +43,16 @@ public class AccountService implements UserDetailsService {
 	@Autowired
 	private NegozioService negozioService;
 
+	public Account findById(String id) {
+		Optional<Account> opt = accountRepo.findById(id);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
+	}
+
 	public Account findByEmail(String email) {
 		Optional<Account> opt = accountRepo.findByEmail(email);
 
@@ -51,6 +61,10 @@ public class AccountService implements UserDetailsService {
 		}
 
 		return null;
+	}
+
+	public List<Account> findByEmailContainingIgnoreCase(String email) {
+		return accountRepo.findByEmailContainingIgnoreCase(email);
 	}
 
 	@Override
@@ -113,6 +127,8 @@ public class AccountService implements UserDetailsService {
 			old.setNome(payload.getNome());
 			old.setCognome(payload.getCognome());
 			old.setEmail(payload.getEmail());
+
+			// TODO salvare le authorities
 
 			return accountRepo.save(old);
 		}

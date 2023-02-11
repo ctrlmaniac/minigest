@@ -14,7 +14,7 @@ import me.ctrlmaniac.minigest.services.account.AccountService;
 
 @RestController
 @RequestMapping("/api/account/principal")
-public class AccountPrincipal {
+public class AccountPrincipalRestController {
 
 	@Autowired
 	AccountService accountService;

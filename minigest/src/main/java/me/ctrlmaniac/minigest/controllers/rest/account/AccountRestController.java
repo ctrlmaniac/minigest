@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
@@ -23,8 +24,19 @@ public class AccountRestController {
 	private AccountService accountService;
 
 	@GetMapping("")
-	public ResponseEntity<List<Account>> findAll() {
+	public ResponseEntity<List<Account>> findAll(@RequestParam(name = "email", required = false) String email) {
+		if (email != null) {
+			return new ResponseEntity<>(accountService.findByEmailContainingIgnoreCase(email), HttpStatus.OK);
+		}
+
 		return new ResponseEntity<>(accountService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> get(@PathVariable String id) {
+		Account account = accountService.findById(id);
+
+		return new ResponseEntity<>(account, account != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/{id}")

@@ -62,6 +62,7 @@ public class SetupRunner implements CommandLineRunner {
 
 		// Crea un utente admin
 		AccountRuolo ruoloAdmin = ruoloService.findByNome(RuoloEnum.ROLE_ADMIN);
+
 		Account admin = new Account(adminEmail, adminFName, adminLName, adminPassword);
 		admin.addRuolo(ruoloAdmin);
 		accountService.save(admin);
