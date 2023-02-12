@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @Entity
@@ -48,20 +48,19 @@ public class Account implements UserDetails {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.password = password;
-		this.enabled = true;
-		this.credentialsNonExpired = true;
-		this.accountNonExpired = true;
-		this.accountNonLocked = true;
 	}
 
-	public Account(String email, String nome, String cognome) {
+	public Account(String email, String nome, String cognome, String password, boolean enabled,
+			boolean credentialsNonExpired,
+			boolean accountNonExpired, boolean accountNonLocked) {
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
-		this.enabled = true;
-		this.credentialsNonExpired = true;
-		this.accountNonExpired = true;
-		this.accountNonLocked = true;
+		this.password = password;
+		this.enabled = enabled;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
 	}
 
 	public String getUsername() {

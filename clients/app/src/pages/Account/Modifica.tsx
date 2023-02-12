@@ -24,10 +24,14 @@ const AccountModifica: React.FC = () => {
   const { exists } = useAppSelector((state) => state.auth);
 
   const [values, setValues] = React.useState({
-    nome: dettagli?.nome,
-    cognome: dettagli?.cognome,
-    email: dettagli?.email,
+    ...dettagli,
   });
+
+  React.useEffect(() => {
+    setValues({
+      ...dettagli,
+    });
+  }, [dettagli]);
 
   const [errors, setErrors] = React.useState({
     nome: false,

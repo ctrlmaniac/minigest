@@ -78,7 +78,7 @@ public class DummyRunner implements CommandLineRunner {
 		Account admin = accountService.findByEmail(adminEmail);
 
 		// Crea un secondo utente
-		Account account = new Account("mario@email.com", "Mario", "Rossi", "12345");
+		Account account = new Account("mario@email.com", "Mario", "Rossi", "12345", true, true, true, true);
 		accountService.save(account);
 
 		// Crea un rappresentante fiscale

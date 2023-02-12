@@ -94,6 +94,11 @@ public class AccountService implements UserDetailsService {
 		payload.addRuolo(user);
 		payload.setPassword(passwordEncoder.encode(payload.getPassword()));
 
+		payload.setAccountNonExpired(payload.isAccountNonExpired() || true);
+		payload.setAccountNonLocked(payload.isAccountNonLocked() || true);
+		payload.setCredentialsNonExpired(payload.isCredentialsNonExpired() || true);
+		payload.setEnabled(payload.isEnabled() || true);
+
 		Account account = accountRepo.save(payload);
 
 		for (Azienda azienda : payload.getAziende()) {
@@ -127,6 +132,11 @@ public class AccountService implements UserDetailsService {
 			old.setNome(payload.getNome());
 			old.setCognome(payload.getCognome());
 			old.setEmail(payload.getEmail());
+
+			old.setAccountNonExpired(payload.isAccountNonExpired());
+			old.setAccountNonLocked(payload.isAccountNonLocked());
+			old.setCredentialsNonExpired(payload.isCredentialsNonExpired());
+			old.setEnabled(payload.isEnabled());
 
 			// TODO salvare le authorities
 

@@ -7,8 +7,11 @@ import {
   Alert,
   Autocomplete,
   Box,
+  FormControlLabel,
+  FormGroup,
   Paper,
   Snackbar,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -42,17 +45,38 @@ const AccountDettagli = () => {
   }, [id]);
 
   const [roles, setRoles] = React.useState<AccountRuolo[]>([]);
+  const [values, setValues] = React.useState({
+    enabled: true,
+    credentialsNonExpired: true,
+    accountNonExpired: true,
+    accountNonLocked: true,
+  });
 
   React.useEffect(() => {
     if (!isEmpty(dettagli)) {
       setRoles(dettagli.authorities);
+      setValues({
+        ...values,
+        enabled: dettagli.enabled,
+        credentialsNonExpired: dettagli.credentialsNonExpired,
+        accountNonLocked: dettagli.accountNonLocked,
+        accountNonExpired: dettagli.accountNonExpired,
+      });
     }
   }, [dettagli]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.checked,
+    });
+  };
 
   const handleUpdate = () => {
     if (!isEmpty(id)) {
       const newValues = {
         ...dettagli,
+        ...values,
         authorities: roles,
       };
 
@@ -103,7 +127,7 @@ const AccountDettagli = () => {
             </Paper>
           </Box>
 
-          <Box>
+          <Box mb={3}>
             <Paper>
               <Box p={2}>
                 <Typography variant="h6" gutterBottom>
@@ -137,6 +161,55 @@ const AccountDettagli = () => {
                     setRoles(newValue);
                   }}
                 />
+              </Box>
+            </Paper>
+          </Box>
+
+          <Box>
+            <Paper>
+              <Box p={2}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={values.enabled}
+                        onChange={handleChange}
+                        name="enabled"
+                      />
+                    }
+                    label="Account abilitato"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={values.credentialsNonExpired}
+                        onChange={handleChange}
+                        name="credentialsNonExpired"
+                      />
+                    }
+                    label="Credenziali non scadute"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={values.accountNonExpired}
+                        onChange={handleChange}
+                        name="accountNonExpired"
+                      />
+                    }
+                    label="Account non scaduto"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={values.accountNonLocked}
+                        onChange={handleChange}
+                        name="accountNonLocked"
+                      />
+                    }
+                    label="Account non bloccato"
+                  />
+                </FormGroup>
               </Box>
             </Paper>
           </Box>
