@@ -138,7 +138,19 @@ public class AccountService implements UserDetailsService {
 			old.setCredentialsNonExpired(payload.isCredentialsNonExpired());
 			old.setEnabled(payload.isEnabled());
 
-			// TODO salvare le authorities
+			old.setAuthorities(payload.getAuthorities());
+
+			// Aggiorna le aziende
+			for (Azienda azienda : old.getAziende()) {
+				azienda.removeUtente(old);
+				old.removeAzienda(azienda);
+				aziendaService.save(azienda);
+			}
+			for (Azienda azienda : payload.getAziende()) {
+				azienda.addUtente(old);
+				old.addAzienda(azienda);
+				aziendaService.save(azienda);
+			}
 
 			return accountRepo.save(old);
 		}

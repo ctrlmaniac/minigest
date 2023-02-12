@@ -134,7 +134,9 @@ const AziendaDettagli = () => {
         <Box>
           <Paper>
             <Box p={2}>
-              <Typography variant="h6">Utenti</Typography>
+              <Typography variant="h6" gutterBottom>
+                Utenti
+              </Typography>
 
               {isEmpty(azienda.utenti) ? (
                 <Alert severity="info" variant="outlined">

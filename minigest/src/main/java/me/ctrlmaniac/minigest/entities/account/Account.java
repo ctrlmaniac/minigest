@@ -1,6 +1,12 @@
 package me.ctrlmaniac.minigest.entities.account;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -69,6 +75,10 @@ public class Account implements UserDetails {
 
 	public void addAzienda(Azienda azienda) {
 		aziende.add(azienda);
+	}
+
+	public void removeAzienda(Azienda azienda) {
+		aziende.remove(azienda);
 	}
 
 	public void addRuolo(AccountRuolo ruolo) {

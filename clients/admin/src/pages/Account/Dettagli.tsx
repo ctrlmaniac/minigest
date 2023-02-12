@@ -20,8 +20,9 @@ import {
   Typography,
 } from "@mui/material";
 import get from "~/features/account/get";
-import { Account, AccountRuolo } from "~/types";
+import { AccountRuolo, Azienda } from "~/types";
 import list from "~/features/accountRuolo/list";
+import { default as listAziende } from "~/features/aziende/list";
 import update from "~/features/account/update";
 import { unsetResponse } from "~/features/account/slice";
 
@@ -33,14 +34,17 @@ const AccountDettagli = () => {
   const {
     list: ruoli,
     listing,
-    listError,
     response: listResponse,
   } = useAppSelector((state) => state.accountRuoli);
+  const { list: aziende, listing: listingAziende } = useAppSelector(
+    (state) => state.aziende
+  );
 
   React.useEffect(() => {
     if (!isEmpty(id)) {
       dispatch(get(id!));
       dispatch(list());
+      dispatch(listAziende());
     }
   }, [id]);
 
@@ -51,6 +55,7 @@ const AccountDettagli = () => {
     accountNonExpired: true,
     accountNonLocked: true,
   });
+  const [business, setBusiness] = React.useState<Azienda[]>([]);
 
   React.useEffect(() => {
     if (!isEmpty(dettagli)) {
@@ -62,6 +67,7 @@ const AccountDettagli = () => {
         accountNonLocked: dettagli.accountNonLocked,
         accountNonExpired: dettagli.accountNonExpired,
       });
+      setBusiness(dettagli.aziende || []);
     }
   }, [dettagli]);
 
@@ -78,6 +84,7 @@ const AccountDettagli = () => {
         ...dettagli,
         ...values,
         authorities: roles,
+        aziende: business,
       };
 
       dispatch(update(id!, newValues));
@@ -100,7 +107,7 @@ const AccountDettagli = () => {
             <Typography variant="h3">Dettagli Account</Typography>
           </Box>
 
-          <Box>
+          <Box mb={3}>
             <Paper>
               <Box p={2}>
                 <Typography variant="h6" gutterBottom>
@@ -165,7 +172,7 @@ const AccountDettagli = () => {
             </Paper>
           </Box>
 
-          <Box>
+          <Box mb={3}>
             <Paper>
               <Box p={2}>
                 <FormGroup>
@@ -210,6 +217,43 @@ const AccountDettagli = () => {
                     label="Account non bloccato"
                   />
                 </FormGroup>
+              </Box>
+            </Paper>
+          </Box>
+
+          <Box mb={3}>
+            <Paper>
+              <Box p={2}>
+                <Typography variant="h6" gutterBottom>
+                  Aziende di cui fa parte
+                </Typography>
+
+                <Autocomplete
+                  multiple
+                  id="aziende"
+                  options={aziende || []}
+                  loading={listingAziende}
+                  noOptionsText="Non ci sono altre aziende"
+                  isOptionEqualToValue={(option: Azienda, value: Azienda) =>
+                    option.denominazione === value.denominazione
+                  }
+                  getOptionLabel={(option) => {
+                    let opt = option as Azienda;
+                    return opt.denominazione;
+                  }}
+                  value={business}
+                  filterSelectedOptions
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Seleziona aziende"
+                      placeholder="Aziende"
+                    />
+                  )}
+                  onChange={(event, newValue) => {
+                    setBusiness(newValue);
+                  }}
+                />
               </Box>
             </Paper>
           </Box>

@@ -97,6 +97,10 @@ public class Azienda {
 		utenti.add(utente);
 	}
 
+	public void removeUtente(Account utente) {
+		utenti.remove(utente);
+	}
+
 	public void addNegozio(Negozio negozio) {
 		negozi.add(negozio);
 	}
