@@ -59,7 +59,7 @@ public class Azienda {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "account_aziende")
-	@JsonIncludeProperties({ "id", "email" })
+	@JsonIncludeProperties({ "id", "email", "nome", "cognome" })
 	Set<Account> utenti = new HashSet<>();
 
 	public Azienda(String titolo, String denominazione, String codiceEORI, String idFiscaleIVAPaese,

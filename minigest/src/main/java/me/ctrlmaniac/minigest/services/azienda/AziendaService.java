@@ -109,6 +109,10 @@ public class AziendaService {
 				indirizzoService.update(payload.getSede().getId(), payload.getSede());
 			}
 
+			if (payload.getUtenti() != null) {
+				old.setUtenti(payload.getUtenti());
+			}
+
 			return aziendaRepo.save(old);
 		}
 

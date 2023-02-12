@@ -6,7 +6,6 @@ import {
   removeFail,
   removeFromSelected,
 } from "./slice";
-import { removeAzienda } from "../account/slice";
 
 export default function remove(id: string): AppThunk {
   return async (dispatch) => {
@@ -16,7 +15,6 @@ export default function remove(id: string): AppThunk {
       .delete(`${Endpoints.AZIENDE}/${id}`)
       .then((response) => {
         dispatch(removeSuccess(response.data));
-        dispatch(removeAzienda(id));
         dispatch(removeFromSelected(id));
       })
       .catch((error) => {

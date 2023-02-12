@@ -7,6 +7,10 @@ const Root = lazy(() => import("~/pages/Root"));
 const Dashboard = lazy(() => import("~/pages/Dashboard"));
 const Account = lazy(() => import("~/pages/Account"));
 const AccountDettagli = lazy(() => import("~/pages/Account/Dettagli"));
+const Aziende = lazy(() => import("~/pages/Aziende"));
+const AziendaDettagli = lazy(() => import("~/pages/Aziende/Dettagli"));
+const AziendaAggiungi = lazy(() => import("~/pages/Aziende/Aggiungi"));
+const AziendaModifica = lazy(() => import("~/pages/Aziende/Modifica"));
 
 export default createBrowserRouter(
   [
@@ -42,6 +46,43 @@ export default createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingScreen />}>
                   <AccountDettagli />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "aziende",
+          children: [
+            {
+              path: "",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <Aziende />
+                </Suspense>
+              ),
+            },
+            {
+              path: "aggiungi",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <AziendaAggiungi />
+                </Suspense>
+              ),
+            },
+            {
+              path: "dettagli/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <AziendaDettagli />
+                </Suspense>
+              ),
+            },
+            {
+              path: "modifica/:id",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <AziendaModifica />
                 </Suspense>
               ),
             },
