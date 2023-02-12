@@ -11,6 +11,7 @@ const Aziende = lazy(() => import("~/pages/Aziende"));
 const AziendaDettagli = lazy(() => import("~/pages/Aziende/Dettagli"));
 const AziendaAggiungi = lazy(() => import("~/pages/Aziende/Aggiungi"));
 const AziendaModifica = lazy(() => import("~/pages/Aziende/Modifica"));
+const TipiDocFisc = lazy(() => import("~/pages/TipiDocFisc"));
 
 export default createBrowserRouter(
   [
@@ -87,6 +88,14 @@ export default createBrowserRouter(
               ),
             },
           ],
+        },
+        {
+          path: "docfisc/tipo",
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <TipiDocFisc />
+            </Suspense>
+          ),
         },
       ],
     },

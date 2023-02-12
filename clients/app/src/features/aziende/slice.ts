@@ -127,7 +127,7 @@ export const aziendeSlice = createSlice({
     putFail: (state, action: PayloadAction<string>) => {
       state.putError = true;
       state.putResponse = action.payload;
-      state.posting = false;
+      state.putting = false;
     },
     updateSelectedNegozio: (state, action: PayloadAction<Negozio>) => {
       const negozio = action.payload;

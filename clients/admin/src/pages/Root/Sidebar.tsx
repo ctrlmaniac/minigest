@@ -57,6 +57,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             </ListItemIcon>
             <ListItemText primary="Aziende" />
           </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/docfisc/tipo")}>
+            <ListItemIcon>
+              <IconFiles />
+            </ListItemIcon>
+            <ListItemText primary="Tipo Doc. Fisc." />
+          </ListItemButton>
         </List>
       </Box>
     </Drawer>
