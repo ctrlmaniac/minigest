@@ -19,6 +19,11 @@
       "name": "admin.password",
       "type": "java.lang.String",
       "description": "La password dell'Admin"
+    },
+    {
+      "name": "host",
+      "type": "java.lang.String",
+      "description": "L'indirizzo internet dove verrà ospitato il sito internet"
     }
   ]
 }
