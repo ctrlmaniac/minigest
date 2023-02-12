@@ -1,5 +1,6 @@
 package me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,10 @@ public class ChiusuraFiscaleService {
 
 	public List<ChiusuraFiscale> findAllByNegozio(Negozio negozio) {
 		return repo.findAllByNegozio(negozio);
+	}
+
+	public List<ChiusuraFiscale> findAllCorrispettivi(Negozio negozio, LocalDate data) {
+		return repo.findAllByNegozioByData(negozio, data);
 	}
 
 	public List<ChiusuraFiscale> findAllByNegozioAndByData(Negozio negozio, String year, String month) {

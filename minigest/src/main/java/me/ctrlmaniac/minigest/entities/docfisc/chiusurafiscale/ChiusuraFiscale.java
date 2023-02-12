@@ -62,6 +62,18 @@ public class ChiusuraFiscale {
 		this.reparti.remove(reparto);
 	}
 
+	public Set<ChiusuraFiscaleReparto> getRepartiByAliquota(double aliquota) {
+		Set<ChiusuraFiscaleReparto> reparti = new HashSet<>();
+
+		for (ChiusuraFiscaleReparto reparto : this.reparti) {
+			if (reparto.getAliquota() == aliquota) {
+				reparti.add(reparto);
+			}
+		}
+
+		return reparti;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

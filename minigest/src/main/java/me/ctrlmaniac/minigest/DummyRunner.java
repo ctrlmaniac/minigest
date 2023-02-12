@@ -1,6 +1,11 @@
 package me.ctrlmaniac.minigest;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -116,18 +121,6 @@ public class DummyRunner implements CommandLineRunner {
 		Negozio larapidaNegozio = new Negozio(larapida, "La Rapida Molinetto");
 		negozioService.save(larapidaNegozio);
 
-		// Crea una chiusura fiscale
-		ChiusuraFiscale cf1 = new ChiusuraFiscale(larapidaNegozio, LocalDate.now(),
-				100, 20);
-		chiusuraFiscaleService.save(cf1);
-
-		ChiusuraFiscaleReparto cf1Reparto1 = new ChiusuraFiscaleReparto(cf1, 22, 50,
-				0, 0);
-		chiusuraFiscaleRepartoService.save(cf1Reparto1);
-		ChiusuraFiscaleReparto cf1Reparto2 = new ChiusuraFiscaleReparto(cf1, 10, 50,
-				0, 0);
-		chiusuraFiscaleRepartoService.save(cf1Reparto2);
-
 		// Crea una fattura
 		TipoDocFisc TD01 = tipoDocFiscService.findByCodice("TD01");
 
@@ -148,6 +141,61 @@ public class DummyRunner implements CommandLineRunner {
 
 		FatturaReparto ft1Reparto2 = new FatturaReparto(ft2, 22, 100, 22);
 		fatturaRepartoService.save(ft1Reparto2);
+
+		/**
+		 * Crea delle chiusure fiscali
+		 */
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, 1);
+		int lastDayOfMonth = calendar.getActualMaximum(Calendar.DATE);
+		LocalDate lastDateOfMonth = LocalDate.of(LocalDate.now().getYear(),
+				LocalDate.now().getMonthValue(),
+				lastDayOfMonth);
+
+		List<LocalDate> dateList = LocalDate.of(LocalDate.now().getYear(),
+				LocalDate.now().getMonthValue(), 1)
+				.datesUntil(lastDateOfMonth).collect(Collectors.toList());
+
+		dateList.add(lastDateOfMonth);
+
+		List<Double> aliquote = new ArrayList<>();
+		aliquote.add(0.00);
+		aliquote.add(4.00);
+		aliquote.add(10.00);
+		aliquote.add(22.00);
+
+		for (LocalDate giorno : dateList) {
+			Random r = new Random();
+			double totale = 100 + (500 - 100) * r.nextDouble();
+			int ndf = r.nextInt(((51) - 10) + 10);
+			double scale = Math.pow(10, 2);
+			totale = Math.round(totale * scale) / scale;
+
+			List<Double> aliquoteIVA = new ArrayList<>();
+			while (aliquoteIVA.size() < 2) {
+				aliquoteIVA.add(aliquote.get(r.nextInt(aliquote.size())));
+			}
+
+			ChiusuraFiscale chiusura = new ChiusuraFiscale(larapidaNegozio, giorno, totale, ndf);
+			chiusuraFiscaleService.save(chiusura);
+
+			double totaleReparto1 = totale / 2;
+			totaleReparto1 = Math.round(totaleReparto1 * scale) / scale;
+
+			double totaleReparto2 = totale - totaleReparto1;
+
+			ChiusuraFiscaleReparto reparto1 = new ChiusuraFiscaleReparto(chiusura, aliquoteIVA.get(0), totaleReparto1,
+					0,
+					0);
+			chiusuraFiscaleRepartoService.save(reparto1);
+
+			ChiusuraFiscaleReparto reparto2 = new ChiusuraFiscaleReparto(chiusura, aliquoteIVA.get(1),
+					totale - totaleReparto2,
+					0,
+					0);
+			chiusuraFiscaleRepartoService.save(reparto2);
+
+		}
 
 	}
 
