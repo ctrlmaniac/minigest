@@ -260,7 +260,10 @@ const Registrati: React.FC = () => {
                   required
                 />
                 {account.email.toString().length > 0 && (
-                  <Alert severity={accountExists ? "error" : "success"}>
+                  <Alert
+                    severity={accountExists ? "error" : "success"}
+                    variant="outlined"
+                  >
                     {accountExists
                       ? "Account già registrato!"
                       : "Account disponibile"}
@@ -355,7 +358,10 @@ const Registrati: React.FC = () => {
               <Grid item xs={12}>
                 {azienda.idFiscaleIVAPaese.toString().length > 0 &&
                   azienda.idFiscaleIVACodice.toString().length > 0 && (
-                    <Alert severity={aziendaExists ? "error" : "success"}>
+                    <Alert
+                      severity={aziendaExists ? "error" : "success"}
+                      variant="outlined"
+                    >
                       {aziendaExists
                         ? "Azienda già esistente!"
                         : "Azienda disponibile"}

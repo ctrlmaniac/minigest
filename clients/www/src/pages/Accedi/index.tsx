@@ -87,7 +87,10 @@ const Accedi: React.FC = () => {
               />
 
               {values.email.toString().length > 1 && (
-                <Alert severity={exists ? "success" : "error"}>
+                <Alert
+                  severity={exists ? "success" : "error"}
+                  variant="outlined"
+                >
                   {exists ? "Utente esistente!" : "Utente non esistente!"}
                 </Alert>
               )}
@@ -138,6 +141,7 @@ const Accedi: React.FC = () => {
                 <Alert
                   severity={loginError ? "error" : "success"}
                   sx={{ marginTop: 2 }}
+                  variant="outlined"
                 >
                   {loginResponse}
                 </Alert>
