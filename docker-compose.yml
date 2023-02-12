@@ -1,0 +1,31 @@
+name: minigest
+services:
+  webapp:
+    container_name: minigest-webapp
+    image: ctrlmaniac/minigest:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_HOST=${DB_HOST}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASS=${ADMIN_PASS}
+      - ADMIN_FNAME=${ADMIN_FNAME}
+      - ADMIN_LNAME=${ADMIN_LNAME}
+      - HOST=${HOST}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+
+  mysqldb:
+    container_name: minigest-db
+    image: mysql:8.0.32
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}

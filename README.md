@@ -15,7 +15,7 @@ DB_PASS=root
 ADMIN_EMAIL=davide.dicriscito@gmail.com
 ADMIN_FNAME=Davide
 ADMIN_LNAME=Di Criscito
-ADMIN_PASSWORD=54321
+ADMIN_PASS=54321
 
 HOST=http://localhost:8080
 
