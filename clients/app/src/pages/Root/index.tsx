@@ -40,20 +40,20 @@ const Root: React.FC = () => {
       const azienda = window.localStorage.getItem("azienda");
 
       if (!isEmpty(azienda)) {
-        const index = findIndex(aziende, (o) => {
-          const parsed = JSON.parse(azienda!) as Azienda;
-          return o.id === parsed.id;
+        const index = findIndex(aziende, (o: Azienda) => {
+          return o.id === azienda;
         });
 
         if (index > 1) {
-          dispatch(setSelectedAzienda(JSON.parse(azienda!)));
+          const selectedAzienda = aziende![index];
+          dispatch(setSelectedAzienda(selectedAzienda));
         } else {
           window.localStorage.removeItem("azienda");
         }
       } else {
         if (!isEmpty(aziende)) {
           dispatch(setSelectedAzienda(aziende![0]));
-          window.localStorage.setItem("azienda", JSON.stringify(aziende![0]));
+          window.localStorage.setItem("azienda", aziende![0].id!);
         }
       }
     }
@@ -65,12 +65,12 @@ const Root: React.FC = () => {
     if (!isEmpty(selectedAzienda)) {
       if (!isEmpty(negozio)) {
         const index = findIndex(selectedAzienda?.negozi, (o) => {
-          const parsed = JSON.parse(negozio!) as Negozio;
-          return o.id === parsed.id;
+          return o.id === negozio;
         });
 
         if (index > 0) {
-          dispatch(setSelectedNegozio(JSON.parse(negozio!)));
+          const selectedNegozio = selectedAzienda.negozi![index];
+          dispatch(setSelectedNegozio(selectedNegozio));
         } else {
           window.localStorage.removeItem("negozio");
         }
@@ -79,7 +79,7 @@ const Root: React.FC = () => {
           dispatch(setSelectedNegozio(selectedAzienda.negozi![0]));
           window.localStorage.setItem(
             "negozio",
-            JSON.stringify(selectedAzienda.negozi![0])
+            selectedAzienda.negozi![0].id!
           );
         }
       }
