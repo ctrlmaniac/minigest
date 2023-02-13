@@ -8,4 +8,5 @@ export type { default as FatturaReparto } from "./fatturaReparto";
 export type { default as FatturaScadenza } from "./fatturaScadenza";
 export type { default as FatturaPagamento } from "./fatturaPagamento";
 export type { default as Negozio } from "./negozio";
+export type { default as RegCorrispettivi } from "./RegCorrispettivi";
 export type { default as TipoDocFisc } from "./tipoDocFisc";

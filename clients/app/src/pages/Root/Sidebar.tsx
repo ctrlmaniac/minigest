@@ -10,6 +10,7 @@ import {
   ListSubheader,
 } from "@mui/material";
 import {
+  IconBook,
   IconBuildingStore,
   IconBuildingWarehouse,
   IconCalendarDue,
@@ -18,6 +19,7 @@ import {
   IconLayoutDashboard,
   IconUser,
 } from "@tabler/icons-react";
+import { useAppSelector } from "~/hooks";
 
 interface Props {
   open: boolean;
@@ -97,6 +99,14 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconFileDescription />
             </ListItemIcon>
             <ListItemText primary="Fatture Acquisto" />
+          </ListItemButton>
+          <ListItemButton
+            onClick={() => handleNavigate(`/docfisc/registro-corrispettivi`)}
+          >
+            <ListItemIcon>
+              <IconBook />
+            </ListItemIcon>
+            <ListItemText primary="Registro dei Corrispettivi" />
           </ListItemButton>
         </List>
 
