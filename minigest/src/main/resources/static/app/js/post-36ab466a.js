@@ -1,0 +1,1 @@
+import{a as e,E as r}from"./index-068a4523.js";import{P as p,Q as n,S as i,U as m}from"./index-14bc8a2f.js";function c(t){return async s=>{s(p()),e.post(`${r.NEGOZI}`,t).then(a=>{s(n(a.data)),s(i(a.data))}).catch(a=>{let o="Errore";a.response?o=a.response.data:o="Errore",s(m(o))})}}export{c as p};
