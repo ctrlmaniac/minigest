@@ -1,7 +1,12 @@
 package me.ctrlmaniac.minigest.entities.docfisc.fattura;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
@@ -68,6 +73,9 @@ public class Fattura {
 	@Transient
 	private boolean evasa;
 
+	@Transient
+	private Set<Double> aliquoteIVA;
+
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, LocalDate dataSDI,
 			String numero, double totale) {
 		this.cedente = cedente;
@@ -95,27 +103,33 @@ public class Fattura {
 	}
 
 	public double getImponibile() {
-		double imponibile = 0;
+		double totale = 0;
 
 		if (this.getReparti() != null) {
 			for (FatturaReparto reparto : this.getReparti()) {
-				imponibile += reparto.getImponibile();
+				totale += reparto.getImponibile();
 			}
 		}
 
-		return imponibile;
+		BigDecimal tot = new BigDecimal(totale);
+		tot = tot.setScale(2, RoundingMode.HALF_EVEN);
+
+		return tot.doubleValue();
 	}
 
 	public double getImposta() {
-		double imposta = 0;
+		double totale = 0;
 
 		if (this.getReparti() != null) {
 			for (FatturaReparto reparto : this.getReparti()) {
-				imposta += reparto.getImposta();
+				totale += reparto.getImposta();
 			}
 		}
 
-		return imposta;
+		BigDecimal tot = new BigDecimal(totale);
+		tot = tot.setScale(2, RoundingMode.HALF_EVEN);
+
+		return tot.doubleValue();
 	}
 
 	public boolean getEvasa() {
@@ -147,6 +161,31 @@ public class Fattura {
 
 	public void addPagamento(FatturaPagamento pagamento) {
 		this.pagamenti.add(pagamento);
+	}
+
+	public Set<Double> getAliquoteIVA() {
+		Set<Double> aliquoteIVA = new HashSet<>();
+
+		for (FatturaReparto reparto : this.reparti) {
+			aliquoteIVA.add(reparto.getAliquota());
+		}
+
+		List<Double> listaAliquote = new ArrayList<>(aliquoteIVA);
+		Collections.sort(listaAliquote);
+
+		return new HashSet<>(listaAliquote);
+	}
+
+	public Set<FatturaReparto> getRepartiByAliquota(double aliquota) {
+		Set<FatturaReparto> reparti = new HashSet<>();
+
+		for (FatturaReparto reparto : this.reparti) {
+			if (reparto.getAliquota() == aliquota) {
+				reparti.add(reparto);
+			}
+		}
+
+		return reparti;
 	}
 
 	@Override

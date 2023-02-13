@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,9 @@ public class FatturaReparto {
 	@JsonIncludeProperties("id")
 	Fattura fattura;
 
+	@Transient
+	private double totale;
+
 	private double aliquota;
 	private double imponibile;
 	private double imposta;
@@ -36,6 +40,10 @@ public class FatturaReparto {
 		this.aliquota = aliquota;
 		this.imponibile = imponibile;
 		this.imposta = imposta;
+	}
+
+	public double getTotale() {
+		return this.imponibile + this.imposta;
 	}
 
 	@Override

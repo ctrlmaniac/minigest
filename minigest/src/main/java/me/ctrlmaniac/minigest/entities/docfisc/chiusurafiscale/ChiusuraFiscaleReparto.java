@@ -1,5 +1,8 @@
 package me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import jakarta.persistence.Entity;
@@ -7,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +43,24 @@ public class ChiusuraFiscaleReparto {
 		this.totale = totale;
 		this.totaleAnnulli = totaleAnnulli;
 		this.totaleResi = totaleResi;
+	}
+
+	@Transient
+	private double imponibile;
+
+	@Transient
+	private double imposta;
+
+	public double getImponibile() {
+		double imponibile = (100 * totale) / (100 + aliquota);
+		BigDecimal value = new BigDecimal(imponibile);
+		return value.setScale(2, RoundingMode.HALF_EVEN).doubleValue();
+	}
+
+	public double getImposta() {
+		double imposta = (aliquota * totale) / (100 + aliquota);
+		BigDecimal value = new BigDecimal(imposta);
+		return value.setScale(2, RoundingMode.HALF_EVEN).doubleValue();
 	}
 
 	@Override

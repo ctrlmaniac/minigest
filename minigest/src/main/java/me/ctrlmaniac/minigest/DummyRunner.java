@@ -1,5 +1,7 @@
 package me.ctrlmaniac.minigest;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -167,23 +169,26 @@ public class DummyRunner implements CommandLineRunner {
 			Random r = new Random();
 			double totale = 100 + (500 - 100) * r.nextDouble();
 			int ndf = r.nextInt(51 - 10) + 10;
-			double scale = Math.pow(10, 2);
-			totale = Math.round(totale * scale) / scale;
+
+			BigDecimal tot = new BigDecimal(totale);
+			tot = tot.setScale(2, RoundingMode.HALF_UP);
 
 			List<Double> aliquoteIVA = new ArrayList<>();
 			while (aliquoteIVA.size() < 2) {
 				aliquoteIVA.add(aliquote.get(r.nextInt(aliquote.size())));
 			}
 
-			ChiusuraFiscale chiusura = new ChiusuraFiscale(larapidaNegozio, giorno, totale, ndf);
+			ChiusuraFiscale chiusura = new ChiusuraFiscale(larapidaNegozio, giorno, tot.doubleValue(), ndf);
 			chiusuraFiscaleService.save(chiusura);
 
 			double totaleReparto1 = totale / 2;
-			totaleReparto1 = Math.round(totaleReparto1 * scale) / scale;
+			BigDecimal totReparto1 = new BigDecimal(totaleReparto1);
+			totReparto1 = totReparto1.setScale(2, RoundingMode.HALF_UP);
 
 			double totaleReparto2 = totale - totaleReparto1;
 
-			ChiusuraFiscaleReparto reparto1 = new ChiusuraFiscaleReparto(chiusura, aliquoteIVA.get(0), totaleReparto1,
+			ChiusuraFiscaleReparto reparto1 = new ChiusuraFiscaleReparto(chiusura, aliquoteIVA.get(0),
+					totReparto1.doubleValue(),
 					0,
 					0);
 			chiusuraFiscaleRepartoService.save(reparto1);

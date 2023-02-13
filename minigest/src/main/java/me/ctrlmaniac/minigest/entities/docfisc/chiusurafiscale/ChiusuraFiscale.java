@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,15 @@ public class ChiusuraFiscale {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "chiusuraFiscale")
 	private Set<ChiusuraFiscaleReparto> reparti = new HashSet<>();
+
+	@Transient
+	private Set<Double> aliquoteIVA = new HashSet<>();
+
+	@Transient
+	private double imponibile;
+
+	@Transient
+	private double imposta;
 
 	public ChiusuraFiscale(Negozio negozio, LocalDate data, double totale, int numeroDocFisc) {
 		this.negozio = negozio;
@@ -72,6 +82,36 @@ public class ChiusuraFiscale {
 		}
 
 		return reparti;
+	}
+
+	public Set<Double> getAliquoteIVA() {
+		Set<Double> aliquoteIVA = new HashSet<>();
+
+		for (ChiusuraFiscaleReparto reparto : this.reparti) {
+			aliquoteIVA.add(reparto.getAliquota());
+		}
+
+		return aliquoteIVA;
+	}
+
+	public double getImponibile() {
+		double totale = 0;
+
+		for (ChiusuraFiscaleReparto reparto : this.reparti) {
+			totale += reparto.getImponibile();
+		}
+
+		return totale;
+	}
+
+	public double getImposta() {
+		double totale = 0;
+
+		for (ChiusuraFiscaleReparto reparto : this.reparti) {
+			totale += reparto.getImposta();
+		}
+
+		return totale;
 	}
 
 	@Override
