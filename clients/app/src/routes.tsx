@@ -31,6 +31,7 @@ const Scadenzario = lazy(() => import("~/pages/Scadenzario"));
 const RegistroCorrispettivi = lazy(
   () => import("~/pages/RegistroCorrispettivi")
 );
+const Bilancio = lazy(() => import("~/pages/Bilancio"));
 
 export default createBrowserRouter(
   [
@@ -213,6 +214,14 @@ export default createBrowserRouter(
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <Scadenzario />
+            </Suspense>
+          ),
+        },
+        {
+          path: "bilancio",
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <Bilancio />
             </Suspense>
           ),
         },

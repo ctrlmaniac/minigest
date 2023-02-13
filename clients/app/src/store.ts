@@ -9,6 +9,7 @@ import { fattureSlice } from "./features/fatture/slice";
 import { tipiDocFiscSlice } from "./features/tipiDocFisc/slice";
 import { scadenzarioSlice } from "./features/scadenzario/slice";
 import { registroCorrispettiviSlice } from "./features/registroCorrispettivi/slice";
+import { bilancioSlice } from "./features/bilancio/slice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     tipiDocFisc: tipiDocFiscSlice.reducer,
     scadenzario: scadenzarioSlice.reducer,
     registroCorrispettivi: registroCorrispettiviSlice.reducer,
+    bilancio: bilancioSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

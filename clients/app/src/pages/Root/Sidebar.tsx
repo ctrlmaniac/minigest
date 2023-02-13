@@ -17,6 +17,7 @@ import {
   IconFileDescription,
   IconFiles,
   IconLayoutDashboard,
+  IconScale,
   IconUser,
 } from "@tabler/icons-react";
 import { useAppSelector } from "~/hooks";
@@ -116,6 +117,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconCalendarDue />
             </ListItemIcon>
             <ListItemText primary="Scadenzario" />
+          </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate("/bilancio")}>
+            <ListItemIcon>
+              <IconScale />
+            </ListItemIcon>
+            <ListItemText primary="Bilancio" />
           </ListItemButton>
         </List>
       </Box>
