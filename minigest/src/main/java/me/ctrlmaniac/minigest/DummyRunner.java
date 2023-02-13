@@ -159,7 +159,6 @@ public class DummyRunner implements CommandLineRunner {
 		dateList.add(lastDateOfMonth);
 
 		List<Double> aliquote = new ArrayList<>();
-		aliquote.add(0.00);
 		aliquote.add(4.00);
 		aliquote.add(10.00);
 		aliquote.add(22.00);
