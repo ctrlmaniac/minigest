@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bilancio {
-	private BilancioEntrate entrate;
-	private BilancioUscite uscite;
+	private BilancioMode entrate;
+	private BilancioMode uscite;
 }

@@ -24,8 +24,7 @@ import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.models.bilancio.Bilancio;
-import me.ctrlmaniac.minigest.models.bilancio.BilancioEntrate;
-import me.ctrlmaniac.minigest.models.bilancio.BilancioUscite;
+import me.ctrlmaniac.minigest.models.bilancio.BilancioMode;
 import me.ctrlmaniac.minigest.models.bilancio.Reparto;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
@@ -78,7 +77,7 @@ public class BilancioRestController {
 				double totaleUsciteImposta = 0.0;
 				Set<Double> usciteAliquote = new HashSet<>();
 				Set<Reparto> bilancioUsciteReparti = new HashSet<>();
-				BilancioUscite bilancioUscite = new BilancioUscite();
+				BilancioMode bilancioUscite = new BilancioMode();
 
 				for (Fattura fattura : fattureAcquisto) {
 					totaleUscite += fattura.getTotale();
@@ -147,7 +146,7 @@ public class BilancioRestController {
 				double totaleEntrateImposta = 0;
 				Set<Double> entrateAliquote = new HashSet<>();
 				Set<Reparto> bilancioEntrateReparti = new HashSet<>();
-				BilancioEntrate bilancioEntrate = new BilancioEntrate();
+				BilancioMode bilancioEntrate = new BilancioMode();
 
 				for (ChiusuraFiscale chiusura : chiusure) {
 					entrateAliquote.addAll(chiusura.getAliquoteIVA());
