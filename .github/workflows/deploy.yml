@@ -77,4 +77,4 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker system prune --volumes -f
+          script: docker system prune --volumes --force
