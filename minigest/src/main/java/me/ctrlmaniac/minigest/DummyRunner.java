@@ -167,7 +167,7 @@ public class DummyRunner implements CommandLineRunner {
 		for (LocalDate giorno : dateList) {
 			Random r = new Random();
 			double totale = 100 + (500 - 100) * r.nextDouble();
-			int ndf = r.nextInt(((51) - 10) + 10);
+			int ndf = r.nextInt(51 - 10) + 10;
 			double scale = Math.pow(10, 2);
 			totale = Math.round(totale * scale) / scale;
 

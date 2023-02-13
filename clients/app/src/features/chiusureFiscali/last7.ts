@@ -7,7 +7,7 @@ export default function last7(idNegozio: string): AppThunk {
     dispatch(listStart());
 
     api
-      .get(`${Endpoints.CHIUSURE_FISCALI}?negozio=${idNegozio}`)
+      .get(`${Endpoints.CHIUSURE_FISCALI}/last7?negozio=${idNegozio}`)
       .then((response) => {
         dispatch(listSuccess(response.data));
       })
