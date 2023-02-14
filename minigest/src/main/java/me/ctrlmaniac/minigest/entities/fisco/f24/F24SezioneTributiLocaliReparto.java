@@ -31,6 +31,7 @@ public class F24SezioneTributiLocaliReparto {
 	private boolean acconto;
 	private boolean saldo;
 	private int numeroImmobili;
+	private String codiceTributo;
 	private String riferimento;
 	private String anno;
 	private double importoDebito;
@@ -38,7 +39,7 @@ public class F24SezioneTributiLocaliReparto {
 
 	public F24SezioneTributiLocaliReparto(F24SezioneTributiLocali sezioneTributiLocali, String codiceEnte,
 			boolean ravvedimento, boolean immobiliVariati, boolean acconto, boolean saldo, int numeroImmobili,
-			String riferimento, String anno, double importoDebito, double importoCredito) {
+			String codiceTributo, String riferimento, String anno, double importoDebito, double importoCredito) {
 		this.sezioneTributiLocali = sezioneTributiLocali;
 		this.codiceEnte = codiceEnte;
 		this.ravvedimento = ravvedimento;
@@ -46,6 +47,7 @@ public class F24SezioneTributiLocaliReparto {
 		this.acconto = acconto;
 		this.saldo = saldo;
 		this.numeroImmobili = numeroImmobili;
+		this.codiceTributo = codiceTributo;
 		this.riferimento = riferimento;
 		this.anno = anno;
 		this.importoDebito = importoDebito;

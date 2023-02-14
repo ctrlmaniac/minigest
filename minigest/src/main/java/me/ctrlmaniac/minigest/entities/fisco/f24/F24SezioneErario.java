@@ -12,8 +12,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class F24SezioneErario {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@ManyToOne
+	@OneToOne
 	@JsonIncludeProperties("id")
 	private F24 f24;
 

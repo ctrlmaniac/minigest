@@ -1,6 +1,7 @@
 package me.ctrlmaniac.minigest.services.fisco.f24;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,14 @@ public class F24Service {
 	@Autowired
 	F24Repo repo;
 
-	public F24 save(F24 object) {
-		return repo.save(object);
+	public F24 findById(String id) {
+		Optional<F24> opt = repo.findById(id);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
 	}
 
 	public List<F24> findAll() {
@@ -25,5 +32,13 @@ public class F24Service {
 
 	public List<F24> findAllByUtente(Account account) {
 		return repo.findAllByUtente(account);
+	}
+
+	public List<F24> findAllByUtenteAndByDataScadenza(Account account, String anno, String mese) {
+		return repo.findAllByUtenteAndByDataScadenza(account, anno, mese);
+	}
+
+	public F24 save(F24 object) {
+		return repo.save(object);
 	}
 }

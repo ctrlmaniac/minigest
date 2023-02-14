@@ -26,8 +26,14 @@ import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaScadenza;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneAltriEnti;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErario;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErarioReparto;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneInail;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneInps;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneRegioni;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneTributiLocali;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneTributiLocaliReparto;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
@@ -42,6 +48,12 @@ import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24Service;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioRepartoService;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneInailService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneInpsService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneRegioniService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneTributiLocaliRepartoService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneTributiLocaliService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneAltriEntiService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 @Component
@@ -90,6 +102,24 @@ public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
 	F24SezioneErarioRepartoService f24SezioneErarioRepartoService;
+
+	@Autowired
+	F24SezioneInpsService f24SezioneInpsService;
+
+	@Autowired
+	F24SezioneRegioniService f24SezioneRegioniService;
+
+	@Autowired
+	F24SezioneTributiLocaliService f24SezioneTributiLocaliService;
+
+	@Autowired
+	F24SezioneTributiLocaliRepartoService f24SezioneTributiLocaliRepartoService;
+
+	@Autowired
+	F24SezioneInailService f24SezioneInailService;
+
+	@Autowired
+	F24SezioneAltriEntiService f24SezioneAltriEntiService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -222,12 +252,44 @@ public class DummyRunner implements CommandLineRunner {
 		F24 f24 = new F24(admin, LocalDate.of(LocalDate.now().getYear(), 5, 16));
 		f24Service.save(f24);
 
+		// Sezione erario
 		F24SezioneErario f24SezioneErario = new F24SezioneErario(f24, null, null, null);
 		f24SezioneErarioService.save(f24SezioneErario);
 
 		F24SezioneErarioReparto f24SezioneErarioReparto = new F24SezioneErarioReparto(f24SezioneErario, "6031",
-				null, String.valueOf(LocalDate.now().getYear()), 2500.00, 0.00);
+				null, String.valueOf(LocalDate.now().getYear()), 2500.00, 600.00);
 		f24SezioneErarioRepartoService.save(f24SezioneErarioReparto);
+
+		// Sezione INPS
+		F24SezioneInps f24SezioneInps = new F24SezioneInps(f24, "4955", "PXXR", "1234567890", "01",
+				String.valueOf(LocalDate.now().getYear()), "12", String.valueOf(LocalDate.now().getYear()), 900.00,
+				0.00);
+		f24SezioneInpsService.save(f24SezioneInps);
+
+		// Sezione Regioni
+		F24SezioneRegioni f24SezioneRegioni = new F24SezioneRegioni(f24, "08", "3801", "0101",
+				String.valueOf(LocalDate.now().getYear()), 180.0, 0.0);
+		f24SezioneRegioniService.save(f24SezioneRegioni);
+
+		// Sezione IMU e Altri Tributi Locali
+		F24SezioneTributiLocali f24SezioneTributiLocali = new F24SezioneTributiLocali(f24, 0.0);
+		f24SezioneTributiLocaliService.save(f24SezioneTributiLocali);
+
+		F24SezioneTributiLocaliReparto f24SezioneTributiLocaliReparto = new F24SezioneTributiLocaliReparto(
+				f24SezioneTributiLocali, "99", false, false, false, false, 0, "3844", "0101",
+				String.valueOf(LocalDate.now().getYear()), 84.0, 0);
+		f24SezioneTributiLocaliRepartoService.save(f24SezioneTributiLocaliReparto);
+
+		// Sezione INAIL
+		F24SezioneInail f24SezioneInail = new F24SezioneInail(f24, "N11-36", "123456789", "15", "12345", "P15", 350.0,
+				0.0);
+		f24SezioneInailService.save(f24SezioneInail);
+
+		// Sezione Altri Enti
+		F24SezioneAltriEnti f24SezioneAltriEnti = new F24SezioneAltriEnti(f24, "0011", null, "E085", null, "01",
+				String.valueOf(LocalDate.now().getYear()), "12", String.valueOf(LocalDate.now().getYear()), 1150.0,
+				0.0);
+		f24SezioneAltriEntiService.save(f24SezioneAltriEnti);
 
 	}
 

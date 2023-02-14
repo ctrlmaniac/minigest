@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,14 +40,17 @@ public class F24 {
 
 	private LocalDate dataScadenza;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
-	private Set<F24SezioneErario> sezioneErario = new HashSet<>();
+	@OneToOne(mappedBy = "f24")
+	private F24SezioneErario sezioneErario;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
 	private Set<F24SezioneInps> sezioneInps = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
 	private Set<F24SezioneRegioni> sezioneRegioni = new HashSet<>();
+
+	@OneToOne(mappedBy = "f24")
+	private F24SezioneTributiLocali sezioneTributiLocali;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
 	private Set<F24SezioneInail> sezioneInail = new HashSet<>();
@@ -65,8 +69,8 @@ public class F24 {
 	public double getTotale() {
 		double totale = 0;
 
-		for (F24SezioneErario sezione : this.sezioneErario) {
-			totale += sezione.getSaldo();
+		if (this.sezioneErario != null) {
+			totale += this.sezioneErario.getSaldo();
 		}
 
 		for (F24SezioneInps sezione : this.sezioneInps) {

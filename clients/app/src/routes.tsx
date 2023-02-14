@@ -32,6 +32,8 @@ const RegistroCorrispettivi = lazy(
   () => import("~/pages/RegistroCorrispettivi")
 );
 const Bilancio = lazy(() => import("~/pages/Bilancio"));
+const F24 = lazy(() => import("~/pages/F24"));
+const F24Dettagli = lazy(() => import("~/pages/F24/Dettagli"));
 
 export default createBrowserRouter(
   [
@@ -208,6 +210,32 @@ export default createBrowserRouter(
               <RegistroCorrispettivi />
             </Suspense>
           ),
+        },
+        {
+          path: "fisco",
+          children: [
+            {
+              path: "f24",
+              children: [
+                {
+                  path: "",
+                  element: (
+                    <Suspense fallback={<LoadingScreen />}>
+                      <F24 />
+                    </Suspense>
+                  ),
+                },
+                {
+                  path: "dettagli/:id",
+                  element: (
+                    <Suspense fallback={<LoadingScreen />}>
+                      <F24Dettagli />
+                    </Suspense>
+                  ),
+                },
+              ],
+            },
+          ],
         },
         {
           path: "scadenzario",

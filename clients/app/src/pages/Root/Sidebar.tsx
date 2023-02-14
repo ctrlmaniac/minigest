@@ -40,7 +40,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
 
   return (
     <Drawer anchor="left" open={open} onClose={() => handleOpen(false)}>
-      <Box sx={{ width: 250 }}>
+      <Box sx={{ width: 250, overflowY: "auto" }}>
         <List>
           <ListItemButton onClick={() => handleNavigate("/")}>
             <ListItemIcon>
@@ -108,6 +108,15 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconBook />
             </ListItemIcon>
             <ListItemText primary="Registro dei Corrispettivi" />
+          </ListItemButton>
+        </List>
+
+        <List subheader={<ListSubheader>Fisco</ListSubheader>}>
+          <ListItemButton onClick={() => handleNavigate("/fisco/f24")}>
+            <ListItemIcon>
+              <IconFiles />
+            </ListItemIcon>
+            <ListItemText primary="F24" />
           </ListItemButton>
         </List>
 

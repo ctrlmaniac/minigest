@@ -12,8 +12,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class F24SezioneTributiLocali {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private String id;
 
-	@ManyToOne
+	@OneToOne
 	@JsonIncludeProperties("id")
 	private F24 f24;
 
@@ -49,10 +49,9 @@ public class F24SezioneTributiLocali {
 	@Transient
 	private double saldo;
 
-	public F24SezioneTributiLocali(F24 f24, double detrazione, Set<F24SezioneTributiLocaliReparto> reparti) {
+	public F24SezioneTributiLocali(F24 f24, double detrazione) {
 		this.f24 = f24;
 		this.detrazione = detrazione;
-		this.reparti = reparti;
 	}
 
 	public double getTotaleDebito() {

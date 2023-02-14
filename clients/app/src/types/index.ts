@@ -10,3 +10,4 @@ export type { default as FatturaPagamento } from "./fatturaPagamento";
 export type { default as Negozio } from "./negozio";
 export type { default as RegCorrispettivi } from "./RegCorrispettivi";
 export type { default as TipoDocFisc } from "./tipoDocFisc";
+export type { default as F24 } from "./f24";

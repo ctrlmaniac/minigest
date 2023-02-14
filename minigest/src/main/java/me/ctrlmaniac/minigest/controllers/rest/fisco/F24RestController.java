@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24Service;
 
 @RestController
-@RequestMapping("/api/fisco")
+@RequestMapping("/api/fisco/f24")
 public class F24RestController {
 
 	@Autowired
@@ -24,14 +27,31 @@ public class F24RestController {
 	F24Service service;
 
 	@GetMapping("")
-	public ResponseEntity<?> get(Principal principal) {
+	public ResponseEntity<?> list(Principal principal, @RequestParam(name = "anno", required = false) String anno,
+			@RequestParam(name = "mese", required = false) String mese) {
 		if (principal != null) {
 			Account account = accountService.findByEmail(principal.getName());
 
 			if (account != null) {
-				return new ResponseEntity<>(service.findAllByUtente(account), HttpStatus.OK);
+				if (anno == null || mese == null) {
+					return new ResponseEntity<>(service.findAllByUtente(account), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(service.findAllByUtenteAndByDataScadenza(account, anno, mese),
+							HttpStatus.OK);
+				}
 			}
 		}
 		return new ResponseEntity<>("Utente non connesso", HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> get(@PathVariable String id) {
+		F24 f24 = service.findById(id);
+
+		if (f24 != null) {
+			return new ResponseEntity<>(f24, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("F24 non trovato", HttpStatus.NOT_FOUND);
 	}
 }

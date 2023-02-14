@@ -9,4 +9,5 @@ export enum Endpoints {
   SCADENZARIO = "/docfisc/fatture/scadenze",
   REGISTRO_CORRISPETTIVI = "/docfisc/registro-corrispettivi",
   BILANCIO = "/utils/bilancio",
+  FISCO = "/fisco",
 }
