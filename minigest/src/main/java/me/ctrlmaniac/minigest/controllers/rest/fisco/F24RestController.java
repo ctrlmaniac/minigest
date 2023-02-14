@@ -17,10 +17,12 @@ import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErario;
 import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErarioReparto;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneInps;
 import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24Service;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioRepartoService;
 import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneInpsService;
 
 @RestController
 @RequestMapping("/api/fisco/f24")
@@ -37,6 +39,9 @@ public class F24RestController {
 
 	@Autowired
 	F24SezioneErarioRepartoService erarioRepartoService;
+
+	@Autowired
+	F24SezioneInpsService inpsService;
 
 	@GetMapping("")
 	public ResponseEntity<?> list(Principal principal, @RequestParam(name = "anno", required = false) String anno,
@@ -73,6 +78,12 @@ public class F24RestController {
 					reparto.setSezioneErario(sezioneErario);
 					erarioRepartoService.save(reparto);
 				}
+			}
+
+			// Salva sezione inps
+			for (F24SezioneInps sezione : payload.getSezioneInps()) {
+				sezione.setF24(f24);
+				inpsService.save(sezione);
 			}
 
 			return new ResponseEntity<>(f24, HttpStatus.CREATED);

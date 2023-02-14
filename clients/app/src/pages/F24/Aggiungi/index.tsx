@@ -21,6 +21,7 @@ import { IconCirclePlus, IconTrash } from "@tabler/icons-react";
 import { F24 } from "~/types";
 import { SaveFab } from "components";
 import post from "~/features/f24/post";
+import RepartoInps from "./RepartoInps";
 
 const Aggiungi: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -85,6 +86,22 @@ const Aggiungi: React.FC = () => {
   };
 
   /**
+   * SEZIONE INPS
+   */
+  const [inpsReparti, setInpsReparti] = React.useState<any>([]);
+  const [inpsDialogOpen, setInpsDialogOpen] = React.useState(false);
+
+  const handleAddInps = (reparto: any) => {
+    setInpsReparti([...inpsReparti, reparto]);
+  };
+
+  const handleRemoveInps = (i: number) => {
+    const reparti = [...inpsReparti];
+    reparti.splice(i, 1);
+    setInpsReparti(reparti);
+  };
+
+  /**
    * SUBMIT
    */
   const handleSubmit = () => {
@@ -104,6 +121,10 @@ const Aggiungi: React.FC = () => {
         ...erario,
         reparti: erarioReparti,
       };
+    }
+
+    if (inpsReparti.length > 0) {
+      payload.sezioneInps = inpsReparti;
     }
 
     dispatch(post(payload));
@@ -176,7 +197,9 @@ const Aggiungi: React.FC = () => {
 
             <Box mt={2}>
               {isEmpty(erarioReparti) ? (
-                <Alert severity="info">Sezione Erario vuota</Alert>
+                <Alert severity="info" variant="outlined">
+                  Sezione Erario vuota
+                </Alert>
               ) : (
                 <Table>
                   <TableHead>
@@ -221,10 +244,97 @@ const Aggiungi: React.FC = () => {
         </Paper>
       </Box>
 
+      <Box mb={3}>
+        <Paper>
+          <Box p={2}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item xs={10}>
+                <Typography variant="h6">Sezione INPS</Typography>
+              </Grid>
+              <Grid item xs={2} sx={{ textAlign: "right" }}>
+                <IconButton
+                  color="info"
+                  onClick={() => setInpsDialogOpen(true)}
+                >
+                  <IconCirclePlus />
+                </IconButton>
+              </Grid>
+            </Grid>
+
+            <Box mt={2}>
+              {isEmpty(inpsReparti) ? (
+                <Alert severity="info" variant="outlined">
+                  Sezione INPS vuota
+                </Alert>
+              ) : (
+                <Box sx={{ overflowX: "auto" }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ width: 80 }}>Codice sede</TableCell>
+                        <TableCell sx={{ width: 80 }}>
+                          Causale contributo
+                        </TableCell>
+                        <TableCell>Matricola/codice/filiale azienda</TableCell>
+                        <TableCell>Periodo di rif. da</TableCell>
+                        <TableCell>Periodo di rif. a</TableCell>
+                        <TableCell align="right">Importo a debito</TableCell>
+                        <TableCell align="right">Importo a credito</TableCell>
+                        <TableCell sx={{ width: 50 }} align="center">
+                          <IconTrash />
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {inpsReparti.map((reparto: any, i: number) => (
+                        <TableRow key={i}>
+                          <TableCell>{reparto.codiceSede}</TableCell>
+                          <TableCell>{reparto.causaleContributo}</TableCell>
+                          <TableCell>{reparto.matricola}</TableCell>
+                          <TableCell>
+                            {reparto.meseRiferimentoDa}-
+                            {reparto.annoRiferimentoDa}
+                          </TableCell>
+                          <TableCell>
+                            {reparto.meseRiferimentoA}-
+                            {reparto.annoRiferimentoA}
+                          </TableCell>
+                          <TableCell>{reparto.importoDebito}</TableCell>
+                          <TableCell>{reparto.importoCredito}</TableCell>
+                          <TableCell align="center">
+                            <IconButton
+                              color="error"
+                              onClick={() => handleRemoveInps(i)}
+                            >
+                              <IconTrash />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Box>
+              )}
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+
       <RepartoErario
         open={erarioDialogOpen}
         onClose={setErarioDialogOpen}
         onSave={handleAddErarioReparto}
+      />
+      <RepartoInps
+        open={inpsDialogOpen}
+        onClose={setInpsDialogOpen}
+        onSave={handleAddInps}
       />
 
       <SaveFab disabled={false} onClick={handleSubmit} />

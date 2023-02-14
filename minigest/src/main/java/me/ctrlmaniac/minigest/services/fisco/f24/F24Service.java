@@ -16,12 +16,6 @@ public class F24Service {
 	@Autowired
 	F24Repo repo;
 
-	@Autowired
-	F24SezioneErarioService erarioService;
-
-	@Autowired
-	F24SezioneErarioRepartoService erarioRepartoService;
-
 	public F24 findById(String id) {
 		Optional<F24> opt = repo.findById(id);
 
@@ -45,9 +39,6 @@ public class F24Service {
 	}
 
 	public F24 save(F24 payload) {
-		if (payload.getSezioneErario() != null) {
-			erarioService.save(payload.getSezioneErario());
-		}
 		return repo.save(payload);
 	}
 }

@@ -62,6 +62,13 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
       importoDebito: "",
       importoCredito: 0,
     });
+    setErrors({
+      codiceTributo: true,
+      riferimento: false,
+      anno: false,
+      importoDebito: true,
+      importoCredito: false,
+    });
   };
 
   const handleSubmit = () => {
