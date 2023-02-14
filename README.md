@@ -86,3 +86,11 @@ public class ReactWebController {
 Ho utilizzato `spring-security` per gestire l'accesso e l'autorizzazione all'applicazione e alla sezione admin!
 
 Non ho utilizzato token `jwt` ma la sessione che genera spring security. La connessione è quindi _stateful_.
+
+## Deploy
+
+Questa applicazione è raggiungibile al sito internet [https://minigest.ctrlmaniac.me](https://minigest.ctrlmaniac.me). Per il deploy mi sono affidato a **Docker**! Puoi trovare nel hub di docker l'immagine di questa applicazione!
+
+Sul VPS è installato **nginx** che si occupa di gestire le chiamate al sito internet e di rigirarle al server tomcat che è avviato grazie a docker!
+
+Il tutto automatizzato grazie alle **Github actions**.
