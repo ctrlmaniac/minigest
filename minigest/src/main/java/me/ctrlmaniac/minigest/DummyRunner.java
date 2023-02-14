@@ -25,6 +25,9 @@ import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscaleRe
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaReparto;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.FatturaScadenza;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErario;
+import me.ctrlmaniac.minigest.entities.fisco.f24.F24SezioneErarioReparto;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
@@ -36,6 +39,9 @@ import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleSe
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaRepartoService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaScadenzaService;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24Service;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioRepartoService;
+import me.ctrlmaniac.minigest.services.fisco.f24.F24SezioneErarioService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 @Component
@@ -75,6 +81,15 @@ public class DummyRunner implements CommandLineRunner {
 
 	@Autowired
 	FatturaScadenzaService fatturaScadenzaService;
+
+	@Autowired
+	F24Service f24Service;
+
+	@Autowired
+	F24SezioneErarioService f24SezioneErarioService;
+
+	@Autowired
+	F24SezioneErarioRepartoService f24SezioneErarioRepartoService;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -198,8 +213,21 @@ public class DummyRunner implements CommandLineRunner {
 					0,
 					0);
 			chiusuraFiscaleRepartoService.save(reparto2);
-
 		}
+
+		/**
+		 * CREA UN F24
+		 */
+
+		F24 f24 = new F24(admin, LocalDate.of(LocalDate.now().getYear(), 5, 16));
+		f24Service.save(f24);
+
+		F24SezioneErario f24SezioneErario = new F24SezioneErario(f24, null, null, null);
+		f24SezioneErarioService.save(f24SezioneErario);
+
+		F24SezioneErarioReparto f24SezioneErarioReparto = new F24SezioneErarioReparto(f24SezioneErario, "6031",
+				null, String.valueOf(LocalDate.now().getYear()), 2500.00, 0.00);
+		f24SezioneErarioRepartoService.save(f24SezioneErarioReparto);
 
 	}
 
