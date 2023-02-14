@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +40,7 @@ public class F24SezioneErario {
 	private String codiceUfficio;
 	private String codiceAtto;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sezioneErario")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sezioneErario", cascade = CascadeType.ALL)
 	private Set<F24SezioneErarioReparto> reparti = new HashSet<>();
 
 	@Transient

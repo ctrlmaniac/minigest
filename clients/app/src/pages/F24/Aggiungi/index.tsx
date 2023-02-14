@@ -14,12 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useAppSelector } from "~/hooks";
+import { useAppDispatch, useAppSelector } from "~/hooks";
 import { isEmpty } from "lodash";
 import RepartoErario from "./RepartoErario";
-import { IconCirclePlus, IconPlus, IconTrash } from "@tabler/icons-react";
+import { IconCirclePlus, IconTrash } from "@tabler/icons-react";
+import { F24 } from "~/types";
+import { SaveFab } from "components";
+import post from "~/features/f24/post";
 
 const Aggiungi: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { dettagli: account } = useAppSelector((state) => state.account);
 
   /**
@@ -78,6 +82,31 @@ const Aggiungi: React.FC = () => {
     reparti.splice(i, 1);
 
     setErarioReparti(reparti);
+  };
+
+  /**
+   * SUBMIT
+   */
+  const handleSubmit = () => {
+    const payload: F24 = {
+      utente: account!,
+      ...values,
+      sezioneErario: null,
+      sezioneInps: [],
+      sezioneRegioni: [],
+      sezioneTributiLocali: null,
+      sezioneInail: [],
+      sezioneAltriEnti: [],
+    };
+
+    if (erarioReparti.length > 0) {
+      payload.sezioneErario = {
+        ...erario,
+        reparti: erarioReparti,
+      };
+    }
+
+    dispatch(post(payload));
   };
 
   return (
@@ -197,6 +226,8 @@ const Aggiungi: React.FC = () => {
         onClose={setErarioDialogOpen}
         onSave={handleAddErarioReparto}
       />
+
+      <SaveFab disabled={false} onClick={handleSubmit} />
     </>
   );
 };

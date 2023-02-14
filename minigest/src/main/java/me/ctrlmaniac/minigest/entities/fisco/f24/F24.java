@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -40,22 +41,22 @@ public class F24 {
 
 	private LocalDate dataScadenza;
 
-	@OneToOne(mappedBy = "f24")
+	@OneToOne(mappedBy = "f24", cascade = CascadeType.ALL)
 	private F24SezioneErario sezioneErario;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24", cascade = CascadeType.ALL)
 	private Set<F24SezioneInps> sezioneInps = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24", cascade = CascadeType.ALL)
 	private Set<F24SezioneRegioni> sezioneRegioni = new HashSet<>();
 
-	@OneToOne(mappedBy = "f24")
+	@OneToOne(mappedBy = "f24", cascade = CascadeType.ALL)
 	private F24SezioneTributiLocali sezioneTributiLocali;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24", cascade = CascadeType.ALL)
 	private Set<F24SezioneInail> sezioneInail = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "f24", cascade = CascadeType.ALL)
 	private Set<F24SezioneAltriEnti> sezioneAltriEnti = new HashSet<>();
 
 	@Transient

@@ -98,8 +98,7 @@ export const f24Slice = createSlice({
       state.postError = false;
     },
     postSuccess: (state, action: PayloadAction<F24>) => {
-      state.list = [...state.list!, action.payload];
-      state.response = "fattura aggiunta";
+      state.response = "F24 aggiunto";
       state.postError = false;
       state.posting = false;
     },

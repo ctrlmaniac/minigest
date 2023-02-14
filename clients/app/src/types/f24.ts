@@ -5,7 +5,7 @@ export default interface F24 {
   utente?: Account;
   dataScadenza: string;
   totale?: number;
-  sezioneErario: {
+  sezioneErario: null | {
     id?: string;
     f24?: F24;
     codiceUfficio: string;
@@ -25,36 +25,40 @@ export default interface F24 {
       importoCredito: number;
     }[];
   };
-  sezioneInps: {
-    id?: string;
-    f24?: {
-      id?: string;
-    };
-    codiceSede: string;
-    causaleContributo: string;
-    matricola: string;
-    meseRiferimentoDa: string;
-    annoRiferimentoDa: string;
-    meseRiferimentoA: string;
-    annoRiferimentoA: string;
-    importoDebito: number;
-    importoCredito: number;
-    saldo?: number;
-  }[];
-  sezioneRegioni: {
-    id?: string;
-    f24?: {
-      id?: string;
-    };
-    codiceRegione: string;
-    codiceTributo: string;
-    meseRiferimento: string;
-    annoRiferimento: string;
-    importoDebito: number;
-    importoCredito: number;
-    saldo?: number;
-  }[];
-  sezioneTributiLocali: {
+  sezioneInps:
+    | null
+    | {
+        id?: string;
+        f24?: {
+          id?: string;
+        };
+        codiceSede: string;
+        causaleContributo: string;
+        matricola: string;
+        meseRiferimentoDa: string;
+        annoRiferimentoDa: string;
+        meseRiferimentoA: string;
+        annoRiferimentoA: string;
+        importoDebito: number;
+        importoCredito: number;
+        saldo?: number;
+      }[];
+  sezioneRegioni:
+    | null
+    | {
+        id?: string;
+        f24?: {
+          id?: string;
+        };
+        codiceRegione: string;
+        codiceTributo: string;
+        meseRiferimento: string;
+        annoRiferimento: string;
+        importoDebito: number;
+        importoCredito: number;
+        saldo?: number;
+      }[];
+  sezioneTributiLocali: null | {
     id?: string;
     f24?: {
       id?: string;
@@ -81,35 +85,39 @@ export default interface F24 {
       importoCredito: number;
     }[];
   };
-  sezioneInail: {
-    id?: string;
-    f24?: {
-      id?: string;
-    };
-    codiceSede: string;
-    codiceDitta: string;
-    cc: string;
-    numeroRiferimento: string;
-    causale: string;
-    importoDebito: number;
-    importoCredito: number;
-    saldo?: number;
-  }[];
-  sezioneAltriEnti: {
-    id?: string;
-    f24?: {
-      id?: string;
-    };
-    codiceEnte: string;
-    codiceSede: string;
-    causaleContributo: string;
-    codicePosizione: string;
-    meseRiferimentoDa: string;
-    annoRiferimentoDa: string;
-    meseRiferimentoA: string;
-    annoRiferimentoA: string;
-    importoDebito: number;
-    importoCredito: number;
-    saldo?: number;
-  }[];
+  sezioneInail:
+    | null
+    | {
+        id?: string;
+        f24?: {
+          id?: string;
+        };
+        codiceSede: string;
+        codiceDitta: string;
+        cc: string;
+        numeroRiferimento: string;
+        causale: string;
+        importoDebito: number;
+        importoCredito: number;
+        saldo?: number;
+      }[];
+  sezioneAltriEnti:
+    | null
+    | {
+        id?: string;
+        f24?: {
+          id?: string;
+        };
+        codiceEnte: string;
+        codiceSede: string;
+        causaleContributo: string;
+        codicePosizione: string;
+        meseRiferimentoDa: string;
+        annoRiferimentoDa: string;
+        meseRiferimentoA: string;
+        annoRiferimentoA: string;
+        importoDebito: number;
+        importoCredito: number;
+        saldo?: number;
+      }[];
 }
