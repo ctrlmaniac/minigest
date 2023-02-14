@@ -1,5 +1,7 @@
 package me.ctrlmaniac.minigest.controllers.rest.docfisc;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -94,18 +96,30 @@ public class RegistroCorrispettivi {
 							totaleResi += reparto.getTotaleResi();
 						}
 
+						BigDecimal bdTotaleReparto = new BigDecimal(totaleReparto);
+						bdTotaleReparto = bdTotaleReparto.setScale(2, RoundingMode.HALF_EVEN);
+
+						BigDecimal bdTotaleAnnulli = new BigDecimal(totaleAnnulli);
+						bdTotaleAnnulli = bdTotaleAnnulli.setScale(2, RoundingMode.HALF_EVEN);
+
+						BigDecimal bdTotaleResi = new BigDecimal(totaleResi);
+						bdTotaleResi = bdTotaleResi.setScale(2, RoundingMode.HALF_EVEN);
+
 						Reparto reparto = new Reparto();
 						reparto.setAliquota(aliquotaIVA);
-						reparto.setTotale(totaleReparto);
-						reparto.setAnnulli(totaleAnnulli);
-						reparto.setResi(totaleResi);
+						reparto.setTotale(bdTotaleReparto.doubleValue());
+						reparto.setAnnulli(bdTotaleAnnulli.doubleValue());
+						reparto.setResi(bdTotaleResi.doubleValue());
 
 						corrispettivo.getReparti().put(aliquotaIVA, reparto);
 					}
 				}
 
+				BigDecimal bdTotale = new BigDecimal(totale);
+				bdTotale = bdTotale.setScale(2, RoundingMode.HALF_EVEN);
+
 				corrispettivo.setData(date);
-				corrispettivo.setTotale(totale);
+				corrispettivo.setTotale(bdTotale.doubleValue());
 				corrispettivo.setNumeroDocFisc(ndf);
 				corrispettivi.add(corrispettivo);
 			}

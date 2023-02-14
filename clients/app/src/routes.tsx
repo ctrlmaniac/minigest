@@ -34,6 +34,7 @@ const RegistroCorrispettivi = lazy(
 const Bilancio = lazy(() => import("~/pages/Bilancio"));
 const F24 = lazy(() => import("~/pages/F24"));
 const F24Dettagli = lazy(() => import("~/pages/F24/Dettagli"));
+const F24Aggiungi = lazy(() => import("~/pages/F24/Aggiungi"));
 
 export default createBrowserRouter(
   [
@@ -222,6 +223,14 @@ export default createBrowserRouter(
                   element: (
                     <Suspense fallback={<LoadingScreen />}>
                       <F24 />
+                    </Suspense>
+                  ),
+                },
+                {
+                  path: "aggiungi",
+                  element: (
+                    <Suspense fallback={<LoadingScreen />}>
+                      <F24Aggiungi />
                     </Suspense>
                   ),
                 },
