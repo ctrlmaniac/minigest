@@ -113,7 +113,7 @@ export const f24Slice = createSlice({
       state.putError = false;
     },
     putSuccess: (state, action: PayloadAction<string>) => {
-      state.response = "fattura modificata";
+      state.response = "F24 modificato";
       state.putError = false;
       state.putting = false;
     },

@@ -446,7 +446,11 @@ const F24Dettagli: React.FC = () => {
             loading={removing}
           />
 
-          <Snackbar open={!isEmpty(response)}>
+          <Snackbar
+            open={!isEmpty(response)}
+            autoHideDuration={2000}
+            onClose={() => dispatch(unsetResponse())}
+          >
             <Alert severity="info">{response}</Alert>
           </Snackbar>
         </>

@@ -14,7 +14,7 @@ import {
   Checkbox,
   Snackbar,
 } from "@mui/material";
-import { IconCirclePlus, IconTrash } from "@tabler/icons-react";
+import { IconCirclePlus, IconTrash, IconX } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -880,7 +880,16 @@ const Form: React.FC<Props> = ({ dettagli }) => {
 
       <SaveFab disabled={isDisabled} onClick={handleSubmit} />
 
-      <Snackbar open={!isEmpty(response)}>
+      <Snackbar
+        open={!isEmpty(response)}
+        autoHideDuration={1000}
+        onClose={() => dispatch(unsetResponse())}
+        action={
+          <IconButton onClick={() => dispatch(unsetResponse())}>
+            <IconX />
+          </IconButton>
+        }
+      >
         <Alert severity="info">{response}</Alert>
       </Snackbar>
     </>
