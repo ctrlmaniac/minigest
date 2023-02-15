@@ -1,8 +1,11 @@
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
+  FormControlLabel,
+  FormGroup,
   TextField,
 } from "@mui/material";
 import React from "react";
@@ -13,8 +16,14 @@ interface Props {
   onSave: Function;
 }
 
-const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
+const RepartoLocali: React.FC<Props> = ({ open, onClose, onSave }) => {
   const [values, setValues] = React.useState({
+    codiceEnte: "",
+    ravvedimento: false,
+    immobiliVariati: false,
+    acconto: false,
+    saldo: false,
+    numeroImmobili: "",
     codiceTributo: "",
     riferimento: "",
     anno: new Date().getFullYear(),
@@ -23,6 +32,12 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   });
 
   const [errors, setErrors] = React.useState({
+    codiceEnte: true,
+    ravvedimento: false,
+    immobiliVariati: false,
+    acconto: false,
+    saldo: false,
+    numeroImmobili: false,
     codiceTributo: true,
     riferimento: false,
     anno: false,
@@ -46,6 +61,15 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
     }
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+
+    setValues({
+      ...values,
+      [name]: checked,
+    });
+  };
+
   // Save button
   const [isDisabled, setIsDisabled] = React.useState(true);
 
@@ -56,6 +80,12 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   const handleClose = () => {
     onClose(false);
     setValues({
+      codiceEnte: "",
+      ravvedimento: false,
+      immobiliVariati: false,
+      acconto: false,
+      saldo: false,
+      numeroImmobili: "",
       codiceTributo: "",
       riferimento: "",
       anno: new Date().getFullYear(),
@@ -63,6 +93,12 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
       importoCredito: 0,
     });
     setErrors({
+      codiceEnte: true,
+      ravvedimento: false,
+      immobiliVariati: false,
+      acconto: false,
+      saldo: false,
+      numeroImmobili: false,
       codiceTributo: true,
       riferimento: false,
       anno: false,
@@ -82,6 +118,60 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
         <TextField
           fullWidth
           required
+          label="Codice Ente"
+          name="codiceEnte"
+          value={values.codiceEnte}
+          error={errors.codiceEnte}
+          onChange={handleChange}
+          margin="normal"
+        />
+
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox name="ravvedimento" onChange={handleCheckboxChange} />
+            }
+            label="Ravv."
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                name="immobiliVariati"
+                onChange={handleCheckboxChange}
+              />
+            }
+            label="Immob. Variati"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox name="acconto" onChange={handleCheckboxChange} />
+            }
+            label="Acc."
+          />
+
+          <FormControlLabel
+            control={<Checkbox name="saldo" onChange={handleCheckboxChange} />}
+            label="Saldo"
+          />
+        </FormGroup>
+
+        <TextField
+          fullWidth
+          label="Numero Immobili"
+          name="numeroImmobili"
+          value={values.numeroImmobili}
+          error={errors.numeroImmobili}
+          onChange={handleChange}
+          margin="normal"
+          type="number"
+          inputProps={{ step: 1 }}
+        />
+
+        <TextField
+          fullWidth
+          required
           label="Codice Tributo"
           name="codiceTributo"
           value={values.codiceTributo}
@@ -92,7 +182,7 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
 
         <TextField
           fullWidth
-          label="Rateazione/regione/prov./mese rif."
+          label="Rateazione/mese rif."
           name="riferimento"
           value={values.riferimento}
           error={errors.riferimento}
@@ -109,6 +199,7 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
           error={errors.anno}
           onChange={handleChange}
           margin="normal"
+          type="number"
           inputProps={{ step: 1 }}
         />
 
@@ -147,4 +238,4 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   );
 };
 
-export default RepartoErario;
+export default RepartoLocali;

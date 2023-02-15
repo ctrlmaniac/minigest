@@ -272,7 +272,7 @@ public class DummyRunner implements CommandLineRunner {
 		f24SezioneRegioniService.save(f24SezioneRegioni);
 
 		// Sezione IMU e Altri Tributi Locali
-		F24SezioneTributiLocali f24SezioneTributiLocali = new F24SezioneTributiLocali(f24, 0.0);
+		F24SezioneTributiLocali f24SezioneTributiLocali = new F24SezioneTributiLocali(f24, 0.0, null);
 		f24SezioneTributiLocaliService.save(f24SezioneTributiLocali);
 
 		F24SezioneTributiLocaliReparto f24SezioneTributiLocaliReparto = new F24SezioneTributiLocaliReparto(

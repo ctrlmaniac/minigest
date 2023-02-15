@@ -14,11 +14,12 @@ interface Props {
   onSave: Function;
 }
 
-const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
+const RepartoAltriEnti: React.FC<Props> = ({ open, onClose, onSave }) => {
   const [values, setValues] = React.useState({
+    codiceEnte: "",
     codiceSede: "",
     causaleContributo: "",
-    matricola: "",
+    codicePosizione: "",
     meseRiferimentoDa: "01",
     annoRiferimentoDa: new Date().getFullYear(),
     meseRiferimentoA: "12",
@@ -28,9 +29,10 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
   });
 
   const [errors, setErrors] = React.useState({
+    codiceEnte: true,
     codiceSede: true,
     causaleContributo: true,
-    matricola: true,
+    codicePosizione: true,
     meseRiferimentoDa: false,
     annoRiferimentoDa: false,
     meseRiferimentoA: false,
@@ -55,12 +57,20 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
     }
   };
 
+  // Save button
+  const [isDisabled, setIsDisabled] = React.useState(true);
+
+  React.useEffect(() => {
+    setIsDisabled(!Object.values(errors).every((value) => value === false));
+  }, [errors]);
+
   const handleClose = () => {
     onClose(false);
     setValues({
+      codiceEnte: "",
       codiceSede: "",
       causaleContributo: "",
-      matricola: "",
+      codicePosizione: "",
       meseRiferimentoDa: "01",
       annoRiferimentoDa: new Date().getFullYear(),
       meseRiferimentoA: "12",
@@ -69,9 +79,10 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
       importoCredito: 0,
     });
     setErrors({
+      codiceEnte: true,
       codiceSede: true,
       causaleContributo: true,
-      matricola: true,
+      codicePosizione: true,
       meseRiferimentoDa: false,
       annoRiferimentoDa: false,
       meseRiferimentoA: false,
@@ -86,16 +97,19 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
     handleClose();
   };
 
-  // Save button
-  const [isDisabled, setIsDisabled] = React.useState(true);
-
-  React.useEffect(() => {
-    setIsDisabled(!Object.values(errors).every((value) => value === false));
-  }, [errors]);
-
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
+        <TextField
+          fullWidth
+          required
+          label="Codice Ente"
+          name="codiceEnte"
+          value={values.codiceEnte}
+          error={errors.codiceEnte}
+          onChange={handleChange}
+          margin="normal"
+        />
         <TextField
           fullWidth
           required
@@ -106,7 +120,6 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
           onChange={handleChange}
           margin="normal"
         />
-
         <TextField
           fullWidth
           required
@@ -121,10 +134,10 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
         <TextField
           fullWidth
           required
-          label="Matricola/Codice INPS o filiale azienda"
-          name="matricola"
-          value={values.matricola}
-          error={errors.matricola}
+          label="Codice Posizione"
+          name="codicePosizione"
+          value={values.codicePosizione}
+          error={errors.codicePosizione}
           onChange={handleChange}
           margin="normal"
         />
@@ -182,6 +195,7 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
             />
           </Grid>
         </Grid>
+
         <TextField
           fullWidth
           required
@@ -194,6 +208,7 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
           type="number"
           inputProps={{ step: 0.01 }}
         />
+
         <TextField
           fullWidth
           required
@@ -208,7 +223,7 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button fullWidth onClick={handleSubmit} disabled={isDisabled}>
+        <Button fullWidth disabled={isDisabled} onClick={handleSubmit}>
           salva
         </Button>
       </DialogActions>
@@ -216,4 +231,4 @@ const RepartoInps: React.FC<Props> = ({ open, onClose, onSave }) => {
   );
 };
 
-export default RepartoInps;
+export default RepartoAltriEnti;

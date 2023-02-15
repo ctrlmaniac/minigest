@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,8 +38,9 @@ public class F24SezioneTributiLocali {
 	private F24 f24;
 
 	private double detrazione;
+	private String identificativoOperazione;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sezioneTributiLocali")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sezioneTributiLocali", cascade = CascadeType.ALL)
 	private Set<F24SezioneTributiLocaliReparto> reparti = new HashSet<>();
 
 	@Transient
@@ -49,9 +52,10 @@ public class F24SezioneTributiLocali {
 	@Transient
 	private double saldo;
 
-	public F24SezioneTributiLocali(F24 f24, double detrazione) {
+	public F24SezioneTributiLocali(F24 f24, double detrazione, String identificativoOperazione) {
 		this.f24 = f24;
 		this.detrazione = detrazione;
+		this.identificativoOperazione = identificativoOperazione;
 	}
 
 	public double getTotaleDebito() {

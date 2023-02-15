@@ -63,7 +63,8 @@ export default interface F24 {
     f24?: {
       id?: string;
     };
-    detrazione: number;
+    detrazione?: number | string | null;
+    identificativoOperazione?: string;
     totaleDebito?: number;
     totaleCredito?: number;
     saldo?: number;

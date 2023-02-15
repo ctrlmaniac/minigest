@@ -41,4 +41,8 @@ public class F24Service {
 	public F24 save(F24 payload) {
 		return repo.save(payload);
 	}
+
+	public void delete(F24 payload) {
+		repo.delete(payload);
+	}
 }

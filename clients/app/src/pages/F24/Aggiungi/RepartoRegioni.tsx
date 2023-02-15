@@ -13,8 +13,9 @@ interface Props {
   onSave: Function;
 }
 
-const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
+const RepartoRegioni: React.FC<Props> = ({ open, onClose, onSave }) => {
   const [values, setValues] = React.useState({
+    codiceRegione: "",
     codiceTributo: "",
     riferimento: "",
     anno: new Date().getFullYear(),
@@ -23,6 +24,7 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   });
 
   const [errors, setErrors] = React.useState({
+    codiceRegione: true,
     codiceTributo: true,
     riferimento: false,
     anno: false,
@@ -56,6 +58,7 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   const handleClose = () => {
     onClose(false);
     setValues({
+      codiceRegione: "",
       codiceTributo: "",
       riferimento: "",
       anno: new Date().getFullYear(),
@@ -63,6 +66,7 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
       importoCredito: 0,
     });
     setErrors({
+      codiceRegione: true,
       codiceTributo: true,
       riferimento: false,
       anno: false,
@@ -79,6 +83,16 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
+        <TextField
+          fullWidth
+          required
+          label="Codice Regione"
+          name="codiceRegione"
+          value={values.codiceRegione}
+          error={errors.codiceRegione}
+          onChange={handleChange}
+          margin="normal"
+        />
         <TextField
           fullWidth
           required
@@ -109,7 +123,8 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
           error={errors.anno}
           onChange={handleChange}
           margin="normal"
-          inputProps={{ step: 1 }}
+          type="number"
+          inputProps={{ step: 0.01 }}
         />
 
         <TextField
@@ -147,4 +162,4 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   );
 };
 
-export default RepartoErario;
+export default RepartoRegioni;

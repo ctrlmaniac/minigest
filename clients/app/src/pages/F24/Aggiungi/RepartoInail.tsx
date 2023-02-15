@@ -13,19 +13,23 @@ interface Props {
   onSave: Function;
 }
 
-const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
+const RepartoInail: React.FC<Props> = ({ open, onClose, onSave }) => {
   const [values, setValues] = React.useState({
-    codiceTributo: "",
+    codiceSede: "",
+    codiceDitta: "",
+    cc: "",
     riferimento: "",
-    anno: new Date().getFullYear(),
+    causale: "",
     importoDebito: "",
     importoCredito: 0,
   });
 
   const [errors, setErrors] = React.useState({
-    codiceTributo: true,
+    codiceSede: true,
+    codiceDitta: true,
+    cc: true,
     riferimento: false,
-    anno: false,
+    causale: true,
     importoDebito: true,
     importoCredito: false,
   });
@@ -56,16 +60,20 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   const handleClose = () => {
     onClose(false);
     setValues({
-      codiceTributo: "",
+      codiceSede: "",
+      codiceDitta: "",
+      cc: "",
       riferimento: "",
-      anno: new Date().getFullYear(),
+      causale: "",
       importoDebito: "",
       importoCredito: 0,
     });
     setErrors({
-      codiceTributo: true,
+      codiceSede: true,
+      codiceDitta: true,
+      cc: true,
       riferimento: false,
-      anno: false,
+      causale: true,
       importoDebito: true,
       importoCredito: false,
     });
@@ -82,17 +90,38 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
         <TextField
           fullWidth
           required
-          label="Codice Tributo"
-          name="codiceTributo"
-          value={values.codiceTributo}
-          error={errors.codiceTributo}
+          label="Codice Sede"
+          name="codiceSede"
+          value={values.codiceSede}
+          error={errors.codiceSede}
+          onChange={handleChange}
+          margin="normal"
+        />
+        <TextField
+          fullWidth
+          required
+          label="Codice Ditta"
+          name="codiceDitta"
+          value={values.codiceDitta}
+          error={errors.codiceDitta}
           onChange={handleChange}
           margin="normal"
         />
 
         <TextField
           fullWidth
-          label="Rateazione/regione/prov./mese rif."
+          required
+          label="C.C."
+          name="cc"
+          value={values.cc}
+          error={errors.cc}
+          onChange={handleChange}
+          margin="normal"
+        />
+
+        <TextField
+          fullWidth
+          label="Numero di riferimento"
           name="riferimento"
           value={values.riferimento}
           error={errors.riferimento}
@@ -103,13 +132,12 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
         <TextField
           fullWidth
           required
-          label="Anno di riferimento"
-          name="anno"
-          value={values.anno}
-          error={errors.anno}
+          label="Causale"
+          name="causale"
+          value={values.causale}
+          error={errors.causale}
           onChange={handleChange}
           margin="normal"
-          inputProps={{ step: 1 }}
         />
 
         <TextField
@@ -147,4 +175,4 @@ const RepartoErario: React.FC<Props> = ({ open, onClose, onSave }) => {
   );
 };
 
-export default RepartoErario;
+export default RepartoInail;
