@@ -15,4 +15,12 @@ public class F24SezioneTributiLocaliRepartoService {
 	public F24SezioneTributiLocaliReparto save(F24SezioneTributiLocaliReparto object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneTributiLocaliReparto object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

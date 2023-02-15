@@ -1,8 +1,9 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { putStart, putSuccess, putFail } from "./slice";
+import { F24 } from "~/types";
 
-export default function update(id: string, payload: any): AppThunk {
+export default function update(id: string, payload: F24): AppThunk {
   return async (dispatch) => {
     dispatch(putStart());
 

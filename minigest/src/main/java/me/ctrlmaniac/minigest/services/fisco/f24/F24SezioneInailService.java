@@ -15,4 +15,12 @@ public class F24SezioneInailService {
 	public F24SezioneInail save(F24SezioneInail object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneInail object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

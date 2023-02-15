@@ -15,4 +15,12 @@ public class F24SezioneErarioService {
 	public F24SezioneErario save(F24SezioneErario object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneErario object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

@@ -15,4 +15,12 @@ public class F24SezioneAltriEntiService {
 	public F24SezioneAltriEnti save(F24SezioneAltriEnti object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneAltriEnti object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

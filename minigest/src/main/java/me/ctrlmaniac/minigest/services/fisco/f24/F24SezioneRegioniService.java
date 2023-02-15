@@ -15,4 +15,12 @@ public class F24SezioneRegioniService {
 	public F24SezioneRegioni save(F24SezioneRegioni object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneRegioni object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }

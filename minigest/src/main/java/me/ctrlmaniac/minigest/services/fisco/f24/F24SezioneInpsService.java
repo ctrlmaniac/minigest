@@ -15,4 +15,12 @@ public class F24SezioneInpsService {
 	public F24SezioneInps save(F24SezioneInps object) {
 		return repo.save(object);
 	}
+
+	public void delete(F24SezioneInps object) {
+		repo.delete(object);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
+	}
 }
