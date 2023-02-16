@@ -148,19 +148,11 @@ const Registrati: React.FC = () => {
     nome: "",
   });
 
-  const [negozioError, setNegozioError] = React.useState({
-    nome: true,
-  });
-
   const handleNegozioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
     setNegozio({
       ...negozio,
-      nome: e.target.value,
-    });
-
-    setNegozioError({
-      ...negozioError,
-      nome: e.target.value.toString().length < 1,
+      nome: value,
     });
   };
 
@@ -174,36 +166,44 @@ const Registrati: React.FC = () => {
     const isAccountOK = !Object.values(accountErrors).every(
       (value) => value === false
     );
-    const isAziendaOK = !Object.values(aziendaErrors).every(
-      (value) => value === false
-    );
-    const isSedeOK = !Object.values(sedeError).every(
-      (value) => value === false
-    );
-    const isNegozioOk = !Object.values(negozioError).every(
-      (value) => value === false
-    );
-
-    setIsDisabled(isAccountOK || isAziendaOK || isSedeOK || isNegozioOk);
-  }, [accountErrors, aziendaErrors, sedeError, negozioError]);
+    const isAziendaOK = aziendaExists
+      ? false
+      : !Object.values(aziendaErrors).every((value) => value === false);
+    const isSedeOK = aziendaExists
+      ? false
+      : !Object.values(sedeError).every((value) => value === false);
+    setIsDisabled(isAccountOK || isAziendaOK || isSedeOK);
+  }, [accountErrors, aziendaErrors, sedeError]);
 
   /**
    * SUBMIT
    */
   const handleSubmit = () => {
-    const payload = {
+    let payload: any = {
       nome: account.nome,
       cognome: account.cognome,
       email: account.email,
       password: account.password,
-      aziende: [
-        {
+    };
+
+    if (!aziendaExists) {
+      payload = {
+        ...payload,
+        azienda: {
           ...azienda,
           sede: { ...sede },
           negozi: [{ ...negozio }],
         },
-      ],
-    };
+      };
+    } else {
+      payload = {
+        ...payload,
+        addMeTo: {
+          idFiscaleIVAPaese: azienda.idFiscaleIVAPaese,
+          idFiscaleIVACodice: azienda.idFiscaleIVACodice,
+        },
+      };
+    }
 
     dispatch(register(payload));
   };
@@ -363,7 +363,7 @@ const Registrati: React.FC = () => {
                       variant="outlined"
                     >
                       {aziendaExists
-                        ? "Azienda già esistente!"
+                        ? "Azienda già esistente! Dovrai essere aggiunto manualmente da un nostro moderatore!"
                         : "Azienda disponibile"}
                     </Alert>
                   )}
@@ -383,114 +383,117 @@ const Registrati: React.FC = () => {
         </Paper>
       </Box>
 
-      <Box mb={3}>
-        <Paper>
-          <Box p={2}>
-            <Typography gutterBottom variant="h6">
-              Aggiungi la sede della tua azienda
-            </Typography>
+      {!aziendaExists && (
+        <>
+          <Box mb={3}>
+            <Paper>
+              <Box p={2}>
+                <Typography gutterBottom variant="h6">
+                  Aggiungi la sede della tua azienda
+                </Typography>
 
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={2}
-            >
-              <Grid item xs={10}>
-                <TextField
-                  fullWidth
-                  label="Indirizzo"
-                  name="indirizzo"
-                  value={sede.indirizzo}
-                  error={sedeError.indirizzo}
-                  required
-                  onChange={handleSedeChange}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <TextField
-                  fullWidth
-                  label="N. Civico"
-                  name="numeroCivico"
-                  value={sede.numeroCivico}
-                  error={sedeError.numeroCivico}
-                  onChange={handleSedeChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="CAP"
-                  name="cap"
-                  value={sede.cap}
-                  error={sedeError.cap}
-                  required
-                  onChange={handleSedeChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Comune"
-                  name="comune"
-                  value={sede.comune}
-                  error={sedeError.comune}
-                  required
-                  onChange={handleSedeChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Provincia"
-                  name="provincia"
-                  value={sede.provincia}
-                  error={sedeError.provincia}
-                  onChange={handleSedeChange}
-                  helperText="Esempio: BS"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Nazione"
-                  name="nazione"
-                  value={sede.nazione}
-                  error={sedeError.nazione}
-                  onChange={handleSedeChange}
-                  required
-                  helperText="Esempio: IT"
-                />
-              </Grid>
-            </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <Grid item xs={10}>
+                    <TextField
+                      fullWidth
+                      label="Indirizzo"
+                      name="indirizzo"
+                      value={sede.indirizzo}
+                      error={sedeError.indirizzo}
+                      required
+                      onChange={handleSedeChange}
+                    />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <TextField
+                      fullWidth
+                      label="N. Civico"
+                      name="numeroCivico"
+                      value={sede.numeroCivico}
+                      error={sedeError.numeroCivico}
+                      onChange={handleSedeChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="CAP"
+                      name="cap"
+                      value={sede.cap}
+                      error={sedeError.cap}
+                      required
+                      onChange={handleSedeChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Comune"
+                      name="comune"
+                      value={sede.comune}
+                      error={sedeError.comune}
+                      required
+                      onChange={handleSedeChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Provincia"
+                      name="provincia"
+                      value={sede.provincia}
+                      error={sedeError.provincia}
+                      onChange={handleSedeChange}
+                      helperText="Esempio: BS"
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Nazione"
+                      name="nazione"
+                      value={sede.nazione}
+                      error={sedeError.nazione}
+                      onChange={handleSedeChange}
+                      required
+                      helperText="Esempio: IT"
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
+            </Paper>
           </Box>
-        </Paper>
-      </Box>
 
-      <Box mb={16}>
-        <Paper>
-          <Box p={2}>
-            <Typography gutterBottom variant="h6">
-              Aggiungi il nome del tuo negozio
-            </Typography>
+          <Box mb={16}>
+            <Paper>
+              <Box p={2}>
+                <Typography gutterBottom variant="h6">
+                  Aggiungi il nome del tuo negozio
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                  Se non hai un negozio non aggiungerlo
+                </Typography>
 
-            <TextField
-              fullWidth
-              label="Nome Negozio"
-              name="nome"
-              value={negozio.nome}
-              error={negozioError.nome}
-              onChange={handleNegozioChange}
-            />
+                <TextField
+                  fullWidth
+                  label="Nome Negozio"
+                  name="nome"
+                  value={negozio.nome}
+                  onChange={handleNegozioChange}
+                />
+              </Box>
+            </Paper>
           </Box>
-        </Paper>
-      </Box>
+        </>
+      )}
 
-      <SaveFab
-        onClick={handleSubmit}
-        disabled={isDisabled || aziendaExists || accountExists}
-      />
+      <SaveFab onClick={handleSubmit} disabled={isDisabled || accountExists} />
     </>
   );
 };
