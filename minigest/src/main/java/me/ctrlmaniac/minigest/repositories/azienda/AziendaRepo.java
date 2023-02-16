@@ -3,6 +3,7 @@ package me.ctrlmaniac.minigest.repositories.azienda;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,6 @@ public interface AziendaRepo extends JpaRepository<Azienda, String> {
 	List<Azienda> searchByDenominazione(@Param("denominazione") String denominazione);
 
 	boolean existsByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice);
+
+	Optional<Azienda> findByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice);
 }

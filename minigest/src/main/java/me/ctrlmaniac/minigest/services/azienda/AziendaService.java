@@ -41,6 +41,16 @@ public class AziendaService {
 		return aziendaRepo.existsByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(paese, codice);
 	}
 
+	public Azienda findByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice) {
+		Optional<Azienda> opt = aziendaRepo.findByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(paese, codice);
+
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+
+		return null;
+	}
+
 	public List<Azienda> findAll() {
 		return aziendaRepo.findAllByOrderByDenominazioneAsc();
 	}
