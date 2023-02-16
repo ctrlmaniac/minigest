@@ -171,7 +171,7 @@ public class DummyRunner implements CommandLineRunner {
 		// Crea una fattura
 		TipoDocFisc TD01 = tipoDocFiscService.findByCodice("TD01");
 
-		Fattura ft1 = new Fattura(larapida, shop, TD01, LocalDate.now().minusWeeks(2),
+		Fattura ft1 = new Fattura(shop, larapida, TD01, LocalDate.now().minusWeeks(2),
 				LocalDate.now().minusWeeks(1), "12345", 122);
 		fatturaService.save(ft1);
 
