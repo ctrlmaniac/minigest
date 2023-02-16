@@ -1,0 +1,1 @@
+import{a as s,E as t}from"./index-db9e3c6a.js";import{aS as m,aT as n,aU as v,aV as E}from"./index-6a75a5de.js";function i(o){return async e=>{e(m()),s.delete(`${t.CHIUSURE_FISCALI}/${o}`).then(r=>{e(n(r.data)),e(v(o))}).catch(r=>{let a="Errore";r.response?a=r.response.data:a="Errore",e(E(a))})}}export{i as r};
