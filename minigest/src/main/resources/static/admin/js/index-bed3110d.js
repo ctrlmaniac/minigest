@@ -1,0 +1,1 @@
+import{j as r,F as t,e as a}from"./index-90347663.js";import{B as o,T as e}from"./Box-50540c80.js";const n=()=>r(t,{children:a(o,{mb:2,children:[r(e,{variant:"h3",gutterBottom:!0,children:"Benvenuto!"}),r(e,{children:"Qui puoi gestire minigest!"})]})});export{n as default};
