@@ -596,7 +596,11 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
 
       <SaveFab disabled={isDisabled} onClick={handleSubmit} loading={posting} />
 
-      <Snackbar open={!isEmpty(response)}>
+      <Snackbar
+        open={!isEmpty(response)}
+        autoHideDuration={2000}
+        onClose={() => dispatch(unsetResponse())}
+      >
         <Alert severity={postError ? "error" : "success"}>{response}</Alert>
       </Snackbar>
     </>

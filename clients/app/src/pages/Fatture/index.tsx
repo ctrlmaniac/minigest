@@ -91,6 +91,8 @@ const Fatture: React.FC = () => {
   React.useEffect(() => {
     if (!isEmpty(selected)) {
       if (mode === "vendita" || mode === "acquisto") {
+        console.log(mode);
+
         dispatch(list(mode, selected!.id!, query.toString()));
       }
     }

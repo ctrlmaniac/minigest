@@ -22,7 +22,11 @@ const WidgetAziende: React.FC = () => {
   let content = <Typography>Caricamento in corso...</Typography>;
 
   if (isEmpty(account?.aziende)) {
-    content = <Typography>Devi aggiungere un'azienda!</Typography>;
+    content = (
+      <Typography>
+        Contatta il moderatore per farti aggiungere alla tua azienda!
+      </Typography>
+    );
   } else {
     content = (
       <>

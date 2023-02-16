@@ -28,10 +28,6 @@ public class FatturaService {
 	@Autowired
 	private FatturaRepartoService repartoService;
 
-	public Fattura save(Fattura fattura) {
-		return repo.save(fattura);
-	}
-
 	public Fattura findById(String id) {
 		Optional<Fattura> opt = repo.findById(id);
 
@@ -44,6 +40,10 @@ public class FatturaService {
 
 	public List<Fattura> findAll() {
 		return repo.findAll();
+	}
+
+	public List<Fattura> findTop10ByCommittenteOrderByDataAsc(Azienda committente) {
+		return repo.findTop10ByCommittenteOrderByDataAsc(committente);
 	}
 
 	public List<Fattura> findAllByCedente(Azienda cedente) {
@@ -120,6 +120,27 @@ public class FatturaService {
 
 			repo.delete(fattura);
 		}
+	}
+
+	public Fattura save(Fattura payload) {
+		Fattura fattura = repo.save(payload);
+
+		for (FatturaReparto reparto : payload.getReparti()) {
+			reparto.setFattura(fattura);
+			repartoService.save(reparto);
+		}
+
+		for (FatturaScadenza scadenza : payload.getScadenze()) {
+			scadenza.setFattura(fattura);
+			scadenzaService.save(scadenza);
+		}
+
+		for (FatturaPagamento pagamento : payload.getPagamenti()) {
+			pagamento.setFattura(fattura);
+			pagamentoService.save(pagamento);
+		}
+
+		return fattura;
 	}
 
 	public Fattura update(String id, Fattura payload) {

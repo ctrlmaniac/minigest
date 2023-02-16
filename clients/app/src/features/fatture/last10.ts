@@ -2,18 +2,12 @@ import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { listStart, listSuccess, listFail } from "./slice";
 
-export default function list(
-  mode: string,
-  azienda: string,
-  query: string = "sdi=false"
-): AppThunk {
+export default function last10(idAzienda: string): AppThunk {
   return async (dispatch) => {
     dispatch(listStart());
 
-    console.log(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`);
-
     api
-      .get(`${Endpoints.FATTURE}/${mode}/${azienda}?${query}`)
+      .get(`${Endpoints.FATTURE}/last10?committente=${idAzienda}`)
       .then((response) => {
         dispatch(listSuccess(response.data));
       })

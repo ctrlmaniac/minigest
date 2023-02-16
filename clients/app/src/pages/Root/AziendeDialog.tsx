@@ -26,7 +26,11 @@ const AziendeDialog: React.FC<Props> = ({ open, handleOpen }) => {
   let content = <Typography>Caricamento in corso...</Typography>;
 
   if (isEmpty(dettagli?.aziende)) {
-    content = <Typography>Devi aggiungere un'azienda!</Typography>;
+    content = (
+      <Typography>
+        Contatta i moderatori per farti aggiungere ad una azienda!
+      </Typography>
+    );
   } else {
     content = (
       <List>

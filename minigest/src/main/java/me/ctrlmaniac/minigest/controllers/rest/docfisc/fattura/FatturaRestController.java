@@ -53,6 +53,19 @@ public class FatturaRestController {
 		return new ResponseEntity<>(fattura, fattura != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
 	}
 
+	@GetMapping("/last10")
+	public ResponseEntity<?> getLast7(
+			@RequestParam(name = "committente", required = true) String idCommittente) {
+
+		Azienda azienda = aziendaService.findById(idCommittente);
+
+		if (azienda != null) {
+			return new ResponseEntity<>(service.findTop10ByCommittenteOrderByDataAsc(azienda), HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Azienda non trovata", HttpStatus.NOT_FOUND);
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable String id) {
 		Fattura fattura = service.findById(id);
