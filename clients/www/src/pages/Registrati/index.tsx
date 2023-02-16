@@ -5,6 +5,7 @@ import { default as checkAccountExistance } from "~/features/auth/exists";
 import { default as checkAziendaExistance } from "~/features/aziende/exists";
 import { SaveFab } from "components";
 import register from "~/features/auth/register";
+import { isEmpty } from "lodash";
 
 const Registrati: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -204,12 +205,23 @@ const Registrati: React.FC = () => {
     };
 
     if (!aziendaExists) {
+      let aziendaPayload: any = {
+        ...azienda,
+        sede: { ...sede },
+      };
+
+      if (!isEmpty(negozio.nome)) {
+        aziendaPayload = {
+          ...aziendaPayload,
+          negozi: [{ ...negozio }],
+        };
+      }
+
       payload = {
         ...payload,
         azienda: {
           ...azienda,
           sede: { ...sede },
-          negozi: [{ ...negozio }],
         },
       };
     } else {
