@@ -98,10 +98,25 @@ const Registrati: React.FC = () => {
       [name]: value,
     });
 
-    setAziendaErrors({
-      ...aziendaErrors,
-      [name]: value.toString().length < 1,
-    });
+    if (!aziendaExists) {
+      setAziendaErrors({
+        ...aziendaErrors,
+        [name]: value.toString().length < 1,
+      });
+    } else {
+      setAziendaErrors({
+        ...aziendaErrors,
+        denominazione: false,
+        codiceFiscale: false,
+      });
+
+      if (name === "idFiscaleIVACodice" || name == "idFiscaleIVAPaese") {
+        setAziendaErrors({
+          ...aziendaErrors,
+          [name]: value.toString().length < 1,
+        });
+      }
+    }
   };
 
   /**
@@ -172,8 +187,10 @@ const Registrati: React.FC = () => {
     const isSedeOK = aziendaExists
       ? false
       : !Object.values(sedeError).every((value) => value === false);
+
+    console.log(isAccountOK, isAziendaOK, isSedeOK);
     setIsDisabled(isAccountOK || isAziendaOK || isSedeOK);
-  }, [accountErrors, aziendaErrors, sedeError]);
+  }, [aziendaExists, accountErrors, aziendaErrors, sedeError]);
 
   /**
    * SUBMIT

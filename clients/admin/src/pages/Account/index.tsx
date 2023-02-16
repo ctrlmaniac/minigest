@@ -24,10 +24,6 @@ const Account: React.FC = () => {
     dispatch(list(query.toString()));
   }, [query]);
 
-  React.useEffect(() => {
-    console.log(accounts);
-  }, [accounts]);
-
   const [value, setValue] = React.useState("");
 
   React.useEffect(() => {

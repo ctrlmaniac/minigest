@@ -94,10 +94,10 @@ public class AccountService implements UserDetailsService {
 		payload.addRuolo(user);
 		payload.setPassword(passwordEncoder.encode(payload.getPassword()));
 
-		payload.setAccountNonExpired(payload.isAccountNonExpired() || true);
-		payload.setAccountNonLocked(payload.isAccountNonLocked() || true);
-		payload.setCredentialsNonExpired(payload.isCredentialsNonExpired() || true);
-		payload.setEnabled(payload.isEnabled() || true);
+		payload.setAccountNonExpired(payload.isAccountNonExpired());
+		payload.setAccountNonLocked(payload.isAccountNonLocked());
+		payload.setCredentialsNonExpired(payload.isCredentialsNonExpired());
+		payload.setEnabled(payload.isEnabled());
 
 		Account account = accountRepo.save(payload);
 

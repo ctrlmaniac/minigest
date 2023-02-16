@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { ErrorScreen, LoadingScreen, SaveFab } from "components";
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import { isEmpty } from "lodash";
+import { forEach, isEmpty } from "lodash";
 import {
   Alert,
   Autocomplete,
@@ -29,8 +29,9 @@ import { unsetResponse } from "~/features/account/slice";
 const AccountDettagli = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { dettagli, getting, getError, response, updating, updateError } =
-    useAppSelector((state) => state.account);
+  const { dettagli, getting, getError, response, updating } = useAppSelector(
+    (state) => state.account
+  );
   const {
     list: ruoli,
     listing,
@@ -80,14 +81,29 @@ const AccountDettagli = () => {
 
   const handleUpdate = () => {
     if (!isEmpty(id)) {
-      const newValues = {
-        ...dettagli,
+      let payload: any = {
         ...values,
         authorities: roles,
-        aziende: business,
       };
 
-      dispatch(update(id!, newValues));
+      if (!isEmpty(business)) {
+        let newAziende = [];
+
+        for (let index = 0; index < business!.length; index++) {
+          const el = {
+            id: business![index].id,
+          };
+
+          newAziende.push(el);
+        }
+
+        payload = {
+          ...payload,
+          aziende: newAziende,
+        };
+      }
+
+      dispatch(update(id!, payload));
 
       setTimeout(() => {
         dispatch(unsetResponse());

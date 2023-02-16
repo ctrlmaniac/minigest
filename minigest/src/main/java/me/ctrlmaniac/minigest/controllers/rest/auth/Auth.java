@@ -93,6 +93,10 @@ public class Auth {
 		// Registra l'account
 		Account accountPayload = new Account(payload.getEmail(), payload.getNome(), payload.getNome(),
 				payload.getPassword());
+		accountPayload.setAccountNonExpired(true);
+		accountPayload.setAccountNonLocked(true);
+		accountPayload.setCredentialsNonExpired(true);
+		accountPayload.setEnabled(true);
 
 		if (payload.getAzienda() != null) {
 			Set<Azienda> aziendeSet = new HashSet<>();

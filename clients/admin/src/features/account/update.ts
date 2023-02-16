@@ -1,7 +1,6 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
 import { putStart, putSuccess, putFail } from "./slice";
-import { Account } from "~/types";
 
 export default function update(id: string, payload: any): AppThunk {
   return async (dispatch) => {

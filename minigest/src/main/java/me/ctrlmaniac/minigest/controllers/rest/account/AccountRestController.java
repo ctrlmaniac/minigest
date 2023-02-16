@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.services.account.AccountService;
+import me.ctrlmaniac.minigest.payloads.account.Update;
 
 @RestController
 @RequestMapping("/api/account")
@@ -40,13 +41,28 @@ public class AccountRestController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable String id, @RequestBody Account payload) {
-		Account updated = accountService.update(id, payload);
+	public ResponseEntity<?> update(@PathVariable String id, @RequestBody Update payload) {
+		Account account = accountService.findById(id);
 
-		if (updated != null) {
-			return new ResponseEntity<>(updated, HttpStatus.OK);
+		if (account != null) {
+			account.setAccountNonExpired(payload.isAccountNonExpired());
+			account.setAccountNonLocked(payload.isAccountNonLocked());
+			account.setCredentialsNonExpired(payload.isCredentialsNonExpired());
+			account.setEnabled(payload.isEnabled());
+
+			account.setAuthorities(payload.getAuthorities());
+
+			if (payload.getAziende() == null) {
+				account.setAziende(null);
+			} else {
+				account.setAziende(payload.getAziende());
+			}
+
+			Account saved = accountService.save(account);
+
+			return new ResponseEntity<>(saved, HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>("errore aggiornamento account", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Account non trovato", HttpStatus.NOT_FOUND);
 	}
 }
