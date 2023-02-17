@@ -119,14 +119,15 @@ const Registrati: React.FC = () => {
         ...aziendaErrors,
         denominazione: false,
         codiceFiscale: false,
+        [name]: value.toString().length < 1,
       });
+    }
 
-      if (name === "idFiscaleIVACodice" || name == "idFiscaleIVAPaese") {
-        setAziendaErrors({
-          ...aziendaErrors,
-          [name]: value.toString().length < 1,
-        });
-      }
+    if (name === "idFiscaleIVAPaese") {
+      setAziendaErrors({
+        ...aziendaErrors,
+        idFiscaleIVAPaese: value.toString().length !== 2,
+      });
     }
   };
 
@@ -159,10 +160,30 @@ const Registrati: React.FC = () => {
       [name]: value,
     });
 
-    if (required) {
+    setSedeError({
+      ...sedeError,
+      [name]: required && value.toString().length < 1,
+    });
+
+    if (name === "cap") {
       setSedeError({
         ...sedeError,
-        [name]: value.toString().length < 1,
+        cap: value.toString().length !== 5,
+      });
+    }
+
+    if (name === "provincia") {
+      setSedeError({
+        ...sedeError,
+        provincia:
+          value.toString().length > 0 ? value.toString().length !== 2 : false,
+      });
+    }
+
+    if (name === "nazione") {
+      setSedeError({
+        ...sedeError,
+        nazione: value.toString().length !== 2,
       });
     }
   };
