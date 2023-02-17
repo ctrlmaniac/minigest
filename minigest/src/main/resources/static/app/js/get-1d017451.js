@@ -1,1 +1,0 @@
-import{a as r,E as o}from"./index-cc2949c7.js";import{aw as n,ax as g,ay as E}from"./index-8a79851f.js";function p(s){return async a=>{a(n()),r.get(`${o.AZIENDE}/${s}`).then(e=>{a(g(e.data))}).catch(e=>{let t="Errore";e.response?t=e.response.data:t="Errore",a(E(t))})}}export{p as g};
