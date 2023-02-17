@@ -1,10 +1,8 @@
 package me.ctrlmaniac.minigest.controllers.rest.docfisc.fattura;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
@@ -297,19 +295,19 @@ public class FatturaUploadRestController {
 		try {
 			String filename = file.getOriginalFilename();
 			InputStream is = file.getInputStream();
+			File fel = new File("media/fel/" + filename);
+			fel.mkdirs();
 			Files.copy(is, Paths.get("media/fel/" + filename), StandardCopyOption.REPLACE_EXISTING);
-
-			File convert = new File("media/fel/" + filename);
 
 			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(convert);
+			Document doc = db.parse(fel);
 			doc.getDocumentElement().normalize();
 
 			Azienda cedente = getAzienda(doc, "CedentePrestatore");
 			Azienda committente = getAzienda(doc, "CessionarioCommittente");
-			Fattura fattura = saveFattura(doc, cedente, committente, "media/fel/" + convert.getName());
+			Fattura fattura = saveFattura(doc, cedente, committente, "media/fel/" + filename);
 			Set<FatturaReparto> reparti = saveFatturaReparti(doc, fattura);
 			fattura.setReparti(reparti);
 
