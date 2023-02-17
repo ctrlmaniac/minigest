@@ -17,4 +17,5 @@ export default interface Fattura {
   scadenze: FatturaScadenza[];
   pagamenti?: FatturaPagamento[];
   evasa?: boolean;
+  filepath?: string;
 }

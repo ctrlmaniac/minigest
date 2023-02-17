@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "~/hooks";
 import {
   Alert,
   Box,
+  Fab,
+  Grid,
   Paper,
   Snackbar,
   Table,
@@ -67,12 +69,40 @@ const Dettagli: React.FC = () => {
           </Box>
 
           <Box mb={3}>
-            <Alert
-              variant="outlined"
-              severity={dettagli!.evasa ? "success" : "error"}
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
             >
-              {dettagli!.evasa ? "Fattura pagata" : "Fattura da pagare"}
-            </Alert>
+              <Grid item xs={12} sm={6}>
+                <Alert
+                  variant="outlined"
+                  severity={dettagli!.evasa ? "success" : "error"}
+                >
+                  {dettagli!.evasa ? "Fattura pagata" : "Fattura da pagare"}
+                </Alert>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                {isEmpty(dettagli.filepath) ? (
+                  <Alert severity="info" variant="outlined">
+                    Non hai caricato nessun file!
+                  </Alert>
+                ) : (
+                  <Box sx={{ textAlign: "right" }}>
+                    <Fab
+                      variant="extended"
+                      onClick={() =>
+                        window.open("/" + dettagli.filepath!, "_blank")
+                      }
+                    >
+                      Visualizza XML
+                    </Fab>
+                  </Box>
+                )}
+              </Grid>
+            </Grid>
           </Box>
 
           <Box mb={3}>
