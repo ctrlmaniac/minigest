@@ -60,7 +60,6 @@ const Dettagli: React.FC = () => {
     if (isEmpty(dettagli)) {
       return <ErrorScreen message="Fattura non trovata" />;
     } else {
-      console.log(dettagli);
       return (
         <>
           <Box mb={3}>
