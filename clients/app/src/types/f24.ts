@@ -4,6 +4,7 @@ export default interface F24 {
   id?: string;
   utente?: Account;
   dataScadenza: string;
+  dataPagamento: string;
   totale?: number;
   sezioneErario: null | {
     id?: string;

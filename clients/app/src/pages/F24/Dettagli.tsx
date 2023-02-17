@@ -59,19 +59,32 @@ const F24Dettagli: React.FC = () => {
           </Box>
 
           <Box mb={3}>
+            <Alert
+              variant="outlined"
+              severity={isEmpty(dettagli.dataPagamento) ? "error" : "success"}
+            >
+              {isEmpty(dettagli.dataPagamento)
+                ? "F24 da pagare"
+                : "F24 pagato il " + dettagli.dataPagamento}
+            </Alert>
+          </Box>
+
+          <Box mb={3}>
             <Paper>
               <Box p={2}>
                 <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Data Scadenza</TableCell>
-                      <TableCell align="right">Totale</TableCell>
-                    </TableRow>
-                  </TableHead>
                   <TableBody>
                     <TableRow>
+                      <TableCell variant="head" sx={{ width: 100 }}>
+                        Totale
+                      </TableCell>
+                      <TableCell>€ {dettagli.totale}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell variant="head" sx={{ width: 100 }}>
+                        Data Scadenza
+                      </TableCell>
                       <TableCell>{dettagli.dataScadenza}</TableCell>
-                      <TableCell align="right">€ {dettagli.totale}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

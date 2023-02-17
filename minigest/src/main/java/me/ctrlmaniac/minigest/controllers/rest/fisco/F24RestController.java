@@ -185,6 +185,7 @@ public class F24RestController {
 
 		if (f24 != null) {
 			f24.setDataScadenza(payload.getDataScadenza());
+			f24.setDataPagamento(payload.getDataPagamento());
 
 			// Aggiorna le sezioni inps
 			for (F24SezioneInps reparto : f24.getSezioneInps()) {

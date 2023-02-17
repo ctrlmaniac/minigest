@@ -249,7 +249,7 @@ public class DummyRunner implements CommandLineRunner {
 		 * CREA UN F24
 		 */
 
-		F24 f24 = new F24(admin, LocalDate.now());
+		F24 f24 = new F24(admin, LocalDate.now(), null);
 		f24Service.save(f24);
 
 		// Sezione erario

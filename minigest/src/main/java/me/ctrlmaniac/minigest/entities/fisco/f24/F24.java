@@ -41,6 +41,8 @@ public class F24 {
 
 	private LocalDate dataScadenza;
 
+	private LocalDate dataPagamento;
+
 	@OneToOne(mappedBy = "f24", cascade = CascadeType.ALL)
 	private F24SezioneErario sezioneErario;
 
@@ -62,9 +64,10 @@ public class F24 {
 	@Transient
 	private double totale;
 
-	public F24(Account utente, LocalDate dataScadenza) {
+	public F24(Account utente, LocalDate dataScadenza, LocalDate dataPagamento) {
 		this.utente = utente;
 		this.dataScadenza = dataScadenza;
+		this.dataPagamento = dataPagamento;
 	}
 
 	public double getTotale() {

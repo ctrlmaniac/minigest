@@ -44,10 +44,12 @@ const Form: React.FC<Props> = ({ dettagli }) => {
    */
   const [values, setValues] = React.useState({
     dataScadenza: dettagli.dataScadenza,
+    dataPagamento: dettagli.dataPagamento || "",
   });
 
   const [errors, setErrors] = React.useState({
     dataScadenza: false,
+    dataPagamento: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -311,16 +313,38 @@ const Form: React.FC<Props> = ({ dettagli }) => {
       <Box mb={3}>
         <Paper>
           <Box p={2}>
-            <TextField
-              fullWidth
-              label="Data di Scadenza"
-              name="dataScadenza"
-              value={values.dataScadenza}
-              error={errors.dataScadenza}
-              onChange={handleChange}
-              required
-              type="date"
-            />
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Data di Scadenza"
+                  name="dataScadenza"
+                  value={values.dataScadenza}
+                  error={errors.dataScadenza}
+                  onChange={handleChange}
+                  required
+                  type="date"
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Data di Pagamento"
+                  name="dataPagamento"
+                  value={values.dataPagamento}
+                  error={errors.dataPagamento}
+                  onChange={handleChange}
+                  type="date"
+                />
+              </Grid>
+            </Grid>
           </Box>
         </Paper>
       </Box>

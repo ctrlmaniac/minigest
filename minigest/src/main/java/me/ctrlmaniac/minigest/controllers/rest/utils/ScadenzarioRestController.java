@@ -76,10 +76,12 @@ public class ScadenzarioRestController {
 				}
 
 				for (F24 f24 : f24s) {
-					Scadenzario scad = new Scadenzario(f24.getDataScadenza(), f24.getTotale(), "f24",
-							f24.getId());
+					if (f24.getDataPagamento() == null) {
+						Scadenzario scad = new Scadenzario(f24.getDataScadenza(), f24.getTotale(), "f24",
+								f24.getId());
 
-					scadenzario.add(scad);
+						scadenzario.add(scad);
+					}
 				}
 
 				Collections.sort(scadenzario, new Comparator<Scadenzario>() {
