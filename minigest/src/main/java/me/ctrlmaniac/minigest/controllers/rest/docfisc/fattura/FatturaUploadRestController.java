@@ -2,6 +2,11 @@ package me.ctrlmaniac.minigest.controllers.rest.docfisc.fattura;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
@@ -289,13 +294,12 @@ public class FatturaUploadRestController {
 
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-		String filename = file.getOriginalFilename();
-
 		try {
+			String filename = file.getOriginalFilename();
+			InputStream is = file.getInputStream();
+			Files.copy(is, Paths.get("media/fel/" + filename), StandardCopyOption.REPLACE_EXISTING);
+
 			File convert = new File("media/fel/" + filename);
-			FileOutputStream fos = new FileOutputStream(convert);
-			fos.write(file.getBytes());
-			fos.close();
 
 			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
