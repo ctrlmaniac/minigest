@@ -3,6 +3,9 @@ import { findIndex, remove } from "lodash";
 import { Fattura } from "~/types";
 
 interface State {
+  response?: string;
+  list?: Fattura[];
+  dettagli?: Fattura;
   listing: boolean;
   listError: boolean;
   getting: boolean;
@@ -13,12 +16,14 @@ interface State {
   putError: boolean;
   removing: boolean;
   removeError: boolean;
-  response?: string;
-  list?: Fattura[];
-  dettagli?: Fattura;
+  uploading: boolean;
+  uploadError: boolean;
 }
 
 const initialState: State = {
+  response: undefined,
+  list: undefined,
+  dettagli: undefined,
   listing: false,
   listError: false,
   getting: false,
@@ -29,9 +34,8 @@ const initialState: State = {
   putError: false,
   removing: false,
   removeError: false,
-  response: undefined,
-  list: undefined,
-  dettagli: undefined,
+  uploading: false,
+  uploadError: false,
 };
 
 export const fattureSlice = createSlice({
@@ -123,6 +127,21 @@ export const fattureSlice = createSlice({
       state.putting = false;
       state.response = action.payload;
     },
+    uploadStart: (state) => {
+      state.response = undefined;
+      state.uploadError = false;
+      state.uploading = true;
+    },
+    uploadFail: (state, action: PayloadAction<string>) => {
+      state.response = action.payload;
+      state.uploadError = true;
+      state.uploading = false;
+    },
+    uploadSuccess: (state) => {
+      state.response = "File caricato con successo";
+      state.uploadError = false;
+      state.uploading = false;
+    },
   },
 });
 
@@ -144,6 +163,9 @@ export const {
   putFail,
   putStart,
   putSuccess,
+  uploadFail,
+  uploadStart,
+  uploadSuccess,
 } = fattureSlice.actions;
 
 export default fattureSlice.reducer;

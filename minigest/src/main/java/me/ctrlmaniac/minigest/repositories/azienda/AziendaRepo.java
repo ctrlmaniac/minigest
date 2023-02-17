@@ -19,4 +19,7 @@ public interface AziendaRepo extends JpaRepository<Azienda, String> {
 	boolean existsByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice);
 
 	Optional<Azienda> findByIdFiscaleIVAPaeseAndIdFiscaleIVACodice(String paese, String codice);
+
+	Optional<Azienda> findByIdFiscaleIVAPaeseAndIdFiscaleIVACodiceAndCodiceFiscale(String paese, String codice,
+			String codiceFiscale);
 }

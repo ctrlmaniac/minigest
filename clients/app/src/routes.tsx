@@ -27,6 +27,7 @@ const Fatture = lazy(() => import("~/pages/Fatture"));
 const FattureDettagli = lazy(() => import("~/pages/Fatture/Dettagli"));
 const FattureAggiungi = lazy(() => import("~/pages/Fatture/Aggiungi"));
 const FattureModifica = lazy(() => import("~/pages/Fatture/Modifica"));
+const FattureUpload = lazy(() => import("~/pages/Fatture/Upload"));
 const Scadenzario = lazy(() => import("~/pages/Scadenzario"));
 const RegistroCorrispettivi = lazy(
   () => import("~/pages/RegistroCorrispettivi")
@@ -192,6 +193,14 @@ export default createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingScreen />}>
                   <FattureAggiungi />
+                </Suspense>
+              ),
+            },
+            {
+              path: "carica",
+              element: (
+                <Suspense fallback={<LoadingScreen />}>
+                  <FattureUpload />
                 </Suspense>
               ),
             },

@@ -1,7 +1,10 @@
 package me.ctrlmaniac.minigest.controllers.rest.docfisc.fattura;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
+import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaUploadService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 
 @RestController
@@ -29,6 +33,9 @@ public class FatturaRestController {
 
 	@Autowired
 	private AziendaService aziendaService;
+
+	@Autowired
+	private FatturaUploadService uploadService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Fattura>> findAll() {
@@ -135,5 +142,24 @@ public class FatturaRestController {
 		}
 
 		return new ResponseEntity<>("azienda non trovata", HttpStatus.NOT_FOUND);
+	}
+
+	@PostMapping("/upload")
+	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
+		String filename = file.getOriginalFilename();
+
+		try {
+			File convert = new File(filename);
+			FileOutputStream fos = new FileOutputStream(convert);
+			fos.write(file.getBytes());
+			fos.close();
+
+			Fattura fattura = uploadService.importFatturaFromXml(convert);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>("file caricato", HttpStatus.OK);
 	}
 }
