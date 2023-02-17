@@ -172,7 +172,7 @@ public class DummyRunner implements CommandLineRunner {
 		TipoDocFisc TD01 = tipoDocFiscService.findByCodice("TD01");
 
 		Fattura ft1 = new Fattura(shop, larapida, TD01, LocalDate.now().minusWeeks(2),
-				LocalDate.now().minusWeeks(1), "12345", 122);
+				LocalDate.now().minusWeeks(1), "12345", 122, null);
 		fatturaService.save(ft1);
 
 		FatturaReparto ft1Reparto1 = new FatturaReparto(ft1, 22, 100, 22);
@@ -183,7 +183,7 @@ public class DummyRunner implements CommandLineRunner {
 
 		// Crea una seconda fattura
 		Fattura ft2 = new Fattura(larapida, shop, TD01, LocalDate.now().minusDays(2),
-				LocalDate.now().plusWeeks(1), "12345", 122);
+				LocalDate.now().plusWeeks(1), "12345", 122, null);
 		fatturaService.save(ft2);
 
 		FatturaReparto ft1Reparto2 = new FatturaReparto(ft2, 22, 100, 22);

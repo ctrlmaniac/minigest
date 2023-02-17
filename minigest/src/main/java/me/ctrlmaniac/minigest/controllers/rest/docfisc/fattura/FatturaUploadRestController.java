@@ -191,7 +191,7 @@ public class FatturaUploadRestController {
 		}
 	}
 
-	public Fattura saveFattura(Document doc, Azienda cedente, Azienda committente) {
+	public Fattura saveFattura(Document doc, Azienda cedente, Azienda committente, String filepath) {
 		Node datiGeneraliDocumento = null;
 		TipoDocFisc tipoDocumento = null;
 		LocalDate data = null;
@@ -241,7 +241,7 @@ public class FatturaUploadRestController {
 			tipoDocumento = tipoDocFiscService.findByCodice("TD01");
 		}
 
-		Fattura fattura = new Fattura(cedente, committente, tipoDocumento, data, null, numero, totale);
+		Fattura fattura = new Fattura(cedente, committente, tipoDocumento, data, null, numero, totale, filepath);
 
 		return fatturaService.save(fattura);
 	}
@@ -292,7 +292,7 @@ public class FatturaUploadRestController {
 		String filename = file.getOriginalFilename();
 
 		try {
-			File convert = new File(filename);
+			File convert = new File("media/fel/" + filename);
 			FileOutputStream fos = new FileOutputStream(convert);
 			fos.write(file.getBytes());
 			fos.close();
@@ -305,12 +305,13 @@ public class FatturaUploadRestController {
 
 			Azienda cedente = getAzienda(doc, "CedentePrestatore");
 			Azienda committente = getAzienda(doc, "CessionarioCommittente");
-			Fattura fattura = saveFattura(doc, cedente, committente);
+			Fattura fattura = saveFattura(doc, cedente, committente, "media/fel/" + convert.getName());
 			Set<FatturaReparto> reparti = saveFatturaReparti(doc, fattura);
 			fattura.setReparti(reparti);
 
 			return new ResponseEntity<>(fatturaService.save(fattura), HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}

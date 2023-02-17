@@ -55,6 +55,8 @@ public class Fattura {
 	private String numero;
 	private double totale;
 
+	private String filepath;
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "fattura", cascade = CascadeType.ALL)
 	private Set<FatturaReparto> reparti = new HashSet<>();
 
@@ -77,7 +79,7 @@ public class Fattura {
 	private Set<Double> aliquoteIVA;
 
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, LocalDate dataSDI,
-			String numero, double totale) {
+			String numero, double totale, String filepath) {
 		this.cedente = cedente;
 		this.committente = committente;
 		this.tipoDocumento = tipoDocumento;
@@ -85,10 +87,11 @@ public class Fattura {
 		this.dataSDI = dataSDI;
 		this.numero = numero;
 		this.totale = totale;
+		this.filepath = filepath;
 	}
 
 	public Fattura(Azienda cedente, Azienda committente, TipoDocFisc tipoDocumento, LocalDate data, LocalDate dataSDI,
-			String numero, double totale, Set<FatturaReparto> reparti, Set<FatturaScadenza> scadenze,
+			String numero, double totale, String filepath, Set<FatturaReparto> reparti, Set<FatturaScadenza> scadenze,
 			Set<FatturaPagamento> pagamenti) {
 		this.cedente = cedente;
 		this.committente = committente;
@@ -97,6 +100,7 @@ public class Fattura {
 		this.dataSDI = dataSDI;
 		this.numero = numero;
 		this.totale = totale;
+		this.filepath = filepath;
 		this.reparti = reparti;
 		this.scadenze = scadenze;
 		this.pagamenti = pagamenti;
