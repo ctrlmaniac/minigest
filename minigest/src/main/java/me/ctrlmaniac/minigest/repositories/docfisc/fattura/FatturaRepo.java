@@ -22,6 +22,10 @@ public interface FatturaRepo extends JpaRepository<Fattura, String> {
 
 	List<Fattura> findTop10ByCommittenteOrderByDataAsc(Azienda azienda);
 
+	List<Fattura> findTop10ByCommittente(Azienda azienda);
+
+	List<Fattura> findTop10ByCedente(Azienda azienda);
+
 	@Query("SELECT f FROM Fattura f WHERE f.cedente=:azienda AND YEAR(f.data)=:year AND MONTH(f.data)=:month ORDER BY f.data ASC")
 	List<Fattura> findAllByCedenteByYearByMonth(@Param("azienda") Azienda azienda, @Param("year") String year,
 			@Param("month") String month);

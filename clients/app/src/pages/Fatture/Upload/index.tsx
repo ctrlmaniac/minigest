@@ -38,11 +38,9 @@ const Upload: React.FC = () => {
       dispatch(upload(data));
 
       if (!uploadError) {
-        if (!isEmpty(dettagli)) {
-          setTimeout(() => {
-            navigate("/docfisc/fatture/dettagli/" + dettagli!.id);
-          }, 2000);
-        }
+        setTimeout(() => {
+          navigate("/docfisc/fatture");
+        }, 2000);
       }
     }
   };

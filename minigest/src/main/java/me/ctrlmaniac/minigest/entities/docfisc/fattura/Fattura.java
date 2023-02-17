@@ -3,7 +3,11 @@ package me.ctrlmaniac.minigest.entities.docfisc.fattura;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,6 +60,9 @@ public class Fattura {
 	private double totale;
 
 	private String filepath;
+
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "fattura", cascade = CascadeType.ALL)
 	private Set<FatturaReparto> reparti = new HashSet<>();

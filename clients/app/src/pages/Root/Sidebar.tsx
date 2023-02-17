@@ -78,13 +78,11 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             </ListItemIcon>
             <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
-          <ListItemButton
-            onClick={() => handleNavigate("/docfisc/fatture/carica")}
-          >
+          <ListItemButton onClick={() => handleNavigate("/docfisc/fatture")}>
             <ListItemIcon>
-              <IconUpload />
+              <IconFiles />
             </ListItemIcon>
-            <ListItemText primary="Carica Fattura" />
+            <ListItemText primary="Fatture" />
           </ListItemButton>
           <ListItemButton
             onClick={() =>

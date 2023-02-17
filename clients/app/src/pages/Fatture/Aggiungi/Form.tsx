@@ -245,7 +245,7 @@ const Form: React.FC<Props> = ({ tipiDocumento, aziende }) => {
       unsetResponse();
 
       if (!postError) {
-        navigate(-1);
+        navigate("/docfisc/fatture");
       }
     }, 1000);
   };

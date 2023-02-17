@@ -28,6 +28,7 @@ const FattureDettagli = lazy(() => import("~/pages/Fatture/Dettagli"));
 const FattureAggiungi = lazy(() => import("~/pages/Fatture/Aggiungi"));
 const FattureModifica = lazy(() => import("~/pages/Fatture/Modifica"));
 const FattureUpload = lazy(() => import("~/pages/Fatture/Upload"));
+const FattureListAll = lazy(() => import("~/pages/Fatture/ListAll"));
 const Scadenzario = lazy(() => import("~/pages/Scadenzario"));
 const RegistroCorrispettivi = lazy(
   () => import("~/pages/RegistroCorrispettivi")
@@ -171,6 +172,15 @@ export default createBrowserRouter(
         },
         {
           path: "docfisc/fatture",
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <FattureListAll />
+            </Suspense>
+          ),
+        },
+        {
+          path: "docfisc/fatture",
+
           children: [
             {
               path: "dettagli/:id",

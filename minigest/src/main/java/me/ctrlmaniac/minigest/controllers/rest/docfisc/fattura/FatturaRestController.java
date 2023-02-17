@@ -1,5 +1,8 @@
 package me.ctrlmaniac.minigest.controllers.rest.docfisc.fattura;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.docfisc.fattura.Fattura;
 import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
+import me.ctrlmaniac.minigest.services.account.AccountService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 
 @RestController
@@ -30,8 +35,35 @@ public class FatturaRestController {
 	@Autowired
 	private AziendaService aziendaService;
 
+	@Autowired
+	private AccountService accountService;
+
 	@GetMapping("")
-	public ResponseEntity<List<Fattura>> findAll() {
+	public ResponseEntity<?> findAll(@RequestParam(name = "utente", required = false) String idUtente) {
+		if (idUtente != null) {
+			Account utente = accountService.findById(idUtente);
+
+			if (utente != null) {
+				List<Fattura> fatture = new ArrayList<>();
+
+				for (Azienda azienda : utente.getAziende()) {
+					fatture.addAll(service.findTop10ByCedente(azienda));
+					fatture.addAll(service.findTop10ByCommittente(azienda));
+				}
+
+				Collections.sort(fatture, new Comparator<Fattura>() {
+					@Override
+					public int compare(Fattura f1, Fattura f2) {
+						return f2.getCreatedAt().compareTo(f1.getCreatedAt());
+					}
+				});
+
+				return new ResponseEntity<>(fatture, HttpStatus.OK);
+			}
+
+			return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+		}
+
 		return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
 	}
 

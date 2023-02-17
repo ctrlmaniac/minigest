@@ -42,6 +42,14 @@ public class FatturaService {
 		return repo.findAll();
 	}
 
+	public List<Fattura> findTop10ByCommittente(Azienda committente) {
+		return repo.findTop10ByCommittente(committente);
+	}
+
+	public List<Fattura> findTop10ByCedente(Azienda cedente) {
+		return repo.findTop10ByCedente(cedente);
+	}
+
 	public List<Fattura> findTop10ByCommittenteOrderByDataAsc(Azienda committente) {
 		return repo.findTop10ByCommittenteOrderByDataAsc(committente);
 	}
