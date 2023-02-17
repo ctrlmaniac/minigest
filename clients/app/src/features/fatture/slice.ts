@@ -128,6 +128,7 @@ export const fattureSlice = createSlice({
       state.response = action.payload;
     },
     uploadStart: (state) => {
+      state.dettagli = undefined;
       state.response = undefined;
       state.uploadError = false;
       state.uploading = true;
@@ -137,7 +138,8 @@ export const fattureSlice = createSlice({
       state.uploadError = true;
       state.uploading = false;
     },
-    uploadSuccess: (state) => {
+    uploadSuccess: (state, action: PayloadAction<Fattura>) => {
+      state.dettagli = action.payload;
       state.response = "File caricato con successo";
       state.uploadError = false;
       state.uploading = false;

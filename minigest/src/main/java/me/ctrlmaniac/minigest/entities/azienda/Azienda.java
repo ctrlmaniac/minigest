@@ -29,7 +29,8 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "idFiscaleIVAPaese", "idFiscaleIVACodice" }) })
+@Table(uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "idFiscaleIVAPaese", "idFiscaleIVACodice", "codiceFiscale" }) })
 public class Azienda {
 
 	@Id

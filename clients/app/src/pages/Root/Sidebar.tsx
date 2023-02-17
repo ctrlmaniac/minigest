@@ -18,6 +18,7 @@ import {
   IconFiles,
   IconLayoutDashboard,
   IconScale,
+  IconUpload,
   IconUser,
 } from "@tabler/icons-react";
 import { useAppSelector } from "~/hooks";
@@ -76,6 +77,14 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
               <IconFiles />
             </ListItemIcon>
             <ListItemText primary="Chiusure Fiscali" />
+          </ListItemButton>
+          <ListItemButton
+            onClick={() => handleNavigate("/docfisc/fatture/carica")}
+          >
+            <ListItemIcon>
+              <IconUpload />
+            </ListItemIcon>
+            <ListItemText primary="Carica Fattura" />
           </ListItemButton>
           <ListItemButton
             onClick={() =>
