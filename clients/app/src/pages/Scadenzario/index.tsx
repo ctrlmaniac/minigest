@@ -62,18 +62,22 @@ const Scadenzario: React.FC = () => {
                             color="primary"
                             onClick={() =>
                               navigate(
-                                `/docfisc/fatture/dettagli/${scadenza.fattura!
-                                  .id!}`
+                                `/${
+                                  scadenza.tipo === "fattura"
+                                    ? "docfisc/fatture/"
+                                    : "fisco/f24/"
+                                }dettagli/${scadenza.id}`
                               )
                             }
                           >
                             <IconFile />
                           </IconButton>
                         </TableCell>
-                        <TableCell>{scadenza.data}</TableCell>
-                        <TableCell align="right">
-                          € {scadenza.importo}
+                        <TableCell sx={{ width: 100 }}>
+                          {scadenza.tipo}
                         </TableCell>
+                        <TableCell>{scadenza.dataScadenza}</TableCell>
+                        <TableCell align="right">€ {scadenza.totale}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

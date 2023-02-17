@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { findIndex, remove } from "lodash";
-import { FatturaScadenza } from "~/types";
+import { Scadenzario } from "~/types";
 
 interface State {
   listing: boolean;
   listError: boolean;
-  list?: FatturaScadenza[];
+  list?: Scadenzario[];
   response?: string;
 }
 
@@ -27,7 +26,7 @@ export const scadenzarioSlice = createSlice({
       state.listError = false;
       state.listing = true;
     },
-    listSuccess: (state, action: PayloadAction<FatturaScadenza[]>) => {
+    listSuccess: (state, action: PayloadAction<Scadenzario[]>) => {
       state.list = action.payload;
       state.listError = false;
       state.listing = false;
