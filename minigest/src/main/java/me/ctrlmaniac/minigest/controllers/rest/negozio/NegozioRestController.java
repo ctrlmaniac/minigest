@@ -55,6 +55,17 @@ public class NegozioRestController {
 
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findById(@PathVariable String id) {
+		Negozio negozio = negozioService.findById(id);
+
+		if (negozio != null) {
+			return new ResponseEntity<>(negozio, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Negozio non trovato", HttpStatus.BAD_REQUEST);
+	}
+
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable String id, @RequestBody Negozio payload) {
 		Negozio negozio = negozioService.update(id, payload);
@@ -64,7 +75,6 @@ public class NegozioRestController {
 		}
 
 		return new ResponseEntity<>("Impossibile modificare negozio", HttpStatus.BAD_REQUEST);
-
 	}
 
 	@DeleteMapping("/{id}")
@@ -78,6 +88,5 @@ public class NegozioRestController {
 		}
 
 		return new ResponseEntity<>("Impossibile cancellare negozio", HttpStatus.NOT_FOUND);
-
 	}
 }
