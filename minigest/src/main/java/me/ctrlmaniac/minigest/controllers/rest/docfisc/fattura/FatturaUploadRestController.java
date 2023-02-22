@@ -291,30 +291,35 @@ public class FatturaUploadRestController {
 	}
 
 	@PostMapping("/upload")
-	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-		try {
-			String filename = file.getOriginalFilename();
-			InputStream is = file.getInputStream();
-			File fel = new File("media/fel/" + filename);
-			fel.mkdirs();
-			Files.copy(is, Paths.get("media/fel/" + filename), StandardCopyOption.REPLACE_EXISTING);
+	public ResponseEntity<?> upload(@RequestParam("file[]") MultipartFile[] files) {
+		boolean error = false;
 
-			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		for (MultipartFile file : files) {
+			try {
+				String filename = file.getOriginalFilename();
+				InputStream is = file.getInputStream();
+				File fel = new File("media/fel/" + filename);
+				fel.mkdirs();
+				Files.copy(is, Paths.get("media/fel/" + filename), StandardCopyOption.REPLACE_EXISTING);
 
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(fel);
-			doc.getDocumentElement().normalize();
+				dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
-			Azienda cedente = getAzienda(doc, "CedentePrestatore");
-			Azienda committente = getAzienda(doc, "CessionarioCommittente");
-			Fattura fattura = saveFattura(doc, cedente, committente, "media/fel/" + filename);
-			Set<FatturaReparto> reparti = saveFatturaReparti(doc, fattura);
-			fattura.setReparti(reparti);
+				DocumentBuilder db = dbf.newDocumentBuilder();
+				Document doc = db.parse(fel);
+				doc.getDocumentElement().normalize();
 
-			return new ResponseEntity<>(fatturaService.save(fattura), HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+				Azienda cedente = getAzienda(doc, "CedentePrestatore");
+				Azienda committente = getAzienda(doc, "CessionarioCommittente");
+				Fattura fattura = saveFattura(doc, cedente, committente, "media/fel/" + filename);
+				Set<FatturaReparto> reparti = saveFatturaReparti(doc, fattura);
+				fattura.setReparti(reparti);
+			} catch (Exception e) {
+				e.printStackTrace();
+				error = true;
+			}
 		}
+
+		return new ResponseEntity<>(error ? "Impossibile caricare fatture" : "fatture caricate con successo",
+				error ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 	}
 }

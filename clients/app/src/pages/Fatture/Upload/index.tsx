@@ -20,20 +20,20 @@ const Upload: React.FC = () => {
   const { uploading, uploadError, response, dettagli } = useAppSelector(
     (state) => state.fatture
   );
-  const [file, setFile] = React.useState<File>();
+  const [file, setFile] = React.useState<File[]>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
 
     if (files) {
-      setFile(files[0]);
+      setFile([...files]);
     }
   };
 
   const handleSubmit = () => {
-    if (file) {
+    if (file && file.length > 0) {
       const data = new FormData();
-      data.append("file", file);
+      file.map((f) => data.append("file[]", f));
 
       dispatch(upload(data));
 
@@ -54,7 +54,14 @@ const Upload: React.FC = () => {
       <Box>
         <Paper>
           <Box p={2}>
-            <input type="file" name="file" id="file" onChange={handleChange} />
+            <input
+              type="file"
+              name="file"
+              id="file"
+              onChange={handleChange}
+              multiple
+              accept="text/xml"
+            />
             <Button variant="contained" onClick={handleSubmit}>
               Carica
             </Button>
