@@ -1,1 +1,0 @@
-import{a as e,E as r}from"./index-2712c8cb.js";import{aa as o,ab as i,ac as n}from"./index-cdd6c92c.js";function m(){return async s=>{s(o()),e.get(`${r.SCADENZARIO}`).then(a=>{s(i(a.data))}).catch(a=>{let t="Errore";a.response?t=a.response.data:t="Errore",s(n(t))})}}export{m as l};

@@ -1,0 +1,1 @@
+import{a as o,E as i}from"./index-f2e41e9d.js";import{aD as c}from"./index-f9c8e367.js";function l(e="IT",t=""){return async n=>{o.get(`${i.AZIENDE}/exists?nazione=${e}&codice=${t}`).then(s=>{n(c(s.data))}).catch(s=>{let a=!1;s.response?a=s.response.data:a=!1,console.log(a)})}}export{l as a};

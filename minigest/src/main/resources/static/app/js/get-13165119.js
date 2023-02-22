@@ -1,1 +1,0 @@
-import{a as r,E as o}from"./index-2712c8cb.js";import{bA as n,bB as g,bC as f}from"./index-cdd6c92c.js";function p(s){return async t=>{t(n()),r.get(`${o.FISCO}/f24/${s}`).then(e=>{t(g(e.data))}).catch(e=>{let a="Errore";e.response?a=e.response.data:a="Errore",t(f(a))})}}export{p as g};
