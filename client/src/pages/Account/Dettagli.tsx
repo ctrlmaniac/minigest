@@ -11,7 +11,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { findIndex, isEmpty } from "lodash";
+import { find, findIndex, isEmpty } from "lodash";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { EditFab, ErrorScreen, LoadingScreen } from "~/components";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,14 +29,17 @@ const Dettagli: React.FC = () => {
     response,
   } = useAppSelector((state) => state.account);
 
-  const isAdmin = findIndex(
-    principal?.authorities,
-    (o) => o.authority === "ROLE_ADMIN"
+  const isAdmin = !isEmpty(
+    find(principal?.authorities, (o) => o.authority === "ROLE_ADMIN")
   );
 
   React.useEffect(() => {
     dispatch(get(id!));
   }, [id]);
+
+  React.useEffect(() => {
+    console.log(isAdmin);
+  }, [account]);
 
   if (getting) {
     return <LoadingScreen />;
@@ -89,8 +92,13 @@ const Dettagli: React.FC = () => {
                     <Typography variant="h6" gutterBottom>
                       Ruoli
                     </Typography>
+                    {}
                     <Typography>
-                      {account?.authorities.map((o) => o.authority).join("; ")}
+                      {!isEmpty(account?.authorities)
+                        ? account?.authorities
+                            .map((o) => o.authority)
+                            .join("; ")
+                        : "Non ci sono ruoli"}
                     </Typography>
                   </Box>
                 </Paper>

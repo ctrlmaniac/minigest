@@ -24,9 +24,7 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
           <ListItemButton onClick={() => to("/")}>
             <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton
-            onClick={() => to(`/account/dettagli/${principal!.id}`)}
-          >
+          <ListItemButton onClick={() => to(`/account`)}>
             <ListItemText primary="Account" />
           </ListItemButton>
         </List>

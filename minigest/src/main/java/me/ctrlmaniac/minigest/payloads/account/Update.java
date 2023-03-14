@@ -23,5 +23,5 @@ public class Update {
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
 	private Set<AccountRuolo> authorities = new HashSet<>();
-	Azienda azienda;
+	private Azienda azienda;
 }

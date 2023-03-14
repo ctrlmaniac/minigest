@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { findIndex, isEmpty } from "lodash";
+import { find, isEmpty } from "lodash";
 import React from "react";
 import { SaveFab } from "~/components";
 import { default as listAziende } from "~/features/azienda/list";
@@ -39,9 +39,11 @@ const AccountModificaForm: React.FC<Props> = ({ dettagli }) => {
     (state) => state.accountRuolo
   );
 
-  const isAdmin = findIndex(
-    principal?.authorities,
-    (o: AccountRuolo) => o.authority === "ROLE_ADMIN"
+  const isAdmin = !isEmpty(
+    find(
+      principal?.authorities,
+      (o: AccountRuolo) => o.authority === "ROLE_ADMIN"
+    )
   );
 
   React.useEffect(() => {
@@ -188,8 +190,8 @@ const AccountModificaForm: React.FC<Props> = ({ dettagli }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Seleziona aziende"
-                      placeholder="Aziende"
+                      label="Seleziona azienda"
+                      placeholder="Azienda"
                       error={errors.azienda}
                     />
                   )}

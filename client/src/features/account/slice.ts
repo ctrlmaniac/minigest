@@ -4,6 +4,7 @@ import { Account, Azienda } from "~/types";
 interface State {
   response?: string;
   dettagli?: Account;
+  list?: Account[];
   principal?: Account;
   gettingPrincipal: boolean;
   getPrincipalError: boolean;
@@ -11,17 +12,26 @@ interface State {
   getError: boolean;
   putting: boolean;
   putError: boolean;
+  listing: boolean;
+  listError: boolean;
+  posting: boolean;
+  postError: boolean;
 }
 
 const initialState: State = {
   response: undefined,
   dettagli: undefined,
+  list: undefined,
   gettingPrincipal: false,
   getPrincipalError: false,
   getting: false,
   getError: false,
   putting: false,
   putError: false,
+  listing: false,
+  listError: false,
+  posting: false,
+  postError: false,
 };
 
 export const accountSlice = createSlice({
@@ -86,6 +96,38 @@ export const accountSlice = createSlice({
       state.response = action.payload;
       state.putting = false;
     },
+    listStart: (state) => {
+      state.listing = true;
+      state.listError = false;
+      state.response = undefined;
+    },
+    listSuccess: (state, action: PayloadAction<Account[]>) => {
+      state.list = action.payload;
+      state.listError = false;
+      state.listing = false;
+      state.response = "Account modificato con successo";
+    },
+    listFail: (state, action: PayloadAction<string>) => {
+      state.listError = true;
+      state.response = action.payload;
+      state.listing = false;
+    },
+    postStart: (state) => {
+      state.posting = true;
+      state.postError = false;
+      state.response = undefined;
+    },
+    postSuccess: (state, action: PayloadAction<Account>) => {
+      state.dettagli = action.payload;
+      state.postError = false;
+      state.posting = false;
+      state.response = "Account aggiunto con successo";
+    },
+    postFail: (state, action: PayloadAction<string>) => {
+      state.postError = true;
+      state.response = action.payload;
+      state.posting = false;
+    },
   },
 });
 
@@ -101,6 +143,12 @@ export const {
   putFail,
   putStart,
   putSuccess,
+  listFail,
+  listStart,
+  listSuccess,
+  postFail,
+  postStart,
+  postSuccess,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;
