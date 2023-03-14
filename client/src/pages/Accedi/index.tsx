@@ -1,20 +1,36 @@
 import React from "react";
 import { Splash } from "~/components";
 import {
+  Alert,
   Box,
   Button,
   Container,
   IconButton,
   InputAdornment,
+  LinearProgress,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import { IconAt, IconEye, IconEyeClosed } from "@tabler/icons-react";
+import { IconEye, IconEyeClosed } from "@tabler/icons-react";
+import { useAppDispatch, useAppSelector } from "~/hooks";
+import login from "~/features/auth/login";
+import { isEmpty } from "lodash";
+
+interface UserDetails {
+  email: string;
+  password: string;
+}
 
 const Accedi: React.FC = () => {
-  const [values, setValues] = React.useState({
-    username: "",
+  const dispatch = useAppDispatch();
+  const {
+    login: loading,
+    loginError,
+    response,
+  } = useAppSelector((state) => state.auth);
+  const [values, setValues] = React.useState<UserDetails>({
+    email: "",
     password: "",
   });
 
@@ -31,8 +47,7 @@ const Accedi: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log(values);
+    dispatch(login(values));
   };
 
   return (
@@ -47,8 +62,8 @@ const Accedi: React.FC = () => {
                   required
                   type="email"
                   label="email"
-                  name="username"
-                  value={values.username}
+                  name="email"
+                  value={values.email}
                   onChange={handleChange}
                   fullWidth
                   margin="normal"
@@ -76,7 +91,7 @@ const Accedi: React.FC = () => {
                   }}
                 />
 
-                <Box mt={2}>
+                <Box mt={2} mb={2}>
                   <Button
                     type="submit"
                     variant="contained"
@@ -87,6 +102,17 @@ const Accedi: React.FC = () => {
                   </Button>
                 </Box>
               </form>
+
+              {!isEmpty(response) && (
+                <Alert
+                  variant="outlined"
+                  severity={loginError ? "error" : "success"}
+                >
+                  {response}
+                </Alert>
+              )}
+
+              {loading && <LinearProgress />}
             </Box>
           </Paper>
         </Container>

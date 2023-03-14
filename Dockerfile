@@ -18,8 +18,7 @@ WORKDIR /home
 COPY pom.xml .
 COPY minigest ./minigest
 COPY --from=clientbuild /home/client/dist/index.html ./minigest/src/main/resources/templates/index.html
-COPY --from=clientbuild /home/client/dist ./minigest/src/main/resources/static
-RUN rm ./minigest/src/main/resources/static/index.html
+COPY --from=clientbuild /home/client/dist/assets ./minigest/src/main/resources/static/assets
 
 RUN mvn -DskipTests clean compile package
 

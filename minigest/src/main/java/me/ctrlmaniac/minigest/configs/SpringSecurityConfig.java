@@ -37,11 +37,15 @@ public class SpringSecurityConfig {
 		http = http.csrf().disable();
 
 		http = http.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/**").permitAll());
+				.requestMatchers("/api/auth", "/api/auth/**").permitAll()
+				.requestMatchers("/assets/", "/assets/**").permitAll()
+				.requestMatchers("/accedi").permitAll()
+				.requestMatchers("/esci").permitAll()
+				.anyRequest().authenticated());
 
-		http = http.formLogin((form) -> form.loginPage("/accedi").permitAll());
+		http = http.formLogin((form) -> form.loginPage("/accedi"));
 
-		http = http.logout((logout) -> logout.logoutUrl("/esci").logoutSuccessUrl("/").permitAll());
+		http = http.logout((logout) -> logout.logoutUrl("/esci").logoutSuccessUrl("/"));
 
 		http = http.securityContext((securityContext) -> securityContext
 				.requireExplicitSave(true));

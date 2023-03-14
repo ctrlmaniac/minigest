@@ -9,9 +9,7 @@
     "lerna": "^6.5.1"
   },
   "scripts": {
-    "build": "npx lerna exec -- npm run build"
-  },
-  "dependencies": {
-    "@tabler/icons-react": "^2.10.0"
+    "build": "npx lerna exec -- npm run build",
+    "dev": "docker compose up --build"
   }
 }

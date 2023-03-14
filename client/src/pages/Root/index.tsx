@@ -4,10 +4,12 @@ import { logoTheme } from "~/theme";
 import {
   AppBar,
   Button,
+  IconButton,
   ThemeProvider,
   Toolbar,
   Typography,
 } from "@mui/material";
+import { IconLogout } from "@tabler/icons-react";
 
 const Root: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +27,13 @@ const Root: React.FC = () => {
               minigest
             </Typography>
           </ThemeProvider>
+
+          <IconButton
+            color="error"
+            onClick={() => (window.location.href = "/esci")}
+          >
+            <IconLogout />
+          </IconButton>
         </Toolbar>
       </AppBar>
 
