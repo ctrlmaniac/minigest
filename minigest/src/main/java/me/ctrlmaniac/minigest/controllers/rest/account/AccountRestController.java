@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,13 @@ public class AccountRestController {
 
 	@Autowired
 	AccountService accountService;
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> get(@PathVariable String id) {
+		Account account = accountService.findById(id);
+
+		return new ResponseEntity<>(account, account != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable String id, @RequestBody Update payload) {
