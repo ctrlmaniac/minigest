@@ -19,7 +19,7 @@ import getPrincipal from "~/features/account/getPrincipal";
 const Root: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { getting, getError, response, dettagli } = useAppSelector(
+  const { getting, getError, response, principal } = useAppSelector(
     (state) => state.account
   );
   const [openInit, setOpenInit] = React.useState(false);
@@ -29,12 +29,14 @@ const Root: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (!isEmpty(dettagli)) {
-      if (isEmpty(dettagli.aziende)) {
+    if (!isEmpty(principal)) {
+      if (isEmpty(principal.azienda)) {
         setOpenInit(true);
+      } else {
+        setOpenInit(false);
       }
     }
-  }, [dettagli]);
+  }, [principal]);
 
   if (getting) {
     return <LoadingScreen />;

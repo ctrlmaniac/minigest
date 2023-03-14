@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -58,8 +56,7 @@ public class Azienda {
 	@JsonIgnoreProperties("azienda")
 	Set<Negozio> negozi = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "account_aziende")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "azienda")
 	@JsonIncludeProperties({ "id", "email", "nome", "cognome" })
 	Set<Account> utenti = new HashSet<>();
 

@@ -1,3 +1,4 @@
+import Account from "./account";
 import AziendaIndirizzo from "./aziendaIndirizzo";
 import Negozio from "./negozio";
 
@@ -13,4 +14,5 @@ export default interface Azienda {
   stabileOrganizzazione?: AziendaIndirizzo;
   rappresentanteFiscale?: Azienda;
   negozi?: Negozio[];
+  utenti?: Account[];
 }

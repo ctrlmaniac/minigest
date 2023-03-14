@@ -13,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,9 +46,9 @@ public class Account implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<AccountRuolo> authorities = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIncludeProperties({ "id", "denominazione", "negozi" })
-	Set<Azienda> aziende = new HashSet<>();
+	Azienda azienda;
 
 	public Account(String email, String nome, String cognome, String password) {
 		this.email = email;
@@ -58,7 +59,7 @@ public class Account implements UserDetails {
 
 	public Account(String email, String nome, String cognome, String password, boolean enabled,
 			boolean credentialsNonExpired,
-			boolean accountNonExpired, boolean accountNonLocked) {
+			boolean accountNonExpired, boolean accountNonLocked, Azienda azienda) {
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -67,6 +68,7 @@ public class Account implements UserDetails {
 		this.credentialsNonExpired = credentialsNonExpired;
 		this.accountNonExpired = accountNonExpired;
 		this.accountNonLocked = accountNonLocked;
+		this.azienda = azienda;
 	}
 
 	@Override
@@ -76,14 +78,6 @@ public class Account implements UserDetails {
 
 	public void addRuolo(AccountRuolo ruolo) {
 		authorities.add(ruolo);
-	}
-
-	public void addAzienda(Azienda azienda) {
-		aziende.add(azienda);
-	}
-
-	public void removeAzienda(Azienda azienda) {
-		aziende.remove(azienda);
 	}
 
 	@Override

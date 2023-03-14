@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
-import me.ctrlmaniac.minigest.entities.azienda.Azienda;
-import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
-import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
 import me.ctrlmaniac.minigest.repositories.account.AccountRepo;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
@@ -104,23 +101,9 @@ public class AccountService implements UserDetailsService {
 		payload.setAccountNonLocked(payload.isAccountNonLocked());
 		payload.setCredentialsNonExpired(payload.isCredentialsNonExpired());
 		payload.setEnabled(payload.isEnabled());
+		payload.setAzienda(payload.getAzienda());
 
 		Account account = repo.save(payload);
-
-		for (Azienda azienda : payload.getAziende()) {
-			azienda.addUtente(account);
-			aziendaService.save(azienda);
-
-			if (azienda.getSede() != null) {
-				AziendaIndirizzo sede = azienda.getSede();
-				aziendaIndirizzoService.save(sede);
-			}
-
-			for (Negozio negozio : azienda.getNegozi()) {
-				negozio.setAzienda(azienda);
-				negozioService.save(negozio);
-			}
-		}
 
 		return account;
 	}
@@ -141,8 +124,7 @@ public class AccountService implements UserDetailsService {
 			old.setEnabled(payload.isEnabled());
 
 			old.setAuthorities(payload.getAuthorities());
-
-			// TODO: aggiornare azienda e negozi
+			old.setAzienda(payload.getAzienda());
 
 			return repo.save(old);
 		}

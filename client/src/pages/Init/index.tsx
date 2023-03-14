@@ -13,6 +13,10 @@ import {
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { default as checkAziendaExistance } from "~/features/azienda/exists";
+import post from "~/features/azienda/post";
+import { Azienda } from "~/types";
+import { isEmpty } from "lodash";
+import { addAzienda } from "~/features/account/slice";
 
 interface Props {
   open: boolean;
@@ -21,7 +25,12 @@ interface Props {
 
 const Init: React.FC<Props> = ({ open, handleOpen }) => {
   const dispatch = useAppDispatch();
-  const { exists: aziendaExists } = useAppSelector((state) => state.azienda);
+  const { principal } = useAppSelector((state) => state.account);
+  const {
+    exists: aziendaExists,
+    dettagli,
+    postError,
+  } = useAppSelector((state) => state.azienda);
 
   /**
    * AZIENDA
@@ -153,6 +162,34 @@ const Init: React.FC<Props> = ({ open, handleOpen }) => {
 
     setIsDisabled(isAziendaOK || isSedeOK);
   }, [aziendaExists, aziendaErrors, sedeError]);
+
+  /**
+   * SUBMIT
+   */
+  const handleSubmit = () => {
+    const payload: Azienda = {
+      ...azienda,
+      sede: {
+        ...sede,
+      },
+      utenti: [
+        {
+          ...principal!,
+        },
+      ],
+    };
+
+    dispatch(post(payload));
+  };
+
+  // POST SUBMIT
+  React.useEffect(() => {
+    if (!postError) {
+      if (!isEmpty(dettagli)) {
+        dispatch(addAzienda(dettagli));
+      }
+    }
+  }, [postError, dettagli]);
 
   return (
     <>
@@ -322,7 +359,11 @@ const Init: React.FC<Props> = ({ open, handleOpen }) => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" disabled={isDisabled}>
+          <Button
+            variant="contained"
+            disabled={isDisabled}
+            onClick={handleSubmit}
+          >
             Salva
           </Button>
         </DialogActions>

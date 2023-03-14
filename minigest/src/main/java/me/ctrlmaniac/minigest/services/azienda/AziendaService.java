@@ -1,5 +1,6 @@
 package me.ctrlmaniac.minigest.services.azienda;
 
+import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
@@ -87,6 +88,12 @@ public class AziendaService {
 		if (azienda.getNegozi() != null) {
 			for (Negozio negozio : azienda.getNegozi()) {
 				negozioService.save(negozio);
+			}
+		}
+
+		if (azienda.getUtenti() != null) {
+			for (Account utente : azienda.getUtenti()) {
+				azienda.addUtente(utente);
 			}
 		}
 

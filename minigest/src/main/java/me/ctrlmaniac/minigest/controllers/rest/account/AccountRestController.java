@@ -32,11 +32,7 @@ public class AccountRestController {
 
 			account.setAuthorities(payload.getAuthorities());
 
-			if (payload.getAziende() == null) {
-				account.setAziende(null);
-			} else {
-				account.setAziende(payload.getAziende());
-			}
+			account.setAzienda(payload.getAzienda());
 
 			Account saved = accountService.save(account);
 
