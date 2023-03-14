@@ -41,6 +41,7 @@ public class SpringSecurityConfig {
 				.requestMatchers("/assets/", "/assets/**").permitAll()
 				.requestMatchers("/accedi").permitAll()
 				.requestMatchers("/esci").permitAll()
+				.requestMatchers("/account/password/**").permitAll()
 				.anyRequest().authenticated());
 
 		http = http.formLogin((form) -> form.loginPage("/accedi"));

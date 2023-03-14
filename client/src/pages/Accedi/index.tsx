@@ -16,6 +16,7 @@ import { IconEye, IconEyeClosed } from "@tabler/icons-react";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import login from "~/features/auth/login";
 import { isEmpty } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 interface UserDetails {
   email: string;
@@ -23,6 +24,7 @@ interface UserDetails {
 }
 
 const Accedi: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     login: loading,
@@ -97,8 +99,16 @@ const Accedi: React.FC = () => {
                     variant="contained"
                     color="primary"
                     fullWidth
+                    sx={{ marginBottom: 2 }}
                   >
                     Accedi
+                  </Button>
+                  <Button
+                    variant="text"
+                    fullWidth
+                    onClick={() => navigate("/account/password/forgot")}
+                  >
+                    password dimenticata
                   </Button>
                 </Box>
               </form>

@@ -10,12 +10,16 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.web.context.SecurityContextRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import me.ctrlmaniac.minigest.payloads.auth.Login;
+import me.ctrlmaniac.minigest.services.account.AccountService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,7 +29,15 @@ public class AuthRestController {
 	AuthenticationManager authManager;
 
 	@Autowired
+	AccountService accountService;
+
+	@Autowired
 	SecurityContextRepository securityContextRepository;
+
+	@GetMapping("")
+	public ResponseEntity<Boolean> exists(@RequestParam(name = "email", required = true) String email) {
+		return ResponseEntity.ok(accountService.existsByEmail(email));
+	}
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Login payload, HttpServletRequest request,

@@ -10,6 +10,8 @@ const AccountLista = lazy(() => import("~/pages/Account/Lista"));
 const AccountDettagli = lazy(() => import("~/pages/Account/Dettagli"));
 const AccountModifica = lazy(() => import("~/pages/Account/Modifica"));
 const AccountAggiungi = lazy(() => import("~/pages/Account/Aggiungi"));
+const PasswordForgot = lazy(() => import("~/pages/Account/Password/Forgot"));
+const PasswordReset = lazy(() => import("~/pages/Account/Password/Reset"));
 
 export default createBrowserRouter([
   {
@@ -17,6 +19,22 @@ export default createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingScreen />}>
         <Accedi />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/account/password/forgot",
+    element: (
+      <Suspense fallback={<LoadingScreen />}>
+        <PasswordForgot />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/account/password/reset",
+    element: (
+      <Suspense fallback={<LoadingScreen />}>
+        <PasswordReset />
       </Suspense>
     ),
   },
