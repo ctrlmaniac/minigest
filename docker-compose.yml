@@ -1,0 +1,21 @@
+name: minigest
+services:
+  webapp:
+    container_name: minigest-webapp
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    volumes:
+      - ./media:/home/media
+    env_file:
+      - .env
+
+  mysqldb:
+    container_name: minigest-db
+    image: mysql:8.0.32
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
