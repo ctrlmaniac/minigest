@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
 import me.ctrlmaniac.minigest.repos.account.AccountRepo;
 
+@Service
 public class AccountService implements UserDetailsService {
 
 	@Autowired
