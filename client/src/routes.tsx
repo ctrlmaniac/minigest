@@ -7,6 +7,7 @@ const Root = lazy(() => import("~/pages/Root"));
 const Accedi = lazy(() => import("~/pages/Accedi"));
 const Home = lazy(() => import("~/pages/Home"));
 const AccountDettagli = lazy(() => import("~/pages/Account/Dettagli"));
+const AccountModifica = lazy(() => import("~/pages/Account/Modifica"));
 
 export default createBrowserRouter([
   {
@@ -34,10 +35,18 @@ export default createBrowserRouter([
         ),
       },
       {
-        path: "/account/dettagli",
+        path: "/account/dettagli/:id",
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <AccountDettagli />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/account/modifica/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <AccountModifica />
           </Suspense>
         ),
       },

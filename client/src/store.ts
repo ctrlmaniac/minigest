@@ -3,11 +3,13 @@ import logger from "redux-logger";
 import { authSlice } from "./features/auth/slice";
 import { accountSlice } from "./features/account/slice";
 import { aziendaSlice } from "./features/azienda/slice";
+import { accountRuoloSlice } from "./features/accountRuolo/slice";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     account: accountSlice.reducer,
+    accountRuolo: accountRuoloSlice.reducer,
     azienda: aziendaSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

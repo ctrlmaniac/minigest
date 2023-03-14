@@ -51,6 +51,8 @@ public class SetupRunner implements CommandLineRunner {
 		Account admin = new Account(adminEmail, adminFName, adminLName, adminPassword, true, true, true, true, null);
 		admin.addRuolo(ruoloAdmin);
 		accountService.save(admin);
+
+		log.info("Setup completed!");
 	}
 
 }

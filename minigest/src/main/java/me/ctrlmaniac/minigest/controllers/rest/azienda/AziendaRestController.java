@@ -52,8 +52,7 @@ public class AziendaRestController {
 		Azienda azienda = aziendaService.save(payload);
 
 		for (Account account : payload.getUtenti()) {
-			account.setAzienda(
-					azienda);
+			account.setAzienda(azienda);
 			accountService.update(account.getId(), account);
 		}
 

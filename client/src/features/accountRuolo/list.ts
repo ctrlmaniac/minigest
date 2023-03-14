@@ -1,19 +1,15 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import {
-  getPrincipalStart,
-  getPrincipalSuccess,
-  getPrincipalFail,
-} from "./slice";
+import { listStart, listSuccess, listFail } from "./slice";
 
-export default function getPrincipal(): AppThunk {
+export default function list(): AppThunk {
   return async (dispatch) => {
-    dispatch(getPrincipalStart());
+    dispatch(listStart());
 
     api
-      .get(`${Endpoints.ACCOUNT}/principal`)
+      .get(`${Endpoints.ACCOUNT}/ruoli`)
       .then((response) => {
-        dispatch(getPrincipalSuccess(response.data));
+        dispatch(listSuccess(response.data));
       })
       .catch((error) => {
         let message = "Errore";
@@ -24,7 +20,7 @@ export default function getPrincipal(): AppThunk {
           message = "Errore";
         }
 
-        dispatch(getPrincipalFail(message));
+        dispatch(listFail(message));
       });
   };
 }

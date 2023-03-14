@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 @Getter
 @Setter
@@ -57,7 +56,7 @@ public class Azienda {
 	Set<Negozio> negozi = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "azienda")
-	@JsonIncludeProperties({ "id", "email", "nome", "cognome" })
+	@JsonIgnoreProperties("azienda")
 	Set<Account> utenti = new HashSet<>();
 
 	public Azienda(String titolo, String denominazione, String codiceEORI, String idFiscaleIVAPaese,

@@ -1,3 +1,4 @@
+import AccountRuolo from "./accountRuolo";
 import Azienda from "./azienda";
 
 export default interface Account {
@@ -6,4 +7,9 @@ export default interface Account {
   nome: string;
   cognome: string;
   azienda?: Azienda;
+  enabled: boolean;
+  credentialsNonExpired: boolean;
+  accountNonLocked: boolean;
+  accountNonExpired: boolean;
+  authorities: AccountRuolo[];
 }

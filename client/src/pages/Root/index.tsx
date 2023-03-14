@@ -22,9 +22,8 @@ import Sidebar from "./Sidebar";
 const Root: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { getting, getError, response, principal } = useAppSelector(
-    (state) => state.account
-  );
+  const { gettingPrincipal, getPrincipalError, response, principal } =
+    useAppSelector((state) => state.account);
   const [openInit, setOpenInit] = React.useState(false);
   const [openSb, setOpenSb] = React.useState(false);
 
@@ -42,10 +41,10 @@ const Root: React.FC = () => {
     }
   }, [principal]);
 
-  if (getting) {
+  if (gettingPrincipal) {
     return <LoadingScreen />;
   } else {
-    if (getError) {
+    if (getPrincipalError) {
       return <ErrorScreen>{response || "Errore di caricamento"}</ErrorScreen>;
     } else {
       return (
@@ -80,7 +79,7 @@ const Root: React.FC = () => {
 
           <Sidebar open={openSb} handleOpen={setOpenSb} />
 
-          <Box mt={3}>
+          <Box mt={3} mb={12}>
             <Container>
               <Outlet />
             </Container>

@@ -1,6 +1,7 @@
 import { Box, Drawer, List, ListItemButton, ListItemText } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "~/hooks";
 
 interface Props {
   open: boolean;
@@ -9,6 +10,7 @@ interface Props {
 
 const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
   const navigate = useNavigate();
+  const { principal } = useAppSelector((state) => state.account);
 
   const to = (to: string) => {
     handleOpen(false);
@@ -22,7 +24,9 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
           <ListItemButton onClick={() => to("/")}>
             <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton onClick={() => to("/account/dettagli")}>
+          <ListItemButton
+            onClick={() => to(`/account/dettagli/${principal!.id}`)}
+          >
             <ListItemText primary="Account" />
           </ListItemButton>
         </List>
