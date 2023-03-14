@@ -1,1 +1,0 @@
-import{a as r,E as o}from"./index-f2e41e9d.js";import{aW as n,aX as g,aY as i}from"./index-f9c8e367.js";function E(s){return async a=>{a(n()),r.get(`${o.CHIUSURE_FISCALI}/${s}`).then(e=>{a(g(e.data))}).catch(e=>{let t="Errore";e.response?t=e.response.data:t="Errore",a(i(t))})}}export{E as g};
