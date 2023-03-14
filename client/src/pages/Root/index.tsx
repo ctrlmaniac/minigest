@@ -9,12 +9,13 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { IconLogout } from "@tabler/icons-react";
+import { IconLogout, IconMenu2 } from "@tabler/icons-react";
 import { useAppDispatch, useAppSelector } from "~/hooks";
 import { ErrorScreen, LoadingScreen } from "~/components";
 import { isEmpty } from "lodash";
 import Init from "../Init";
 import getPrincipal from "~/features/account/getPrincipal";
+import Sidebar from "./Sidebar";
 
 const Root: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Root: React.FC = () => {
     (state) => state.account
   );
   const [openInit, setOpenInit] = React.useState(false);
+  const [openSb, setOpenSb] = React.useState(false);
 
   React.useEffect(() => {
     dispatch(getPrincipal());
@@ -48,6 +50,13 @@ const Root: React.FC = () => {
         <>
           <AppBar position="sticky">
             <Toolbar>
+              <IconButton
+                sx={{ marginRight: 2 }}
+                onClick={() => setOpenSb(true)}
+              >
+                <IconMenu2 />
+              </IconButton>
+
               <ThemeProvider theme={logoTheme}>
                 <Typography
                   variant="h4"
@@ -66,6 +75,8 @@ const Root: React.FC = () => {
               </IconButton>
             </Toolbar>
           </AppBar>
+
+          <Sidebar open={openSb} handleOpen={setOpenSb} />
 
           <Outlet />
 
