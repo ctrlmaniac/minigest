@@ -4,9 +4,18 @@ import { LoadingScreen } from "./components";
 
 // Pages
 const Root = lazy(() => import("~/pages/Root"));
+const Accedi = lazy(() => import("~/pages/Accedi"));
 const Home = lazy(() => import("~/pages/Home"));
 
 export default createBrowserRouter([
+  {
+    path: "/accedi",
+    element: (
+      <Suspense fallback={<LoadingScreen />}>
+        <Accedi />
+      </Suspense>
+    ),
+  },
   {
     path: "/",
     element: (
