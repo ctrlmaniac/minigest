@@ -1,0 +1,14 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "client"
+  ],
+  "devDependencies": {
+    "lerna": "^6.5.1"
+  },
+  "scripts": {
+    "build": "npx lerna exec -- npm run build"
+  }
+}
