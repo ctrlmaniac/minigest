@@ -10,20 +10,37 @@ import {
   Typography,
 } from "@mui/material";
 import { IconLogout } from "@tabler/icons-react";
-import { useAppSelector } from "~/hooks";
+import { useAppDispatch, useAppSelector } from "~/hooks";
 import { ErrorScreen, LoadingScreen } from "~/components";
+import { isEmpty } from "lodash";
+import Init from "../Init";
+import getPrincipal from "~/features/account/getPrincipal";
 
 const Root: React.FC = () => {
   const navigate = useNavigate();
-  const { getting, getError, response } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { getting, getError, response, dettagli } = useAppSelector(
     (state) => state.account
   );
+  const [openInit, setOpenInit] = React.useState(false);
+
+  React.useEffect(() => {
+    dispatch(getPrincipal());
+  }, []);
+
+  React.useEffect(() => {
+    if (!isEmpty(dettagli)) {
+      if (isEmpty(dettagli.aziende)) {
+        setOpenInit(true);
+      }
+    }
+  }, [dettagli]);
 
   if (getting) {
     return <LoadingScreen />;
   } else {
     if (getError) {
-      return <ErrorScreen message={response || "Errore di caricamento!"} />;
+      return <ErrorScreen>{response || "Errore di caricamento"}</ErrorScreen>;
     } else {
       return (
         <>
@@ -49,6 +66,8 @@ const Root: React.FC = () => {
           </AppBar>
 
           <Outlet />
+
+          <Init open={openInit} handleOpen={setOpenInit} />
         </>
       );
     }

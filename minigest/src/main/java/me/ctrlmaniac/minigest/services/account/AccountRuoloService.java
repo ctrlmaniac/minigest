@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
-import me.ctrlmaniac.minigest.repos.account.AccountRuoloRepo;
+import me.ctrlmaniac.minigest.repositories.account.AccountRuoloRepo;
 
 @Service
 public class AccountRuoloService {

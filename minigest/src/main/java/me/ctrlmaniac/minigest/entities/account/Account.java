@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
 @Setter
 @Getter
@@ -41,6 +44,10 @@ public class Account implements UserDetails {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<AccountRuolo> authorities = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
+	@JsonIncludeProperties({ "id", "denominazione", "negozi" })
+	Set<Azienda> aziende = new HashSet<>();
 
 	public Account(String email, String nome, String cognome, String password) {
 		this.email = email;
@@ -69,6 +76,14 @@ public class Account implements UserDetails {
 
 	public void addRuolo(AccountRuolo ruolo) {
 		authorities.add(ruolo);
+	}
+
+	public void addAzienda(Azienda azienda) {
+		aziende.add(azienda);
+	}
+
+	public void removeAzienda(Azienda azienda) {
+		aziende.remove(azienda);
 	}
 
 	@Override

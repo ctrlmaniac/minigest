@@ -3,17 +3,18 @@ import { Alert, Container, Typography } from "@mui/material";
 import Splash from "./Splash";
 
 interface Props {
-  message: String;
+  children: string | JSX.Element | JSX.Element[];
 }
 
-const ErrorScreen: React.FC<Props> = ({ message }) => {
+const ErrorScreen: React.FC<Props> = ({ children }) => {
   return (
     <Splash>
-      <Container maxWidth="xs">
+      <Container>
         <Typography variant="h3" component="h1" gutterBottom>
           Oops!
         </Typography>
-        <Alert severity="error">{message}</Alert>
+
+        {children}
       </Container>
     </Splash>
   );

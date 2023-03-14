@@ -1,4 +1,4 @@
-package me.ctrlmaniac.minigest.repos.account;
+package me.ctrlmaniac.minigest.repositories.account;
 
 import java.util.Optional;
 

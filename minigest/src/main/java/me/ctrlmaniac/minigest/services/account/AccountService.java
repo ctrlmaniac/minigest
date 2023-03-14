@@ -13,8 +13,14 @@ import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
+import me.ctrlmaniac.minigest.entities.azienda.Azienda;
+import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
+import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
-import me.ctrlmaniac.minigest.repos.account.AccountRepo;
+import me.ctrlmaniac.minigest.repositories.account.AccountRepo;
+import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
+import me.ctrlmaniac.minigest.services.azienda.AziendaService;
+import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 @Service
 public class AccountService implements UserDetailsService {
@@ -27,6 +33,15 @@ public class AccountService implements UserDetailsService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	AziendaService aziendaService;
+
+	@Autowired
+	AziendaIndirizzoService aziendaIndirizzoService;
+
+	@Autowired
+	NegozioService negozioService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -92,7 +107,20 @@ public class AccountService implements UserDetailsService {
 
 		Account account = repo.save(payload);
 
-		// TODO: aggiungere azienda e negozio
+		for (Azienda azienda : payload.getAziende()) {
+			azienda.addUtente(account);
+			aziendaService.save(azienda);
+
+			if (azienda.getSede() != null) {
+				AziendaIndirizzo sede = azienda.getSede();
+				aziendaIndirizzoService.save(sede);
+			}
+
+			for (Negozio negozio : azienda.getNegozi()) {
+				negozio.setAzienda(azienda);
+				negozioService.save(negozio);
+			}
+		}
 
 		return account;
 	}
