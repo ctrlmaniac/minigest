@@ -3,7 +3,9 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { logoTheme } from "~/theme";
 import {
   AppBar,
+  Box,
   Button,
+  Container,
   IconButton,
   ThemeProvider,
   Toolbar,
@@ -78,7 +80,11 @@ const Root: React.FC = () => {
 
           <Sidebar open={openSb} handleOpen={setOpenSb} />
 
-          <Outlet />
+          <Box mt={3}>
+            <Container>
+              <Outlet />
+            </Container>
+          </Box>
 
           <Init open={openInit} handleOpen={setOpenInit} />
         </>
