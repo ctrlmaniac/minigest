@@ -3,6 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import { useAppSelector } from "~/hooks";
 import WidgetNegozi from "../Negozio/Widget";
 import WidgetChiusure from "../ChiusureFiscali/Widget";
+import WidgetFatture from "../Fatture/Widget";
 
 const Home: React.FC = () => {
   const { principal } = useAppSelector((state) => state.account);
@@ -29,6 +30,10 @@ const Home: React.FC = () => {
 
         <Grid item xs={12}>
           <WidgetChiusure />
+        </Grid>
+
+        <Grid item xs={12}>
+          <WidgetFatture />
         </Grid>
       </Grid>
     </>
