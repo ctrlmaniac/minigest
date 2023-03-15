@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "admin.email",
+      "type": "java.lang.String",
+      "description": "L'email dell'admin"
+    },
+    {
+      "name": "admin.fname",
+      "type": "java.lang.String",
+      "description": "Il nome dell'admin"
+    },
+    {
+      "name": "admin.lname",
+      "type": "java.lang.String",
+      "description": "Il cognome dell'admin"
+    },
+    {
+      "name": "admin.password",
+      "type": "java.lang.String",
+      "description": "La password dell'admin"
+    },
+    {
+      "name": "host",
+      "type": "java.lang.String",
+      "description": "L'url del sito minigest verrà caricato"
+    }
+  ]
+}
