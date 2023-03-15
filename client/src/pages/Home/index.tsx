@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
 import { useAppSelector } from "~/hooks";
+import WidgetNegozi from "../Negozio/Widget";
 
 const Home: React.FC = () => {
   const { principal } = useAppSelector((state) => state.account);
@@ -18,6 +19,9 @@ const Home: React.FC = () => {
             Benvenuto, {principal?.nome}!
           </Typography>
           <Typography>Eccoti una panoramica della tua azienda!</Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <WidgetNegozi />
         </Grid>
       </Grid>
     </>

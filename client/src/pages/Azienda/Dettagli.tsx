@@ -152,7 +152,7 @@ const AziendaDettagli = () => {
           <Alert severity="info">{response}</Alert>
         </Snackbar>
 
-        <Dialog open={reqDel} onClose={() => setReqDel(true)}>
+        <Dialog open={reqDel} onClose={() => setReqDel(false)}>
           <DialogTitle>
             Sei sicuro di voler cancellare questa azienda?
           </DialogTitle>
@@ -164,7 +164,9 @@ const AziendaDettagli = () => {
             <Button color="error" variant="text" onClick={handleDelete}>
               Elimina
             </Button>
-            <Button variant="contained">Annulla</Button>
+            <Button variant="contained" onClick={() => setReqDel(false)}>
+              Annulla
+            </Button>
           </DialogActions>
         </Dialog>
       </>

@@ -1,13 +1,12 @@
 import api, { Endpoints } from "~/api";
 import { AppThunk } from "~/store";
-import { postStart, postSuccess, postFail, addNegozio } from "./slice";
-import { Azienda } from "~/types";
+import { postStart, postSuccess, postFail } from "./slice";
+import { Negozio } from "~/types";
+import { addNegozio } from "../account/slice";
 
 interface Payload {
+  id: undefined | string;
   nome: string;
-  cognome: string;
-  email: string;
-  azienda: Azienda | null;
 }
 
 export default function post(payload: Payload): AppThunk {
@@ -15,18 +14,14 @@ export default function post(payload: Payload): AppThunk {
     dispatch(postStart());
 
     api
-      .post(`${Endpoints.ACCOUNT}`, payload)
+      .post(`${Endpoints.NEGOZI}`, payload)
       .then((response) => {
         dispatch(postSuccess(response.data));
+        dispatch(addNegozio(response.data));
       })
       .catch((error) => {
-        let message = "Errore";
-
-        if (error.response) {
-          message = error.response.data;
-        } else {
-          message = "Errore";
-        }
+        console.warn(error.response.data);
+        const message = "Impossibile aggiungere negozio!";
 
         dispatch(postFail(message));
       });

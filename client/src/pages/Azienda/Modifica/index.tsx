@@ -9,7 +9,7 @@ import Form from "./Form";
 const AziendaModifica = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { dettagli, getting, getError } = useAppSelector(
+  const { dettagli, getting, getError, response } = useAppSelector(
     (state) => state.azienda
   );
 
@@ -23,7 +23,7 @@ const AziendaModifica = () => {
     return <LoadingScreen />;
   } else {
     if (!isEmpty(getError) || isEmpty(dettagli)) {
-      return <ErrorScreen>{getError || "Errore di caricamento"}</ErrorScreen>;
+      return <ErrorScreen>{response || "Errore di caricamento"}</ErrorScreen>;
     }
 
     return <Form dettagli={dettagli} />;

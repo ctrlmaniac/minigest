@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Account, Azienda } from "~/types";
+import { filter } from "lodash";
+import { Account, Azienda, Negozio } from "~/types";
 
 interface State {
   response?: string;
@@ -128,6 +129,15 @@ export const accountSlice = createSlice({
       state.response = action.payload;
       state.posting = false;
     },
+    addNegozio: (state, action: PayloadAction<Negozio>) => {
+      state.principal?.azienda?.negozi?.push(action.payload);
+    },
+    removeNegozio: (state, action: PayloadAction<string>) => {
+      state.principal!.azienda!.negozi = filter(
+        state.principal?.azienda?.negozi,
+        (o: Negozio) => o.id !== action.payload
+      );
+    },
   },
 });
 
@@ -149,6 +159,8 @@ export const {
   postFail,
   postStart,
   postSuccess,
+  addNegozio,
+  removeNegozio,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

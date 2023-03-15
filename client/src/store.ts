@@ -4,6 +4,7 @@ import { authSlice } from "./features/auth/slice";
 import { accountSlice } from "./features/account/slice";
 import { aziendaSlice } from "./features/azienda/slice";
 import { accountRuoloSlice } from "./features/accountRuolo/slice";
+import { negoziSlice } from "./features/negozio/slice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     account: accountSlice.reducer,
     accountRuolo: accountRuoloSlice.reducer,
     azienda: aziendaSlice.reducer,
+    negozio: negoziSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

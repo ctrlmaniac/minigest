@@ -16,6 +16,7 @@ const AziendaList = lazy(() => import("~/pages/Azienda"));
 const AziendaDettagli = lazy(() => import("~/pages/Azienda/Dettagli"));
 const AziendaModifica = lazy(() => import("~/pages/Azienda/Modifica"));
 const AziendaAggiungi = lazy(() => import("~/pages/Azienda/Aggiungi"));
+const Negozi = lazy(() => import("~/pages/Negozio"));
 
 export default createBrowserRouter([
   {
@@ -119,6 +120,14 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <AziendaModifica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/negozi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <Negozi />
           </Suspense>
         ),
       },

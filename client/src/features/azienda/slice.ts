@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Azienda } from "~/types";
+import { Azienda, Negozio } from "~/types";
 
 interface State {
   exists: boolean;
