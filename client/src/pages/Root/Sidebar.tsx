@@ -46,6 +46,21 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
           <ListItemButton onClick={() => to(`/docfisc/chiusure-fiscali`)}>
             <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
+          <ListItemButton onClick={() => to(`/docfisc/fatture`)}>
+            <ListItemText primary="Fatture" />
+          </ListItemButton>
+          <ListItemButton onClick={() => to(`/docfisc/fatture/acquisto`)}>
+            <ListItemText primary="Fatture Acquisto" />
+          </ListItemButton>
+          <ListItemButton onClick={() => to(`/docfisc/fatture/vendita`)}>
+            <ListItemText primary="Fatture Vendita" />
+          </ListItemButton>
+        </List>
+
+        <List subheader={<ListSubheader>Fisco</ListSubheader>}>
+          <ListItemButton onClick={() => to(`/fisco/f24`)}>
+            <ListItemText primary="F24" />
+          </ListItemButton>
         </List>
       </Box>
     </Drawer>

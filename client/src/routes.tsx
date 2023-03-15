@@ -27,6 +27,16 @@ const ChiusureFiscaliDettagli = lazy(
 const ChiusureFiscaliModifica = lazy(
   () => import("~/pages/ChiusureFiscali/Modifica")
 );
+const FattureLista = lazy(() => import("~/pages/Fatture/ListAll"));
+const FattureAggiungi = lazy(() => import("~/pages/Fatture/Aggiungi"));
+const FattureCarica = lazy(() => import("~/pages/Fatture/Upload"));
+const FattureMode = lazy(() => import("~/pages/Fatture"));
+const FattureDettagli = lazy(() => import("~/pages/Fatture/Dettagli"));
+const FattureModifica = lazy(() => import("~/pages/Fatture/Modifica"));
+const F24 = lazy(() => import("~/pages/F24"));
+const F24Aggiungi = lazy(() => import("~/pages/F24/Aggiungi"));
+const F24Modifica = lazy(() => import("~/pages/F24/Modifica"));
+const F24Dettagli = lazy(() => import("~/pages/F24/Dettagli"));
 
 export default createBrowserRouter([
   {
@@ -170,6 +180,86 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <ChiusureFiscaliModifica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureLista />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture/aggiungi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureAggiungi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture/carica",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureCarica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture/:mode",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureMode />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture/dettagli/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureDettagli />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/fatture/modifica/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <FattureModifica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/fisco/f24",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <F24 />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/fisco/f24/aggiungi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <F24Aggiungi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/fisco/f24/modifica/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <F24Modifica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/fisco/f24/dettagli/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <F24Dettagli />
           </Suspense>
         ),
       },
