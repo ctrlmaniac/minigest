@@ -4,6 +4,7 @@ import { Negozio } from "~/types";
 
 interface State {
   response?: string;
+  selected?: Negozio;
   dettagli?: Negozio;
   list?: Negozio[];
   listing: boolean;
@@ -18,6 +19,7 @@ interface State {
 
 const initialState: State = {
   response: undefined,
+  selected: undefined,
   listing: false,
   listError: false,
   posting: false,
@@ -34,6 +36,9 @@ export const negoziSlice = createSlice({
   reducers: {
     unsetResponse: (state) => {
       state.response = undefined;
+    },
+    setSelected: (state, action: PayloadAction<Negozio>) => {
+      state.selected = action.payload;
     },
     listStart: (state) => {
       state.listing = true;
@@ -107,6 +112,7 @@ export const negoziSlice = createSlice({
 });
 
 export const {
+  setSelected,
   listFail,
   listStart,
   listSuccess,
