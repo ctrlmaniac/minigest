@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>me.ctrlmaniac</groupId>
-	<artifactId>minigestmonorepo</artifactId>
-	<version>0.1.0</version>
+	<artifactId>minigest-monorepo</artifactId>
+	<version>3.0.0</version>
 	<packaging>pom</packaging>
 
 	<modules>

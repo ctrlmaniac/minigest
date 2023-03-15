@@ -44,12 +44,11 @@ public class FatturaRestController {
 			Account utente = accountService.findById(idUtente);
 
 			if (utente != null) {
+				Azienda azienda = utente.getAzienda();
 				List<Fattura> fatture = new ArrayList<>();
 
-				for (Azienda azienda : utente.getAziende()) {
-					fatture.addAll(service.findTop10ByCedente(azienda));
-					fatture.addAll(service.findTop10ByCommittente(azienda));
-				}
+				fatture.addAll(service.findTop10ByCedente(azienda));
+				fatture.addAll(service.findTop10ByCommittente(azienda));
 
 				Collections.sort(fatture, new Comparator<Fattura>() {
 					@Override

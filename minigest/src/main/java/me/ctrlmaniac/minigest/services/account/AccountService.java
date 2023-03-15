@@ -1,50 +1,62 @@
 package me.ctrlmaniac.minigest.services.account;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
-import me.ctrlmaniac.minigest.entities.azienda.Azienda;
-import me.ctrlmaniac.minigest.entities.azienda.AziendaIndirizzo;
-import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
 import me.ctrlmaniac.minigest.repositories.account.AccountRepo;
 import me.ctrlmaniac.minigest.services.azienda.AziendaIndirizzoService;
 import me.ctrlmaniac.minigest.services.azienda.AziendaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class AccountService implements UserDetailsService {
 
 	@Autowired
-	private AccountRepo accountRepo;
+	AccountRepo repo;
 
 	@Autowired
-	private AccountRuoloService ruoloService;
+	AccountRuoloService ruoloService;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private AziendaService aziendaService;
+	AziendaService aziendaService;
 
 	@Autowired
-	private AziendaIndirizzoService aziendaIndirizzoService;
+	AziendaIndirizzoService aziendaIndirizzoService;
 
 	@Autowired
-	private NegozioService negozioService;
+	NegozioService negozioService;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<Account> opt = repo.findByEmail(username);
+
+		if (!opt.isPresent()) {
+			throw new UsernameNotFoundException(username);
+		}
+
+		Account account = opt.get();
+
+		UserDetails user = new User(account.getEmail(), account.getPassword(), account.getAuthorities());
+
+		return user;
+	}
 
 	public Account findById(String id) {
-		Optional<Account> opt = accountRepo.findById(id);
+		Optional<Account> opt = repo.findById(id);
 
 		if (opt.isPresent()) {
 			return opt.get();
@@ -54,7 +66,7 @@ public class AccountService implements UserDetailsService {
 	}
 
 	public Account findByEmail(String email) {
-		Optional<Account> opt = accountRepo.findByEmail(email);
+		Optional<Account> opt = repo.findByEmail(email);
 
 		if (opt.isPresent()) {
 			return opt.get();
@@ -64,28 +76,19 @@ public class AccountService implements UserDetailsService {
 	}
 
 	public List<Account> findByEmailContainingIgnoreCase(String email) {
-		return accountRepo.findByEmailContainingIgnoreCase(email);
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account account = findByEmail(username);
-
-		if (account == null) {
-			throw new UsernameNotFoundException(username);
-		}
-
-		UserDetails user = new User(account.getEmail(), account.getPassword(), account.getAuthorities());
-
-		return user;
+		return repo.findByEmailContainingIgnoreCase(email);
 	}
 
 	public List<Account> findAll() {
-		return accountRepo.findAll();
+		return repo.findAll();
 	}
 
 	public boolean existsByEmail(String email) {
-		return accountRepo.existsByEmail(email);
+		return repo.existsByEmail(email);
+	}
+
+	public void deleteById(String id) {
+		repo.deleteById(id);
 	}
 
 	public Account save(Account payload) {
@@ -98,33 +101,15 @@ public class AccountService implements UserDetailsService {
 		payload.setAccountNonLocked(payload.isAccountNonLocked());
 		payload.setCredentialsNonExpired(payload.isCredentialsNonExpired());
 		payload.setEnabled(payload.isEnabled());
+		payload.setAzienda(payload.getAzienda());
 
-		Account account = accountRepo.save(payload);
+		Account account = repo.save(payload);
 
-		for (Azienda azienda : payload.getAziende()) {
-			azienda.addUtente(account);
-			aziendaService.save(azienda);
-
-			if (azienda.getSede() != null) {
-				AziendaIndirizzo sede = azienda.getSede();
-				aziendaIndirizzoService.save(sede);
-			}
-
-			for (Negozio negozio : azienda.getNegozi()) {
-				negozio.setAzienda(azienda);
-				negozioService.save(negozio);
-			}
-		}
-
-		return accountRepo.save(account);
-	}
-
-	public void deleteById(String id) {
-		accountRepo.deleteById(id);
+		return account;
 	}
 
 	public Account update(String id, Account payload) {
-		Optional<Account> opt = accountRepo.findById(id);
+		Optional<Account> opt = repo.findById(id);
 
 		if (opt.isPresent()) {
 			Account old = opt.get();
@@ -139,20 +124,9 @@ public class AccountService implements UserDetailsService {
 			old.setEnabled(payload.isEnabled());
 
 			old.setAuthorities(payload.getAuthorities());
+			old.setAzienda(payload.getAzienda());
 
-			// Aggiorna le aziende
-			for (Azienda azienda : old.getAziende()) {
-				azienda.removeUtente(old);
-				old.removeAzienda(azienda);
-				aziendaService.save(azienda);
-			}
-			for (Azienda azienda : payload.getAziende()) {
-				azienda.addUtente(old);
-				old.addAzienda(azienda);
-				aziendaService.save(azienda);
-			}
-
-			return accountRepo.save(old);
+			return repo.save(old);
 		}
 
 		return null;

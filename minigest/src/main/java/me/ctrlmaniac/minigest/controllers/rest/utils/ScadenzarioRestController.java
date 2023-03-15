@@ -3,7 +3,6 @@ package me.ctrlmaniac.minigest.controllers.rest.utils;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -46,16 +45,14 @@ public class ScadenzarioRestController {
 		Account user = accountService.findByEmail(principal.getName());
 
 		if (user != null) {
-			Set<Azienda> aziende = user.getAziende();
+			Azienda azienda = user.getAzienda();
 			List<Fattura> fatture = new ArrayList<>();
 			List<FatturaScadenza> scadenze = new ArrayList<>();
 			List<F24> f24s = f24Service.findAllByUtente(user);
 			List<Scadenzario> scadenzario = new ArrayList<>();
 
-			if (aziende.size() > 0) {
-				for (Azienda azienda : aziende) {
-					fatture.addAll(fatturaService.findAllByCommittente(azienda));
-				}
+			if (azienda != null) {
+				fatture.addAll(fatturaService.findAllByCommittente(azienda));
 
 				for (Fattura fattura : fatture) {
 					List<FatturaScadenza> scadenzeAll = new ArrayList<>();

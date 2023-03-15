@@ -54,19 +54,18 @@ public class BilancioRestController {
 			Account account = accountService.findByEmail(principal.getName());
 
 			if (account != null) {
+				Azienda azienda = account.getAzienda();
 				List<Fattura> fattureAcquisto = new ArrayList<>();
 				List<Fattura> fattureVendita = new ArrayList<>();
 				List<ChiusuraFiscale> chiusure = new ArrayList<>();
 				Bilancio bilancio = new Bilancio();
 
 				// popola le liste
-				for (Azienda azienda : account.getAziende()) {
-					fattureAcquisto.addAll(fatturaService.findAllByCommittenteByData(azienda, anno, mese));
-					fattureVendita.addAll(fatturaService.findAllByCedenteByData(azienda, anno, mese));
+				fattureAcquisto.addAll(fatturaService.findAllByCommittenteByData(azienda, anno, mese));
+				fattureVendita.addAll(fatturaService.findAllByCedenteByData(azienda, anno, mese));
 
-					for (Negozio negozio : azienda.getNegozi()) {
-						chiusure.addAll(chiusuraService.findAllByNegozioAndByData(negozio, anno, mese));
-					}
+				for (Negozio negozio : azienda.getNegozi()) {
+					chiusure.addAll(chiusuraService.findAllByNegozioAndByData(negozio, anno, mese));
 				}
 
 				/**

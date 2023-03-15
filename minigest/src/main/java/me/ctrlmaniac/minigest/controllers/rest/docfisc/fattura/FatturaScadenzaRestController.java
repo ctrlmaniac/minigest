@@ -3,7 +3,6 @@ package me.ctrlmaniac.minigest.controllers.rest.docfisc.fattura;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,16 +38,14 @@ public class FatturaScadenzaRestController {
 		if (user == null) {
 			return new ResponseEntity<String>("Utente non connesso", HttpStatus.NOT_FOUND);
 		} else {
-			Set<Azienda> aziende = user.getAziende();
+			Azienda azienda = user.getAzienda();
 
-			if (aziende.size() == 0) {
+			if (azienda == null) {
 				return new ResponseEntity<String>("Non ci sono aziende per questo account", HttpStatus.NOT_FOUND);
 			} else {
 				List<Fattura> fatture = new ArrayList<>();
 
-				for (Azienda azienda : aziende) {
-					fatture.addAll(fatturaService.findAllByCommittente(azienda));
-				}
+				fatture.addAll(fatturaService.findAllByCommittente(azienda));
 
 				if (fatture.size() == 0) {
 					return new ResponseEntity<String>("Non ci sono fatture con scadenze", HttpStatus.NOT_FOUND);

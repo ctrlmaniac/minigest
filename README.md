@@ -1,96 +1,71 @@
 # minigest
 
-Un mini gestionale pensato per le piccole aziende
-
----
-
-Potrai salvare le tue chiusure fiscali, le tue fatture e gestire le scadenze e i pagamenti!
+un mini gestionale per micro imprese
 
 ## Prima di cominciare
 
-Per ragioni di sicurezza non si salvano i dati sensibili nel repository, soprattuto perché magari è pubblico.
-Grazien al pacchetto `spring-dotenv` possiamo includere tutti i dati sensibili in un file `.env` che non verrà committato.
-Questo file conterrà delle variabili a seconda dell'ambiente di sviluppo o di deploy.
-
-Crea un file `.env` all'interno della root del progetto, o dove risiede il file jar minigest con le seguenti variabili:
+Se hai scaricato questo repository o hai intenzione di utilizzare l'immagine docker pubblicata su dockerhub, dovrai utilizzare un file `.env` per gestire tutte le variabili d'ambiente che non possono esserre committate con questo progetto e che sono custom.
+Crea un file `.env` nella root del progetto o nella cartella dove ci sarà il tuo `docker-compose.yml` con le seguenti variabili d'ambiente:
 
 ```
-DB_HOST=localhost
-DB_NAME=minigest
-DB_USER=root
-DB_PASS=root
+DB_HOST=mysqldb
+MYSQL_ROOT_USER=root
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=minigest
 
-ADMIN_EMAIL=davide.dicriscito@gmail.com
-ADMIN_FNAME=Davide
-ADMIN_LNAME=Di Criscito
+ADMIN_EMAIL=email@email.com
+ADMIN_FNAME=Mario
+ADMIN_LNAME=Rossi
 ADMIN_PASS=54321
 
-HOST=http://localhost:8080
+EMAIL_HOST=smtp.email.com
+EMAIL_USERNAME=email@email.com
+EMAIL_PASSWORD=asdfghjkl
 
-EMAIL_HOST=smtp.gmail.com
-EMAIL_USERNAME=davide.dicriscito@gmail.com
-EMAIL_PASSWORD=qmqrlysewdeczubm
+HOST=https://minigest.ctrlmaniac.me
 ```
 
-## Uno per tutti, tutti per uno
+Ovviamente cambia i valori delle variabili a seconda delle tue necessità!
 
-Un unico repository per il backend e per il frontend. In questo repository si possono creare più applicazioni java grazie al file `pom.xml` che risiede nella root del progetto.
-Con la proprietà `modules` si definiscono i moduli java presenti nel progetto. Qui ne ho solo uno e si chiama **minigest**.
+## Docker
 
-```xml
-<modules>
-	<module>minigest</module>
-</modules>
-```
+Puoi scaricare e utilizzare liberamente minigest tramite docker! Dai un'occhiata al mio [docker-compose.yml](./docker-compose.prod.yml) per vedere come ho fatto io!
 
-Per quanto riguarda il frontend, si possono creare pià client. Io ne ho creati addirittura 3! Uno per visualizzare il sito internet che è pubblico a tutti, uno solo per l'applicazione e l'ultimo per gli admin!
+## Cominciamo
 
-Ho utilizzato `lerna` per poter creare tutti questi progetti.
+### Login
 
-Nella cartella `clients` risiedono i clients mentre nella cartella `packages` risiedono tutti i pacchetti comuni ai clients.
+La prima cosa che dovrai fare sarà fare il login! Utilizza i dati che hai inserito nel file `.env` per accedere a minigest!
 
-## Linguaggi di programmazione utilizzati
+![login](./screenshots/login.png)
 
-Vengono utilizzati i seguenti linguaggi di programmazione:
+### Prima configurazione
 
-- Java: per il backend
-- Typescript: per il frontend
+Durante il primo utilizzo di minigest, ti verrà richiesto di inserire i dati della tua azienda! Compila con cura tutti i campi, ricorda che in seguito quando caricherai le tue fatture (vendita o acquisto) minigest recupererà i dati inseriti nella fattura per salvare in automatico la fattura, quindi i dati dell'azienda devono coincidere con quelli in fattura!
 
-## Gira tutto su un unico server!
+![configurazione](./screenshots/configurazione.png)
 
-Grazie a `Thymeleaf` e a una funzione che controlla l'url che si sta visitando, il server decide quale client farti visualizzare. Non c'è bisogno quindi di far partire separatamente i tre client e il server tomcat. Per visualizzare il sito internet basta far partire il server tomcat già incluso con `spring boot`.
+## Con o senza negozio
 
-Questo è il controller che decide quale client farti vedere:
+Puoi utilizzare minigest anche se non hai un negozio!
+Se invece hai uno o più negozi, aggiugili subito nella sezione negozi.
+Apri il menu con l'icona in alto a sinistra affianco al logo minigest e clicca su negozi. Dopo di che potrai aggiungere i tuoi negozi!
 
-```java
-@Controller
-public class ReactWebController {
+![aggiungi negozio](./screenshots/negozio-1.png)
 
-	@GetMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/*/{y:[\\w\\-]+}", "/error" })
-	public String getClient(HttpServletRequest request) {
-		String url = request.getRequestURI();
+Una volta aggiunto almeno un negozio, potrai selezionarlo cliccando sull'icona in alto a destra, quella che prima aveva il pallino rosa! Minigest selezionerà un negozio a caso per te, quindi se vuoi cambiare visualizzazione, clicca sull'icona e cambia negozio!
 
-		if (url.startsWith("/admin")) {
-			return "/admin/index.html";
-		} else if (url.startsWith("/app")) {
-			return "/app/index.html";
-		}
+![cambia negozio](./screenshots/negozio-2.png)
 
-		return "/www/index.html";
-	}
-}
-```
+## I Corrispettivi
 
-## La sicurezza prima di tutto
+Potrai aggiungere facilmente le chiusure fiscali del tuo negozio nella sezione chiusure fiscali!
+Ricorda che ogni chiusura fiscale ha uno o più reparti IVA (le diverse aliquote. es: 22%, 10%, 4%). Aggiungi anche il totale del reparto quando aggiungi una chiusura fiscale!
 
-Ho utilizzato `spring-security` per gestire l'accesso e l'autorizzazione all'applicazione e alla sezione admin!
+![chiusura fiscale](./screenshots/cf-1.png)
 
-Non ho utilizzato token `jwt` ma la sessione che genera spring security. La connessione è quindi _stateful_.
+## Le Fatture
 
-## Deploy
+Puoi caricare i tuoi file XML direttamente su minigest, altrimenti puoi compilare manualmente il form delle fatture! Se caricherai i file XML, minigest si occuperà di salvare le eventuali nuove aziende!
 
-Questa applicazione è raggiungibile al sito internet [https://minigest.ctrlmaniac.me](https://minigest.ctrlmaniac.me). Per il deploy mi sono affidato a **Docker**! Puoi trovare nel hub di docker l'immagine di questa applicazione!
-
-Sul VPS è installato **nginx** che si occupa di gestire le chiamate al sito internet e di rigirarle al server tomcat che è avviato grazie a docker!
-
-Il tutto automatizzato grazie alle **Github actions**.
+![fatture](./screenshots/fatture.png)

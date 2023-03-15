@@ -1,27 +1,28 @@
 package me.ctrlmaniac.minigest.entities.account;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @ToString
 @Entity
@@ -45,9 +46,9 @@ public class Account implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<AccountRuolo> authorities = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "utenti")
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIncludeProperties({ "id", "denominazione", "negozi" })
-	Set<Azienda> aziende = new HashSet<>();
+	Azienda azienda;
 
 	public Account(String email, String nome, String cognome, String password) {
 		this.email = email;
@@ -58,7 +59,7 @@ public class Account implements UserDetails {
 
 	public Account(String email, String nome, String cognome, String password, boolean enabled,
 			boolean credentialsNonExpired,
-			boolean accountNonExpired, boolean accountNonLocked) {
+			boolean accountNonExpired, boolean accountNonLocked, Azienda azienda) {
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -67,18 +68,12 @@ public class Account implements UserDetails {
 		this.credentialsNonExpired = credentialsNonExpired;
 		this.accountNonExpired = accountNonExpired;
 		this.accountNonLocked = accountNonLocked;
+		this.azienda = azienda;
 	}
 
+	@Override
 	public String getUsername() {
 		return this.email;
-	}
-
-	public void addAzienda(Azienda azienda) {
-		aziende.add(azienda);
-	}
-
-	public void removeAzienda(Azienda azienda) {
-		aziende.remove(azienda);
 	}
 
 	public void addRuolo(AccountRuolo ruolo) {

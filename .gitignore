@@ -1,3 +1,4 @@
+!.mvn/wrapper/maven-wrapper.jar
 .env
-node_modules
-media
+data/
+node_modules/

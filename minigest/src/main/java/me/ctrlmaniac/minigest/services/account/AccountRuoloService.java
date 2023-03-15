@@ -1,31 +1,31 @@
 package me.ctrlmaniac.minigest.services.account;
 
-import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
-import me.ctrlmaniac.minigest.repositories.account.AccountRuoloRepo;
-import me.ctrlmaniac.minigest.enums.RuoloEnum;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.List;
+import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
+import me.ctrlmaniac.minigest.enums.RuoloEnum;
+import me.ctrlmaniac.minigest.repositories.account.AccountRuoloRepo;
 
 @Service
 public class AccountRuoloService {
 
 	@Autowired
-	private AccountRuoloRepo ruoloRepo;
+	private AccountRuoloRepo repo;
 
 	public AccountRuolo save(AccountRuolo ruolo) {
-		return ruoloRepo.save(ruolo);
+		return repo.save(ruolo);
 	}
 
 	public List<AccountRuolo> findAll() {
-		return ruoloRepo.findAll();
+		return repo.findAll();
 	}
 
 	public AccountRuolo findByNome(RuoloEnum ruolo) {
-		Optional<AccountRuolo> opt = ruoloRepo.findByAuthority(ruolo);
+		Optional<AccountRuolo> opt = repo.findByAuthority(ruolo);
 
 		if (opt.isPresent()) {
 			return opt.get();

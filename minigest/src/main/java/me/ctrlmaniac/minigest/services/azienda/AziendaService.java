@@ -1,9 +1,9 @@
 package me.ctrlmaniac.minigest.services.azienda;
 
+import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.repositories.azienda.AziendaRepo;
-import me.ctrlmaniac.minigest.services.docfisc.fattura.FatturaService;
 import me.ctrlmaniac.minigest.services.negozio.NegozioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,6 @@ public class AziendaService {
 
 	@Autowired
 	private NegozioService negozioService;
-
-	@Autowired
-	private FatturaService fatturaService;
 
 	public Azienda findById(String id) {
 		Optional<Azienda> opt = aziendaRepo.findById(id);
@@ -94,6 +91,12 @@ public class AziendaService {
 			}
 		}
 
+		if (azienda.getUtenti() != null) {
+			for (Account utente : azienda.getUtenti()) {
+				azienda.addUtente(utente);
+			}
+		}
+
 		return aziendaRepo.save(azienda);
 	}
 
@@ -103,8 +106,9 @@ public class AziendaService {
 		if (opt.isPresent()) {
 			Azienda azienda = opt.get();
 
-			fatturaService.deleteAllByCedente(azienda);
-			fatturaService.deleteAllByCommittente(azienda);
+			// TODO
+			// fatturaService.deleteAllByCedente(azienda);
+			// fatturaService.deleteAllByCommittente(azienda);
 
 			for (Negozio negozio : azienda.getNegozi()) {
 				negozioService.delete(negozio);

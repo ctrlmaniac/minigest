@@ -44,14 +44,14 @@ public class EmailService {
 
 			// Sending the mail
 			javaMailSender.send(mimeMessage);
-			return "Mail sent Successfully";
+			return "Email inviata con successo!";
 		}
 
 		// Catch block to handle MessagingException
 		catch (MessagingException e) {
 
 			// Display message when exception occurred
-			return "Error while sending mail!!!";
+			return "Impossibile inviare email!";
 		}
 	}
 }

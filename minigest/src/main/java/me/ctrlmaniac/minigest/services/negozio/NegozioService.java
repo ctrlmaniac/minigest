@@ -7,19 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.ctrlmaniac.minigest.entities.azienda.Azienda;
-import me.ctrlmaniac.minigest.entities.docfisc.chiusurafiscale.ChiusuraFiscale;
 import me.ctrlmaniac.minigest.entities.negozio.Negozio;
 import me.ctrlmaniac.minigest.repositories.negozio.NegozioRepo;
-import me.ctrlmaniac.minigest.services.docfisc.chiusurafiscale.ChiusuraFiscaleService;
 
 @Service
 public class NegozioService {
 
 	@Autowired
-	private NegozioRepo repo;
-
-	@Autowired
-	private ChiusuraFiscaleService chiusuraService;
+	NegozioRepo repo;
 
 	public Negozio findById(String id) {
 		Optional<Negozio> opt = repo.findById(id);
@@ -44,9 +39,7 @@ public class NegozioService {
 	}
 
 	public void delete(Negozio negozio) {
-		for (ChiusuraFiscale chiusura : negozio.getChiusure()) {
-			chiusuraService.delete(chiusura);
-		}
+		// TODO: eliminare chiusure fiscali
 
 		repo.delete(negozio);
 	}
