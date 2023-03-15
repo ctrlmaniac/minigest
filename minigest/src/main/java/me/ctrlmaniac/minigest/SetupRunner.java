@@ -9,9 +9,12 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import me.ctrlmaniac.minigest.entities.account.Account;
 import me.ctrlmaniac.minigest.entities.account.AccountRuolo;
+import me.ctrlmaniac.minigest.entities.docfisc.TipoDocFisc;
 import me.ctrlmaniac.minigest.enums.RuoloEnum;
 import me.ctrlmaniac.minigest.services.account.AccountRuoloService;
 import me.ctrlmaniac.minigest.services.account.AccountService;
+import me.ctrlmaniac.minigest.services.docfisc.TipoDocFiscService;
+import me.ctrlmaniac.minigest.utils.DataLoader;
 
 @Slf4j
 @Component
@@ -23,6 +26,12 @@ public class SetupRunner implements CommandLineRunner {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private TipoDocFiscService tipoDocFiscService;
+
+	@Autowired
+	private DataLoader loader;
 
 	@Value("${admin.email}")
 	private String adminEmail;
@@ -51,6 +60,11 @@ public class SetupRunner implements CommandLineRunner {
 		Account admin = new Account(adminEmail, adminFName, adminLName, adminPassword, true, true, true, true, null);
 		admin.addRuolo(ruoloAdmin);
 		accountService.save(admin);
+
+		// Salva i tipi di documenti fiscali
+		for (TipoDocFisc tipo : loader.loadTipoDocFisc("media/csv/tipidocfisc.csv")) {
+			tipoDocFiscService.save(tipo);
+		}
 
 		log.info("Setup completed!");
 	}
