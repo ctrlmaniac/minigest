@@ -37,6 +37,8 @@ const F24 = lazy(() => import("~/pages/F24"));
 const F24Aggiungi = lazy(() => import("~/pages/F24/Aggiungi"));
 const F24Modifica = lazy(() => import("~/pages/F24/Modifica"));
 const F24Dettagli = lazy(() => import("~/pages/F24/Dettagli"));
+const Scadenzario = lazy(() => import("~/pages/Scadenzario"));
+const RegCorrispettivi = lazy(() => import("~/pages/RegistroCorrispettivi"));
 
 export default createBrowserRouter([
   {
@@ -260,6 +262,22 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <F24Dettagli />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/registro-corrispettivi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <RegCorrispettivi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/scadenzario",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <Scadenzario />
           </Suspense>
         ),
       },

@@ -11,3 +11,5 @@ export type { default as FatturaPagamento } from "./fatturaPagamento";
 export type { default as FatturaReparto } from "./fatturaReparto";
 export type { default as FatturaScadenza } from "./fatturaScadenza";
 export type { default as TipoDocFisc } from "./tipoDocFisc";
+export type { default as Scadenzario } from "./scadenzario";
+export type { default as RegCorrispettivi } from "./RegCorrispettivi";

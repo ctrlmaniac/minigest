@@ -4,6 +4,7 @@ import { useAppSelector } from "~/hooks";
 import WidgetNegozi from "../Negozio/Widget";
 import WidgetChiusure from "../ChiusureFiscali/Widget";
 import WidgetFatture from "../Fatture/Widget";
+import WidgetScadenzario from "../Scadenzario/Widget";
 
 const Home: React.FC = () => {
   const { principal } = useAppSelector((state) => state.account);
@@ -34,6 +35,10 @@ const Home: React.FC = () => {
 
         <Grid item xs={12}>
           <WidgetFatture />
+        </Grid>
+
+        <Grid item xs={12}>
+          <WidgetScadenzario />
         </Grid>
       </Grid>
     </>

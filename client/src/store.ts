@@ -9,6 +9,8 @@ import { chiusureFiscaliSlice } from "./features/chiusureFiscali/slice";
 import { fattureSlice } from "./features/fatture/slice";
 import { f24Slice } from "./features/f24/slice";
 import { tipiDocFiscSlice } from "./features/tipiDocFisc/slice";
+import { registroCorrispettiviSlice } from "./features/registroCorrispettivi/slice";
+import { scadenzarioSlice } from "./features/scadenzario/slice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +23,8 @@ export const store = configureStore({
     fatture: fattureSlice.reducer,
     f24: f24Slice.reducer,
     tipiDocFisc: tipiDocFiscSlice.reducer,
+    registroCorrispettivi: registroCorrispettiviSlice.reducer,
+    scadenzario: scadenzarioSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

@@ -62,6 +62,15 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
             <ListItemText primary="F24" />
           </ListItemButton>
         </List>
+
+        <List subheader={<ListSubheader>Utilità</ListSubheader>}>
+          <ListItemButton onClick={() => to(`/registro-corrispettivi`)}>
+            <ListItemText primary="Registro dei Corrispettivi" />
+          </ListItemButton>
+          <ListItemButton onClick={() => to(`/scadenzario`)}>
+            <ListItemText primary="Scadenzario" />
+          </ListItemButton>
+        </List>
       </Box>
     </Drawer>
   );
