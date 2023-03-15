@@ -68,6 +68,10 @@ const Root: React.FC = () => {
     if (getPrincipalError) {
       return <ErrorScreen>{response || "Errore di caricamento"}</ErrorScreen>;
     } else {
+      if (isEmpty(principal?.azienda)) {
+        return <Init open={openInit} handleOpen={setOpenInit} />;
+      }
+
       return (
         <>
           <AppBar position="sticky">
@@ -114,8 +118,6 @@ const Root: React.FC = () => {
               <Outlet />
             </Container>
           </Box>
-
-          <Init open={openInit} handleOpen={setOpenInit} />
 
           <Dialog open={openNegozi} onClose={() => setOpenNegozi(false)}>
             <DialogTitle>Seleziona un negozio</DialogTitle>

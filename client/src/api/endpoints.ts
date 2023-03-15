@@ -6,7 +6,7 @@ export enum Endpoints {
   CHIUSURE_FISCALI = "/docfisc/chiusure-fiscali",
   FATTURE = "/docfisc/fatture",
   TIPIDOCFISC = "/docfisc/tipo",
-  REGISTRO_CORRISPETTIVI = "/docfisc/registro-corrispettivi",
+  REGISTRO_CORRISPETTIVI = "/utils/registro-corrispettivi",
   BILANCIO = "/utils/bilancio",
   SCADENZARIO = "/utils/scadenzario",
   FISCO = "/fisco",

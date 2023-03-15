@@ -42,7 +42,7 @@ const WidgetFatture: React.FC = () => {
 
   let content = <Typography>Caricamento in corso...</Typography>;
 
-  if (isEmpty(principal!.azienda)) {
+  if (isEmpty(principal)) {
     content = (
       <Alert severity="info" variant="outlined">
         <AlertTitle>Devi prima aggiungere un'azienda!</AlertTitle>
