@@ -1,18 +1,25 @@
-import { ThemeProvider, Typography } from "@mui/material";
 import React from "react";
-import { Splash } from "~/components";
-import { logoTheme } from "~/theme";
+import { Grid, Typography } from "@mui/material";
+import { useAppSelector } from "~/hooks";
 
 const Home: React.FC = () => {
+  const { principal } = useAppSelector((state) => state.account);
+
   return (
     <>
-      <ThemeProvider theme={logoTheme}>
-        <Splash>
-          <Typography variant="h1" align="center">
-            m
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="stretch"
+      >
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h3" gutterBottom>
+            Benvenuto, {principal?.nome}!
           </Typography>
-        </Splash>
-      </ThemeProvider>
+          <Typography>Eccoti una panoramica della tua azienda!</Typography>
+        </Grid>
+      </Grid>
     </>
   );
 };
