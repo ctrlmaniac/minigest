@@ -45,6 +45,14 @@ const Root: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
+    if (isEmpty(negozioSelected)) {
+      if (!isEmpty(principal?.azienda?.negozi)) {
+        dispatch(setSelected(principal!.azienda!.negozi![0]));
+      }
+    }
+  }, [principal]);
+
+  React.useEffect(() => {
     if (!isEmpty(principal)) {
       if (isEmpty(principal.azienda)) {
         setOpenInit(true);

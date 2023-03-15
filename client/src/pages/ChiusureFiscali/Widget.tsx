@@ -12,12 +12,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import {
-  IconBuildingStore,
-  IconFile,
-  IconPencil,
-  IconTrash,
-} from "@tabler/icons-react";
+import { IconBuildingStore, IconFile } from "@tabler/icons-react";
 import { isEmpty } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +22,7 @@ import { useAppDispatch, useAppSelector } from "~/hooks";
 const WidgetChiusure: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { selected } = useAppSelector((state) => state.negozi);
+  const { selected } = useAppSelector((state) => state.negozio);
   const {
     list: chiusure,
     listError,
