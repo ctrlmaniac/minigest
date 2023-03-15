@@ -1,4 +1,11 @@
-import { Box, Drawer, List, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+} from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "~/hooks";
@@ -32,6 +39,12 @@ const Sidebar: React.FC<Props> = ({ open, handleOpen }) => {
           </ListItemButton>
           <ListItemButton onClick={() => to(`/negozi`)}>
             <ListItemText primary="Negozi" />
+          </ListItemButton>
+        </List>
+
+        <List subheader={<ListSubheader>Documenti Fiscali</ListSubheader>}>
+          <ListItemButton onClick={() => to(`/docfisc/chiusure-fiscali`)}>
+            <ListItemText primary="Chiusure Fiscali" />
           </ListItemButton>
         </List>
       </Box>

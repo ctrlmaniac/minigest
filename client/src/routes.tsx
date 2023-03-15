@@ -17,6 +17,16 @@ const AziendaDettagli = lazy(() => import("~/pages/Azienda/Dettagli"));
 const AziendaModifica = lazy(() => import("~/pages/Azienda/Modifica"));
 const AziendaAggiungi = lazy(() => import("~/pages/Azienda/Aggiungi"));
 const Negozi = lazy(() => import("~/pages/Negozio"));
+const ChiusureFiscali = lazy(() => import("~/pages/ChiusureFiscali"));
+const ChiusureFiscaliAggiungi = lazy(
+  () => import("~/pages/ChiusureFiscali/Aggiungi")
+);
+const ChiusureFiscaliDettagli = lazy(
+  () => import("~/pages/ChiusureFiscali/Dettagli")
+);
+const ChiusureFiscaliModifica = lazy(
+  () => import("~/pages/ChiusureFiscali/Modifica")
+);
 
 export default createBrowserRouter([
   {
@@ -128,6 +138,38 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <Negozi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/chiusure-fiscali",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <ChiusureFiscali />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/chiusure-fiscali/aggiungi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <ChiusureFiscaliAggiungi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/chiusure-fiscali/dettagli/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <ChiusureFiscaliDettagli />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/docfisc/chiusure-fiscali/modifica/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <ChiusureFiscaliModifica />
           </Suspense>
         ),
       },
