@@ -12,6 +12,10 @@ const AccountModifica = lazy(() => import("~/pages/Account/Modifica"));
 const AccountAggiungi = lazy(() => import("~/pages/Account/Aggiungi"));
 const PasswordForgot = lazy(() => import("~/pages/Account/Password/Forgot"));
 const PasswordReset = lazy(() => import("~/pages/Account/Password/Reset"));
+const AziendaList = lazy(() => import("~/pages/Azienda"));
+const AziendaDettagli = lazy(() => import("~/pages/Azienda/Dettagli"));
+const AziendaModifica = lazy(() => import("~/pages/Azienda/Modifica"));
+const AziendaAggiungi = lazy(() => import("~/pages/Azienda/Aggiungi"));
 
 export default createBrowserRouter([
   {
@@ -83,6 +87,38 @@ export default createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <AccountModifica />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/aziende",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <AziendaList />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/aziende/aggiungi",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <AziendaAggiungi />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/aziende/dettagli/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <AziendaDettagli />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/aziende/modifica/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <AziendaModifica />
           </Suspense>
         ),
       },
