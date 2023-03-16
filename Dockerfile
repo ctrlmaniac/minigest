@@ -31,6 +31,6 @@ COPY --from=javabuild /home/minigest/target/minigest-*.jar /home/minigest.jar
 
 RUN mkdir -p /home/media/fel
 
-CMD ["java", "-jar", "/home/minigest.jar"]
-
 EXPOSE 8080
+
+CMD ["java", "-jar", "/home/minigest.jar"]
