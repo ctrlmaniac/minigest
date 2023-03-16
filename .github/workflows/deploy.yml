@@ -24,7 +24,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ctrlmaniac/minigest:${{ env.RELEASE_VERSION }}
+          tags: ctrlmaniac/minigest:latest,ctrlmaniac/minigest:${{ env.RELEASE_VERSION }}
 
       - name: Copy docker-compose.yml
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
