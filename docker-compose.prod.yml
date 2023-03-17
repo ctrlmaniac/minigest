@@ -12,10 +12,10 @@ services:
     env_file:
       - .env
 
-  mysqldb:
+  postgres:
     container_name: minigest-db
-    image: mysql:8.0.32
+    image: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - .env
