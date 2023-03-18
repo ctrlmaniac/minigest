@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: minigest-postgres
 spec:
   type: ClusterIP
   selector:

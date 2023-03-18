@@ -11,6 +11,7 @@
   "scripts": {
     "build": "npx lerna exec -- npm run build",
     "dev": "docker compose up --build",
-    "env": "kubectl create configmap minigest-environment --from-env-file=.env"
+    "kube:env": "kubectl create configmap minigest-environment --from-env-file=.env",
+    "kube:apply": "kubectl apply -f kube/minigest -f kube/postgres"
   }
 }
