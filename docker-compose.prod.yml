@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mysqldb
+      - minigest-postgres
     volumes:
       - ./data/media:/home/media
     env_file:
