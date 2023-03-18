@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minigest-postgres
+spec:
+  selector:
+    matchLabels:
+      app: minigest-postgres
+  template:
+    metadata:
+      labels:
+        app: minigest-postgres
+    spec:
+      containers:
+        - name: minigest-postgres
+          image: postgres:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: minigest-environment

@@ -12,7 +12,7 @@ services:
     env_file:
       - .env
 
-  postgres:
+  minigest-postgres:
     container_name: minigest-db
     image: postgres
     ports:

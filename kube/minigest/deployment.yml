@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minigest
+spec:
+  selector:
+    matchLabels:
+      app: minigest
+  template:
+    metadata:
+      labels:
+        app: minigest
+    spec:
+      containers:
+        - name: minigest
+          image: ctrlmaniac/minigest:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: minigest-environment
