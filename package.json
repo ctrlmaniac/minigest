@@ -11,6 +11,6 @@
   "scripts": {
     "build": "npx lerna exec -- npm run build",
     "dev": "docker compose up --build",
-    "env": "kubectl create configmap minigest-enviroment --from-env-file=.env"
+    "env": "kubectl create configmap minigest-environment --from-env-file=.env"
   }
 }
