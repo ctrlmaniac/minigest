@@ -26,6 +26,15 @@ jobs:
           push: true
           tags: ctrlmaniac/minigest:latest,ctrlmaniac/minigest:${{ env.RELEASE_VERSION }}
 
+      - name: run docker compose down
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          script: docker compose down
+
       - name: Copy docker-compose.yml
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -36,15 +45,6 @@ jobs:
           sftp_only: true
           local_path: "./docker-compose.prod.yml"
           remote_path: ${{ secrets.VPS_PATH }}/docker-compose.yml
-
-      - name: run docker compose down
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD }}
-          port: ${{ secrets.VPS_PORT }}
-          script: docker compose down
 
       - name: run docker pull
         uses: appleboy/ssh-action@master
