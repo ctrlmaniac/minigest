@@ -1,5 +1,8 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "interactive",
-  "FSharp.suggestGitignore": false
+  "FSharp.suggestGitignore": false,
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/david/Progetti/minigest/.github/workflows/deploy.yml"
+  }
 }

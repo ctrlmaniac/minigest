@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker compose down
+          script: cd ${{ secrets.VPS_PATH }}/minigest && docker compose down
 
       - name: Copy docker-compose.yml
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
@@ -44,7 +44,7 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           sftp_only: true
           local_path: "./docker-compose.prod.yml"
-          remote_path: ${{ secrets.VPS_PATH }}/docker-compose.yml
+          remote_path: ${{ secrets.VPS_PATH }}/minigest/docker-compose.yml
 
       - name: run docker pull
         uses: appleboy/ssh-action@master
@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker compose pull
+          script: cd ${{ secrets.VPS_PATH }}/minigest && docker compose pull
 
       - name: run docker compose
         uses: appleboy/ssh-action@master
@@ -62,4 +62,4 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_PORT }}
-          script: docker compose up -d
+          script: cd ${{ secrets.VPS_PATH }}/minigest && docker compose up -d
