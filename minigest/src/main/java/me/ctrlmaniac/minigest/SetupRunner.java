@@ -51,19 +51,32 @@ public class SetupRunner implements CommandLineRunner {
 
 		// Salva i ruoli
 		for (RuoloEnum ruolo : RuoloEnum.values()) {
-			ruoloService.save(new AccountRuolo(ruolo));
+			AccountRuolo savedRole = ruoloService.findByNome(ruolo);
+
+			if (savedRole == null) {
+				ruoloService.save(new AccountRuolo(ruolo));
+			}
 		}
 
 		// Crea un utente admin
 		AccountRuolo ruoloAdmin = ruoloService.findByNome(RuoloEnum.ROLE_ADMIN);
 
-		Account admin = new Account(adminEmail, adminFName, adminLName, adminPassword, true, true, true, true, null);
-		admin.addRuolo(ruoloAdmin);
-		accountService.save(admin);
+		Account adminExists = accountService.findByEmail(adminEmail);
+
+		if (adminExists == null) {
+			Account admin = new Account(adminEmail, adminFName, adminLName, adminPassword, true, true, true, true,
+					null);
+			admin.addRuolo(ruoloAdmin);
+			accountService.save(admin);
+		}
 
 		// Salva i tipi di documenti fiscali
 		for (TipoDocFisc tipo : loader.loadTipoDocFisc("media/csv/tipidocfisc.csv")) {
-			tipoDocFiscService.save(tipo);
+			TipoDocFisc saved = tipoDocFiscService.findByCodice(tipo.getCodice());
+
+			if (saved == null) {
+				tipoDocFiscService.save(tipo);
+			}
 		}
 
 		log.info("Setup completed!");
